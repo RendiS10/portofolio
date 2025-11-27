@@ -1,0 +1,18 @@
+- Project Web PHP Semester 1
+- Project Web PHP Code Igniter Semester 2
+- Project IOT Semester 3
+- Project Bahasa Pemrograman Java Semester 4
+- Project MPSI Semester 5
+- Project Kelas Dicoding 
+  + Project Submission Kelas Belajar Dasar Pemrograman Web
+  + Project Submission Kelas Belajar Membuat Front-End Web untuk Pemula 
+  + Project Submission Kelas Belajar Fundamental Front-End Web Development
+  + Project Submission Kelas Belajar Pengembangan Web Intermediate
+  + Project Submission Kelas Belajar Membuat Aplikasi Web dengan React
+  + Project Submission Kelas Belajar Fundamental Aplikasi Web dengan React
+  + Project Submission Belajar Back-End Pemula dengan JavaScript
+- Project Kelas Luarsekolah
+  + Project PBI( Nurudin dan Revamp)
+  + Project Belajar Bekerja Bootcamp
+- Project Skripsi
+- Pemanfaatan ETL PenyebabKematian
