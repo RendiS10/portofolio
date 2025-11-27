@@ -143,10 +143,25 @@ if (statsSection) {
 // =====================================================
 const filterButtons = document.querySelectorAll(".cert-filters button");
 const certCards = document.querySelectorAll(".cert-card");
+const maxShow = 6;
+let isExpanded = false;
+let currentFilter = "all";
+
+// Initialize: Hide cards beyond maxShow
+const initializeCards = () => {
+  certCards.forEach((card, index) => {
+    if (index >= maxShow) {
+      card.classList.add("hidden-cert");
+      card.style.display = "none";
+    }
+  });
+};
 
 filterButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     const filter = btn.dataset.filter;
+    currentFilter = filter;
+    isExpanded = false; // Reset expanded state when filtering
 
     // Remove active state from all buttons
     filterButtons.forEach((b) => b.classList.remove("active"));
@@ -154,16 +169,39 @@ filterButtons.forEach((btn) => {
     // Add active to clicked button
     btn.classList.add("active");
 
+    // Get button and reset its style
+    const showMoreBtn = document.querySelector(".btn-show-more");
+    if (showMoreBtn) {
+      showMoreBtn.textContent = "Lihat Selengkapnya";
+      showMoreBtn.style.background = "";
+    }
+
     // Filter certificate cards with smooth animation
-    certCards.forEach((card) => {
-      if (filter === "all" || card.dataset.category === filter) {
-        card.style.display = "block";
-        // Trigger animation
-        setTimeout(() => {
-          card.style.opacity = "1";
-          card.style.transform = "scale(1)";
-        }, 10);
+    let visibleCount = 0;
+    certCards.forEach((card, index) => {
+      const cardMatches = filter === "all" || card.dataset.category === filter;
+
+      if (cardMatches) {
+        visibleCount++;
+        // Show card if within first 6 of filtered results
+        if (visibleCount <= maxShow) {
+          card.style.display = "block";
+          card.classList.remove("hidden-cert");
+          // Trigger animation
+          setTimeout(() => {
+            card.style.opacity = "1";
+            card.style.transform = "scale(1)";
+          }, 10);
+        } else {
+          // Hide card if beyond first 6
+          card.classList.add("hidden-cert");
+          card.style.opacity = "0";
+          card.style.transform = "scale(0.95)";
+          setTimeout(() => (card.style.display = "none"), 200);
+        }
       } else {
+        // Hide cards that don't match filter
+        card.classList.remove("hidden-cert");
         card.style.opacity = "0";
         card.style.transform = "scale(0.95)";
         setTimeout(() => (card.style.display = "none"), 200);
@@ -175,24 +213,13 @@ filterButtons.forEach((btn) => {
 // Set first filter button as active on page load
 if (filterButtons.length > 0) {
   filterButtons[0].classList.add("active");
+  initializeCards();
 }
 
 // =====================================================
 // 7. CERTIFICATE "SHOW MORE" FUNCTIONALITY
 // =====================================================
 document.addEventListener("DOMContentLoaded", () => {
-  const cards = document.querySelectorAll(".cert-card");
-  const maxShow = 6;
-  let isExpanded = false;
-
-  // Hide all cards except first 6
-  cards.forEach((card, index) => {
-    if (index >= maxShow) {
-      card.style.display = "none";
-      card.classList.add("hidden-cert");
-    }
-  });
-
   // Create "Show More" button
   const btn = document.createElement("button");
   btn.textContent = "Lihat Selengkapnya";
@@ -202,20 +229,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle button functionality
   btn.addEventListener("click", () => {
-    const hiddenCards = document.querySelectorAll(".hidden-cert");
     isExpanded = !isExpanded;
 
+    let visibleCount = 0;
+    certCards.forEach((card) => {
+      // Only process cards that match current filter
+      const cardMatches =
+        currentFilter === "all" || card.dataset.category === currentFilter;
+
+      if (!cardMatches) return; // Skip cards not matching filter
+
+      visibleCount++;
+
+      if (isExpanded) {
+        // Show all matching cards
+        card.classList.remove("hidden-cert");
+        card.style.display = "block";
+        card.style.opacity = "1";
+        card.style.transform = "scale(1)";
+        card.style.animation = "fadeIn 0.3s ease";
+      } else {
+        // Hide cards beyond first 6
+        if (visibleCount > maxShow) {
+          card.classList.add("hidden-cert");
+          card.style.opacity = "0";
+          card.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            if (card.classList.contains("hidden-cert")) {
+              card.style.display = "none";
+            }
+          }, 200);
+        }
+      }
+    });
+
     if (isExpanded) {
-      hiddenCards.forEach((card, index) => {
-        setTimeout(() => {
-          card.style.display = "block";
-          card.style.animation = "fadeIn 0.3s ease";
-        }, index * 50);
-      });
       btn.textContent = "Sembunyikan";
       btn.style.background = "linear-gradient(135deg, #dc2626, #f87171)";
     } else {
-      hiddenCards.forEach((card) => (card.style.display = "none"));
       btn.textContent = "Lihat Selengkapnya";
       btn.style.background = "";
     }
