@@ -5,18 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio Fullstack Developer</title>
     <link rel="stylesheet" href="./public/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <!-- Navigation -->
     <nav>
       <div class="container">
         <div class="logo">MyPortfolio</div>
-        <ul>
+
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <ul id="nav-menu">
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#certifications">Certificate</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -843,146 +857,8 @@
       </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section
-      class="testimonials"
-      style="background: var(--light); padding: 5rem 2rem"
-    >
-      <div class="container">
-        <h2 class="section-title">Testimonials</h2>
-        <div class="projects-grid">
-          <div class="cert-card" style="text-align: left">
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                margin-bottom: 1rem;
-              "
-            >
-              <div
-                style="
-                  width: 60px;
-                  height: 60px;
-                  background: linear-gradient(
-                    135deg,
-                    var(--primary),
-                    var(--secondary)
-                  );
-                  border-radius: 50%;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: white;
-                  font-size: 1.5rem;
-                "
-              >
-                👨
-              </div>
-              <div>
-                <h4 style="margin: 0">Michael Johnson</h4>
-                <p style="margin: 0; color: var(--accent); font-size: 0.9rem">
-                  CEO, Tech Solutions
-                </p>
-              </div>
-            </div>
-            <p style="font-style: italic; color: var(--text)">
-              "John adalah developer yang sangat talented. Dia berhasil
-              menyelesaikan project kami tepat waktu dengan kualitas yang
-              excellent!"
-            </p>
-            <div style="color: gold; font-size: 1.2rem">⭐⭐⭐⭐⭐</div>
-          </div>
-
-          <div class="cert-card" style="text-align: left">
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                margin-bottom: 1rem;
-              "
-            >
-              <div
-                style="
-                  width: 60px;
-                  height: 60px;
-                  background: linear-gradient(
-                    135deg,
-                    var(--primary),
-                    var(--secondary)
-                  );
-                  border-radius: 50%;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: white;
-                  font-size: 1.5rem;
-                "
-              >
-                👩
-              </div>
-              <div>
-                <h4 style="margin: 0">Sarah Williams</h4>
-                <p style="margin: 0; color: var(--accent); font-size: 0.9rem">
-                  Project Manager
-                </p>
-              </div>
-            </div>
-            <p style="font-style: italic; color: var(--text)">
-              "Bekerja dengan John sangat menyenangkan. Komunikasi yang baik dan
-              hasil kerja yang memuaskan. Highly recommended!"
-            </p>
-            <div style="color: gold; font-size: 1.2rem">⭐⭐⭐⭐⭐</div>
-          </div>
-
-          <div class="cert-card" style="text-align: left">
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                margin-bottom: 1rem;
-              "
-            >
-              <div
-                style="
-                  width: 60px;
-                  height: 60px;
-                  background: linear-gradient(
-                    135deg,
-                    var(--primary),
-                    var(--secondary)
-                  );
-                  border-radius: 50%;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  color: white;
-                  font-size: 1.5rem;
-                "
-              >
-                👨
-              </div>
-              <div>
-                <h4 style="margin: 0">David Chen</h4>
-                <p style="margin: 0; color: var(--accent); font-size: 0.9rem">
-                  Startup Founder
-                </p>
-              </div>
-            </div>
-            <p style="font-style: italic; color: var(--text)">
-              "John membantu kami membangun MVP dalam waktu singkat. Technical
-              skill-nya sangat solid dan profesional!"
-            </p>
-            <div style="color: gold; font-size: 1.2rem">⭐⭐⭐⭐⭐</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <!-- <section class="contact" id="contact">
       <div class="container">
         <h2 class="section-title">Get In Touch</h2>
         <div class="contact-container">
@@ -1042,10 +918,10 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Footer -->
-    <footer>
+    <!-- <footer>
       <div class="container">
         <p>&copy; 2024 John Doe. All Rights Reserved.</p>
         <p style="margin-top: 0.5rem; opacity: 0.8">
@@ -1063,7 +939,7 @@
           >
         </div>
       </div>
-    </footer>
+    </footer> -->
 
     <script src="index.js"></script>
   </body>

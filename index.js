@@ -132,3 +132,39 @@ buttons.forEach((btn) => {
     });
   });
 });
+// === Certificate Filters ===
+const filterButtons = document.querySelectorAll(".cert-filters button");
+const certCards = document.querySelectorAll(".cert-card");
+
+filterButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const filter = btn.dataset.filter;
+
+    // Remove active state dari semua
+    filterButtons.forEach((b) => b.classList.remove("active"));
+
+    // Tambahkan active ke tombol yang diklik
+    btn.classList.add("active");
+
+    // Filter kartu sertifikat
+    certCards.forEach((card) => {
+      if (filter === "all" || card.dataset.category === filter) {
+        card.style.display = "block";
+        card.style.opacity = "1";
+        card.style.transform = "scale(1)";
+      } else {
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.95)";
+        setTimeout(() => (card.style.display = "none"), 200); // animasi smooth
+      }
+    });
+  });
+});
+// === MOBILE NAVIGATION ===
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("open");
+});

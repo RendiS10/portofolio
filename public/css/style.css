@@ -2,6 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
 }
 
 :root {
@@ -672,4 +676,118 @@ footer {
   padding: 0 1.5rem 1.5rem;
   font-size: 0.9rem;
   color: var(--accent);
+}
+/* ===== FILTER BUTTONS ===== */
+.cert-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.cert-filters button {
+  padding: 0.6rem 1.3rem;
+  background: #ffffff;
+  border: 2px solid var(--primary);
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Hover efek glowing */
+.cert-filters button:hover {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Active filter button */
+.cert-filters button.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* Responsive: ukuran layar kecil */
+@media (max-width: 500px) {
+  .cert-filters button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+/* === HAMBURGER MENU === */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.hamburger span {
+  width: 28px;
+  height: 3px;
+  background: var(--primary);
+  transition: 0.3s;
+}
+
+/* Animasi X */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* MOBILE MENU */
+@media (max-width: 768px) {
+  nav .container {
+    position: relative;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    width: 220px;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    animation: fadeSlide 0.3s ease;
+  }
+
+  /* Saat menu terbuka */
+  nav ul.open {
+    display: flex;
+  }
+
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }
