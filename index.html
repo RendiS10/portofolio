@@ -21,7 +21,7 @@
     <!-- Navigation -->
     <nav>
       <div class="container">
-        <div class="logo">MyPortfolio</div>
+        <div class="logo"><i class="fas fa-code"></i> MyPortfolio</div>
 
         <div class="hamburger" id="hamburger">
           <span></span>
@@ -38,16 +38,41 @@
           <li><a href="#certifications">Certificate</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
+
+        <!-- Status Badge -->
+        <div class="nav-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Available</span>
+        </div>
       </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+      <div class="hero-background">
+        <div class="hero-shape shape-1"></div>
+        <div class="hero-shape shape-2"></div>
+        <div class="hero-shape shape-3"></div>
+      </div>
+
       <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-rocket"></i> Welcome to My Portfolio
+        </div>
+
         <h1>Rendi Sutendi</h1>
         <p class="tagline">
           Junior Fullstack Web Developer | Building Digital Excellence
         </p>
+
+        <!-- Tech Stack Badges -->
+        <div class="hero-tech-badges">
+          <span class="tech-badge">React.js</span>
+          <span class="tech-badge">Node.js</span>
+          <span class="tech-badge">JavaScript</span>
+          <span class="tech-badge">PostgreSQL</span>
+        </div>
+
         <div class="cta">
           <a href="#contact" class="btn btn-primary"
             ><i class="fas fa-envelope"></i> Contact Me</a
@@ -60,6 +85,11 @@
             ><i class="fas fa-file-pdf"></i> My CV
           </a>
         </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator">
+        <span></span>
       </div>
     </section>
 
@@ -973,25 +1003,94 @@
     </section>
 
     <!-- Footer -->
-    <!-- <footer>
+    <footer>
       <div class="container">
-        <p>&copy; 2024 John Doe. All Rights Reserved.</p>
-        <p style="margin-top: 0.5rem; opacity: 0.8">
-          Built with ❤️ using HTML, CSS & JavaScript
-        </p>
-        <div class="social-links" style="margin-top: 1rem">
-          <a href="#" style="width: 40px; height: 40px; font-size: 1.2rem"
-            >💻</a
-          >
-          <a href="#" style="width: 40px; height: 40px; font-size: 1.2rem"
-            >💼</a
-          >
-          <a href="#" style="width: 40px; height: 40px; font-size: 1.2rem"
-            >📷</a
-          >
+        <div class="footer-content">
+          <!-- Brand Section -->
+          <div class="footer-section">
+            <h3><i class="fas fa-code"></i> MyPortfolio</h3>
+            <p>Fullstack Developer | Building Digital Excellence</p>
+            <div class="footer-social">
+              <a
+                href="https://github.com/RendiS10"
+                title="GitHub"
+                target="_blank"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a href="#" title="LinkedIn" target="_blank"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" title="Instagram" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://wa.me/62857214516"
+                title="WhatsApp"
+                target="_blank"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-section">
+            <h4><i class="fas fa-link"></i> Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#skills">Skills</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div class="footer-section">
+            <h4><i class="fas fa-star"></i> Services</h4>
+            <ul>
+              <li><a href="#">Web Development</a></li>
+              <li><a href="#">UI/UX Design</a></li>
+              <li><a href="#">API Development</a></li>
+              <li><a href="#">Database Design</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="footer-section">
+            <h4><i class="fas fa-phone"></i> Contact</h4>
+            <ul class="contact-list">
+              <li>
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:rendisutendi10@gmail.com"
+                  >rendisutendi10@gmail.com</a
+                >
+              </li>
+              <li>
+                <i class="fas fa-phone"></i>
+                <a href="tel:+62857214516">+62 857-2145-1615</a>
+              </li>
+              <li><i class="fas fa-map-marker-alt"></i> Bandung, Indonesia</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <p>&copy; 2025 Rendi Sutendi. All Rights Reserved.</p>
+          <p>
+            <i class="fas fa-heart"></i> Built with passion using HTML, CSS &
+            JavaScript
+          </p>
+          <div class="footer-tech">
+            <span><i class="fab fa-html5"></i></span>
+            <span><i class="fab fa-css3-alt"></i></span>
+            <span><i class="fab fa-js-square"></i></span>
+            <span><i class="fab fa-react"></i></span>
+            <span><i class="fab fa-node-js"></i></span>
+          </div>
         </div>
       </div>
-    </footer> -->
+    </footer>
 
     <script src="index.js"></script>
   </body>
