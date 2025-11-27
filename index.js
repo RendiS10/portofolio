@@ -168,3 +168,39 @@ hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   navMenu.classList.toggle("open");
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".cert-card");
+  const maxShow = 6;
+
+  // Sembunyikan semua kecuali 6 pertama
+  cards.forEach((card, index) => {
+    if (index >= maxShow) {
+      card.style.display = "none";
+      card.classList.add("hidden-cert");
+    }
+  });
+
+  // Buat tombol "Lihat Selengkapnya"
+  const btn = document.createElement("button");
+  btn.textContent = "Lihat Selengkapnya";
+  btn.className = "btn-show-more";
+  document.querySelector(".certifications .container").appendChild(btn);
+
+  // Event tombol
+  btn.addEventListener("click", () => {
+    const hiddenCards = document.querySelectorAll(".hidden-cert");
+
+    if (btn.textContent === "Lihat Selengkapnya") {
+      hiddenCards.forEach((card) => (card.style.display = "block"));
+      btn.textContent = "Sembunyikan";
+    } else {
+      hiddenCards.forEach((card) => (card.style.display = "none"));
+      btn.textContent = "Lihat Selengkapnya";
+    }
+  });
+});
+document
+  .getElementById("btnMoreProject")
+  .addEventListener("click", function () {
+    window.open("https://github.com/RendiS10", "_blank");
+  });
