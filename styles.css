@@ -172,6 +172,7 @@ img { max-width: 100%; display: block; }
 }
 .xp-year small { display: block; font-family: var(--sans); font-weight: 500; font-size: .8rem; color: var(--ink-faint); margin-top: 4px; text-transform: uppercase; letter-spacing: .5px; }
 .xp-head { margin-bottom: 14px; }
+.xp-parallel { font-weight: 500; font-size: .85rem; color: var(--ink-faint); }
 .xp-role { font-family: var(--serif); font-weight: 600; font-size: 1.28rem; line-height: 1.25; }
 .xp-company { color: var(--green-ink); font-weight: 600; font-size: .95rem; margin-top: 2px; }
 .xp-note { color: var(--ink-soft); font-size: .96rem; margin-bottom: 14px; }
