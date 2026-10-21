@@ -53,6 +53,17 @@ npm run build
 
 ---
 
+## 🙏 Kredit & Sumber Template
+
+Website ini awalnya dikembangkan menggunakan basis template portofolio karya [Reihan Dastra (ryhndastra)](https://github.com/ryhndastra) via repository [template-porto-pantai](https://github.com/ryhndastra/template-porto-pantai), yang kemudian saya sesuaikan, modifikasi, dan kembangkan secara mandiri:
+- Mengubah tema visual secara menyeluruh dari suasana pantai tropis menjadi **Pedesaan Asri Nusantara di Sore Hari** (satwa ayam jago kampung interaktif, burung kuntul sawah, capung senja, saung bambu, pohon kelapa, dan terasering keemasan).
+- Mengganti icon foto menjadi logo monogram personal **RS (Rendi Sutendi)**.
+- Menyesuaikan seluruh data profil, kredensial produksi, pengalaman, dan studi kasus proyek (*Full-Stack Web & Flutter Mobile Apps*).
+- Optimasi performa render dan scroll 60 FPS (*IntersectionObserver canvas lifecycle control*, akselerasi penuh GPU native, dan perbaikan kenyamanan antarmuka di layar smartphone).
+
+---
+
 ## 📄 Lisensi
 Hak cipta dilindungi undang-undang © 2026 [Rendi Sutendi](https://rendisutendi.id).
-Lisensi kode berbasis [MIT](LICENSE).
+Template asli dilisensikan di bawah [MIT License](LICENSE).
+
