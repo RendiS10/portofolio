@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="rsBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b4332" />
+      <stop offset="50%" stop-color="#132a20" />
+      <stop offset="100%" stop-color="#08140e" />
+    </linearGradient>
+
+    <linearGradient id="rsBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#80ed99" stop-opacity="0.85" />
+      <stop offset="50%" stop-color="#2d6a4f" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#52b788" stop-opacity="0.4" />
+    </linearGradient>
+
+    <linearGradient id="rsStrokeGrad" x1="0%" y1="20%" x2="100%" y2="80%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="45%" stop-color="#f0fdf4" />
+      <stop offset="100%" stop-color="#80ed99" />
+    </linearGradient>
+
+    <linearGradient id="rsGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047" />
+      <stop offset="100%" stop-color="#eab308" />
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect
+    x="3"
+    y="3"
+    width="94"
+    height="94"
+    rx="24"
+    fill="url(#rsBgGrad)"
+    stroke="url(#rsBorderGrad)"
+    stroke-width="2.5"
+  />
+
+  <!-- Subtle Inner Glass Sheen -->
+  <rect
+    x="5.5"
+    y="5.5"
+    width="89"
+    height="42"
+    rx="20"
+    fill="white"
+    fill-opacity="0.04"
+  />
+
+  <!-- Terraced Contour Lines -->
+  <path
+    d="M 10 74 C 28 66, 52 72, 90 62"
+    stroke="#52b788"
+    stroke-opacity="0.18"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <path
+    d="M 14 83 C 34 77, 60 80, 86 74"
+    stroke="#52b788"
+    stroke-opacity="0.12"
+    stroke-width="1.2"
+    stroke-linecap="round"
+  />
+
+  <!-- Letter 'R' -->
+  <path
+    d="M 24 26 L 24 74"
+    stroke="url(#rsStrokeGrad)"
+    stroke-width="7.5"
+    stroke-linecap="round"
+  />
+  <path
+    d="M 24 26 H 38.5 C 47 26, 49.5 32, 49.5 37 C 49.5 42, 47 48, 38.5 48 H 24"
+    stroke="url(#rsStrokeGrad)"
+    stroke-width="7.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M 33 46.5 L 47 74"
+    stroke="url(#rsStrokeGrad)"
+    stroke-width="7.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Letter 'S' -->
+  <path
+    d="M 77 35 C 74.5 28, 66 26, 61 30 C 54 36, 57 44, 67 49 C 77 54, 79 63, 73 69 C 67 75, 56 74, 52 68"
+    stroke="url(#rsStrokeGrad)"
+    stroke-width="7.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Golden Sprout Emblem -->
+  <path
+    d="M 76 22 C 80 16, 87 16, 89 20 C 89 25, 83 26, 76 22 Z"
+    fill="url(#rsGoldGrad)"
+  />
+  <circle cx="88" cy="19.5" r="1.5" fill="#fde047" opacity="0.9" />
+</svg>

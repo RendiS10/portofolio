@@ -1,47 +1,58 @@
-# CV / Portofolio — Rendi Sutendi
+# Portofolio Pribadi — Rendi Sutendi 🌾🌇
 
-Website CV personal (single-page) berbasis **HTML, CSS, dan JavaScript murni** — tanpa framework atau dependency, langsung jalan di browser. Gaya visual sengaja dibuat kalem dan editorial (bukan tampilan generik).
+Website portofolio interaktif **Rendi Sutendi** (Full-Stack & Mobile Developer), bertema **Pedesaan Asri Nusantara di Sore Hari** dengan perpaduan visual Neo-Brutalisme modern dan performa tinggi (60 FPS).
 
-> Catatan: konten dari folder lama `portofolio/` (section Project & seluruh sertifikat) sudah dipindahkan ke sini. Folder `portofolio/` aman untuk dihapus.
+🔗 **Live Website:** [https://rendisutendi.id](https://rendisutendi.id)
 
-## Fitur
-- Hero dengan foto asli + ringkasan dan info singkat
-- Dark / light mode (tersimpan di `localStorage`, mengikuti preferensi sistem)
-- Navigasi sticky + active link highlight, menu hamburger di mobile
-- Pengalaman kerja, tech stack, pendidikan & organisasi
-- **Section Project** (HolyCat sebagai unggulan + project lain) dengan tautan GitHub
-- **Galeri sertifikat lengkap** (±32) dengan **filter kategori** (Kelas, Webinar, Penghargaan, Organisasi) + lightbox (klik untuk memperbesar, tutup dengan Esc / klik luar)
-- Animasi reveal halus saat scroll (otomatis nonaktif jika user memilih *reduced motion*)
-- Responsif penuh (desktop, tablet, mobile)
-- Tombol unduh CV (.docx)
+---
 
-## Struktur
+## 🌟 Fitur Utama
+
+- **Atmosfer Pedesaan di Sore Hari**: Latar terasering bukit sawah senja, hembusan angin sejuk, saung bambu, pohon kelapa melengkung, dan logo RS Monogram elegan.
+- **Satwa Pedesaan Interaktif**: Ayam jago kampung (bisa ditap untuk berkokok!), burung kuntul sawah meluncur, dan capung sawah berkilau.
+- **Hero Typography Physics**: Huruf interaktif nama yang dapat ditarik/dilempar dengan simulasi elastisitas pegas.
+- **Showcase Proyek Flagship & Mobile Apps**: Menampilkan proyek unggulan (*HolyCat*, *Abby & Gail Mobile App*, *Green Sustainify*, *SIAKAD*, dll.) lengkap dengan studi kasus mendalam dan arsitektur sistem.
+- **Interactive Tech Stack Pipeline**: Visualisasi layer teknologi (*Client UI, Backend API, Database, Linux/DevOps*) dengan filter domain dinamis.
+- **GitHub Contribution Heatmap**: Kalender kontribusi real-time dengan auto-scroll responsif di perangkat mobile.
+- **Milestone & Linimasa Pengalaman**: Rekam jejak pendidikan Sarjana Informatika (IPK 3.70), program bootcamp, dan inisiatif rekayasa mandiri.
+- **Arsitektur Performa Tinggi**:
+  - `IntersectionObserver` Lifecycle Control untuk menghentikan loop canvas saat berada di luar viewport (0% beban CPU/GPU berlebih).
+  - Akselerasi penuh GPU native tanpa Gaussian blur berat.
+  - Integrasi responsif layar smartphone dan desktop.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: React 19
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4 (`@tailwindcss/vite`)
+- **Animation & Physics**: Framer Motion
+- **Smooth Scroll**: Lenis Scroll
+- **Icons**: Lucide React
+- **Build Tool**: Vite 8
+
+---
+
+## 🚀 Menjalankan Secara Lokal
+
+```bash
+# Clone repository
+git clone https://github.com/RendiS10/portofolio.git
+cd portofolio
+
+# Install dependensi
+npm install
+
+# Jalankan server development
+npm run dev
+
+# Build untuk produksi
+npm run build
 ```
-cv-rendi-sutendi/
-├── index.html      # struktur halaman
-├── styles.css      # styling & tema (aksen hijau, palet kertas hangat)
-├── script.js       # interaksi (tema, menu, reveal, lightbox)
-├── CV_Rendi_Sutendi_Indonesia.docx   # file CV untuk diunduh
-└── assets/
-    ├── rendi.jpg                 # foto profil
-    ├── projects/                 # gambar project (holycat, jkt48, dll)
-    └── certificates/             # gambar sertifikat (dicoding/, luarsekolah/, csa/, revou/, dll)
-```
 
-Data sertifikat (judul, kategori, gambar) dikelola dalam array `certs` di `script.js`, lalu dirender otomatis ke grid + filter.
+---
 
-## Cara pakai
-1. Buka `index.html` langsung di browser, **atau**
-2. Jalankan server statis lokal:
-   ```bash
-   npx serve cv-rendi-sutendi      # Node
-   python -m http.server 5500       # Python
-   ```
-
-## Deploy
-Folder statis — bisa langsung di-deploy ke **GitHub Pages**, **Netlify**, **Vercel**, atau **Cloudflare Pages** tanpa build step.
-
-## Kustomisasi
-- **Foto profil:** ganti `assets/rendi.jpg`. Atur framing wajah lewat `object-position` pada `.hero-photo img` di `styles.css`.
-- **Sertifikat:** tambah/ganti gambar di `assets/certificates/`, lalu tambahkan blok `<figure class="cert" data-full="...">` di section `#certs`.
-- **Warna:** semua warna diatur lewat CSS variables di bagian atas `styles.css` (`--green`, `--paper`, dst.).
+## 📄 Lisensi
+Hak cipta dilindungi undang-undang © 2026 [Rendi Sutendi](https://rendisutendi.id).
+Lisensi kode berbasis [MIT](LICENSE).
