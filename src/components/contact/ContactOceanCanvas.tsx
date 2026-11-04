@@ -1,5 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 
+interface ContactOceanCanvasProps {
+  isNight?: boolean;
+}
+
 interface SplashDroplet {
   x: number;
   y: number;
@@ -20,7 +24,7 @@ interface WaterRipple {
   speed: number;
 }
 
-export const ContactOceanCanvas: React.FC = () => {
+export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight = false }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const dropletsRef = useRef<SplashDroplet[]>([]);
   const ripplesRef = useRef<WaterRipple[]>([]);
@@ -120,16 +124,23 @@ export const ContactOceanCanvas: React.FC = () => {
       ctx.clearRect(0, 0, width, height);
       time += 0.016;
 
-      // Warm Sunset Dusk Gradient
+      // Dynamic Background Gradient
       const duskGrad = ctx.createLinearGradient(0, 0, 0, height);
-      duskGrad.addColorStop(0, '#1c1917');      // Warm stone dusk
-      duskGrad.addColorStop(0.35, '#2e1c12');   // Warm terracotta amber dusk
-      duskGrad.addColorStop(0.70, '#1e281e');   // Evening pine forest
-      duskGrad.addColorStop(1.0, '#131b14');    // Deep peaceful countryside nightfall
+      if (isNight) {
+        duskGrad.addColorStop(0, '#040b06');      // Midnight emerald
+        duskGrad.addColorStop(0.35, '#07150c');   // Deep forest dusk
+        duskGrad.addColorStop(0.70, '#0a1a10');   // Starry obsidian
+        duskGrad.addColorStop(1.0, '#030805');    // Pitch black emerald night
+      } else {
+        duskGrad.addColorStop(0, '#15803d');      // Vibrant emerald highland
+        duskGrad.addColorStop(0.35, '#166534');   // Lush tea garden
+        duskGrad.addColorStop(0.70, '#14532d');   // Countryside valley
+        duskGrad.addColorStop(1.0, '#052e16');    // Deep fertile soil
+      }
       ctx.fillStyle = duskGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // Warm Terrace Ridge Lines
+      // Terrace Ridge Lines
       const drawRidgeLine = (yPos: number, freq: number, amp: number, speed: number, alpha: number, color: string) => {
         ctx.save();
         ctx.beginPath();
@@ -146,9 +157,13 @@ export const ContactOceanCanvas: React.FC = () => {
         ctx.restore();
       };
 
-      drawRidgeLine(height * 0.20, 0.005, 8, 1.0, 0.45, '#f59e0b');
-      drawRidgeLine(height * 0.50, 0.004, 10, 0.8, 0.35, '#d97706');
-      drawRidgeLine(height * 0.75, 0.004, 9, 0.7, 0.30, '#52b788');
+      const ridgeColor1 = isNight ? '#10b981' : '#fde047';
+      const ridgeColor2 = isNight ? '#059669' : '#86efac';
+      const ridgeColor3 = isNight ? '#047857' : '#4ade80';
+
+      drawRidgeLine(height * 0.20, 0.005, 8, 1.0, 0.45, ridgeColor1);
+      drawRidgeLine(height * 0.50, 0.004, 10, 0.8, 0.35, ridgeColor2);
+      drawRidgeLine(height * 0.75, 0.004, 9, 0.7, 0.30, ridgeColor3);
 
       // Floating Autumn / Tea Leaves
       const drawLeaf = (lx: number, ly: number, angle: number, size: number, color: string) => {

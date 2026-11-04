@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
-import { profileData } from '../../data/portfolioData';
 import { useCardTilt } from '../../hooks/useCardTilt';
+import { profileData } from '../../data/portfolioData';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface ProfilePhotoCardProps {
   isFlooded: boolean;
@@ -10,35 +11,39 @@ interface ProfilePhotoCardProps {
 
 export const ProfilePhotoCard: React.FC<ProfilePhotoCardProps> = ({ isFlooded }) => {
   const { tiltProps } = useCardTilt(6);
-
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 640 : false;
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
 
   return (
     <motion.div
       animate={
         isFlooded
           ? {
-              rotate: isMobile ? -5 : -24,
-              x: isMobile ? 0 : -32,
-              y: isMobile ? 20 : 70,
-              scale: isMobile ? 0.98 : 0.94,
-              transition: { type: 'spring', stiffness: 160, damping: 16 }
+              rotate: -8,
+              y: 22,
+              scale: 0.96,
+              transition: { duration: 0.8, ease: 'easeOut' }
             }
           : {
               rotate: 0,
-              x: 0,
               y: 0,
               scale: 1,
               transition: { type: 'spring', stiffness: 260, damping: 18 }
             }
       }
-      className="relative w-full flex flex-col items-center lg:items-start gap-6"
+      className="relative w-full flex flex-col items-center lg:items-start gap-6 transition-colors duration-500"
     >
       <div
         {...tiltProps}
-        className="relative w-full max-w-sm rounded-[32px] p-3.5 bg-[#fffdf5] border border-[#d8dfd5] shadow-2xl shadow-[#2d6a4f]/8 group cursor-pointer"
+        className={`relative w-full max-w-sm rounded-[32px] p-3.5 border shadow-2xl transition-colors duration-500 group cursor-pointer ${
+          isNight
+            ? 'bg-[#142118] border-emerald-500/30 shadow-emerald-950/40'
+            : 'bg-[#fffdf5] border-[#d8dfd5] shadow-[#2d6a4f]/8'
+        }`}
       >
-        <div className="relative aspect-[3/4] w-full rounded-[24px] overflow-hidden bg-[#edf2eb] border border-[#d8dfd5] flex items-center justify-center">
+        <div className={`relative aspect-[3/4] w-full rounded-[24px] overflow-hidden border flex items-center justify-center transition-colors duration-500 ${
+          isNight ? 'bg-[#1a2a20] border-emerald-500/20' : 'bg-[#edf2eb] border-[#d8dfd5]'
+        }`}>
           <img
             src={profileData.avatarUrl || '/rendi.jpg'}
             alt={profileData.name}
@@ -51,17 +56,23 @@ export const ProfilePhotoCard: React.FC<ProfilePhotoCardProps> = ({ isFlooded })
 
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/75 via-transparent to-transparent opacity-65 pointer-events-none" />
 
-          <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-[#fffdf5]/90 border border-[#d8dfd5] backdrop-blur-md shadow-sm">
-            <div className="text-sm font-bold text-[#0f172a]">
+          <div className={`absolute bottom-4 left-4 right-4 p-3 rounded-xl border backdrop-blur-md shadow-sm transition-colors duration-500 ${
+            isNight
+              ? 'bg-[#142118]/90 border-emerald-500/30 text-[#f8fafc]'
+              : 'bg-[#fffdf5]/90 border-[#d8dfd5] text-[#0f172a]'
+          }`}>
+            <div className={`text-sm font-bold ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
               {profileData.name}
             </div>
-            <div className="text-xs text-[#2d6a4f] font-mono mt-0.5">
+            <div className={`text-xs font-mono mt-0.5 ${isNight ? 'text-amber-300' : 'text-[#2d6a4f]'}`}>
               {profileData.education}
             </div>
           </div>
         </div>
 
-        <div className="mt-3 px-2 flex items-center justify-between text-[11px] font-mono text-[#2d6a4f]">
+        <div className={`mt-3 px-2 flex items-center justify-between text-[11px] font-mono transition-colors duration-500 ${
+          isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+        }`}>
           <span>FOTO PROFIL</span>
           <span>ID // {profileData.name.toUpperCase()}</span>
         </div>
@@ -70,13 +81,17 @@ export const ProfilePhotoCard: React.FC<ProfilePhotoCardProps> = ({ isFlooded })
       {/* Location & Operating Environment */}
       <motion.div
         animate={isFlooded ? { rotate: 12, x: 24, y: 30 } : { rotate: 0, x: 0, y: 0 }}
-        className="w-full max-w-sm p-4 rounded-2xl bg-[#fffdf5] border border-[#d8dfd5] flex items-center justify-between text-xs font-mono text-[#0f172a] shadow-sm"
+        className={`w-full max-w-sm p-4 rounded-2xl border flex items-center justify-between text-xs font-mono shadow-sm transition-colors duration-500 ${
+          isNight
+            ? 'bg-[#142118] border-emerald-500/30 text-[#f8fafc]'
+            : 'bg-[#fffdf5] border-[#d8dfd5] text-[#0f172a]'
+        }`}
       >
         <div className="flex items-center gap-2">
-          <MapPin className="w-4 h-4 text-[#2d6a4f]" />
+          <MapPin className={`w-4 h-4 ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`} />
           <span>Indonesia</span>
         </div>
-        <span className="text-[#2d6a4f] font-bold">Linux Enthusiasts</span>
+        <span className={`font-bold ${isNight ? 'text-emerald-400' : 'text-[#2d6a4f]'}`}>Linux Enthusiasts</span>
       </motion.div>
     </motion.div>
   );

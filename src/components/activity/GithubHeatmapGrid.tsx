@@ -1,24 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { ContributionDay } from '../../hooks/useGithubContributions';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
+
+interface ContributionDay {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
 
 interface GithubHeatmapGridProps {
   contributions: ContributionDay[];
-  loading: boolean;
+  loading?: boolean;
 }
 
-const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-
-const formatIndonesianDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  if (isNaN(date.getTime())) return dateString;
-  const day = date.getDate();
-  const month = MONTH_NAMES[date.getMonth()];
-  const year = date.getFullYear();
-  return `${day} ${month} ${year}`;
-};
-
-const getBeachLevelColor = (level: number): string => {
+const getHeatmapColor = (level: number, isNight: boolean): string => {
   switch (level) {
     case 1:
       return 'bg-[#86efac] border-[#4ade80] hover:bg-[#4ade80]';
@@ -30,11 +25,22 @@ const getBeachLevelColor = (level: number): string => {
       return 'bg-[#15803d] border-[#14532d] hover:bg-[#14532d]';
     case 0:
     default:
-      return 'bg-[#e2eadc] border-[#cad8c5] hover:border-[#cbd5e1]';
+      return isNight ? 'bg-[#122016] border-[#1d3525] hover:border-emerald-400' : 'bg-[#e2eadc] border-[#cad8c5] hover:border-[#cbd5e1]';
   }
 };
 
-export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({ contributions, loading }) => {
+const formatIndonesianDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return dateString;
+  const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+};
+
+export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
+  contributions,
+  loading = false
+}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [hoveredCell, setHoveredCell] = useState<{
     date: string;
@@ -43,24 +49,19 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({ contributi
     posY: number;
   } | null>(null);
 
-  // auto scroll to latest contribution weeks on mobile screen
-  useEffect(() => {
-    if (containerRef.current) {
-      const scrollEl = containerRef.current.querySelector('.heatmap-scroll-wrapper');
-      if (scrollEl && window.innerWidth < 640) {
-        scrollEl.scrollLeft = scrollEl.scrollWidth;
-      }
-    }
-  }, [contributions, loading]);
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
 
   if (loading) {
     return (
-      <div className="w-full overflow-x-auto py-8">
-        <div className="min-w-[750px] flex flex-col gap-2.5 animate-pulse">
-          <div className="h-4 w-40 bg-[#e8dbc0]/60 rounded-md mb-2" />
-          <div className="grid grid-flow-col grid-rows-7 gap-1.5">
+      <div className={`w-full p-4 sm:p-6 rounded-2xl border transition-colors duration-500 ${
+        isNight ? 'bg-[#1a2a20] border-emerald-500/30' : 'bg-[#edf2eb] border-[#0f172a]'
+      }`}>
+        <div className="animate-pulse space-y-3">
+          <div className="h-4 w-40 bg-emerald-500/20 rounded-md mb-2" />
+          <div className="grid grid-flow-col grid-rows-7 gap-1 sm:gap-1.5 overflow-hidden">
             {Array.from({ length: 364 }).map((_, idx) => (
-              <div key={idx} className="w-3.5 h-3.5 rounded-[3px] bg-[#faeed1] border border-[#e2d3b3]" />
+              <div key={idx} className={`w-3.5 h-3.5 rounded-[3px] ${isNight ? 'bg-[#142118]' : 'bg-[#faeed1]'}`} />
             ))}
           </div>
         </div>
@@ -68,43 +69,42 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({ contributi
     );
   }
 
-  // group contributions into calendar weeks
+  // group contributions by week (columns)
   const weeks: ContributionDay[][] = [];
   let currentWeek: ContributionDay[] = [];
 
   contributions.forEach((day, index) => {
     currentWeek.push(day);
-    const dayOfWeek = new Date(day.date).getDay();
-    if (dayOfWeek === 6 || index === contributions.length - 1) {
+    if (currentWeek.length === 7 || index === contributions.length - 1) {
       weeks.push(currentWeek);
       currentWeek = [];
     }
   });
 
-  // calculate column positions for month labels with minimum spacing to prevent collision
-  const monthLabels: { month: string; colIndex: number }[] = [];
-  let previousMonth = -1;
-  let lastColIdx = -10;
+  // extract month labels
+  const monthLabels: { label: string; weekIndex: number }[] = [];
+  const indonesianMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  let lastMonth = -1;
 
-  weeks.forEach((week, colIdx) => {
+  weeks.forEach((week, wIndex) => {
     const firstDayOfWeek = week[0];
     if (firstDayOfWeek) {
-      const monthIndex = new Date(firstDayOfWeek.date).getMonth();
-      if (monthIndex !== previousMonth && colIdx - lastColIdx >= 3) {
+      const date = new Date(firstDayOfWeek.date);
+      const month = date.getMonth();
+      if (month !== lastMonth && wIndex < weeks.length - 2) {
         monthLabels.push({
-          month: MONTH_NAMES[monthIndex],
-          colIndex: colIdx
+          label: indonesianMonths[month],
+          weekIndex: wIndex
         });
-        previousMonth = monthIndex;
-        lastColIdx = colIdx;
+        lastMonth = month;
       }
     }
   });
 
-  const handleCellMouseEnter = (day: ContributionDay, event: React.MouseEvent<HTMLDivElement>) => {
+  const handleCellHover = (e: React.MouseEvent<HTMLDivElement>, day: ContributionDay) => {
     if (!containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
-    const cellRect = event.currentTarget.getBoundingClientRect();
+    const cellRect = e.currentTarget.getBoundingClientRect();
 
     setHoveredCell({
       date: day.date,
@@ -115,7 +115,9 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({ contributi
   };
 
   return (
-    <div ref={containerRef} className="relative w-full rounded-2xl bg-[#edf2eb]/80 border-2 border-[#0f172a] p-3.5 sm:p-6 shadow-[3px_3px_0px_#0f172a]">
+    <div ref={containerRef} className={`relative w-full rounded-2xl border p-3.5 sm:p-6 transition-colors duration-500 ${
+      isNight ? 'bg-[#1a2a20] border-emerald-500/35 shadow-[3px_3px_0px_#040906]' : 'bg-[#edf2eb]/80 border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+    }`}>
       <AnimatePresence>
         {hoveredCell && (
           <motion.div
@@ -135,74 +137,75 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({ contributi
             </span>
             <span className="text-[#64748b] mx-1.5">•</span>
             <span className="text-[#cbd5e1]">{formatIndonesianDate(hoveredCell.date)}</span>
-            {/* tooltip caret */}
             <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-x-4 border-x-transparent border-t-[6px] border-t-[#0f172a]" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="heatmap-scroll-wrapper overflow-x-auto pb-2 select-none no-scrollbar sm:scrollbar-thin">
-        <div className="min-w-[760px] flex flex-col">
-          {/* month headers */}
-          <div className="flex text-[11px] font-mono font-bold text-[#2d6a4f] mb-2.5 pl-8">
-            {weeks.map((_, colIdx) => {
-              const matchedMonth = monthLabels.find((m) => m.colIndex === colIdx);
-              return (
-                <div key={colIdx} className="w-3.5 shrink-0 mr-1 text-center">
-                  {matchedMonth ? matchedMonth.month : ''}
-                </div>
-              );
-            })}
+      <div className="overflow-x-auto no-scrollbar pb-1">
+        <div className="min-w-[700px] sm:min-w-0">
+          {/* month labels */}
+          <div className="flex text-[10px] sm:text-[11px] font-mono font-bold text-[#64748b] mb-1.5 pl-6 relative h-4">
+            {monthLabels.map((m, idx) => (
+              <span
+                key={idx}
+                style={{
+                  position: 'absolute',
+                  left: `${m.weekIndex * 13.5 + 24}px`
+                }}
+              >
+                {m.label}
+              </span>
+            ))}
           </div>
 
-          {/* grid body with day labels */}
-          <div className="flex items-start">
+          <div className="flex gap-1.5">
             {/* day of week indicators */}
-            <div className="flex flex-col justify-between h-[116px] pr-3 text-[10px] font-mono font-bold text-[#2d6a4f]">
-              <span>Sen</span>
-              <span>Rab</span>
-              <span>Jum</span>
+            <div className="grid grid-rows-7 gap-[3px] text-[9px] font-mono font-bold text-[#64748b] pr-1 select-none">
+              <span className="h-3 leading-3">Sen</span>
+              <span className="h-3 leading-3 opacity-0">Sel</span>
+              <span className="h-3 leading-3">Rab</span>
+              <span className="h-3 leading-3 opacity-0">Kam</span>
+              <span className="h-3 leading-3">Jum</span>
+              <span className="h-3 leading-3 opacity-0">Sab</span>
+              <span className="h-3 leading-3 opacity-0">Min</span>
             </div>
 
-            {/* calendar */}
-            <div className="flex gap-1">
-              {weeks.map((week, weekIdx) => (
-                <div key={weekIdx} className="flex flex-col gap-1 shrink-0">
-                  {week.map((day) => {
-                    const isHovered = hoveredCell?.date === day.date;
-                    return (
-                      <div
-                        key={day.date}
-                        className={`w-3.5 h-3.5 rounded-[3px] border cursor-pointer transition-transform duration-100 ${getBeachLevelColor(
-                          day.level
-                        )} ${isHovered ? 'scale-125 ring-2 ring-[#0f172a] z-20' : 'z-10'}`}
-                        onMouseEnter={(e) => handleCellMouseEnter(day, e)}
-                        onMouseLeave={() => setHoveredCell(null)}
-                      />
-                    );
-                  })}
-                </div>
-              ))}
+            {/* heatmap grid */}
+            <div className="grid grid-flow-col grid-rows-7 gap-[3px] flex-1">
+              {weeks.map((week, wIdx) =>
+                week.map((day, dIdx) => (
+                  <div
+                    key={`${wIdx}-${dIdx}`}
+                    onMouseEnter={(e) => handleCellHover(e, day)}
+                    onMouseLeave={() => setHoveredCell(null)}
+                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-[2.5px] border cursor-pointer transition-transform hover:scale-135 hover:z-20 ${getHeatmapColor(
+                      day.level,
+                      isNight
+                    )}`}
+                  />
+                ))
+              )}
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* footer */}
-      <div className="mt-3.5 sm:mt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-[#64748b] font-mono pt-3 border-t border-[#d8dfd5]">
-        <span className="text-[10px] sm:text-[11px] text-[#2d6a4f] font-medium">
-          Data sinkron otomatis dengan riwayat git GitHub
-        </span>
+          {/* heatmap legend */}
+          <div className="flex items-center justify-between mt-3.5 pt-3 border-t border-[#0f172a]/10 text-[10px] sm:text-[11px] font-mono font-bold text-[#64748b]">
+            <span className="flex items-center gap-1.5">
+              <span>Aktivitas Kode Otentik</span>
+            </span>
 
-        <div className="flex items-center gap-1.5 self-end sm:self-auto">
-          <span className="text-[10px] sm:text-[11px] mr-1 text-[#2d6a4f]">Sedikit</span>
-          {[0, 1, 2, 3, 4].map((level) => (
-            <div
-              key={level}
-              className={`w-3 h-3 rounded-[3px] border ${getBeachLevelColor(level)}`}
-            />
-          ))}
-          <span className="text-[10px] sm:text-[11px] ml-1 text-[#2d6a4f]">Banyak</span>
+            <div className="flex items-center gap-1.5">
+              <span>Kurang</span>
+              {[0, 1, 2, 3, 4].map((lvl) => (
+                <div
+                  key={lvl}
+                  className={`w-3 h-3 rounded-[2.5px] border ${getHeatmapColor(lvl, isNight)}`}
+                />
+              ))}
+              <span>Banyak</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

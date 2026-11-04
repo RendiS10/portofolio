@@ -5,6 +5,7 @@ import { SiGithub } from '@icons-pack/react-simple-icons';
 import { useGithubContributions } from '../../hooks/useGithubContributions';
 import { GithubHeatmapGrid } from './GithubHeatmapGrid';
 import { profileData } from '../../data/portfolioData';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 const formatIndonesianDateShort = (dateString: string): string => {
   const date = new Date(dateString);
@@ -14,11 +15,12 @@ const formatIndonesianDateShort = (dateString: string): string => {
 };
 
 export const GithubActivitySection: React.FC = () => {
-  // extract github username from profile data url
   const githubUrl = profileData.contact.github || 'https://github.com/RendiS10';
   const username = githubUrl.split('/').filter(Boolean).pop() || 'RendiS10';
 
   const { data, loading, error, selectedYear, setSelectedYear, stats } = useGithubContributions(username);
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
 
   const formatYearLabel = (yearKey: string): string => {
     if (yearKey === 'lastYear') return '1 Tahun Terakhir';
@@ -26,7 +28,14 @@ export const GithubActivitySection: React.FC = () => {
   };
 
   return (
-    <section id="activity" className="relative -mt-2 pt-28 pb-24 sm:pt-36 sm:pb-32 bg-gradient-to-b from-[#d8dfd5] via-[#e5ede3] to-[#e5ede3] overflow-hidden select-none z-20">
+    <section
+      id="activity"
+      className={`relative -mt-2 pt-28 pb-24 sm:pt-36 sm:pb-32 overflow-hidden select-none z-20 transition-colors duration-500 ${
+        isNight
+          ? 'bg-gradient-to-b from-[#0c1510] via-[#112217] to-[#0c1510] text-[#f8fafc]'
+          : 'bg-gradient-to-b from-[#d8dfd5] via-[#e5ede3] to-[#e5ede3] text-[#0f172a]'
+      }`}
+    >
       {/* organic coastal sand dune boundary transition */}
       <div className="absolute top-0 inset-x-0 h-16 sm:h-24 pointer-events-none overflow-hidden z-0">
         <svg
@@ -34,16 +43,16 @@ export const GithubActivitySection: React.FC = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
-          className="w-full h-full"
+          className="w-full h-full transition-all duration-500"
         >
           <path
             d="M-40,0 L1480,0 L1480,24 C1120,68 760,12 380,56 C200,78 60,32 -40,58 Z"
-            fill="#cad8c5"
+            fill={isNight ? '#0a140f' : '#cad8c5'}
             opacity="0.65"
           />
           <path
             d="M-40,0 L1480,0 L1480,14 C1160,48 780,6 400,38 C210,54 70,22 -40,42 Z"
-            fill="#d8dfd5"
+            fill={isNight ? '#0c1510' : '#d8dfd5'}
           />
         </svg>
       </div>
@@ -55,18 +64,26 @@ export const GithubActivitySection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 sm:pb-14 border-b border-[#0f172a]/15"
+          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 sm:pb-14 border-b transition-colors duration-500 ${
+            isNight ? 'border-emerald-500/25' : 'border-[#0f172a]/15'
+          }`}
         >
           <div className="max-w-2xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#2d6a4f] block mb-2">
+            <span className={`text-xs font-mono font-bold uppercase tracking-[0.25em] block mb-2 transition-colors duration-500 ${
+              isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+            }`}>
               AKTIVITAS GITHUB
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-[#0f172a] tracking-tight leading-[1.08]">
+            <h2 className={`text-3xl sm:text-5xl font-black tracking-tight leading-[1.08] transition-colors duration-500 ${
+              isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'
+            }`}>
               Kontribusi &amp; Aktivitas Kode
             </h2>
           </div>
 
-          <p className="max-w-md text-xs sm:text-sm font-medium text-[#475569] leading-relaxed">
+          <p className={`max-w-md text-xs sm:text-sm font-medium leading-relaxed transition-colors duration-500 ${
+            isNight ? 'text-stone-300' : 'text-[#475569]'
+          }`}>
             Rekam jejak commit, kontribusi open source, dan konsistensi pengembangan kode di GitHub.
           </p>
         </motion.div>
@@ -77,38 +94,56 @@ export const GithubActivitySection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ type: 'spring', stiffness: 200, damping: 22, delay: 0.1 }}
-          className="mt-8 sm:mt-12 rounded-[24px] sm:rounded-[32px] p-4 sm:p-9 bg-[#fffdf5] border-2 border-[#0f172a] shadow-[4px_4px_0px_#0f172a] sm:shadow-[6px_6px_0px_#0f172a]"
+          className={`mt-8 sm:mt-12 rounded-[24px] sm:rounded-[32px] p-4 sm:p-9 border transition-colors duration-500 ${
+            isNight
+              ? 'bg-[#142118] border-emerald-500/35 shadow-[4px_4px_0px_#040906] sm:shadow-[6px_6px_0px_#040906]'
+              : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[4px_4px_0px_#0f172a] sm:shadow-[6px_6px_0px_#0f172a]'
+          }`}
         >
           {/* control bar with clean username and year pills */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-[#d8dfd5]">
+          <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-6 border-b transition-colors duration-500 ${
+            isNight ? 'border-emerald-500/20' : 'border-[#d8dfd5]'
+          }`}>
             <div className="flex items-center justify-between sm:justify-start gap-2 sm:gap-2.5 w-full sm:w-auto">
               <a
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-[#edf2eb] hover:bg-[#d8dfd5] border-2 border-[#0f172a] text-[#0f172a] text-xs font-mono font-bold shadow-[2px_2px_0px_#0f172a] transition-all hover:-translate-y-0.5"
+                className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl border text-xs font-mono font-bold transition-all hover:-translate-y-0.5 ${
+                  isNight
+                    ? 'bg-[#1a2a20] hover:bg-[#22382c] border-emerald-500/30 text-[#f8fafc] shadow-[2px_2px_0px_#040906]'
+                    : 'bg-[#edf2eb] hover:bg-[#d8dfd5] border-2 border-[#0f172a] text-[#0f172a] shadow-[2px_2px_0px_#0f172a]'
+                }`}
               >
-                <SiGithub className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0f172a]" />
+                <SiGithub className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-amber-400' : 'text-[#0f172a]'}`} />
                 <span>@{username}</span>
               </a>
 
-              <span className="px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-[#fffdf5] border-2 border-[#0f172a] text-[11px] sm:text-xs font-mono font-bold text-[#2d6a4f] shadow-[2px_2px_0px_#0f172a]">
+              <span className={`px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl border text-[11px] sm:text-xs font-mono font-bold ${
+                isNight
+                  ? 'bg-[#1a2a20] border-emerald-500/30 text-amber-300 shadow-[2px_2px_0px_#040906]'
+                  : 'bg-[#fffdf5] border-2 border-[#0f172a] text-[#2d6a4f] shadow-[2px_2px_0px_#0f172a]'
+              }`}>
                 {stats.totalContributions.toLocaleString('id-ID')} Kontribusi
               </span>
             </div>
 
             {/* year selector tabs */}
-            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 w-full sm:w-auto">
-              {stats.availableYears.map((yearKey) => {
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+              {['lastYear', '2026', '2025', '2024'].map((yearKey) => {
                 const isActive = selectedYear === yearKey;
                 return (
                   <button
                     key={yearKey}
                     type="button"
                     onClick={() => setSelectedYear(yearKey)}
-                    className={`px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-bold transition-all cursor-pointer shrink-0 whitespace-nowrap ${
+                    className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer border ${
                       isActive
-                        ? 'bg-[#2d6a4f] text-white shadow-[2px_2px_0px_#0f172a] border-2 border-[#0f172a] -translate-y-0.5'
+                        ? isNight
+                          ? 'bg-amber-400 text-stone-900 border-amber-300 shadow-[2px_2px_0px_#040906] -translate-y-0.5 font-black'
+                          : 'bg-[#2d6a4f] text-white shadow-[2px_2px_0px_#0f172a] border-2 border-[#0f172a] -translate-y-0.5'
+                        : isNight
+                        ? 'bg-[#1a2a20] text-stone-300 hover:text-white border-emerald-500/30'
                         : 'bg-[#edf2eb] text-[#475569] hover:bg-[#d8dfd5] hover:text-[#0f172a] border-2 border-[#0f172a] hover:-translate-y-0.5 shadow-[2px_2px_0px_#0f172a]'
                     }`}
                   >
@@ -144,60 +179,75 @@ export const GithubActivitySection: React.FC = () => {
           </div>
 
           {/* metrics summary sub-cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 pt-4 sm:pt-6 border-t border-[#d8dfd5]">
-            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#edf2eb] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]">
-              <div className="flex items-center gap-1.5 sm:gap-2 text-[#2d6a4f] text-[10px] sm:text-xs font-mono font-bold">
+          <div className={`grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 pt-4 sm:pt-6 border-t transition-colors duration-500 ${
+            isNight ? 'border-emerald-500/20' : 'border-[#d8dfd5]'
+          }`}>
+            <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-colors duration-500 ${
+              isNight ? 'bg-[#1a2a20] border-emerald-500/30 shadow-[2px_2px_0px_#040906]' : 'bg-[#edf2eb] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]'
+            }`}>
+              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
                 <GitCommit className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2d6a4f]" />
                 <span>TOTAL COMMIT</span>
               </div>
-              <div className="text-xl sm:text-2xl font-black text-[#0f172a] mt-1.5 sm:mt-2">
+              <div className={`text-xl sm:text-2xl font-black mt-1.5 sm:mt-2 ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
                 {stats.totalContributions.toLocaleString('id-ID')}
               </div>
-              <span className="text-[10px] sm:text-[11px] text-[#64748b] font-mono mt-0.5 block truncate">
+              <span className={`text-[10px] sm:text-[11px] font-mono mt-0.5 block truncate ${isNight ? 'text-stone-400' : 'text-[#64748b]'}`}>
                 periode {formatYearLabel(selectedYear)}
               </span>
             </div>
 
-            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#edf2eb] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]">
-              <div className="flex items-center gap-1.5 sm:gap-2 text-[#2d6a4f] text-[10px] sm:text-xs font-mono font-bold">
+            <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-colors duration-500 ${
+              isNight ? 'bg-[#1a2a20] border-emerald-500/30 shadow-[2px_2px_0px_#040906]' : 'bg-[#edf2eb] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]'
+            }`}>
+              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
                 <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#ea580c]" />
                 <span>HARI TERAKTIF</span>
               </div>
-              <div className="text-xl sm:text-2xl font-black text-[#0f172a] mt-1.5 sm:mt-2 truncate">
+              <div className={`text-xl sm:text-2xl font-black mt-1.5 sm:mt-2 truncate ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
                 {stats.maxDay ? `${stats.maxDay.count} Commit` : '-'}
               </div>
-              <span className="text-[10px] sm:text-[11px] text-[#64748b] font-mono mt-0.5 block truncate">
+              <span className={`text-[10px] sm:text-[11px] font-mono mt-0.5 block truncate ${isNight ? 'text-stone-400' : 'text-[#64748b]'}`}>
                 {stats.maxDay ? formatIndonesianDateShort(stats.maxDay.date) : 'Tidak ada data'}
               </span>
             </div>
 
-            <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#edf2eb] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]">
-              <div className="flex items-center gap-1.5 sm:gap-2 text-[#2d6a4f] text-[10px] sm:text-xs font-mono font-bold">
+            <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-colors duration-500 ${
+              isNight ? 'bg-[#1a2a20] border-emerald-500/30 shadow-[2px_2px_0px_#040906]' : 'bg-[#edf2eb] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a]'
+            }`}>
+              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
                 <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#16a34a]" />
                 <span>HARI PRODUKTIF</span>
               </div>
-              <div className="text-xl sm:text-2xl font-black text-[#0f172a] mt-1.5 sm:mt-2">
+              <div className={`text-xl sm:text-2xl font-black mt-1.5 sm:mt-2 ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
                 {stats.activeDaysCount} Hari
               </div>
-              <span className="text-[10px] sm:text-[11px] text-[#64748b] font-mono mt-0.5 block truncate">
+              <span className={`text-[10px] sm:text-[11px] font-mono mt-0.5 block truncate ${isNight ? 'text-stone-400' : 'text-[#64748b]'}`}>
                 avg {stats.averagePerActiveDay} / hari
               </span>
             </div>
 
+            {/* Profile CTA link */}
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#0f172a] hover:bg-[#1e293b] text-white flex flex-col justify-between border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] transition-all hover:-translate-y-0.5 group cursor-pointer"
+              className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl flex flex-col justify-between border transition-all hover:-translate-y-0.5 group cursor-pointer ${
+                isNight
+                  ? 'bg-[#1a2a20] hover:bg-[#233a2d] border-emerald-500/35 text-white shadow-[2px_2px_0px_#040906]'
+                  : 'bg-[#0f172a] hover:bg-[#1e293b] border-2 border-[#0f172a] text-white shadow-[2px_2px_0px_#0f172a]'
+              }`}
             >
-              <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono font-bold text-[#52b788]">
-                <span>PROFIL GITHUB</span>
-                <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono font-bold text-stone-300">
+                <span>REPOSITORI</span>
+                <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
-              <div className="mt-1.5 sm:mt-2">
-                <div className="text-sm sm:text-base font-black text-[#f8fafc] truncate">@{username}</div>
-                <span className="text-[10px] sm:text-[11px] text-[#94a3b8] font-mono block truncate">
-                  Buka riwayat repositori &rarr;
+              <div>
+                <div className="text-sm sm:text-base font-black tracking-tight text-white mt-1">
+                  Lihat Profil GitHub &rarr;
+                </div>
+                <span className="text-[10px] sm:text-[11px] text-amber-300 font-mono block">
+                  github.com/{username}
                 </span>
               </div>
             </a>

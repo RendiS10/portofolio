@@ -6,6 +6,7 @@ import { ProfilePhotoCard } from './ProfilePhotoCard';
 import { ArchitectureStage } from './ArchitectureStage';
 import { FloodActionButton } from './FloodActionButton';
 import { RebuildConstructionOverlay } from './RebuildConstructionOverlay';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -48,27 +49,29 @@ const headerRevealVariants: Variants = {
     opacity: 0,
     y: 35,
     rotateX: 12,
-    filter: 'none'
+    scale: 0.96
   },
   visible: {
     opacity: 1,
     y: 0,
     rotateX: 0,
-    filter: 'none',
+    scale: 1,
     transition: {
       type: 'spring' as const,
-      stiffness: 160,
-      damping: 18
+      stiffness: 190,
+      damping: 22,
+      mass: 0.9
     }
   }
 };
 
 export const EditorialProfile: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-
-  // Flood & Rebuild State Machine
   const [floodState, setFloodState] = useState<'pristine' | 'flooding' | 'flooded' | 'rebuilding'>('pristine');
   const [rebuildProgress, setRebuildProgress] = useState<number>(0);
+
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -76,13 +79,13 @@ export const EditorialProfile: React.FC = () => {
   });
 
   const smoothScroll = useSpring(scrollYProgress, {
-    stiffness: 70,
-    damping: 20,
+    stiffness: 110,
+    damping: 24,
     restDelta: 0.001
   });
 
-  const scrollParallaxLeft = useTransform(smoothScroll, [0, 1], [30, -25]);
-  const scrollParallaxRight = useTransform(smoothScroll, [0, 1], [50, -35]);
+  const scrollParallaxLeft = useTransform(smoothScroll, [0, 1], [-25, 25]);
+  const scrollParallaxRight = useTransform(smoothScroll, [0, 1], [30, -30]);
 
   const handleTriggerFlood = () => {
     if (floodState !== 'pristine') return;
@@ -130,7 +133,9 @@ export const EditorialProfile: React.FC = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="relative pt-16 pb-20 sm:pt-20 sm:pb-28 bg-[#f5f3ec] overflow-hidden select-none"
+      className={`relative pt-16 pb-20 sm:pt-20 sm:pb-28 overflow-hidden select-none transition-colors duration-500 ${
+        isNight ? 'bg-[#0c1510] text-[#f8fafc]' : 'bg-[#f5f3ec] text-[#0f172a]'
+      }`}
     >
       <RebuildConstructionOverlay
         isRebuilding={floodState === 'rebuilding'}
@@ -152,13 +157,19 @@ export const EditorialProfile: React.FC = () => {
         {/* Editorial Section Header & Flood Action Controls */}
         <motion.div
           variants={headerRevealVariants}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 sm:pb-14 border-b border-[#d8dfd5]"
+          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 sm:pb-14 border-b transition-colors duration-500 ${
+            isNight ? 'border-emerald-500/25' : 'border-[#d8dfd5]'
+          }`}
         >
           <div className="max-w-2xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#2d6a4f] block mb-2">
+            <span className={`text-xs font-mono font-bold uppercase tracking-[0.25em] block mb-2 transition-colors duration-500 ${
+              isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+            }`}>
               Profil &amp; Keahlian
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black text-[#0f172a] tracking-tight leading-[1.08]">
+            <h2 className={`text-3xl sm:text-5xl font-black tracking-tight leading-[1.08] transition-colors duration-500 ${
+              isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'
+            }`}>
               Fullstack &amp; Mobile Developer
             </h2>
           </div>
@@ -171,7 +182,9 @@ export const EditorialProfile: React.FC = () => {
               onTriggerRebuild={handleTriggerRebuild}
             />
 
-            <p className="max-w-xs text-xs text-[#475569] leading-relaxed">
+            <p className={`max-w-xs text-xs leading-relaxed transition-colors duration-500 ${
+              isNight ? 'text-stone-300' : 'text-[#475569]'
+            }`}>
               Berpengalaman mengembangkan aplikasi web skala penuh, aplikasi mobile, arsitektur database, serta manajemen infrastruktur Linux.
             </p>
           </div>
@@ -203,16 +216,16 @@ export const EditorialProfile: React.FC = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="none"
-          className="w-full h-full"
+          className="w-full h-full transition-all duration-500"
         >
           <path
             d="M0,80 Q380,25 760,75 T1440,50 L1440,180 L0,180 Z"
-            fill={isFlooded ? '#a7c4a0' : '#d8dfd5'}
+            fill={isNight ? '#0f1c14' : isFlooded ? '#a7c4a0' : '#d8dfd5'}
             opacity="0.95"
           />
           <path
             d="M0,105 Q420,60 820,100 T1440,85 L1440,180 L0,180 Z"
-            fill={isFlooded ? '#74a872' : '#c2d6be'}
+            fill={isNight ? '#0c1510' : isFlooded ? '#74a872' : '#c2d6be'}
           />
         </svg>
       </div>

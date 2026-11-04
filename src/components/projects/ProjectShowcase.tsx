@@ -5,6 +5,7 @@ import { projectsData } from '../../data/portfolioData';
 import { FlagshipSlideCard } from './FlagshipProjectParallax';
 import { FilteredProjectDock } from './FilteredProjectDock';
 import { ProjectCaseStudyModal } from './ProjectCaseStudyModal';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface ProjectShowcaseProps {
   onOpenProject?: (project: Project) => void;
@@ -14,6 +15,9 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('all');
   const [localActiveProject, setLocalActiveProject] = useState<Project | null>(null);
+
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
 
   const handleSelect = onOpenProject || setLocalActiveProject;
   const activeProject = onOpenProject ? null : localActiveProject;
@@ -44,19 +48,27 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
     <section
       id="projects"
       ref={containerRef}
-      className="relative h-[380vh] bg-[#f5f3ec] select-none"
+      className={`relative h-[380vh] select-none transition-colors duration-500 ${
+        isNight ? 'bg-[#0a140f]' : 'bg-[#f5f3ec]'
+      }`}
     >
       {/* pinned viewport stage */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* progress indicators */}
-        <div className="absolute top-[76px] sm:top-24 right-4 sm:right-12 z-50 flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl sm:rounded-2xl bg-[#fffdf5] border-2 border-[#0f172a] shadow-[2.5px_2.5px_0px_#0f172a] sm:shadow-[4px_4px_0px_#0f172a]">
+        <div className={`absolute top-[76px] sm:top-24 right-4 sm:right-12 z-50 flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl sm:rounded-2xl border transition-colors duration-500 ${
+          isNight
+            ? 'bg-[#142118] border-emerald-500/35 shadow-[2.5px_2.5px_0px_#040906] sm:shadow-[4px_4px_0px_#040906]'
+            : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[2.5px_2.5px_0px_#0f172a] sm:shadow-[4px_4px_0px_#0f172a]'
+        }`}>
           {[0, 1, 2, 3].map((idx) => (
             <div
               key={idx}
-              className="h-2 sm:h-2.5 rounded-full bg-[#edf2eb] border border-[#0f172a] overflow-hidden w-5 sm:w-10"
+              className={`h-2 sm:h-2.5 rounded-full border overflow-hidden w-5 sm:w-10 transition-colors duration-500 ${
+                isNight ? 'bg-[#1a2a20] border-emerald-500/30' : 'bg-[#edf2eb] border-[#0f172a]'
+              }`}
             >
               <motion.div
-                className="h-full bg-[#2d6a4f]"
+                className={`h-full ${isNight ? 'bg-amber-400' : 'bg-[#2d6a4f]'}`}
                 style={{
                   scaleX: useTransform(
                     smoothProgress,

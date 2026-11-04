@@ -12,6 +12,7 @@ import {
 import { experienceData } from '../../data/portfolioData';
 import type { ExperienceItem } from '../../types/portfolio';
 import { JourneyOceanCanvas } from './JourneyOceanCanvas';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 const categoryConfig: Record<
   string,
@@ -50,16 +51,18 @@ const categoryConfig: Record<
   },
   security: {
     icon: ShieldCheck,
-    nodeBg: 'bg-[#fb7185]',
+    nodeBg: 'bg-[#fb923c]',
     nodeText: 'text-[#0f172a]',
-    tagBg: 'bg-[#fee2e2]',
-    tagText: 'text-[#dc2626]',
+    tagBg: 'bg-[#ffedd5]',
+    tagText: 'text-[#9a3412]',
     tagBorder: 'border-[#0f172a]'
   }
 };
 
 export const JourneyTimeline: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
 
   // scroll progress tracker
   const { scrollYProgress } = useScroll({
@@ -74,11 +77,15 @@ export const JourneyTimeline: React.FC = () => {
   });
 
   return (
-    <section id="journey" ref={containerRef} className="relative z-20 -mt-1 w-full select-none py-28 overflow-hidden text-[#0f172a]">
+    <section
+      id="journey"
+      ref={containerRef}
+      className={`relative z-20 -mt-1 w-full select-none py-28 overflow-hidden transition-colors duration-500 ${
+        isNight ? 'bg-[#09130d] text-[#f8fafc]' : 'bg-[#132a20] text-[#0f172a]'
+      }`}
+    >
       {/* animated hillside terrace canvas */}
       <JourneyOceanCanvas />
-
-      
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-12 space-y-8 sm:space-y-12">
         {/* header dock */}
@@ -87,7 +94,11 @@ export const JourneyTimeline: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="p-4 sm:p-8 rounded-2xl sm:rounded-[32px] bg-[#fffdf5] border-2 sm:border-3 border-[#0f172a] shadow-[4px_4px_0px_#0f172a] sm:shadow-[6px_6px_0px_#0f172a] space-y-2.5 sm:space-y-3"
+          className={`p-4 sm:p-8 rounded-2xl sm:rounded-[32px] border transition-colors duration-500 space-y-2.5 sm:space-y-3 ${
+            isNight
+              ? 'bg-[#142118] border-emerald-500/35 shadow-[4px_4px_0px_#040906] sm:shadow-[6px_6px_0px_#040906]'
+              : 'bg-[#fffdf5] border-2 sm:border-3 border-[#0f172a] shadow-[4px_4px_0px_#0f172a] sm:shadow-[6px_6px_0px_#0f172a]'
+          }`}
         >
           <div className="flex items-center gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-xl bg-[#fde047] text-[#0f172a] text-xs font-mono font-black border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] sm:shadow-[3px_3px_0px_#0f172a] w-fit">
             <Compass className="w-3.5 h-3.5" />
@@ -95,10 +106,10 @@ export const JourneyTimeline: React.FC = () => {
           </div>
 
           <div className="space-y-1 sm:space-y-1.5">
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0f172a] tracking-tight leading-[1.08]">
+            <h2 className={`text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.08] ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
               Milestone
             </h2>
-            <p className="text-xs sm:text-base font-medium text-[#475569] max-w-2xl leading-relaxed">
+            <p className={`text-xs sm:text-base font-medium max-w-2xl leading-relaxed ${isNight ? 'text-stone-300' : 'text-[#475569]'}`}>
               Pendidikan sarjana informatika, program bootcamp intensif, inisiatif mandiri, dan eksplorasi keamanan siber.
             </p>
           </div>
@@ -107,7 +118,7 @@ export const JourneyTimeline: React.FC = () => {
         {/* timeline track */}
         <div className="relative pl-11 sm:pl-20 space-y-7 sm:space-y-12">
           {/* background track */}
-          <div className="absolute top-5 sm:top-6 bottom-5 sm:bottom-6 left-4 sm:left-7 -translate-x-1/2 w-2.5 sm:w-3.5 bg-black/30 rounded-full overflow-hidden border-2 border-white/50 shadow-inner z-0">
+          <div className="absolute top-5 sm:top-6 bottom-5 sm:bottom-6 left-4 sm:left-7 -translate-x-1/2 w-2.5 sm:w-3.5 bg-black/40 rounded-full overflow-hidden border-2 border-white/30 shadow-inner z-0">
             {/* vertical progress */}
             <motion.div
               style={{ scaleY: smoothProgress, transformOrigin: 'top' }}
@@ -122,15 +133,15 @@ export const JourneyTimeline: React.FC = () => {
             return (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, x: -25, y: 20 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
+                initial={{ opacity: 0, x: -24 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
                 transition={{
-                  duration: 0.5,
-                  delay: idx * 0.12,
+                  duration: 0.45,
+                  delay: idx * 0.08,
                   type: 'spring',
-                  stiffness: 240,
-                  damping: 22
+                  stiffness: 260,
+                  damping: 24
                 }}
                 className="relative group"
               >
@@ -145,10 +156,16 @@ export const JourneyTimeline: React.FC = () => {
                 <motion.div
                   whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-                  className="p-4 sm:p-8 rounded-2xl sm:rounded-[32px] bg-[#fffdf5] border-2 sm:border-3 border-[#0f172a] shadow-[4px_4px_0px_#0f172a] sm:shadow-[6px_6px_0px_#0f172a] hover:shadow-[3px_3px_0px_#0f172a] hover:translate-x-1 hover:translate-y-1 transition-all duration-300 space-y-3 sm:space-y-4 cursor-default"
+                  className={`p-4 sm:p-8 rounded-2xl sm:rounded-[32px] border transition-all duration-300 space-y-3 sm:space-y-4 cursor-default ${
+                    isNight
+                      ? 'bg-[#142118] border-emerald-500/35 shadow-[4px_4px_0px_#040906] sm:shadow-[6px_6px_0px_#040906] text-[#f8fafc]'
+                      : 'bg-[#fffdf5] border-2 sm:border-3 border-[#0f172a] shadow-[4px_4px_0px_#0f172a] sm:shadow-[6px_6px_0px_#0f172a]'
+                  }`}
                 >
                   {/* card top badges */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3 pb-3 sm:pb-4 border-b-2 border-[#0f172a]/10">
+                  <div className={`flex flex-wrap items-center justify-between gap-2 sm:gap-3 pb-3 sm:pb-4 border-b-2 ${
+                    isNight ? 'border-emerald-500/20' : 'border-[#0f172a]/10'
+                  }`}>
                     <div className="flex flex-wrap items-center gap-2">
                       <span
                         className={`text-[10px] sm:text-xs font-mono font-black uppercase px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg sm:rounded-xl border-2 ${config.tagBg} ${config.tagBorder} ${config.tagText} shadow-[1.5px_1.5px_0px_#0f172a] sm:shadow-[2px_2px_0px_#0f172a]`}
@@ -157,38 +174,54 @@ export const JourneyTimeline: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg sm:rounded-xl bg-[#edf2eb] border-2 border-[#0f172a] text-[10px] sm:text-xs font-mono font-black text-[#0f172a] shadow-[1.5px_1.5px_0px_#0f172a] sm:shadow-[2px_2px_0px_#0f172a]">
-                      <Calendar className="w-3.5 h-3.5 text-[#2d6a4f]" />
+                    <div className={`flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg sm:rounded-xl border text-[10px] sm:text-xs font-mono font-black ${
+                      isNight
+                        ? 'bg-[#1a2a20] border-emerald-500/30 text-amber-300'
+                        : 'bg-[#edf2eb] border-2 border-[#0f172a] text-[#0f172a] shadow-[1.5px_1.5px_0px_#0f172a] sm:shadow-[2px_2px_0px_#0f172a]'
+                    }`}>
+                      <Calendar className={`w-3.5 h-3.5 ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`} />
                       <span>{item.period}</span>
                     </div>
                   </div>
 
                   {/* role and organization */}
                   <div>
-                    <h3 className="text-lg sm:text-2xl font-black text-[#0f172a] tracking-tight group-hover:text-[#2d6a4f] transition-colors">
+                    <h3 className={`text-lg sm:text-2xl font-black tracking-tight transition-colors ${
+                      isNight ? 'text-[#f8fafc] group-hover:text-amber-300' : 'text-[#0f172a] group-hover:text-[#2d6a4f]'
+                    }`}>
                       {item.role}
                     </h3>
-                    <div className="text-xs sm:text-sm font-mono font-bold text-[#2d6a4f] mt-0.5 sm:mt-1">
+                    <div className={`text-xs sm:text-sm font-mono font-bold mt-0.5 sm:mt-1 ${
+                      isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+                    }`}>
                       {item.organization}
                     </div>
                   </div>
 
                   {/* narrative description */}
-                  <p className="text-xs sm:text-base font-medium text-[#334155] leading-relaxed">
+                  <p className={`text-xs sm:text-base font-medium leading-relaxed ${
+                    isNight ? 'text-stone-300' : 'text-[#334155]'
+                  }`}>
                     {item.description}
                   </p>
 
                   {/* key highlights */}
                   {item.highlights && item.highlights.length > 0 && (
-                    <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#edf2eb]/80 border border-[#0f172a]/20 sm:border-2 sm:border-[#0f172a]/15 space-y-1.5 sm:space-y-2">
-                      <div className="text-[10px] sm:text-[11px] font-mono font-black uppercase tracking-wider text-[#475569]">
+                    <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border space-y-1.5 sm:space-y-2 ${
+                      isNight ? 'bg-[#1a2a20] border-emerald-500/25' : 'bg-[#edf2eb]/80 border border-[#0f172a]/20 sm:border-2 sm:border-[#0f172a]/15'
+                    }`}>
+                      <div className={`text-[10px] sm:text-[11px] font-mono font-black uppercase tracking-wider ${
+                        isNight ? 'text-stone-400' : 'text-[#475569]'
+                      }`}>
                         Poin Kunci &amp; Spesialisasi
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
                         {item.highlights.map((hl, hIdx) => (
                           <div
                             key={hIdx}
-                            className="flex items-start gap-1.5 sm:gap-2 text-xs font-bold text-[#1e293b] leading-tight"
+                            className={`flex items-start gap-1.5 sm:gap-2 text-xs font-bold leading-tight ${
+                              isNight ? 'text-[#f8fafc]' : 'text-[#1e293b]'
+                            }`}
                           >
                             <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#16a34a] shrink-0 mt-0.5" />
                             <span>{hl}</span>
@@ -203,7 +236,11 @@ export const JourneyTimeline: React.FC = () => {
                     {item.tech.map((t) => (
                       <span
                         key={t}
-                        className="text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl bg-[#edf2eb] hover:bg-[#fde047] text-[#0f172a] border border-[#0f172a] transition-colors"
+                        className={`text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg sm:rounded-xl border transition-colors ${
+                          isNight
+                            ? 'bg-[#1a2a20] hover:bg-amber-400 hover:text-stone-900 text-[#f8fafc] border-emerald-500/30'
+                            : 'bg-[#edf2eb] hover:bg-[#fde047] text-[#0f172a] border border-[#0f172a]'
+                        }`}
                       >
                         {t}
                       </span>
