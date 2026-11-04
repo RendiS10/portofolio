@@ -28,6 +28,14 @@ interface SunsetMote {
   phase: number;
 }
 
+interface NightStar {
+  x: number;
+  y: number;
+  radius: number;
+  alpha: number;
+  twinkleSpeed: number;
+}
+
 interface WindRipple {
   x: number;
   y: number;
@@ -37,21 +45,34 @@ interface WindRipple {
   speed: number;
 }
 
-export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string }>(
-  ({ className = '' }, ref) => {
+interface OceanHeroCanvasProps {
+  className?: string;
+  isNight?: boolean;
+}
+
+export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>(
+  ({ className = '', isNight = false }, ref) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const leavesRef = useRef<FloatingLeaf[]>([]);
     const motesRef = useRef<SunsetMote[]>([]);
+    const starsRef = useRef<NightStar[]>([]);
     const ripplesRef = useRef<WindRipple[]>([]);
     const animRef = useRef<number | null>(null);
     const timeRef = useRef<number>(0);
+    const isNightRef = useRef<boolean>(isNight);
 
-    // Warm sunset leaf palette: golden harvest, amber, sunlit tea leaf, olive
-    const leafPalette = ['#f59e0b', '#fbbf24', '#d97706', '#84cc16', '#52b788', '#eab308', '#a3e635'];
+    useEffect(() => {
+      isNightRef.current = isNight;
+    }, [isNight]);
+
+    // Palettes
+    const dayLeafPalette = ['#22c55e', '#16a34a', '#4ade80', '#86efac', '#eab308', '#84cc16', '#a3e635'];
+    const nightLeafPalette = ['#15803d', '#166534', '#047857', '#065f46', '#fde047', '#52b788'];
 
     const initLeaves = (width: number, height: number) => {
       leavesRef.current = [];
       const count = Math.min(36, Math.floor(width / 38));
+      const palette = isNightRef.current ? nightLeafPalette : dayLeafPalette;
       for (let i = 0; i < count; i++) {
         leavesRef.current.push({
           x: Math.random() * width,
@@ -61,7 +82,7 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
           rotation: Math.random() * Math.PI * 2,
           vRot: (Math.random() - 0.5) * 0.04,
           size: 7 + Math.random() * 9,
-          color: leafPalette[Math.floor(Math.random() * leafPalette.length)],
+          color: palette[Math.floor(Math.random() * palette.length)],
           alpha: 0.45 + Math.random() * 0.45
         });
       }
@@ -69,60 +90,58 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
 
     const initMotes = (width: number, height: number) => {
       motesRef.current = [];
-      const count = Math.min(28, Math.floor(width / 45));
+      const count = Math.min(42, Math.floor(width / 32));
       for (let i = 0; i < count; i++) {
         motesRef.current.push({
           x: Math.random() * width,
           y: Math.random() * height * 0.9,
-          vx: (Math.random() - 0.4) * 0.4,
-          vy: -0.2 - Math.random() * 0.4,
-          size: 1.5 + Math.random() * 2.5,
-          alpha: 0.3 + Math.random() * 0.5,
-          pulseSpeed: 1.5 + Math.random() * 2.0,
+          vx: (Math.random() - 0.4) * 0.8,
+          vy: -0.2 - Math.random() * 0.5,
+          size: 1.2 + Math.random() * 2.4,
+          alpha: 0.35 + Math.random() * 0.55,
+          pulseSpeed: 1 + Math.random() * 2.5,
           phase: Math.random() * Math.PI * 2
         });
       }
     };
 
-    const triggerSplash = (clientX: number, clientY: number, intensity: number = 1) => {
+    const initStars = (width: number, height: number) => {
+      starsRef.current = [];
+      const count = Math.min(85, Math.floor(width / 16));
+      for (let i = 0; i < count; i++) {
+        starsRef.current.push({
+          x: Math.random() * width,
+          y: Math.random() * height * 0.62,
+          radius: 0.7 + Math.random() * 1.5,
+          alpha: 0.3 + Math.random() * 0.7,
+          twinkleSpeed: 0.8 + Math.random() * 2.5
+        });
+      }
+    };
+
+    const triggerSplash = (clientX: number, clientY: number, intensity: number = 1.0) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       const x = clientX - rect.left;
       const y = clientY - rect.top;
 
-      ripplesRef.current.push({
-        x,
-        y,
-        radius: 8,
-        maxRadius: Math.min(260, rect.width * 0.4) * Math.max(0.7, intensity),
-        alpha: 0.9,
-        speed: 3.2 * Math.max(0.6, intensity)
-      });
+      triggerRipple(clientX, clientY, 40 + intensity * 50);
 
-      ripplesRef.current.push({
-        x,
-        y,
-        radius: 4,
-        maxRadius: Math.min(170, rect.width * 0.25) * Math.max(0.7, intensity),
-        alpha: 0.7,
-        speed: 2.0 * Math.max(0.6, intensity)
-      });
-
-      // Scatter leaves outward on drop
-      const burstCount = Math.floor(12 * Math.min(2, intensity));
+      const burstCount = Math.floor(6 * intensity);
+      const palette = isNightRef.current ? nightLeafPalette : dayLeafPalette;
       for (let i = 0; i < burstCount; i++) {
-        const angle = (Math.PI * 2 * i) / burstCount + (Math.random() - 0.5) * 0.5;
-        const speed = (2.0 + Math.random() * 5.0) * Math.min(2, intensity);
+        const angle = Math.random() * Math.PI * 2;
+        const speed = (2.5 + Math.random() * 4.5) * intensity;
         leavesRef.current.push({
-          x,
-          y,
+          x: x + (Math.random() - 0.5) * 20,
+          y: y + (Math.random() - 0.5) * 20,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed - 1.5,
           rotation: Math.random() * Math.PI * 2,
           vRot: (Math.random() - 0.5) * 0.1,
           size: 8 + Math.random() * 7,
-          color: leafPalette[Math.floor(Math.random() * leafPalette.length)],
+          color: palette[Math.floor(Math.random() * palette.length)],
           alpha: 0.95
         });
       }
@@ -168,6 +187,7 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
         ctx.scale(dpr, dpr);
         initLeaves(rect.width, rect.height);
         initMotes(rect.width, rect.height);
+        initStars(rect.width, rect.height);
       };
 
       handleResize();
@@ -178,77 +198,130 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
         const rect = canvas.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;
+        const isNightTime = isNightRef.current;
 
         ctx.clearRect(0, 0, width, height);
         timeRef.current += 0.012;
         const t = timeRef.current;
 
-        // 1. Serene Golden Hour / Sunset Rural Sky Gradient (Langit Senja Pedesaan)
+        // 1. SKY GRADIENT (Day: Fresh Cerulean Morning | Night: Deep Starry Highland)
         const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
-        skyGrad.addColorStop(0, '#1c1917');      // Warm dusky stone dusk
-        skyGrad.addColorStop(0.22, '#381c12');   // Warm terracotta amber twilight
-        skyGrad.addColorStop(0.48, '#782d11');   // Rich sunset burnt orange
-        skyGrad.addColorStop(0.70, '#b45309');   // Glowing amber golden hour
-        skyGrad.addColorStop(0.86, '#d97706');   // Warm golden sunlight horizon
-        skyGrad.addColorStop(1, '#5c4818');      // Golden mist over terrace foothills
+        if (isNightTime) {
+          skyGrad.addColorStop(0, '#040b08');
+          skyGrad.addColorStop(0.35, '#0a1610');
+          skyGrad.addColorStop(0.68, '#0f2219');
+          skyGrad.addColorStop(0.88, '#142a1f');
+          skyGrad.addColorStop(1, '#1b3427');
+        } else {
+          // Fresh morning / bright day in the countryside
+          skyGrad.addColorStop(0, '#38bdf8');      // Fresh tropical morning sky
+          skyGrad.addColorStop(0.28, '#7dd3fc');   // Soft cerulean blue
+          skyGrad.addColorStop(0.58, '#bae6fd');   // Gentle highland cyan mist
+          skyGrad.addColorStop(0.82, '#e0f2fe');   // Bright sunlit valley horizon
+          skyGrad.addColorStop(1, '#f0fdf4');      // Morning dew light over terraces
+        }
         ctx.fillStyle = skyGrad;
         ctx.fillRect(0, 0, width, height);
 
-        // 2. Radiant Afternoon Sunset Sun (Matahari Senja di Ufuk Barat)
+        // 2. CELESTIAL BODY (Day: Warm Golden Sun | Night: Twinkling Stars & Golden Crescent Moon)
         const sunX = width * 0.76;
-        const sunY = height * 0.32;
-        ctx.save();
-        
-        // Broad atmospheric golden sunset glow
-        const sunHaloGrad = ctx.createRadialGradient(
-          sunX, sunY, 15,
-          sunX, sunY, Math.min(width * 0.7, 520)
-        );
-        sunHaloGrad.addColorStop(0, 'rgba(254, 240, 138, 0.45)');
-        sunHaloGrad.addColorStop(0.25, 'rgba(245, 158, 11, 0.28)');
-        sunHaloGrad.addColorStop(0.60, 'rgba(217, 119, 6, 0.12)');
-        sunHaloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        ctx.fillStyle = sunHaloGrad;
-        ctx.fillRect(0, 0, width, height);
+        const sunY = height * 0.28;
 
-        // Glowing Sun Disc with Soft Corona
-        const sunDiscGrad = ctx.createRadialGradient(
-          sunX, sunY, 0,
-          sunX, sunY, 48
-        );
-        sunDiscGrad.addColorStop(0, '#fffbeb');
-        sunDiscGrad.addColorStop(0.4, 'rgba(253, 224, 71, 0.95)');
-        sunDiscGrad.addColorStop(0.8, 'rgba(245, 158, 11, 0.6)');
-        sunDiscGrad.addColorStop(1, 'rgba(217, 119, 6, 0)');
-        ctx.fillStyle = sunDiscGrad;
-        ctx.beginPath();
-        ctx.arc(sunX, sunY, 48, 0, Math.PI * 2);
-        ctx.fill();
+        if (isNightTime) {
+          // Twinkling stars in night sky
+          for (let i = 0; i < starsRef.current.length; i++) {
+            const star = starsRef.current[i];
+            const twinkle = Math.sin(t * star.twinkleSpeed + i * 2);
+            const starAlpha = Math.max(0.15, star.alpha + twinkle * 0.35);
 
-        // 3. Subtle Crepuscular Sun Rays (Sinar Surya Menyapa Lembah)
-        ctx.save();
-        ctx.globalAlpha = 0.08 + Math.sin(t * 1.5) * 0.02;
-        const rayGrad = ctx.createLinearGradient(sunX, sunY, width * 0.2, height * 0.85);
-        rayGrad.addColorStop(0, '#fde047');
-        rayGrad.addColorStop(1, 'transparent');
-        ctx.fillStyle = rayGrad;
-        
-        ctx.beginPath();
-        ctx.moveTo(sunX, sunY);
-        ctx.lineTo(width * 0.1, height * 0.9);
-        ctx.lineTo(width * 0.35, height);
-        ctx.closePath();
-        ctx.fill();
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(248, 250, 252, ${starAlpha})`;
+            ctx.shadowColor = '#ffffff';
+            ctx.shadowBlur = 4;
+            ctx.fill();
+            ctx.restore();
+          }
 
-        ctx.beginPath();
-        ctx.moveTo(sunX, sunY);
-        ctx.lineTo(width * 0.45, height);
-        ctx.lineTo(width * 0.7, height);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
+          // Golden Crescent Moon
+          ctx.save();
+          // Moon Halo Glow
+          const moonHalo = ctx.createRadialGradient(sunX, sunY, 10, sunX, sunY, 140);
+          moonHalo.addColorStop(0, 'rgba(254, 240, 138, 0.35)');
+          moonHalo.addColorStop(0.5, 'rgba(245, 158, 11, 0.12)');
+          moonHalo.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.fillStyle = moonHalo;
+          ctx.beginPath();
+          ctx.arc(sunX, sunY, 140, 0, Math.PI * 2);
+          ctx.fill();
 
-        // 4. Flowing Evening Breeze Streams (Semilir Angin Senja Keemasan)
+          // Crescent shape
+          ctx.beginPath();
+          ctx.arc(sunX, sunY, 34, 0, Math.PI * 2);
+          ctx.fillStyle = '#fef08a';
+          ctx.shadowColor = '#fde047';
+          ctx.shadowBlur = 18;
+          ctx.fill();
+
+          // Cutout to form crescent
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(sunX + 13, sunY - 7, 30, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.restore();
+        } else {
+          // Bright Morning Sun
+          ctx.save();
+          const sunHaloGrad = ctx.createRadialGradient(
+            sunX, sunY, 15,
+            sunX, sunY, Math.min(width * 0.65, 480)
+          );
+          sunHaloGrad.addColorStop(0, 'rgba(254, 240, 138, 0.55)');
+          sunHaloGrad.addColorStop(0.3, 'rgba(253, 224, 71, 0.28)');
+          sunHaloGrad.addColorStop(0.7, 'rgba(125, 211, 252, 0.15)');
+          sunHaloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.fillStyle = sunHaloGrad;
+          ctx.fillRect(0, 0, width, height);
+
+          // Glowing Sun Disc
+          const sunDiscGrad = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, 44);
+          sunDiscGrad.addColorStop(0, '#ffffff');
+          sunDiscGrad.addColorStop(0.35, '#fef08a');
+          sunDiscGrad.addColorStop(0.75, 'rgba(253, 224, 71, 0.9)');
+          sunDiscGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+          ctx.fillStyle = sunDiscGrad;
+          ctx.beginPath();
+          ctx.arc(sunX, sunY, 44, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Soft Morning Sun Rays
+          ctx.save();
+          ctx.globalAlpha = 0.09 + Math.sin(t * 1.5) * 0.02;
+          const rayGrad = ctx.createLinearGradient(sunX, sunY, width * 0.2, height * 0.85);
+          rayGrad.addColorStop(0, '#fef08a');
+          rayGrad.addColorStop(1, 'transparent');
+          ctx.fillStyle = rayGrad;
+
+          ctx.beginPath();
+          ctx.moveTo(sunX, sunY);
+          ctx.lineTo(width * 0.1, height * 0.9);
+          ctx.lineTo(width * 0.35, height);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.moveTo(sunX, sunY);
+          ctx.lineTo(width * 0.45, height);
+          ctx.lineTo(width * 0.7, height);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+          ctx.restore();
+        }
+
+        // 3. FLOWING WIND STREAMS
         const drawWindStream = (yPos: number, freq: number, speed: number, alpha: number, strokeW: number) => {
           ctx.save();
           ctx.beginPath();
@@ -260,10 +333,10 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
             if (x === 0) ctx.moveTo(x, wy);
             else ctx.lineTo(x, wy);
           }
-          ctx.strokeStyle = `rgba(254, 240, 138, ${alpha})`;
+          ctx.strokeStyle = isNightTime
+            ? `rgba(128, 237, 153, ${alpha * 0.45})`
+            : `rgba(255, 255, 255, ${alpha * 0.55})`;
           ctx.lineWidth = strokeW;
-          ctx.setLineDash([40, 60]);
-          ctx.lineDashOffset = -t * 38;
           ctx.stroke();
           ctx.restore();
         };
@@ -272,8 +345,8 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
         drawWindStream(height * 0.44, 0.0042, 1.1, 0.35, 2.0);
         drawWindStream(height * 0.62, 0.0038, 0.9, 0.24, 1.5);
 
-        // 5. Terraced Hill Ridges Bathed in Sunset Gold (Terasering Sawah Sore Hari)
-        // Ridge Layer 1 - Distant Hills Silhouette
+        // 4. TERRACED HILL RIDGES (Terasering Sawah Pegunungan)
+        // Ridge Layer 1 - Distant Mountains
         ctx.save();
         ctx.beginPath();
         const ridge1Base = height * 0.66;
@@ -288,16 +361,15 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
         }
         ctx.lineTo(width, height);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(46, 36, 28, 0.9)'; // Warm mountain silhouette
+        ctx.fillStyle = isNightTime ? 'rgba(7, 18, 12, 0.95)' : '#0e7490';
         ctx.fill();
 
-        // Distant hill rim highlight from setting sun
-        ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+        ctx.strokeStyle = isNightTime ? 'rgba(128, 237, 153, 0.3)' : 'rgba(186, 230, 253, 0.6)';
         ctx.lineWidth = 1.4;
         ctx.stroke();
         ctx.restore();
 
-        // Ridge Layer 2 - Mid Rice Terrace (Golden-Olive & Sunset Highlights)
+        // Ridge Layer 2 - Mid Rice Terrace (Day: Lush Emerald Green | Night: Moonlit Jade)
         ctx.save();
         ctx.beginPath();
         const ridge2Base = height * 0.74;
@@ -312,11 +384,10 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
         }
         ctx.lineTo(width, height);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(45, 78, 48, 0.94)'; // Golden-olive lush rice terrace
+        ctx.fillStyle = isNightTime ? 'rgba(14, 34, 23, 0.96)' : '#16a34a';
         ctx.fill();
 
-        // Golden sunset reflection on terrace water ridge edge
-        ctx.strokeStyle = 'rgba(252, 211, 77, 0.85)';
+        ctx.strokeStyle = isNightTime ? 'rgba(253, 224, 71, 0.45)' : '#86efac';
         ctx.lineWidth = 2.2;
         ctx.stroke();
         ctx.restore();
@@ -336,23 +407,21 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
         }
         ctx.lineTo(width, height);
         ctx.closePath();
-        ctx.fillStyle = '#f5f3ec'; // Clean natural linen meadow ground
+        ctx.fillStyle = isNightTime ? '#0c1510' : '#f5f3ec';
         ctx.fill();
 
-        // Warm golden wheat contour border
-        ctx.strokeStyle = '#d4b26f';
+        ctx.strokeStyle = isNightTime ? '#2d5a44' : '#22c55e';
         ctx.lineWidth = 3.2;
         ctx.stroke();
         ctx.restore();
 
-        // 6. Sunset Golden Motes & Fireflies (Debu Emas & Kunang-kunang Senja)
+        // 5. MOTES (Day: Sunlit dew motes | Night: Golden glowing fireflies)
         for (let i = 0; i < motesRef.current.length; i++) {
           const m = motesRef.current[i];
           m.x += m.vx;
           m.y += m.vy;
           m.phase += 0.03 * m.pulseSpeed;
 
-          // Wrap motes
           if (m.y < 0) {
             m.y = height * 0.9;
             m.x = Math.random() * width;
@@ -364,16 +433,20 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
           ctx.save();
           ctx.beginPath();
           ctx.arc(m.x, m.y, m.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(253, 224, 71, ${currentAlpha})`;
+          ctx.fillStyle = isNightTime
+            ? `rgba(253, 224, 71, ${currentAlpha})`
+            : `rgba(254, 240, 138, ${currentAlpha * 0.75})`;
           ctx.beginPath();
           ctx.arc(m.x, m.y, m.size * 2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(245, 158, 11, ${currentAlpha * 0.35})`;
+          ctx.fillStyle = isNightTime
+            ? `rgba(245, 158, 11, ${currentAlpha * 0.4})`
+            : `rgba(255, 255, 255, ${currentAlpha * 0.3})`;
           ctx.fill();
           ctx.fill();
           ctx.restore();
         }
 
-        // 7. Interactive Wind Ripples (Touch / Drag Feedback with Golden Light)
+        // 6. RIPPLES
         for (let i = ripplesRef.current.length - 1; i >= 0; i--) {
           const r = ripplesRef.current[i];
           r.radius += r.speed;
@@ -387,7 +460,9 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
           ctx.save();
           ctx.beginPath();
           ctx.ellipse(r.x, r.y, r.radius, r.radius * 0.48, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(251, 191, 36, ${r.alpha * 0.85})`;
+          ctx.strokeStyle = isNightTime
+            ? `rgba(251, 191, 36, ${r.alpha * 0.85})`
+            : `rgba(56, 189, 248, ${r.alpha * 0.85})`;
           ctx.lineWidth = 1.8;
           ctx.stroke();
 
@@ -399,14 +474,13 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
           ctx.restore();
         }
 
-        // 8. Drifting Golden Harvest & Tea Leaves in Sunset Breeze
+        // 7. DRIFTING LEAVES
         for (let i = leavesRef.current.length - 1; i >= 0; i--) {
           const leaf = leavesRef.current[i];
           leaf.x += leaf.vx;
           leaf.y += leaf.vy + Math.sin(t * 2 + i) * 0.4;
           leaf.rotation += leaf.vRot;
 
-          // Wrap around seamlessly
           if (leaf.x > width + 40) {
             leaf.x = -30;
             leaf.y = Math.random() * height * 0.8;
@@ -416,7 +490,6 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
             leaf.x = Math.random() * width;
           }
 
-          // Draw organic willow/tea/bamboo leaf shape
           ctx.save();
           ctx.translate(leaf.x, leaf.y);
           ctx.rotate(leaf.rotation);
@@ -430,7 +503,6 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, { className?: string 
           ctx.closePath();
           ctx.fill();
 
-          // Leaf center vein with sunlit golden glint
           ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
           ctx.lineWidth = 0.8;
           ctx.beginPath();

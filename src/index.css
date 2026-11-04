@@ -2,19 +2,26 @@
 
 @layer base {
   :root {
-    --bg-primary: #0d1f17;
-    --bg-secondary: #132a20;
-    --card-surface: #1a382b;
-    --card-hover: #224837;
+    --bg-primary: #f5f3ec;
+    --bg-secondary: #edf2eb;
+    --card-surface: #fffdf5;
+    --card-border: #0f172a;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent-gold: #fde047;
+    --accent-emerald: #2d6a4f;
+  }
+
+  [data-theme="night"],
+  .dark {
+    --bg-primary: #0c1510;
+    --bg-secondary: #16241c;
+    --card-surface: #142118;
     --card-border: #2d5a44;
     --text-primary: #f8fafc;
-    --text-secondary: #cbd5e1;
-    --text-sand: #fef08a;
-    --accent-blue: #2d6a4f;
-    --accent-blue-hover: #1b4332;
-    --accent-water: #52b788;
-    --accent-sand: #c2410c;
-    --accent-sand-hover: #9a3412;
+    --text-secondary: #94a3b8;
+    --accent-gold: #fde047;
+    --accent-emerald: #4ade80;
   }
 
   html {
@@ -37,6 +44,18 @@
   }
 }
 
+/* Global Silk Theme Transition */
+html,
+body,
+section,
+main,
+div,
+button {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 450ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -55,7 +74,7 @@
   background: #2d6a4f;
 }
 
-/* hide scrollbar utility */
+/* Hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
@@ -70,4 +89,107 @@
 /* Golden village ambient glow */
 .nav-glow-active {
   text-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
+}
+
+/* ============================================================
+   NIGHT MODE ATMOSPHERE (Pedesaan Malam Berkunang-kunang)
+   Global Token Bridge & Section Overrides
+   ============================================================ */
+
+/* Section Canvas Backgrounds */
+[data-theme="night"] section#about,
+[data-theme="night"] section#projects,
+[data-theme="night"] section#stack,
+[data-theme="night"] section#certificates,
+[data-theme="night"] .bg-\[\#f5f3ec\] {
+  background-color: #0c1510 !important;
+}
+
+[data-theme="night"] section#activity {
+  background: linear-gradient(180deg, #0c1510 0%, #122117 50%, #0c1510 100%) !important;
+}
+
+[data-theme="night"] section#activity svg path {
+  fill: #0c1510 !important;
+}
+
+[data-theme="night"] section#contact {
+  background-color: #080f0b !important;
+}
+
+/* Night Cards & Surfaces */
+[data-theme="night"] .bg-\[\#fffdf5\],
+[data-theme="night"] .bg-\[\#fffdf5\]\/90,
+[data-theme="night"] .bg-\[\#fffdf5\]\/95 {
+  background-color: #142118 !important;
+}
+
+[data-theme="night"] .bg-\[\#edf2eb\] {
+  background-color: #1a2a20 !important;
+}
+
+[data-theme="night"] .bg-\[\#f8fafc\],
+[data-theme="night"] .bg-slate-50,
+[data-theme="night"] .bg-stone-50 {
+  background-color: #101a13 !important;
+}
+
+[data-theme="night"] .bg-\[\#d8f3dc\],
+[data-theme="night"] .bg-\[\#dcfce7\] {
+  background-color: rgba(45, 106, 79, 0.35) !important;
+  color: #86efac !important;
+}
+
+/* Night Text Legibility & Contrast */
+[data-theme="night"] .text-\[\#0f172a\],
+[data-theme="night"] .text-\[\#1e293b\],
+[data-theme="night"] .text-slate-900,
+[data-theme="night"] .text-stone-900 {
+  color: #f8fafc !important;
+}
+
+[data-theme="night"] .text-\[\#475569\],
+[data-theme="night"] .text-stone-600,
+[data-theme="night"] .text-\[\#64748b\] {
+  color: #94a3b8 !important;
+}
+
+[data-theme="night"] .text-\[\#2d6a4f\] {
+  color: #fde047 !important;
+}
+
+/* Night Borders */
+[data-theme="night"] .border-\[\#0f172a\] {
+  border-color: #2d5a44 !important;
+}
+
+[data-theme="night"] .border-\[\#0f172a\]\/15,
+[data-theme="night"] .border-\[\#0f172a\]\/30,
+[data-theme="night"] .border-\[\#0f172a\]\/40,
+[data-theme="night"] .border-\[\#0f172a\]\/50 {
+  border-color: rgba(45, 90, 68, 0.4) !important;
+}
+
+[data-theme="night"] .border-\[\#d8dfd5\],
+[data-theme="night"] .border-\[\#cad8c5\],
+[data-theme="night"] .border-\[\#e8dbc0\] {
+  border-color: #244031 !important;
+}
+
+/* Night Neo-brutalist Shadows -> Deep Midnight with Ambient Moonlight Glow */
+[data-theme="night"] .shadow-\[1\.5px_1\.5px_0px_\#0f172a\],
+[data-theme="night"] .shadow-\[2px_2px_0px_\#0f172a\],
+[data-theme="night"] .shadow-\[2\.5px_2\.5px_0px_\#0f172a\] {
+  box-shadow: 2.5px 2.5px 0px #040906, 0 0 12px rgba(45, 90, 68, 0.15) !important;
+}
+
+[data-theme="night"] .shadow-\[3px_3px_0px_\#0f172a\],
+[data-theme="night"] .shadow-\[4px_4px_0px_\#0f172a\] {
+  box-shadow: 4px 4px 0px #040906, 0 0 18px rgba(45, 90, 68, 0.22) !important;
+}
+
+[data-theme="night"] .shadow-\[5px_5px_0px_\#0f172a\],
+[data-theme="night"] .shadow-\[6px_6px_0px_\#0f172a\],
+[data-theme="night"] .shadow-\[10px_10px_0px_\#0f172a\] {
+  box-shadow: 6px 6px 0px #040906, 0 0 32px rgba(0, 0, 0, 0.75) !important;
 }

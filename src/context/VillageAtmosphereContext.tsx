@@ -37,6 +37,19 @@ export const VillageAtmosphereProvider: React.FC<{ children: React.ReactNode }> 
     }
   }, []);
 
+  // Sync document root data-theme and dark class with atmosphere
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      const root = document.documentElement;
+      root.setAttribute('data-theme', atmosphere);
+      if (atmosphere === 'night') {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    }
+  }, [atmosphere]);
+
   const toggleAtmosphere = () => {
     const next = atmosphere === 'sunset' ? 'night' : 'sunset';
     setAtmosphere(next);

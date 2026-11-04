@@ -23,8 +23,9 @@ function PortfolioMain() {
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-700 selection:bg-[#2d6a4f] selection:text-white ${
-        atmosphere === 'night' ? 'bg-[#0f1a14] text-[#f1f5f9]' : 'bg-[#f5f3ec] text-[#0f172a]'
+      data-theme={atmosphere}
+      className={`min-h-screen transition-colors duration-500 selection:bg-amber-500 selection:text-black ${
+        atmosphere === 'night' ? 'bg-[#0c1510] text-[#f8fafc]' : 'bg-[#f5f3ec] text-[#0f172a]'
       }`}
     >
       {showWelcome && (

@@ -60,14 +60,14 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section className="relative w-full h-screen min-h-[700px] flex flex-col justify-between pt-16 pb-10 overflow-hidden select-none">
-      {/* Background Terrace & Breeze Canvas */}
+      {/* Background Terrace & Breeze Canvas (Dynamic Fresh Day vs Starry Night) */}
       <div className="absolute inset-0 z-0 pointer-events-auto">
-        <OceanHeroCanvas ref={oceanRef} />
+        <OceanHeroCanvas ref={oceanRef} isNight={isNight} />
       </div>
 
       {/* Night Atmosphere Dark Filter & Glow Overlay */}
       {isNight && (
-        <div className="absolute inset-0 z-5 pointer-events-none bg-[#09140e]/50 backdrop-brightness-85 transition-all duration-700" />
+        <div className="absolute inset-0 z-5 pointer-events-none bg-[#09140e]/40 backdrop-brightness-90 transition-all duration-700" />
       )}
 
       {/* Bioluminescent Fireflies at Night */}
@@ -90,7 +90,13 @@ export const HeroSection: React.FC = () => {
             onRipple={handleRipple}
           />
 
-          <p className="mt-3 sm:mt-5 max-w-xl text-center text-xs sm:text-base text-[#fef9c3] font-medium leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] px-2">
+          <p
+            className={`mt-3 sm:mt-5 max-w-xl text-center text-xs sm:text-base font-medium leading-relaxed px-2 transition-colors duration-300 ${
+              isNight
+                ? 'text-[#fef9c3] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]'
+                : 'text-[#0f172a] drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] font-semibold'
+            }`}
+          >
             Full-Stack &amp; Mobile Developer. Membangun platform web skalabel, aplikasi mobile Flutter, dan arsitektur Linux yang efisien.
           </p>
 
@@ -109,9 +115,13 @@ export const HeroSection: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => playBambooTone(640)}
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-[#1f1a14]/90 hover:bg-[#2b2219] text-[#f8fafc] border border-[#f59e0b]/35 hover:border-[#f59e0b]/80 font-medium text-xs sm:text-sm transition-all select-none cursor-pointer hover:-translate-y-0.5 shadow-md backdrop-blur-xs shadow-[#78350f]/20"
+              className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all select-none cursor-pointer hover:-translate-y-0.5 shadow-md backdrop-blur-md ${
+                isNight
+                  ? 'bg-[#1a261f]/90 hover:bg-[#23352b] text-[#f8fafc] border border-emerald-500/35 hover:border-emerald-400'
+                  : 'bg-white/90 hover:bg-white text-[#0f172a] border border-[#0f172a]/20 hover:border-[#0f172a]'
+              }`}
             >
-              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f59e0b]" />
+              <Download className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-[#fde047]' : 'text-[#16a34a]'}`} />
               <span>Download CV</span>
             </a>
 
@@ -120,10 +130,14 @@ export const HeroSection: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => playBambooTone(700)}
-              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-[#1f1a14]/90 hover:bg-[#2b2219] text-[#f8fafc] border border-[#f59e0b]/35 hover:border-[#f59e0b]/80 font-medium text-xs sm:text-sm transition-all select-none cursor-pointer hover:-translate-y-0.5 shadow-md backdrop-blur-xs shadow-[#78350f]/20"
+              className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all select-none cursor-pointer hover:-translate-y-0.5 shadow-md backdrop-blur-md ${
+                isNight
+                  ? 'bg-[#1a261f]/90 hover:bg-[#23352b] text-[#f8fafc] border border-emerald-500/35 hover:border-emerald-400'
+                  : 'bg-white/90 hover:bg-white text-[#0f172a] border border-[#0f172a]/20 hover:border-[#0f172a]'
+              }`}
             >
               <span>GitHub</span>
-              <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#fbbf24]" />
+              <ExternalLink className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${isNight ? 'text-[#fde047]' : 'text-[#16a34a]'}`} />
             </a>
           </div>
         </div>

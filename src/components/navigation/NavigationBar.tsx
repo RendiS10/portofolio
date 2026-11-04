@@ -167,7 +167,7 @@ export const NavigationBar: React.FC = () => {
             type="button"
             onClick={toggleAtmosphere}
             className="p-2 rounded-full text-stone-300 hover:text-amber-300 hover:bg-amber-500/15 transition-all cursor-pointer group active:scale-95"
-            title={atmosphere === 'sunset' ? 'Beralih ke Suasana Malam Berkunang-kunang' : 'Beralih ke Suasana Senja Sawah'}
+            title={atmosphere === 'sunset' ? 'Beralih ke Suasana Malam Berkunang-kunang' : 'Beralih ke Suasana Pagi Sawah Cerah'}
             aria-label="Toggle Atmosphere"
           >
             {atmosphere === 'sunset' ? (
