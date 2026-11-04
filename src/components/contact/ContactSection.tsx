@@ -11,7 +11,9 @@ import {
   Send,
   Sparkles,
   ArrowUp,
-  RotateCw
+  RotateCw,
+  MessageCircle,
+  FileText
 } from 'lucide-react';
 import { useClipboard } from '../../hooks/useClipboard';
 import { profileData } from '../../data/portfolioData';
@@ -28,6 +30,20 @@ export const ContactSection: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState(inquiryTopics[0]);
   const [currentTime, setCurrentTime] = useState<string>('');
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
+  const [snippetCopied, setSnippetCopied] = useState<boolean>(false);
+
+  const recruiterSnippet = `Rendi Sutendi — Full-Stack & Mobile Software Engineer
+• Pendidikan: S1 Teknik Informatika (IPK 3.70 / 4.00), STMIK Mardira Indonesia
+• Pengalaman: HolyCat Labs (3.000+ pengguna, 50+ REST APIs, Flutter Clean Arch, Midtrans ACID), Abby & Gail Mobile App, Dinas Cipta Bintar Kota Bandung
+• Tech Stack: React, Next.js, Flutter, TypeScript, Node.js, Laravel, PostgreSQL, MySQL, Docker, Linux/NixOS
+• Portofolio: https://rendisutendi.id
+• Email: rendisutendi21@gmail.com | WA: +62 857-2145-1615 | GitHub: https://github.com/RendiS10`;
+
+  const handleCopySnippet = () => {
+    navigator.clipboard.writeText(recruiterSnippet);
+    setSnippetCopied(true);
+    setTimeout(() => setSnippetCopied(false), 3000);
+  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -64,8 +80,6 @@ export const ContactSection: React.FC = () => {
     >
       <ContactOceanCanvas />
 
-      
-
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-12 space-y-6 sm:space-y-8">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -97,28 +111,26 @@ export const ContactSection: React.FC = () => {
                 Mari Berdiskusi &amp; Berkolaborasi
               </h2>
               <p className="text-xs sm:text-base text-[#475569] font-medium leading-relaxed max-w-2xl">
-                Punya ide proyek, kebutuhan rekayasa web/mobile, atau peluang kolaborasi? Hubungi saya langsung melalui email dan topik di bawah.
+                Punya ide proyek, kebutuhan rekayasa web/mobile, atau peluang karier? Hubungi saya langsung melalui WhatsApp, Email, atau topik di bawah.
               </p>
             </div>
           </div>
 
-          {/* bento grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 items-stretch">
-            {/* email and topic station */}
+          {/* interactive inquiry matrix & tactile controls */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-stretch">
+            {/* topic selector & actions */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: 0.15 }}
-              className="md:col-span-7 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#edf2eb] border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] sm:shadow-[4px_4px_0px_#0f172a] flex flex-col justify-between space-y-4 sm:space-y-5"
+              className="md:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-5"
             >
-              <div className="space-y-2.5 sm:space-y-3">
-                <div className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#64748b]">
+              <div className="space-y-2.5">
+                <label className="text-xs font-mono font-bold uppercase tracking-wider text-[#64748b] block">
                   Pilih Topik Diskusi
-                </div>
-
-                {/* topic buttons */}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                </label>
+                <div className="flex flex-wrap gap-2">
                   {inquiryTopics.map((topic) => {
                     const isSelected = selectedTopic.id === topic.id;
                     return (
@@ -126,7 +138,7 @@ export const ContactSection: React.FC = () => {
                         key={topic.id}
                         type="button"
                         onClick={() => setSelectedTopic(topic)}
-                        className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-mono font-bold border-2 transition-all cursor-pointer ${
+                        className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-bold transition-all cursor-pointer border-2 ${
                           isSelected
                             ? 'bg-[#2d6a4f] text-white border-[#0f172a] shadow-[2px_2px_0px_#0f172a]'
                             : 'bg-[#fffdf5] text-[#0f172a] border-[#0f172a] shadow-[1.5px_1.5px_0px_#0f172a] hover:bg-[#fde047]'
@@ -139,12 +151,22 @@ export const ContactSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* send email and copy button group */}
-              <div className="space-y-2 pt-2 border-t-2 border-[#0f172a]/10">
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full">
+              {/* send email and whatsapp button group */}
+              <div className="space-y-3 pt-2 border-t-2 border-[#0f172a]/10">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 w-full">
+                  <a
+                    href={profileData.contact.whatsapp || 'https://wa.me/6285721451615'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-mono font-black text-xs sm:text-sm transition-all cursor-pointer border-2 border-[#0f172a] shadow-[2.5px_2.5px_0px_#0f172a] sm:shadow-[3px_3px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 shrink-0"
+                  >
+                    <MessageCircle className="w-4 h-4 shrink-0" />
+                    <span>Chat WhatsApp</span>
+                  </a>
+
                   <a
                     href={mailtoLink}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl bg-[#fde047] hover:bg-[#facc15] text-[#0f172a] font-mono font-black text-xs sm:text-sm transition-all cursor-pointer border-2 border-[#0f172a] shadow-[2.5px_2.5px_0px_#0f172a] sm:shadow-[3px_3px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#0f172a] w-full sm:w-auto shrink-0 whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl bg-[#fde047] hover:bg-[#facc15] text-[#0f172a] font-mono font-black text-xs sm:text-sm transition-all cursor-pointer border-2 border-[#0f172a] shadow-[2.5px_2.5px_0px_#0f172a] sm:shadow-[3px_3px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 shrink-0"
                   >
                     <Send className="w-4 h-4 shrink-0" />
                     <span>Kirim Email</span>
@@ -153,7 +175,7 @@ export const ContactSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => copy(profileData.contact.email)}
-                    className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl bg-[#fffdf5] hover:bg-[#fde047] text-[#0f172a] font-mono font-bold text-xs sm:text-sm transition-all cursor-pointer border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] w-full sm:w-auto shrink-0 whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl bg-[#fffdf5] hover:bg-[#edf2eb] text-[#0f172a] font-mono font-bold text-xs sm:text-sm transition-all cursor-pointer border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] shrink-0"
                     title="Salin alamat email"
                   >
                     <Mail className="w-4 h-4 text-[#2d6a4f] shrink-0" />
@@ -172,6 +194,25 @@ export const ContactSection: React.FC = () => {
                     <span>Email berhasil disalin ke clipboard!</span>
                   </div>
                 )}
+
+                {/* Recruiter Quick Snippet Button */}
+                <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-t border-[#0f172a]/10">
+                  <button
+                    type="button"
+                    onClick={handleCopySnippet}
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#edf2eb] hover:bg-[#d8dfd5] text-[#0f172a] font-mono font-bold text-xs border border-[#0f172a]/30 shadow-xs cursor-pointer transition-all active:scale-95"
+                    title="Salin ringkasan singkat profil untuk diteruskan ke tim rekrutmen/internal"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-[#2d6a4f]" />
+                    <span>{snippetCopied ? 'Ringkasan Berhasil Disalin!' : 'Salin Ringkasan Kandidat (HR / Tech Lead)'}</span>
+                    {snippetCopied && <Check className="w-3.5 h-3.5 text-[#15803d]" />}
+                  </button>
+                  {snippetCopied && (
+                    <span className="text-[11px] font-mono text-[#15803d] font-bold animate-fadeIn">
+                      Format siap tempel di Slack/WA/Teams!
+                    </span>
+                  )}
+                </div>
               </div>
             </motion.div>
 
@@ -215,7 +256,7 @@ export const ContactSection: React.FC = () => {
                   <div className="space-y-2 pt-2 border-t-2 border-[#0f172a]/10">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-[#64748b]">
-                        Socials &amp; Profil
+                        Socials &amp; Kontak Langsung
                       </span>
                       <button
                         type="button"
@@ -227,12 +268,12 @@ export const ContactSection: React.FC = () => {
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                    <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                       <a
                         href={profileData.contact.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[#fffdf5] hover:bg-[#fde047] text-[#0f172a] font-mono font-bold text-[11px] sm:text-xs transition-all border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#0f172a] flex items-center justify-between group"
+                        className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[#fffdf5] hover:bg-[#fde047] text-[#0f172a] font-mono font-bold text-[11px] sm:text-xs transition-all border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 flex items-center justify-between group"
                       >
                         <div className="flex items-center gap-1.5">
                           <svg className="w-3.5 h-3.5 text-[#0f172a]" fill="currentColor" viewBox="0 0 24 24">
@@ -247,13 +288,26 @@ export const ContactSection: React.FC = () => {
                         href={profileData.contact.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[#fffdf5] hover:bg-[#fde047] text-[#0f172a] font-mono font-bold text-[11px] sm:text-xs transition-all border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#0f172a] flex items-center justify-between group"
+                        className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[#fffdf5] hover:bg-[#fde047] text-[#0f172a] font-mono font-bold text-[11px] sm:text-xs transition-all border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 flex items-center justify-between group"
                       >
                         <div className="flex items-center gap-1.5">
                           <svg className="w-3.5 h-3.5 text-[#2d6a4f]" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                           </svg>
                           <span>LinkedIn</span>
+                        </div>
+                        <ExternalLink className="w-3 h-3 text-[#64748b] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </a>
+
+                      <a
+                        href={profileData.contact.whatsapp || 'https://wa.me/6285721451615'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[#fffdf5] hover:bg-[#dcfce7] text-[#0f172a] font-mono font-bold text-[11px] sm:text-xs transition-all border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 flex items-center justify-between group"
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <MessageCircle className="w-3.5 h-3.5 text-[#16a34a]" />
+                          <span>WA</span>
                         </div>
                         <ExternalLink className="w-3 h-3 text-[#64748b] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                       </a>
@@ -277,7 +331,7 @@ export const ContactSection: React.FC = () => {
                       </span>
                     </div>
                     <p className="text-xs font-medium text-[#1e293b] leading-relaxed">
-                      Terima kasih sudah menjelajahi portofolio ini sampai tuntas! Selalu terbuka untuk ngobrol santai seputar web dev, mobile tech, atau kolaborasi proyek seru.
+                      Terima kasih sudah menjelajahi portofolio ini sampai tuntas! Selalu terbuka untuk ngobrol santai seputar web dev, mobile tech, atau peluang kolaborasi.
                     </p>
                   </div>
 
@@ -309,20 +363,18 @@ export const ContactSection: React.FC = () => {
               <span>&copy; {new Date().getFullYear()} {profileData.name}</span>
               <span className="hidden sm:inline text-[#64748b]">•</span>
             </div>
-            <span className="text-[10px] sm:text-xs text-[#64748b] sm:text-[#0f172a] font-normal sm:font-bold">
-              Full-Stack &amp; Mobile Developer
-            </span>
+            <span className="text-[#2d6a4f]">Full-Stack &amp; Mobile Software Engineer</span>
           </div>
 
-          <div className="flex items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
-            <span className="text-[#64748b] hidden md:inline">Built with React, Vite &amp; Tailwind CSS</span>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] sm:text-[11px] text-[#64748b]">Nuansa Pedesaan Sore Hari</span>
             <button
               type="button"
               onClick={scrollToTop}
-              className="px-4 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-[#edf2eb] hover:bg-[#fde047] text-[#0f172a] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] transition-all cursor-pointer flex items-center justify-center gap-1.5 font-mono font-bold text-xs"
+              className="p-2 sm:p-2.5 rounded-xl bg-[#fffdf5] hover:bg-[#fde047] text-[#0f172a] border-2 border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+              title="Kembali ke atas"
             >
-              <span>Ke Atas</span>
-              <ArrowUp className="w-3.5 h-3.5" />
+              <ArrowUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
         </motion.div>

@@ -1,4 +1,4 @@
-import type { ProfileData, Project, TechItem, ExperienceItem } from '../types/portfolio';
+import type { ProfileData, Project, TechItem, ExperienceItem, CertificateItem } from '../types/portfolio';
 
 export const profileData: ProfileData = {
   name: 'Rendi Sutendi',
@@ -19,7 +19,8 @@ export const profileData: ProfileData = {
     email: 'rendisutendi21@gmail.com',
     github: 'https://github.com/RendiS10',
     linkedin: 'https://linkedin.com/in/rendi-sutendi-813a90270',
-    location: 'Bandung, Indonesia'
+    location: 'Bandung, Indonesia',
+    whatsapp: 'https://wa.me/6285721451615'
   }
 };
 
@@ -498,5 +499,265 @@ export const experienceData: ExperienceItem[] = [
       'Riset & Implementasi Sistem Informasi Terdistribusi'
     ],
     tech: ['Software Engineering', 'System Architecture', 'Database Design', 'Algorithms', 'Web Development']
+  }
+];
+
+
+export const certificatesData: CertificateItem[] = [
+  {
+    id: 'cert-msib',
+    title: 'Studi Independen Bersertifikat (SIB Dicoding Cycle 6)',
+    issuer: 'Dicoding × Kampus Merdeka Kemendikbudristek',
+    category: 'penghargaan',
+    imageUrl: '/certificates/dicoding/msib.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-pbi',
+    title: 'Project Based Internship — Luarsekolah',
+    issuer: 'Luarsekolah',
+    category: 'penghargaan',
+    imageUrl: '/certificates/luarsekolah/pbi.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-ciptabintar',
+    title: 'Surat Keterangan Magang IT & Backend',
+    issuer: 'Dinas Cipta Bintar Kota Bandung',
+    category: 'penghargaan',
+    imageUrl: '/certificates/ciptabintar.jpg',
+    year: '2025'
+  },
+  {
+    id: 'cert-matlaulanwar',
+    title: 'Implementasi Sistem Informasi Kelulusan (SIK)',
+    issuer: 'SMA Mathla\'ul Anwar',
+    category: 'penghargaan',
+    imageUrl: '/certificates/matlaulanwar.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-fe-expert',
+    title: 'Menjadi Front-End Web Developer Expert',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/front-end-expert.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-fund-react',
+    title: 'Belajar Fundamental Aplikasi Web dengan React',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/fundamental-react.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-web-react',
+    title: 'Belajar Membuat Aplikasi Web dengan React',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/web-react.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-fund-fe',
+    title: 'Belajar Fundamental Front-End Web',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/fundamental-frontend.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-backend-pemula',
+    title: 'Belajar Membuat Aplikasi Back-End untuk Pemula',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/backend-pemula.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-fe-pemula',
+    title: 'Belajar Front-End Web untuk Pemula',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/front-end-pemula.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-dasar-web',
+    title: 'Belajar Dasar Pemrograman Web',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/dasar-web.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-dasar-js',
+    title: 'Belajar Dasar Pemrograman JavaScript',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/dasar-js.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-logika-dicoding',
+    title: 'Belajar Dasar Logika Pemrograman',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/logika-pemrograman.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-git-github',
+    title: 'Belajar Dasar Git dengan GitHub',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/git-github.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-dasar-ai',
+    title: 'Belajar Dasar AI (Artificial Intelligence)',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/dasar-ai.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-aws-cloud',
+    title: 'Belajar Dasar AWS Cloud Computing',
+    issuer: 'Dicoding Indonesia × AWS',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/aws-cloud.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-memulai-dasar',
+    title: 'Memulai Dasar Pemrograman untuk Software Developer',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/memulai-dasar.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-meniti-karir',
+    title: 'Meniti Karier sebagai Software Developer',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/meniti-karir.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-js-mastery',
+    title: 'JavaScript Mastery',
+    issuer: 'Luarsekolah',
+    category: 'kelas',
+    imageUrl: '/certificates/luarsekolah/js-mastery.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-php-native',
+    title: 'Belajar PHP Native & Web Development',
+    issuer: 'Luarsekolah',
+    category: 'kelas',
+    imageUrl: '/certificates/luarsekolah/php-native.jpg',
+    year: '2023'
+  },
+  {
+    id: 'cert-logika-ls',
+    title: 'Belajar Logika Pemrograman',
+    issuer: 'Luarsekolah',
+    category: 'kelas',
+    imageUrl: '/certificates/luarsekolah/logika-pemrograman.jpg',
+    year: '2023'
+  },
+  {
+    id: 'cert-css-ls',
+    title: 'Belajar CSS Modern & Desain Web',
+    issuer: 'Luarsekolah',
+    category: 'kelas',
+    imageUrl: '/certificates/luarsekolah/css.jpg',
+    year: '2023'
+  },
+  {
+    id: 'cert-bdd-2025',
+    title: 'Baparekraf Developer Day (BDD) 2025',
+    issuer: 'Kemenparekraf × Dicoding',
+    category: 'webinar',
+    imageUrl: '/certificates/dicoding/bdd.jpg',
+    year: '2025'
+  },
+  {
+    id: 'cert-bdd-2024',
+    title: 'Baparekraf Developer Day (BDD) 2024',
+    issuer: 'Kemenparekraf × Dicoding',
+    category: 'webinar',
+    imageUrl: '/certificates/dicoding/bdd1.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-webinar-css',
+    title: 'Webinar CSS Pre-processor',
+    issuer: 'Dicoding Indonesia',
+    category: 'webinar',
+    imageUrl: '/certificates/dicoding/webinar-css.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-revou-da',
+    title: 'Introduction to Data Analyst',
+    issuer: 'RevoU Tech Academy',
+    category: 'webinar',
+    imageUrl: '/certificates/revou/data-analyst.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-revou-se',
+    title: 'Introduction to Software Engineering',
+    issuer: 'RevoU Tech Academy',
+    category: 'webinar',
+    imageUrl: '/certificates/revou/software-developer.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-webinar-stmik',
+    title: 'Webinar Mengenal Karier Bidang Teknologi',
+    issuer: 'STMIK Mardira Indonesia',
+    category: 'webinar',
+    imageUrl: '/certificates/webinar-stmik.jpg',
+    year: '2023'
+  },
+  {
+    id: 'cert-csa-anggota',
+    title: 'Anggota Creative Student Association (CSA) & Kelulusan Sidang',
+    issuer: 'Creative Student Association (CSA)',
+    category: 'organisasi',
+    imageUrl: '/certificates/csa/anggotacsa.jpg',
+    year: '2023'
+  },
+  {
+    id: 'cert-csa-mentor',
+    title: 'Mentor Study Club CSA — Divisi Pemrograman',
+    issuer: 'Creative Student Association (CSA)',
+    category: 'organisasi',
+    imageUrl: '/certificates/csa/mentor.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-csa-panitia',
+    title: 'Panitia Pelaksana Webinar Teknologi CSA',
+    issuer: 'Creative Student Association (CSA)',
+    category: 'organisasi',
+    imageUrl: '/certificates/csa/panitia.jpg',
+    year: '2024'
+  },
+  {
+    id: 'cert-csa-logistik',
+    title: 'Panitia Divisi Logistik Webinar CSA',
+    issuer: 'Creative Student Association (CSA)',
+    category: 'organisasi',
+    imageUrl: '/certificates/csa/panitia-logistik.jpg',
+    year: '2023'
   }
 ];

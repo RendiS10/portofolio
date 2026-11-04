@@ -9,6 +9,7 @@ import { ProjectShowcase } from './components/projects/ProjectShowcase';
 import { TechGrid } from './components/tech/TechGrid';
 import { GithubActivitySection } from './components/activity/GithubActivitySection';
 import { JourneyTimeline } from './components/journey/JourneyTimeline';
+import { CertificatesSection } from './components/credentials/CertificatesSection';
 import { ContactSection } from './components/contact/ContactSection';
 import { ProjectCaseStudyModal } from './components/projects/ProjectCaseStudyModal';
 
@@ -33,6 +34,7 @@ export function App() {
         <TechGrid onOpenProject={setActiveModalProject} />
         <GithubActivitySection />
         <JourneyTimeline />
+        <CertificatesSection />
         <ContactSection />
       </main>
 

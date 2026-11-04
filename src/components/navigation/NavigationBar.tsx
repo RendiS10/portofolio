@@ -18,6 +18,7 @@ export const NavigationBar: React.FC = () => {
     { label: 'Tech Stack', id: 'stack' },
     { label: 'Aktivitas', id: 'activity' },
     { label: 'Milestone', id: 'journey' },
+    { label: 'Sertifikasi', id: 'certificates' },
     { label: 'Kontak', id: 'contact' },
   ];
 

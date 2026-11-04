@@ -64,5 +64,17 @@ export interface ProfileData {
     github: string;
     linkedin: string;
     location: string;
+    whatsapp?: string;
   };
+}
+
+export type CertificateCategory = 'all' | 'penghargaan' | 'kelas' | 'webinar' | 'organisasi';
+
+export interface CertificateItem {
+  id: string;
+  title: string;
+  issuer: string;
+  category: 'penghargaan' | 'kelas' | 'webinar' | 'organisasi';
+  imageUrl: string;
+  year?: string;
 }
