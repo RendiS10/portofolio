@@ -9,15 +9,21 @@ import { VillageRooster } from './VillageRooster';
 import type { VillageRoosterHandle } from './VillageRooster';
 import { VillageDragonfly } from './VillageDragonfly';
 import { VillageScenery } from './VillageScenery';
+import { VillageFireflyCanvas } from './VillageFireflyCanvas';
 import { TactileButton } from '../ui/TactileButton';
 import { profileData } from '../../data/portfolioData';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 export const HeroSection: React.FC = () => {
   const oceanRef = useRef<OceanHeroHandle | null>(null);
   const stageRef = useRef<HeroPhysicsStageHandle | null>(null);
   const roosterRef = useRef<VillageRoosterHandle | null>(null);
 
+  const { atmosphere, playBambooTone } = useVillageAtmosphere();
+
   const handleSplash = (clientX: number, clientY: number, intensity: number) => {
+    playBambooTone(Math.min(920, 480 + intensity * 140));
+
     if (oceanRef.current) {
       oceanRef.current.triggerSplash(clientX, clientY, intensity);
     }
@@ -43,11 +49,14 @@ export const HeroSection: React.FC = () => {
   };
 
   const handleScrollToProjects = () => {
+    playBambooTone(520);
     const el = document.getElementById('projects');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const isNight = atmosphere === 'night';
 
   return (
     <section className="relative w-full h-screen min-h-[700px] flex flex-col justify-between pt-16 pb-10 overflow-hidden select-none">
@@ -56,12 +65,20 @@ export const HeroSection: React.FC = () => {
         <OceanHeroCanvas ref={oceanRef} />
       </div>
 
+      {/* Night Atmosphere Dark Filter & Glow Overlay */}
+      {isNight && (
+        <div className="absolute inset-0 z-5 pointer-events-none bg-[#09140e]/50 backdrop-brightness-85 transition-all duration-700" />
+      )}
+
+      {/* Bioluminescent Fireflies at Night */}
+      {isNight && <VillageFireflyCanvas />}
+
       {/* Authentic Countryside Landscape: Saung Sawah & Coconut Palms */}
-      <VillageScenery />
+      <VillageScenery isNight={isNight} />
 
       {/* Village Wildlife Animations */}
-      <PaddyFieldEgret />
-      <VillageDragonfly />
+      {!isNight && <PaddyFieldEgret />}
+      {!isNight && <VillageDragonfly />}
       <VillageRooster ref={roosterRef} />
 
       {/* Main Hero Content & Physics Stage */}
@@ -91,6 +108,7 @@ export const HeroSection: React.FC = () => {
               download="CV_Rendi_Sutendi.docx"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => playBambooTone(640)}
               className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-[#1f1a14]/90 hover:bg-[#2b2219] text-[#f8fafc] border border-[#f59e0b]/35 hover:border-[#f59e0b]/80 font-medium text-xs sm:text-sm transition-all select-none cursor-pointer hover:-translate-y-0.5 shadow-md backdrop-blur-xs shadow-[#78350f]/20"
             >
               <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f59e0b]" />
@@ -101,6 +119,7 @@ export const HeroSection: React.FC = () => {
               href={profileData.contact.github}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => playBambooTone(700)}
               className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-[#1f1a14]/90 hover:bg-[#2b2219] text-[#f8fafc] border border-[#f59e0b]/35 hover:border-[#f59e0b]/80 font-medium text-xs sm:text-sm transition-all select-none cursor-pointer hover:-translate-y-0.5 shadow-md backdrop-blur-xs shadow-[#78350f]/20"
             >
               <span>GitHub</span>

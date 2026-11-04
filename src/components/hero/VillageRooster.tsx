@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 export interface VillageRoosterHandle {
   triggerCrow: () => void;
@@ -34,12 +35,45 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
   const [currentQuip, setCurrentQuip] = useState<string | null>(null);
   const [isCrowing, setIsCrowing] = useState<boolean>(false);
   const [isPecking, setIsPecking] = useState<boolean>(false);
+  const [hasGoldenEgg, setHasGoldenEgg] = useState<boolean>(false);
   const roosterRef = useRef<HTMLDivElement | null>(null);
+
+  const { playRoosterSound } = useVillageAtmosphere();
+
+  // Secret Easter Egg click tracker
+  const clickCountRef = useRef<number>(0);
+  const lastClickTimeRef = useRef<number>(0);
+  const eggTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const deckRef = useRef<string[]>(createShuffledDeck(ROOSTER_DIALOGUES));
   const lastQuipRef = useRef<string>('');
 
   const triggerCrow = () => {
+    // Play Web Audio rooster crow
+    playRoosterSound();
+
+    // Easter Egg tracking (5 rapid clicks triggers Golden Egg)
+    const now = performance.now();
+    if (now - lastClickTimeRef.current < 3500) {
+      clickCountRef.current += 1;
+    } else {
+      clickCountRef.current = 1;
+    }
+    lastClickTimeRef.current = now;
+
+    if (clickCountRef.current >= 5) {
+      clickCountRef.current = 0;
+      setHasGoldenEgg(true);
+      setCurrentQuip('✨ TELUR EMAS PENJAGA SAWAH DITEMUKAN! ✨ (+9999 Aura Koding)');
+
+      if (eggTimeoutRef.current) clearTimeout(eggTimeoutRef.current);
+      eggTimeoutRef.current = setTimeout(() => {
+        setHasGoldenEgg(false);
+        setCurrentQuip(null);
+      }, 5000);
+      return;
+    }
+
     if (isCrowing) return;
     setIsCrowing(true);
     setCurrentQuip('KUKURUYUK! 🐓✨');
@@ -47,7 +81,9 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
     setTimeout(() => {
       setIsCrowing(false);
       setTimeout(() => {
-        setCurrentQuip(null);
+        if (!hasGoldenEgg) {
+          setCurrentQuip(null);
+        }
       }, 1500);
     }, 1800);
   };
@@ -62,7 +98,7 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
   // Periodic pecking behavior
   useEffect(() => {
     const peckInterval = setInterval(() => {
-      if (!isCrowing && Math.random() < 0.45) {
+      if (!isCrowing && !hasGoldenEgg && Math.random() < 0.45) {
         setIsPecking(true);
         setTimeout(() => {
           setIsPecking(false);
@@ -71,7 +107,7 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
     }, 4500);
 
     return () => clearInterval(peckInterval);
-  }, [isCrowing]);
+  }, [isCrowing, hasGoldenEgg]);
 
   // Walking loop across the bottom terrace
   useEffect(() => {
@@ -82,8 +118,8 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
       const delta = Math.min(0.05, (currentTime - lastTime) / 1000);
       lastTime = currentTime;
 
-      // Only walk when not pecking or crowing
-      if (!isCrowing && !isPecking) {
+      // Only walk when not pecking or crowing or celebrating egg
+      if (!isCrowing && !isPecking && !hasGoldenEgg) {
         const currX = x.get();
         const walkSpeed = 38;
         let nextX = currX - walkSpeed * delta;
@@ -101,12 +137,12 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
 
     animId = requestAnimationFrame(walkLoop);
     return () => cancelAnimationFrame(animId);
-  }, [isCrowing, isPecking, x]);
+  }, [isCrowing, isPecking, hasGoldenEgg, x]);
 
   // Dialogue bubble loop
   useEffect(() => {
     const quipInterval = setInterval(() => {
-      if (roosterRef.current && !isCrowing) {
+      if (roosterRef.current && !isCrowing && !hasGoldenEgg) {
         const rect = roosterRef.current.getBoundingClientRect();
         if (rect.right > 120 && rect.left < window.innerWidth - 120) {
           if (deckRef.current.length === 0) {
@@ -118,14 +154,14 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
           setCurrentQuip(nextQuip);
 
           setTimeout(() => {
-            if (!isCrowing) setCurrentQuip(null);
+            if (!isCrowing && !hasGoldenEgg) setCurrentQuip(null);
           }, 3200);
         }
       }
     }, 9000);
 
     return () => clearInterval(quipInterval);
-  }, [isCrowing]);
+  }, [isCrowing, hasGoldenEgg]);
 
   return (
     <motion.div
@@ -137,29 +173,68 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
       }}
       onClick={triggerCrow}
       className="z-30 select-none bottom-14 sm:bottom-20 md:bottom-24 scale-[0.78] sm:scale-[0.92] md:scale-100 origin-bottom cursor-pointer group"
-      title="Klik untuk membuat Ayam Jago berkokok!"
+      title="Klik untuk membuat Ayam Jago berkokok! (Klik 5x berturut-turut untuk Telur Emas!)"
     >
       <motion.div
         animate={{
-          y: isCrowing
+          y: hasGoldenEgg
+            ? [-12, 0, -12]
+            : isCrowing
             ? [-4, -12, -4]
             : isPecking
             ? [0, 10, 0, 8, 0]
             : [0, -3, 0, -3, 0],
-          rotate: isCrowing
+          rotate: hasGoldenEgg
+            ? [-6, 6, -6]
+            : isCrowing
             ? [-4, 6, -4]
             : isPecking
             ? [14, 22, 14]
             : [-1.5, 1.5, -1.5]
         }}
         transition={{
-          y: { repeat: isCrowing ? 2 : Infinity, duration: isCrowing ? 0.45 : isPecking ? 0.35 : 0.65, ease: 'easeInOut' },
-          rotate: { repeat: isCrowing ? 2 : Infinity, duration: isCrowing ? 0.45 : isPecking ? 0.35 : 0.65, ease: 'easeInOut' }
+          y: { repeat: hasGoldenEgg ? Infinity : isCrowing ? 2 : Infinity, duration: hasGoldenEgg ? 0.35 : isCrowing ? 0.45 : isPecking ? 0.35 : 0.65, ease: 'easeInOut' },
+          rotate: { repeat: hasGoldenEgg ? Infinity : isCrowing ? 2 : Infinity, duration: hasGoldenEgg ? 0.35 : isCrowing ? 0.45 : isPecking ? 0.35 : 0.65, ease: 'easeInOut' }
         }}
         className="relative"
       >
         {/* Soft Terrace Ground Shadow */}
         <div className="absolute -bottom-1 left-3 w-16 h-3 bg-[#132a20]/30 rounded-full blur-[2px]" />
+
+        {/* Floating Golden Egg Easter Egg */}
+        {hasGoldenEgg && (
+          <motion.div
+            initial={{ scale: 0, y: 10, rotate: -20 }}
+            animate={{ scale: [0, 1.25, 1], y: [-24, -36, -24], rotate: [-10, 10, -10] }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ y: { repeat: Infinity, duration: 1.2, ease: 'easeInOut' }, rotate: { repeat: Infinity, duration: 1.5, ease: 'easeInOut' } }}
+            className="absolute -top-14 -right-6 z-40 flex flex-col items-center pointer-events-none"
+          >
+            <div className="relative">
+              {/* Radial Golden Halo */}
+              <div className="absolute -inset-3 bg-amber-400/40 rounded-full blur-md animate-ping" />
+              <svg width="44" height="52" viewBox="0 0 44 52" fill="none" className="drop-shadow-[0_0_15px_rgba(251,191,36,0.9)]">
+                <defs>
+                  <linearGradient id="goldenEggGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#fffbeb" />
+                    <stop offset="30%" stopColor="#fef08a" />
+                    <stop offset="70%" stopColor="#f59e0b" />
+                    <stop offset="100%" stopColor="#b45309" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="22" cy="27" rx="18" ry="24" fill="url(#goldenEggGrad)" stroke="#fde047" strokeWidth="2" />
+                {/* Shiny highlight */}
+                <ellipse cx="16" cy="18" rx="5" ry="9" transform="rotate(-20 16 18)" fill="#ffffff" fillOpacity="0.85" />
+                {/* Sparkle stars */}
+                <path d="M30 10 L31.5 13.5 L35 15 L31.5 16.5 L30 20 L28.5 16.5 L25 15 L28.5 13.5 Z" fill="#ffffff" className="animate-pulse" />
+                <path d="M10 32 L11 34 L13 35 L11 36 L10 38 L9 36 L7 35 L9 34 Z" fill="#fef08a" />
+              </svg>
+            </div>
+            <span className="text-[10px] font-mono font-black text-amber-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-wider mt-1 whitespace-nowrap bg-black/70 px-2 py-0.5 rounded-full border border-amber-400/60">
+              TELUR EMAS 🥚✨
+            </span>
+          </motion.div>
+        )}
 
         {/* Authentic Indonesian Village Rooster SVG (Ayam Jago Kampung) */}
         <svg
@@ -288,7 +363,11 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
             initial={{ opacity: 0, scale: 0.75, y: 6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.75, y: 6 }}
-            className="absolute -top-10 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-2xl bg-[#fffdf5]/95 text-[#c2410c] text-xs font-mono font-black shadow-xl border-2 border-[#ea580c] whitespace-nowrap backdrop-blur-md flex items-center gap-1.5"
+            className={`absolute -top-10 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-2xl text-xs font-mono font-black shadow-xl whitespace-nowrap backdrop-blur-md flex items-center gap-1.5 ${
+              hasGoldenEgg
+                ? 'bg-amber-950/95 text-amber-300 border-2 border-amber-400 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]'
+                : 'bg-[#fffdf5]/95 text-[#c2410c] border-2 border-[#ea580c]'
+            }`}
           >
             <span className="drop-shadow-xs">{currentQuip}</span>
           </motion.div>

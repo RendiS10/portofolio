@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Project } from './types/portfolio';
 import { useLenisSmoothScroll } from './hooks/useLenisSmoothScroll';
+import { VillageAtmosphereProvider, useVillageAtmosphere } from './context/VillageAtmosphereContext';
 import { NavigationBar } from './components/navigation/NavigationBar';
 import { HeroSection } from './components/hero/HeroSection';
 import { WelcomeAnimation } from './components/hero/WelcomeAnimation';
@@ -13,14 +14,19 @@ import { CertificatesSection } from './components/credentials/CertificatesSectio
 import { ContactSection } from './components/contact/ContactSection';
 import { ProjectCaseStudyModal } from './components/projects/ProjectCaseStudyModal';
 
-export function App() {
+function PortfolioMain() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
+  const { atmosphere } = useVillageAtmosphere();
 
   useLenisSmoothScroll();
 
   return (
-    <div className="min-h-screen bg-[#f5f3ec] text-[#0f172a] selection:bg-[#2d6a4f] selection:text-white">
+    <div
+      className={`min-h-screen transition-colors duration-700 selection:bg-[#2d6a4f] selection:text-white ${
+        atmosphere === 'night' ? 'bg-[#0f1a14] text-[#f1f5f9]' : 'bg-[#f5f3ec] text-[#0f172a]'
+      }`}
+    >
       {showWelcome && (
         <WelcomeAnimation onComplete={() => setShowWelcome(false)} />
       )}
@@ -44,6 +50,14 @@ export function App() {
         onClose={() => setActiveModalProject(null)}
       />
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <VillageAtmosphereProvider>
+      <PortfolioMain />
+    </VillageAtmosphereProvider>
   );
 }
 

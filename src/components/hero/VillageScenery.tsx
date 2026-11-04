@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export const VillageScenery: React.FC = () => {
+interface VillageSceneryProps {
+  isNight?: boolean;
+}
+
+export const VillageScenery: React.FC<VillageSceneryProps> = ({ isNight = false }) => {
   const [hutQuip, setHutQuip] = useState<string | null>(null);
 
   const handleHutClick = () => {
@@ -292,7 +296,7 @@ export const VillageScenery: React.FC = () => {
                   <line x1="110" y1="58" x2="110" y2="76" stroke="#2c180a" strokeWidth="1.5" />
                   
                   {/* Ambient Golden Lantern Glow */}
-                  <circle cx="110" cy="85" r="28" fill="url(#lanternGlow)" className="animate-pulse" />
+                  <circle cx="110" cy="85" r={isNight ? 48 : 28} fill="url(#lanternGlow)" className="animate-pulse" />
                   
                   {/* Lantern Frame & Glass */}
                   <rect x="105" y="76" width="10" height="15" rx="3" fill="#fde047" stroke="#78350f" strokeWidth="1.2" />

@@ -1,16 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Check, Menu, X } from 'lucide-react';
+import { Copy, Check, Menu, X, Volume2, VolumeX, Moon, Sun } from 'lucide-react';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useClipboard } from '../../hooks/useClipboard';
 import { profileData } from '../../data/portfolioData';
 import { BrandLogo } from '../common/BrandLogo';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 export const NavigationBar: React.FC = () => {
   const { isScrolled, scrollToSection } = useScrollPosition();
   const { copied, copy } = useClipboard();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('about');
+
+  const {
+    atmosphere,
+    toggleAtmosphere,
+    isSoundEnabled,
+    toggleSound,
+    playBambooTone
+  } = useVillageAtmosphere();
 
   const navItems = [
     { label: 'Profil', id: 'about' },
@@ -78,12 +87,16 @@ export const NavigationBar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (id: string) => {
+  const handleNavClick = (id: string, index = 0) => {
     isManualClickRef.current = true;
     setActiveSection(id);
     updatePill(id);
     scrollToSection(id);
     setMobileMenuOpen(false);
+
+    // Pentatonic chime note on every click (Da-Mi-Na-Ti-La scale)
+    const pitches = [440, 495, 550, 660, 770, 880, 990];
+    playBambooTone(pitches[index % pitches.length] || 520);
 
     if (manualClickTimerRef.current) clearTimeout(manualClickTimerRef.current);
     manualClickTimerRef.current = setTimeout(() => {
@@ -102,7 +115,10 @@ export const NavigationBar: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         <button
           type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => {
+            playBambooTone(660);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
           className="flex items-center gap-2 text-left group cursor-pointer"
         >
           <BrandLogo size="md" withText />
@@ -121,7 +137,7 @@ export const NavigationBar: React.FC = () => {
             </div>
           )}
 
-          {navItems.map((item) => {
+          {navItems.map((item, idx) => {
             const isActive = activeSection === item.id;
 
             return (
@@ -131,7 +147,7 @@ export const NavigationBar: React.FC = () => {
                   tabRefs.current[item.id] = el;
                 }}
                 type="button"
-                onClick={() => handleNavClick(item.id)}
+                onClick={() => handleNavClick(item.id, idx)}
                 className="relative z-10 px-4 py-1.5 rounded-full text-sm font-semibold transition-colors cursor-pointer group select-none"
               >
                 <span
@@ -146,11 +162,50 @@ export const NavigationBar: React.FC = () => {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        {/* Action controls (Atmosphere switch, Audio toggle, Email Copy) */}
+        <div className="hidden md:flex items-center gap-2.5">
+          {/* Atmosphere Toggle: Sunset vs Starry Night */}
           <button
             type="button"
-            onClick={() => copy(profileData.contact.email)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 hover:border-[#f59e0b] text-xs font-mono text-white shadow-md transition-all backdrop-blur-xl cursor-pointer group active:scale-95"
+            onClick={toggleAtmosphere}
+            className="p-2 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 text-white shadow-md transition-all backdrop-blur-xl cursor-pointer group active:scale-95"
+            title={atmosphere === 'sunset' ? 'Beralih ke Suasana Malam Berkunang-kunang' : 'Beralih ke Suasana Senja Sawah'}
+            aria-label="Toggle Atmosphere"
+          >
+            {atmosphere === 'sunset' ? (
+              <Moon className="w-4 h-4 text-[#fde047] group-hover:rotate-12 transition-transform" />
+            ) : (
+              <Sun className="w-4 h-4 text-[#fbbf24] group-hover:rotate-45 transition-transform" />
+            )}
+          </button>
+
+          {/* Sound Toggle: Ambient Breeze, Crickets, and Chimes */}
+          <button
+            type="button"
+            onClick={toggleSound}
+            className={`p-2 rounded-full border shadow-md transition-all backdrop-blur-xl cursor-pointer group active:scale-95 ${
+              isSoundEnabled
+                ? 'bg-[#2d6a4f]/80 border-[#80ed99] text-[#fde047]'
+                : 'bg-white/15 hover:bg-white/25 border-white/30 text-white'
+            }`}
+            title={isSoundEnabled ? 'Matikan Suara Alam Pedesaan' : 'Aktifkan Suara Alam Pedesaan & Denting Angklung'}
+            aria-label="Toggle Sound"
+          >
+            {isSoundEnabled ? (
+              <Volume2 className="w-4 h-4 text-[#fde047] animate-pulse" />
+            ) : (
+              <VolumeX className="w-4 h-4 text-stone-300" />
+            )}
+          </button>
+
+          {/* Email Copy Pill */}
+          <button
+            type="button"
+            onClick={() => {
+              playBambooTone(600);
+              copy(profileData.contact.email);
+            }}
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 hover:border-[#f59e0b] text-xs font-mono text-white shadow-md transition-all backdrop-blur-xl cursor-pointer group active:scale-95"
             title="Salin email"
           >
             {copied ? (
@@ -167,19 +222,54 @@ export const NavigationBar: React.FC = () => {
           </button>
         </div>
 
+        {/* Mobile controls */}
         <div className="md:hidden flex items-center gap-2">
+          {/* Atmosphere Toggle Mobile */}
           <button
             type="button"
-            onClick={() => copy(profileData.contact.email)}
-            className="p-2.5 rounded-xl bg-white/15 border border-white/30 text-white active:scale-95 transition-transform backdrop-blur-md shadow-sm"
+            onClick={toggleAtmosphere}
+            className="p-2 rounded-xl bg-white/15 border border-white/30 text-white active:scale-95 transition-transform backdrop-blur-md shadow-sm"
+            aria-label="Toggle Atmosphere"
+            title={atmosphere === 'sunset' ? 'Mode Malam Berkunang-kunang' : 'Mode Senja'}
+          >
+            {atmosphere === 'sunset' ? (
+              <Moon className="w-4 h-4 text-[#fde047]" />
+            ) : (
+              <Sun className="w-4 h-4 text-[#fbbf24]" />
+            )}
+          </button>
+
+          {/* Sound Toggle Mobile */}
+          <button
+            type="button"
+            onClick={toggleSound}
+            className={`p-2 rounded-xl border text-white active:scale-95 transition-transform backdrop-blur-md shadow-sm ${
+              isSoundEnabled ? 'bg-[#2d6a4f]/80 border-[#80ed99]' : 'bg-white/15 border-white/30'
+            }`}
+            aria-label="Toggle Sound"
+            title={isSoundEnabled ? 'Matikan Suara' : 'Aktifkan Suara Alam'}
+          >
+            {isSoundEnabled ? <Volume2 className="w-4 h-4 text-[#fde047]" /> : <VolumeX className="w-4 h-4 text-stone-300" />}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              playBambooTone(600);
+              copy(profileData.contact.email);
+            }}
+            className="p-2 rounded-xl bg-white/15 border border-white/30 text-white active:scale-95 transition-transform backdrop-blur-md shadow-sm"
             aria-label="Salin email"
           >
             {copied ? <Check className="w-4 h-4 text-[#fde047]" /> : <Copy className="w-4 h-4 text-[#fde047]" />}
           </button>
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-xl bg-white/15 border border-white/30 text-white active:scale-95 transition-transform backdrop-blur-md shadow-sm"
+            onClick={() => {
+              playBambooTone(480);
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
+            className="p-2 rounded-xl bg-white/15 border border-white/30 text-white active:scale-95 transition-transform backdrop-blur-md shadow-sm"
             aria-label="Buka menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -195,17 +285,27 @@ export const NavigationBar: React.FC = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-[#1c1815]/98 backdrop-blur-2xl border-b border-[#f59e0b]/30 px-5 py-4 mt-2 shadow-[0_12px_32px_rgba(0,0,0,0.6)]"
           >
-            <div className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => handleNavClick(item.id)}
-                  className={`w-full text-left py-2.5 px-3.5 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${activeSection === item.id ? 'bg-[#f59e0b]/20 text-[#fde047] font-bold border-l-2 border-[#fde047]' : 'text-stone-200 hover:text-[#fde047] hover:bg-white/10'}`}
-                >
-                  {item.label}
-                </button>
-              ))}
+            <div className="flex flex-col gap-1.5">
+              {navItems.map((item, idx) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleNavClick(item.id, idx)}
+                    className={`w-full text-left py-2.5 px-3.5 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
+                      isActive
+                        ? 'bg-[#f59e0b]/20 text-[#fde047] font-bold border-l-2 border-[#fde047]'
+                        : 'text-stone-200 hover:text-[#fde047] hover:bg-white/10'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#fde047] shadow-[0_0_8px_#fde047]" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
         )}
