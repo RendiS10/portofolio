@@ -18,7 +18,6 @@ export const FlagshipSlideCard: React.FC<FlagshipProjectCardProps> = ({
 }) => {
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
-  const isEven = index % 2 === 0;
 
   const categoryLabel =
     project.category === 'fullstack'
@@ -41,7 +40,7 @@ export const FlagshipSlideCard: React.FC<FlagshipProjectCardProps> = ({
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Text & Narrative Content Column */}
-        <div className={`space-y-5 lg:col-span-7 ${!isEven ? 'lg:order-2' : ''}`}>
+        <div className="space-y-5 lg:col-span-7">
           {/* Header Metadata Pill Row */}
           <div className="flex flex-wrap items-center gap-2.5">
             <span
@@ -189,7 +188,7 @@ export const FlagshipSlideCard: React.FC<FlagshipProjectCardProps> = ({
         </div>
 
         {/* Visual Mockup Stage Column */}
-        <div className={`lg:col-span-5 flex items-center justify-center ${!isEven ? 'lg:order-1' : ''}`}>
+        <div className="lg:col-span-5 flex items-center justify-center">
           <ProjectPreviewPlaceholder
             project={project}
             className="w-full max-w-lg lg:max-w-none"
