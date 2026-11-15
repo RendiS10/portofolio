@@ -66,34 +66,41 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
       {/* content wrapper */}
       <div className="relative z-10 pt-14 sm:pt-16 pb-20 max-w-7xl mx-auto px-6 sm:px-12">
         {/* header */}
-        <div className={`space-y-4 pb-8 border-b-2 transition-colors duration-500 ${
-          isNight ? 'border-emerald-500/25' : 'border-[#0f172a]/15'
+        <div className={`space-y-4 pb-8 border-b transition-colors duration-500 ${
+          isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
         }`}>
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#fde047] text-[#0f172a] text-xs font-mono font-black border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] w-fit">
-            <span>03 // TECH STACK</span>
+          <div className="flex items-center gap-2">
+            <span
+              className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
+                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+              }`}
+            >
+              03 // PETA KEAHLIAN &amp; TECH STACK
+            </span>
+            <span className={`w-1.5 h-1.5 rounded-full ${isNight ? 'bg-emerald-400' : 'bg-emerald-600'}`} />
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
               <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.08] transition-colors duration-500 ${
-                isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'
+                isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'
               }`}>
-                Tech Stack &amp; Tools
+                Tech Stack &amp; Tools Produksi
               </h2>
-              <p className={`text-sm sm:text-base font-medium mt-2 max-w-2xl leading-relaxed transition-colors duration-500 ${
-                isNight ? 'text-stone-300' : 'text-[#475569]'
+              <p className={`text-sm sm:text-base font-normal mt-2 max-w-2xl leading-relaxed transition-colors duration-500 ${
+                isNight ? 'text-[#95a499]' : 'text-[#48564c]'
               }`}>
-                Teknologi dan tools yang saya gunakan untuk membangun aplikasi web dan mobile.
+                Teknologi yang saya gunakan secara langsung pada lingkungan produksi untuk membangun sistem web performan tinggi, aplikasi mobile native, dan pipeline VPS.
               </p>
             </div>
 
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-2xl border transition-colors duration-500 shrink-0 self-start lg:self-auto ${
+            <div className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border transition-colors duration-500 shrink-0 self-start lg:self-auto ${
               isNight
-                ? 'bg-[#142118] border-emerald-500/35 text-[#f8fafc] shadow-[3px_3px_0px_#040906]'
-                : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+                ? 'bg-[#142118] border-emerald-500/30 text-[#f5f7f4] shadow-sm'
+                : 'bg-white border-[#e4ded5] text-[#151e17] shadow-sm'
             }`}>
-              <Layers className={`w-4 h-4 ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`} />
-              <span className={`text-xs font-mono font-bold ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
+              <Layers className={`w-3.5 h-3.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+              <span className={`text-xs font-mono font-semibold ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
                 {techStackData.length} Tools &amp; Frameworks
               </span>
             </div>

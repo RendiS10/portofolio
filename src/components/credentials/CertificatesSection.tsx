@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, ExternalLink, ZoomIn, X, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, ZoomIn, X, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { certificatesData } from '../../data/portfolioData';
 import type { CertificateCategory } from '../../types/portfolio';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
@@ -95,31 +95,37 @@ export const CertificatesSection: React.FC = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 space-y-8 sm:space-y-12">
         {/* Section Header */}
-        <div className={`space-y-4 pb-6 sm:pb-8 border-b-2 transition-colors duration-500 ${
-          isNight ? 'border-emerald-500/25' : 'border-[#0f172a]/15'
+        <div className={`space-y-4 pb-6 sm:pb-8 border-b transition-colors duration-500 ${
+          isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
         }`}>
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#fde047] text-[#0f172a] text-xs font-mono font-black border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a] w-fit">
-            <Award className="w-3.5 h-3.5" />
-            <span>05 // KREDENSIAL &amp; SERTIFIKASI</span>
+          <div className="flex items-center gap-2">
+            <span
+              className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
+                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+              }`}
+            >
+              05 // KREDENSIAL &amp; LISENSI RESMI
+            </span>
+            <span className={`w-1.5 h-1.5 rounded-full ${isNight ? 'bg-emerald-400' : 'bg-emerald-600'}`} />
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.08] ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.08] ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
                 Sertifikasi &amp; Lisensi Resmi
               </h2>
-              <p className={`text-sm sm:text-base font-medium mt-2 max-w-2xl leading-relaxed ${isNight ? 'text-stone-300' : 'text-[#475569]'}`}>
-                32 sertifikat terverifikasi dari Dicoding (Kampus Merdeka Kemendikbudristek), Luarsekolah, RevoU, Kementerian, dan Kedinasan.
+              <p className={`text-sm sm:text-base font-normal mt-2 max-w-2xl leading-relaxed ${isNight ? 'text-[#95a499]' : 'text-[#48564c]'}`}>
+                32 sertifikat terverifikasi dari Dicoding (Kampus Merdeka Kemendikbudristek), Luarsekolah, RevoU, Kementerian, dan Kedinasan Pemerintah.
               </p>
             </div>
 
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-2xl border transition-colors duration-500 shrink-0 self-start lg:self-auto ${
+            <div className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border transition-colors duration-500 shrink-0 self-start lg:self-auto ${
               isNight
-                ? 'bg-[#142118] border-emerald-500/35 text-[#f8fafc] shadow-[3px_3px_0px_#040906]'
-                : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+                ? 'bg-[#142118] border-emerald-500/30 text-[#f5f7f4] shadow-sm'
+                : 'bg-white border-[#e4ded5] text-[#151e17] shadow-sm'
             }`}>
-              <CheckCircle2 className="w-4 h-4 text-[#16a34a]" />
-              <span className={`text-xs font-mono font-bold ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              <span className={`text-xs font-mono font-semibold ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
                 {certificatesData.length} Sertifikat Terdaftar
               </span>
             </div>
@@ -136,22 +142,24 @@ export const CertificatesSection: React.FC = () => {
                 setSelectedCategory(cat.id);
                 setVisibleCount(8);
               }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer border shrink-0 ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer border shrink-0 ${
                 selectedCategory === cat.id
-                  ? 'bg-[#2d6a4f] text-white shadow-[2.5px_2.5px_0px_#040906] border-emerald-500/40 -translate-y-0.5'
+                  ? isNight
+                    ? 'bg-emerald-600 text-white border-emerald-400 shadow-sm'
+                    : 'bg-[#1b4332] text-white border-[#1b4332] shadow-sm'
                   : isNight
-                  ? 'bg-[#142118] text-[#f8fafc] border-emerald-500/30 hover:bg-[#1a2a20]'
-                  : 'bg-[#fffdf5] text-[#0f172a] border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:bg-[#edf2eb]'
+                  ? 'bg-[#142118] text-[#95a499] border-emerald-500/20 hover:border-emerald-500/40 hover:text-white'
+                  : 'bg-white text-[#151e17] border-[#e4ded5] hover:border-[#1b4332]/40 hover:bg-[#fcfbf9]'
               }`}
             >
               <span>{cat.label}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
                   selectedCategory === cat.id
-                    ? 'bg-white/30 text-white'
+                    ? 'bg-white/20 text-white'
                     : isNight
                     ? 'bg-[#1a2a20] text-amber-300 border border-emerald-500/30'
-                    : 'bg-[#edf2eb] text-[#0f172a] border border-[#0f172a]/30'
+                    : 'bg-[#ebf2ec] text-[#1b4332] border border-emerald-200'
                 }`}
               >
                 {cat.count}
@@ -165,18 +173,18 @@ export const CertificatesSection: React.FC = () => {
           {visibleCerts.map((cert, idx) => (
             <motion.div
               key={cert.id}
-              whileHover={{ y: -4, scale: 1.01 }}
+              whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 350, damping: 20 }}
               onClick={() => setActiveCertIndex(idx)}
               className={`group cursor-pointer rounded-2xl border overflow-hidden flex flex-col justify-between transition-all ${
                 isNight
-                  ? 'bg-[#142118] border-emerald-500/35 shadow-[4px_4px_0px_#040906] hover:shadow-[6px_6px_0px_#040906]'
-                  : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[4px_4px_0px_#0f172a] hover:shadow-[6px_6px_0px_#0f172a]'
+                  ? 'bg-[#111a14] border-emerald-500/20 shadow-sm hover:shadow-md hover:border-emerald-500/40'
+                  : 'bg-white border-[#e4ded5] shadow-sm hover:shadow-md hover:border-[#1b4332]/40'
               }`}
             >
               {/* Image Preview Container */}
               <div className={`relative aspect-[4/3] w-full border-b overflow-hidden ${
-                isNight ? 'bg-[#1a2a20] border-emerald-500/20' : 'bg-[#edf2eb] border-[#0f172a]'
+                isNight ? 'bg-[#16221a] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
               }`}>
                 <img
                   src={cert.imageUrl}
@@ -185,7 +193,7 @@ export const CertificatesSection: React.FC = () => {
                   className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-[#0f172a]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
-                  <div className="px-3 py-1.5 rounded-xl bg-[#fde047] border-2 border-[#0f172a] text-[#0f172a] text-xs font-mono font-bold shadow-[2px_2px_0px_#0f172a] flex items-center gap-1.5">
+                  <div className="px-3 py-1.5 rounded-full bg-white/90 text-[#151e17] text-xs font-mono font-semibold shadow-sm flex items-center gap-1.5">
                     <ZoomIn className="w-3.5 h-3.5" />
                     <span>Perbesar</span>
                   </div>
@@ -193,10 +201,10 @@ export const CertificatesSection: React.FC = () => {
 
                 {/* Badge Category */}
                 <div className="absolute top-2.5 left-2.5">
-                  <span className={`text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded-md border shadow-xs ${
+                  <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full border shadow-xs backdrop-blur-sm ${
                     isNight
-                      ? 'bg-[#142118]/95 text-amber-300 border-emerald-500/40'
-                      : 'bg-[#fffdf5]/95 text-[#0f172a] border-[#0f172a]'
+                      ? 'bg-[#142118]/90 text-amber-300 border-emerald-500/30'
+                      : 'bg-white/90 text-[#1b4332] border-[#e4ded5]'
                   }`}>
                     {cert.category}
                   </span>
@@ -204,7 +212,11 @@ export const CertificatesSection: React.FC = () => {
 
                 {cert.year && (
                   <div className="absolute top-2.5 right-2.5">
-                    <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-md bg-[#fde047] text-[#0f172a] border border-[#0f172a] shadow-xs">
+                    <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border shadow-xs backdrop-blur-sm ${
+                      isNight
+                        ? 'bg-[#142118]/90 text-amber-300 border-emerald-500/30'
+                        : 'bg-white/90 text-[#151e17] border-[#e4ded5]'
+                    }`}>
                       {cert.year}
                     </span>
                   </div>
@@ -214,23 +226,23 @@ export const CertificatesSection: React.FC = () => {
               {/* Caption & Metadata */}
               <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
                 <div>
-                  <h4 className={`text-sm font-black leading-snug line-clamp-2 transition-colors ${
-                    isNight ? 'text-[#f8fafc] group-hover:text-amber-300' : 'text-[#0f172a] group-hover:text-[#2d6a4f]'
+                  <h4 className={`text-sm font-bold leading-snug line-clamp-2 transition-colors ${
+                    isNight ? 'text-[#f5f7f4] group-hover:text-amber-300' : 'text-[#151e17] group-hover:text-[#1b4332]'
                   }`}>
                     {cert.title}
                   </h4>
-                  <p className={`text-xs font-mono font-bold mt-1 line-clamp-1 ${
-                    isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+                  <p className={`text-xs font-mono font-medium mt-1 line-clamp-1 ${
+                    isNight ? 'text-amber-400' : 'text-[#1b4332]'
                   }`}>
                     {cert.issuer}
                   </p>
                 </div>
 
                 <div className={`pt-2 border-t flex items-center justify-between text-[11px] font-mono ${
-                  isNight ? 'border-emerald-500/20 text-stone-400' : 'border-[#d8dfd5] text-[#475569]'
+                  isNight ? 'border-emerald-500/20 text-[#95a499]' : 'border-[#e4ded5] text-[#64748b]'
                 }`}>
                   <span>Terverifikasi</span>
-                  <ExternalLink className={`w-3 h-3 ${isNight ? 'text-emerald-400' : 'text-[#2d6a4f]'}`} />
+                  <ExternalLink className={`w-3 h-3 ${isNight ? 'text-emerald-400' : 'text-[#1b4332]'}`} />
                 </div>
               </div>
             </motion.div>

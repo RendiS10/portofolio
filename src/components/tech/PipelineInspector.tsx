@@ -150,96 +150,98 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25 }}
-        className={`p-7 sm:p-9 rounded-[32px] border space-y-6 select-none transition-colors duration-500 ${
+        className={`p-6 sm:p-8 rounded-3xl border space-y-6 select-none transition-colors duration-500 ${
           isNight
-            ? 'bg-[#142118] border-emerald-500/35 shadow-[8px_8px_0px_#040906]'
-            : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[8px_8px_0px_#0f172a]'
+            ? 'bg-[#111a14] border-emerald-500/20 shadow-xl'
+            : 'bg-white border-[#e4ded5] shadow-lg shadow-stone-900/5'
         }`}
       >
-        <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b-2 transition-colors duration-500 ${
-          isNight ? 'border-emerald-500/20' : 'border-[#0f172a]/10'
+        <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b transition-colors duration-500 ${
+          isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
         }`}>
           <div className="flex items-center gap-4">
-            <div className={`w-14 h-14 rounded-2xl border-2 flex items-center justify-center ${
-              isNight ? 'border-red-500/40 bg-red-950/40 text-red-400 shadow-[3px_3px_0px_#040906]' : 'border-[#0f172a] shadow-[3px_3px_0px_#0f172a] bg-[#fee2e2] text-[#dc2626]'
+            <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center ${
+              isNight ? 'border-red-500/30 bg-red-950/20 text-red-400' : 'border-red-200 bg-red-50 text-red-600'
             }`}>
-              <ShieldAlert className="w-8 h-8" />
+              <ShieldAlert className="w-6 h-6" />
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
-                  Cyber Security
+                <span className={`text-xl sm:text-2xl font-bold tracking-tight ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
+                  Cyber Security &amp; Systems
                 </span>
-                <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-[#fee2e2] text-[#dc2626] border border-[#dc2626]">
-                  COMING SOON
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">
+                  ROADMAP
                 </span>
               </div>
 
-              <div className={`text-xs font-mono font-bold mt-0.5 ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
-                Riset &amp; Eksplorasi Keamanan Siber
+              <div className={`text-xs font-mono font-medium mt-0.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+                Riset &amp; Eksplorasi Keamanan Siber Berkelanjutan
               </div>
             </div>
           </div>
 
-          <div className="px-3.5 py-1.5 rounded-xl bg-[#fee2e2] border border-[#dc2626] text-xs font-mono font-bold text-[#dc2626] self-start sm:self-auto flex items-center gap-1.5">
+          <div className={`px-3 py-1 rounded-full border text-xs font-mono font-medium self-start sm:self-auto flex items-center gap-1.5 ${
+            isNight ? 'bg-[#17231c] border-emerald-500/20 text-[#95a499]' : 'bg-[#f4f1ea] border-[#e4ded5] text-[#48564c]'
+          }`}>
             <Activity className="w-3.5 h-3.5" />
-            <span>Tahap Persiapan</span>
+            <span>Tahap Studi Mandiri</span>
           </div>
         </div>
 
         {/* security exploration description */}
         <div className="space-y-2">
-          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-stone-400' : 'text-[#64748b]'}`}>
+          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
             Fokus Eksplorasi
           </div>
-          <p className={`text-sm sm:text-base font-medium leading-relaxed p-4 rounded-2xl border ${
-            isNight ? 'bg-[#1a2a20] border-emerald-500/25 text-stone-200' : 'bg-[#edf2eb]/60 border-[#0f172a]/20 text-[#1e293b]'
+          <p className={`text-xs sm:text-sm font-normal leading-relaxed p-4 rounded-2xl border ${
+            isNight ? 'bg-[#16221a] border-emerald-500/20 text-[#c2ceb9]' : 'bg-[#fcfbf9] border-[#e4ded5] text-[#38433b]'
           }`}>
-            Bidang keamanan siber yang sedang dipersiapkan mencakup Web Application Security (OWASP Top 10), Network Traffic Analysis, Capture The Flag (CTF), dan Linux System Security.
+            Bidang keamanan siber yang sedang dipelajari mencakup Web Application Security (OWASP Top 10), Network Traffic Analysis, Capture The Flag (CTF), dan Linux System Hardening.
           </p>
         </div>
 
         {/* security toolkit cards */}
-        <div className="space-y-3 pt-2">
-          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
+        <div className="space-y-3 pt-1">
+          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
             Domain yang Dipersiapkan
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className={`p-4 rounded-2xl border space-y-1 ${
-              isNight ? 'bg-[#1a2a20] border-emerald-500/30 text-[#f8fafc] shadow-[3px_3px_0px_#040906]' : 'bg-[#edf2eb] border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+              isNight ? 'bg-[#16221a] border-emerald-500/20 text-[#f5f7f4]' : 'bg-[#fcfbf9] border-[#e4ded5] text-[#151e17]'
             }`}>
-              <div className={`flex items-center gap-2 text-xs font-mono font-black ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
-                <Lock className="w-4 h-4 text-[#dc2626]" />
+              <div className={`flex items-center gap-2 text-xs font-mono font-bold ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
+                <Lock className="w-4 h-4 text-red-500" />
                 <span>Web App Security</span>
               </div>
-              <p className={`text-xs font-medium ${isNight ? 'text-stone-300' : 'text-[#475569]'}`}>
+              <p className={`text-xs font-normal ${isNight ? 'text-[#95a499]' : 'text-[#64748b]'}`}>
                 Vulnerability testing, pencegahan XSS/SQLi, dan audit otentikasi.
               </p>
             </div>
 
             <div className={`p-4 rounded-2xl border space-y-1 ${
-              isNight ? 'bg-[#1a2a20] border-emerald-500/30 text-[#f8fafc] shadow-[3px_3px_0px_#040906]' : 'bg-[#edf2eb] border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+              isNight ? 'bg-[#16221a] border-emerald-500/20 text-[#f5f7f4]' : 'bg-[#fcfbf9] border-[#e4ded5] text-[#151e17]'
             }`}>
-              <div className={`flex items-center gap-2 text-xs font-mono font-black ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
-                <Terminal className="w-4 h-4 text-emerald-400" />
+              <div className={`flex items-center gap-2 text-xs font-mono font-bold ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
+                <Terminal className="w-4 h-4 text-emerald-500" />
                 <span>Network Analysis</span>
               </div>
-              <p className={`text-xs font-medium ${isNight ? 'text-stone-300' : 'text-[#475569]'}`}>
+              <p className={`text-xs font-normal ${isNight ? 'text-[#95a499]' : 'text-[#64748b]'}`}>
                 Port scanning, inspeksi paket jaringan, dan firewall.
               </p>
             </div>
 
             <div className={`p-4 rounded-2xl border space-y-1 ${
-              isNight ? 'bg-[#1a2a20] border-emerald-500/30 text-[#f8fafc] shadow-[3px_3px_0px_#040906]' : 'bg-[#edf2eb] border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+              isNight ? 'bg-[#16221a] border-emerald-500/20 text-[#f5f7f4]' : 'bg-[#fcfbf9] border-[#e4ded5] text-[#151e17]'
             }`}>
-              <div className={`flex items-center gap-2 text-xs font-mono font-black ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
-                <Activity className="w-4 h-4 text-emerald-400" />
+              <div className={`flex items-center gap-2 text-xs font-mono font-bold ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
+                <Activity className="w-4 h-4 text-emerald-500" />
                 <span>Linux Security</span>
               </div>
-              <p className={`text-xs font-medium ${isNight ? 'text-stone-300' : 'text-[#475569]'}`}>
-                Hardening izin sistem, manajemen SSH, dan isolasi proses.
+              <p className={`text-xs font-normal ${isNight ? 'text-[#95a499]' : 'text-[#64748b]'}`}>
+                Hardening izin sistem, manajemen SSH, dan isolasi proses Docker.
               </p>
             </div>
           </div>
@@ -261,41 +263,45 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25 }}
-        className={`p-7 sm:p-9 rounded-[32px] border space-y-6 select-none transition-colors duration-500 ${
+        className={`p-6 sm:p-8 rounded-3xl border space-y-6 select-none transition-colors duration-500 ${
           isNight
-            ? 'bg-[#142118] border-emerald-500/35 shadow-[8px_8px_0px_#040906]'
-            : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[8px_8px_0px_#0f172a]'
+            ? 'bg-[#111a14] border-emerald-500/20 shadow-xl'
+            : 'bg-white border-[#e4ded5] shadow-lg shadow-stone-900/5'
         }`}
       >
         {/* inspector header */}
-        <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b-2 transition-colors duration-500 ${
-          isNight ? 'border-emerald-500/20' : 'border-[#0f172a]/10'
+        <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b transition-colors duration-500 ${
+          isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
         }`}>
           <div className="flex items-center gap-4">
             <div
-              className={`w-14 h-14 rounded-2xl border-2 flex items-center justify-center ${
-                isNight ? 'bg-[#1a2a20] border-emerald-500/30 shadow-[3px_3px_0px_#040906]' : 'bg-[#edf2eb] border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+              className={`w-12 h-12 rounded-2xl border flex items-center justify-center ${
+                isNight ? 'bg-[#17231c] border-emerald-500/30' : 'bg-[#ebf2ec] border-emerald-200'
               }`}
               style={{ color: selectedTech.color }}
             >
               {Icon ? (
-                <Icon size={30} color={selectedTech.color} />
+                <Icon size={26} color={selectedTech.color} />
               ) : (
-                <Code2 className="w-7 h-7 text-[#0f172a]" />
+                <Code2 className="w-6 h-6 text-[#1b4332]" />
               )}
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
+                <span className={`text-xl sm:text-2xl font-bold tracking-tight ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
                   {selectedTech.name}
                 </span>
-                <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-[#fde047] text-[#0f172a] border border-[#0f172a]">
+                <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border ${
+                  isNight
+                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                    : 'bg-[#ebf2ec] text-[#1b4332] border-emerald-200'
+                }`}>
                   {selectedTech.roleTag || selectedTech.category}
                 </span>
               </div>
 
-              <div className={`text-xs font-mono font-bold mt-0.5 ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
+              <div className={`text-xs font-mono font-medium mt-0.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
                 Kategori: {layerInfo.title}
               </div>
             </div>
@@ -304,35 +310,35 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
           <button
             type="button"
             onClick={onClearTechSelection}
-            className={`self-start sm:self-auto px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold border transition-colors cursor-pointer ${
+            className={`self-start sm:self-auto px-3.5 py-1.5 rounded-xl text-xs font-mono font-semibold border transition-colors cursor-pointer ${
               isNight
-                ? 'bg-[#1a2a20] hover:bg-amber-400 hover:text-stone-900 border-emerald-500/30 text-stone-200'
-                : 'bg-[#edf2eb] hover:bg-[#fde047] text-[#0f172a] border-[#0f172a]'
+                ? 'bg-[#17231c] hover:bg-[#22382c] border-emerald-500/30 text-[#f5f7f4]'
+                : 'bg-[#f4f1ea] hover:bg-[#ebf2ec] text-[#151e17] border-[#e4ded5]'
             }`}
           >
-            &larr; Lihat Detail Kategori
+            &larr; Lihat Layer Kategori
           </button>
         </div>
 
         {/* usage context */}
         <div className="space-y-2">
-          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-stone-400' : 'text-[#64748b]'}`}>
-            Penggunaan
+          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+            Konteks &amp; Penerapan Produksi
           </div>
-          <p className={`text-sm sm:text-base font-medium leading-relaxed p-4 rounded-2xl border ${
-            isNight ? 'bg-[#1a2a20] border-emerald-500/25 text-stone-200' : 'bg-[#edf2eb]/60 border-[#0f172a]/20 text-[#1e293b]'
+          <p className={`text-xs sm:text-sm font-normal leading-relaxed p-4 rounded-2xl border ${
+            isNight ? 'bg-[#16221a] border-emerald-500/20 text-[#c2ceb9]' : 'bg-[#fcfbf9] border-[#e4ded5] text-[#38433b]'
           }`}>
             {selectedTech.usageContext}
           </p>
         </div>
 
         {/* connected portfolio projects */}
-        <div className="space-y-3 pt-2">
+        <div className="space-y-3 pt-1">
           <div className="flex items-center justify-between">
-            <span className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
-              Digunakan di Proyek
+            <span className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+              Implementasi di Portofolio
             </span>
-            <span className={`text-[11px] font-mono ${isNight ? 'text-stone-400' : 'text-[#64748b]'}`}>
+            <span className={`text-[11px] font-mono ${isNight ? 'text-[#95a499]' : 'text-[#64748b]'}`}>
               {relatedProjects.length} Proyek Terkait
             </span>
           </div>
@@ -342,34 +348,34 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
               <div
                 key={proj.id}
                 onClick={() => onSelectProject(proj.id)}
-                className={`p-4 rounded-2xl border-2 transition-all cursor-pointer group flex flex-col justify-between ${
+                className={`p-4 rounded-2xl border transition-all cursor-pointer group flex flex-col justify-between ${
                   isNight
-                    ? 'bg-[#1a2a20] hover:bg-[#22382c] border-emerald-500/35 shadow-[3px_3px_0px_#040906] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[4px_4px_0px_#040906]'
-                    : 'bg-[#edf2eb] hover:bg-[#fde047] border-[#0f172a] shadow-[3px_3px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[4px_4px_0px_#0f172a]'
+                    ? 'bg-[#16221a] hover:bg-[#1f3025] border-emerald-500/20 hover:border-emerald-500/40 shadow-sm'
+                    : 'bg-white hover:bg-[#fcfbf9] border-[#e4ded5] hover:border-[#1b4332]/40 shadow-sm'
                 }`}
               >
                 <div>
-                  <div className={`flex items-center justify-between text-[10px] font-mono font-bold uppercase pb-1 ${
-                    isNight ? 'text-stone-400' : 'text-[#64748b]'
+                  <div className={`flex items-center justify-between text-[10px] font-mono font-semibold uppercase pb-1 ${
+                    isNight ? 'text-[#95a499]' : 'text-[#64748b]'
                   }`}>
                     <span>{proj.category === 'fullstack' ? 'Web System' : 'Mobile App'}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-current group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
 
-                  <h4 className={`text-sm font-black tracking-tight transition-colors ${
-                    isNight ? 'text-[#f8fafc] group-hover:text-amber-300' : 'text-[#0f172a] group-hover:text-[#2d6a4f]'
+                  <h4 className={`text-sm font-bold tracking-tight transition-colors ${
+                    isNight ? 'text-[#f5f7f4] group-hover:text-amber-300' : 'text-[#151e17] group-hover:text-[#1b4332]'
                   }`}>
                     {proj.title}
                   </h4>
-                  <p className={`text-xs line-clamp-2 mt-1 font-medium leading-tight ${
-                    isNight ? 'text-stone-300' : 'text-[#334155]'
+                  <p className={`text-xs line-clamp-2 mt-1 font-normal leading-relaxed ${
+                    isNight ? 'text-[#95a499]' : 'text-[#48564c]'
                   }`}>
                     {proj.summary}
                   </p>
                 </div>
 
-                <div className={`mt-3 pt-2 border-t text-[11px] font-mono font-bold ${
-                  isNight ? 'border-emerald-500/20 text-amber-400' : 'border-[#0f172a]/15 text-[#2d6a4f]'
+                <div className={`mt-3 pt-2 border-t text-[11px] font-mono font-medium ${
+                  isNight ? 'border-emerald-500/20 text-amber-400' : 'border-[#e4ded5] text-[#1b4332]'
                 }`}>
                   {proj.role.split('(')[0]}
                 </div>
@@ -388,57 +394,61 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25 }}
-      className={`p-7 sm:p-9 rounded-[32px] border space-y-6 select-none transition-colors duration-500 ${
+      className={`p-6 sm:p-8 rounded-3xl border space-y-6 select-none transition-colors duration-500 ${
         isNight
-          ? 'bg-[#142118] border-emerald-500/35 shadow-[8px_8px_0px_#040906]'
-          : 'bg-[#fffdf5] border-2 border-[#0f172a] shadow-[8px_8px_0px_#0f172a]'
+          ? 'bg-[#111a14] border-emerald-500/20 shadow-xl'
+          : 'bg-white border-[#e4ded5] shadow-lg shadow-stone-900/5'
       }`}
     >
-      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-2 transition-colors duration-500 ${
-        isNight ? 'border-emerald-500/20' : 'border-[#0f172a]/10'
+      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b transition-colors duration-500 ${
+        isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
       }`}>
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-1 rounded-xl bg-[#2d6a4f] text-white text-xs font-mono font-black border border-[#0f172a]">
-              DETAIL KATEGORI
+            <span className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-bold border ${
+              isNight
+                ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                : 'bg-[#ebf2ec] text-[#1b4332] border-emerald-200'
+            }`}>
+              DETAIL LAYER
             </span>
-            <span className={`text-xs font-mono font-bold uppercase ${isNight ? 'text-stone-400' : 'text-[#64748b]'}`}>
+            <span className={`text-xs font-mono font-medium uppercase ${isNight ? 'text-[#95a499]' : 'text-[#64748b]'}`}>
               {layerInfo.role}
             </span>
           </div>
-          <h3 className={`text-2xl sm:text-3xl font-black tracking-tight mt-1.5 ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
+          <h3 className={`text-xl sm:text-2xl font-bold tracking-tight mt-1.5 ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
             {layerInfo.title}
           </h3>
         </div>
 
-        <div className={`px-3.5 py-1.5 rounded-xl border text-xs font-mono font-bold self-start sm:self-auto ${
-          isNight ? 'bg-[#1a2a20] border-emerald-500/30 text-amber-300' : 'bg-[#edf2eb] border-[#0f172a] text-[#0f172a]'
+        <div className={`px-3 py-1 rounded-full border text-xs font-mono font-medium self-start sm:self-auto ${
+          isNight ? 'bg-[#17231c] border-emerald-500/20 text-amber-300' : 'bg-[#f4f1ea] border-[#e4ded5] text-[#48564c]'
         }`}>
           {layerInfo.subtitle}
         </div>
       </div>
 
-      <p className={`text-sm sm:text-base font-medium leading-relaxed ${isNight ? 'text-stone-300' : 'text-[#334155]'}`}>
+      <p className={`text-xs sm:text-sm font-normal leading-relaxed ${isNight ? 'text-[#c2ceb9]' : 'text-[#38433b]'}`}>
         {layerInfo.description}
       </p>
 
       {/* engineering focus */}
       <div className="space-y-2.5 pt-1">
-        <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
-          Fokus Utama
+        <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+          Standar &amp; Fokus Rekayasa
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {layerInfo.guarantees.map((guarantee, idx) => (
             <div
               key={idx}
-              className={`p-3 rounded-2xl border flex items-center gap-2.5 text-xs font-mono font-bold ${
+              className={`p-3 rounded-2xl border flex items-center gap-2.5 text-xs font-mono font-medium ${
                 isNight
-                  ? 'bg-[#1a2a20] border-emerald-500/30 text-[#f8fafc] shadow-[3px_3px_0px_#040906]'
-                  : 'bg-[#edf2eb] border-2 border-[#0f172a] text-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+                  ? 'bg-[#16221a] border-emerald-500/20 text-[#f5f7f4]'
+                  : 'bg-[#fcfbf9] border-[#e4ded5] text-[#151e17]'
               }`}
             >
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
               <span>{guarantee}</span>
             </div>
           ))}

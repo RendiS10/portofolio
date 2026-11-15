@@ -102,45 +102,45 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
 
   return (
     <motion.div
-      whileHover={isLayerActiveInDomain ? { y: -3 } : undefined}
+      whileHover={isLayerActiveInDomain ? { y: -2 } : undefined}
       transition={{ type: 'spring', stiffness: 350, damping: 25 }}
       onClick={() => {
         if (isLayerActiveInDomain) {
           onSelectLayer(layerId);
         }
       }}
-      className={`p-6 sm:p-7 rounded-[28px] border-2 transition-all duration-300 relative flex flex-col justify-between ${
+      className={`p-5 sm:p-6 rounded-2xl sm:rounded-3xl border transition-all duration-300 relative flex flex-col justify-between ${
         !isLayerActiveInDomain
-          ? 'bg-[#f1f5f9]/70 border-dashed border-[#94a3b8] opacity-35 grayscale pointer-events-none cursor-not-allowed select-none shadow-none'
+          ? 'bg-[#f8fafc]/50 border-dashed border-[#cbd5e1] opacity-35 grayscale pointer-events-none cursor-not-allowed select-none shadow-none'
           : isLayerSelected
           ? isNight
-            ? 'bg-[#16271c] border-emerald-400 shadow-[8px_8px_0px_#040906] ring-2 ring-emerald-400 cursor-pointer'
-            : 'bg-[#fffdf5] border-[#0f172a] shadow-[8px_8px_0px_#0f172a] ring-3 ring-[#2d6a4f] cursor-pointer'
+            ? 'bg-[#152119] border-emerald-400 shadow-md ring-1 ring-emerald-400 cursor-pointer'
+            : 'bg-white border-[#1b4332] shadow-md ring-1 ring-[#1b4332] cursor-pointer'
           : isNight
-          ? 'bg-[#142118] border-emerald-500/35 shadow-[6px_6px_0px_#040906] cursor-pointer hover:border-emerald-400'
-          : 'bg-[#fffdf5] border-[#0f172a] shadow-[6px_6px_0px_#0f172a] cursor-pointer hover:border-[#2d6a4f]'
+          ? 'bg-[#111a14] border-emerald-500/20 shadow-sm cursor-pointer hover:border-emerald-500/40 hover:bg-[#142118]'
+          : 'bg-white border-[#e4ded5] shadow-sm cursor-pointer hover:border-[#1b4332]/40 hover:bg-[#fcfbf9]'
       }`}
     >
       <div>
         {/* layer header */}
-        <div className={`flex items-center justify-between gap-2 pb-3 border-b-2 transition-colors duration-500 ${
-          isNight ? 'border-emerald-500/20' : 'border-[#0f172a]/10'
+        <div className={`flex items-center justify-between gap-2 pb-3 border-b transition-colors duration-500 ${
+          isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
         }`}>
           <div className="flex items-center gap-2">
             <span
-              className={`px-2.5 py-1 rounded-xl text-xs font-mono font-black border ${
+              className={`px-2 py-0.5 rounded-lg text-xs font-mono font-bold border ${
                 isLayerActiveInDomain
                   ? isNight
-                    ? 'bg-amber-400 text-stone-900 border-[#040906] shadow-[2px_2px_0px_#040906]'
-                    : 'bg-[#fde047] text-[#0f172a] border-[#0f172a] shadow-[2px_2px_0px_#0f172a]'
-                  : 'bg-[#e2e8f0] text-[#94a3b8] border-[#cbd5e1]'
+                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                    : 'bg-[#ebf2ec] text-[#1b4332] border-emerald-200'
+                  : 'bg-[#f1f5f9] text-[#94a3b8] border-[#e2e8f0]'
               }`}
             >
               {stepNumber}
             </span>
             <span
               className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
-                isLayerActiveInDomain ? (isNight ? 'text-amber-400' : 'text-[#2d6a4f]') : 'text-[#94a3b8]'
+                isLayerActiveInDomain ? (isNight ? 'text-amber-400' : 'text-[#1b4332]') : 'text-[#94a3b8]'
               }`}
             >
               {subtitle}
@@ -148,14 +148,16 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
           </div>
 
           <div
-            className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg border ${
+            className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md border ${
               !isLayerActiveInDomain
-                ? 'bg-[#e2e8f0] text-[#94a3b8] border-[#cbd5e1]'
+                ? 'bg-[#f1f5f9] text-[#94a3b8] border-[#e2e8f0]'
                 : isLayerSelected
-                ? 'bg-[#fde047] text-[#0f172a] border-[#0f172a]'
+                ? isNight
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400'
+                  : 'bg-[#ebf2ec] text-[#1b4332] border-emerald-300'
                 : isNight
-                ? 'bg-emerald-950/80 text-emerald-300 border-emerald-500/40'
-                : 'bg-[#dcfce7] text-[#15803d] border-[#16a34a]'
+                ? 'bg-[#17231c] text-[#95a499] border-emerald-500/20'
+                : 'bg-[#f4f1ea] text-[#48564c] border-[#e4ded5]'
             }`}
           >
             {!isLayerActiveInDomain
@@ -167,17 +169,17 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
         </div>
 
         {/* layer description */}
-        <div className="mt-3.5 space-y-1">
+        <div className="mt-3 space-y-1">
           <h3
-            className={`text-xl sm:text-2xl font-black tracking-tight ${
-              isLayerActiveInDomain ? (isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]') : 'text-[#64748b]'
+            className={`text-lg sm:text-xl font-bold tracking-tight ${
+              isLayerActiveInDomain ? (isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]') : 'text-[#64748b]'
             }`}
           >
             {title}
           </h3>
           <p
-            className={`text-xs font-medium leading-relaxed ${
-              isLayerActiveInDomain ? (isNight ? 'text-stone-300' : 'text-[#475569]') : 'text-[#94a3b8]'
+            className={`text-xs font-normal leading-relaxed ${
+              isLayerActiveInDomain ? (isNight ? 'text-[#95a499]' : 'text-[#48564c]') : 'text-[#94a3b8]'
             }`}
           >
             {roleDescription}
@@ -185,7 +187,7 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
         </div>
 
         {/* tools list */}
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2">
           {techItems.map((tech) => {
             const Icon = iconMap[tech.iconKey];
             const isToolActive =
@@ -211,26 +213,33 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
                     inspectorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                   }
                 }}
-                className={`group flex items-center gap-2 px-3 py-2 rounded-xl border-2 transition-all duration-200 ${
+                className={`group flex items-center gap-2 px-2.5 py-1.5 rounded-xl border text-xs transition-all duration-200 ${
                   !isLayerActiveInDomain || !isToolActive
-                    ? 'bg-[#f1f5f9] border-[#cbd5e1] text-[#94a3b8] opacity-50 cursor-not-allowed shadow-none'
+                    ? 'bg-[#f8fafc] border-[#e2e8f0] text-[#94a3b8] opacity-40 cursor-not-allowed shadow-none'
                     : isToolSelected
                     ? isNight
-                      ? 'bg-amber-400 border-amber-300 text-stone-900 shadow-[3px_3px_0px_#040906] scale-105 cursor-pointer font-bold'
-                      : 'bg-[#fde047] border-[#0f172a] shadow-[3px_3px_0px_#0f172a] scale-105 cursor-pointer'
+                      ? 'bg-emerald-600 border-emerald-400 text-white shadow-sm scale-102 cursor-pointer font-bold'
+                      : 'bg-[#1b4332] border-[#1b4332] text-white shadow-sm scale-102 cursor-pointer font-bold'
                     : isNight
-                    ? 'bg-[#1a2a20] hover:bg-[#23382c] border-emerald-500/30 text-[#f8fafc] shadow-[2px_2px_0px_#040906] hover:scale-105 cursor-pointer'
-                    : 'bg-[#edf2eb] hover:bg-[#d8dfd5] border-[#0f172a] shadow-[2px_2px_0px_#0f172a] hover:scale-105 cursor-pointer'
+                    ? 'bg-[#17231c] hover:bg-[#1f3025] border-emerald-500/20 text-[#f5f7f4] cursor-pointer hover:border-emerald-500/40'
+                    : 'bg-[#fbfaf8] hover:bg-white border-[#e4ded5] text-[#151e17] cursor-pointer hover:border-[#1b4332]/40'
                 }`}
               >
                 <div
-                  className="w-5 h-5 rounded-md flex items-center justify-center transition-transform group-hover:scale-110"
-                  style={{ color: isToolActive && isLayerActiveInDomain ? tech.color : '#94a3b8' }}
+                  className="w-4 h-4 rounded-md flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                  style={{
+                    color:
+                      isToolSelected
+                        ? '#ffffff'
+                        : isToolActive && isLayerActiveInDomain
+                        ? tech.color
+                        : '#94a3b8'
+                  }}
                 >
                   {Icon ? (
-                    <Icon size={16} color={isToolActive && isLayerActiveInDomain ? tech.color : '#94a3b8'} />
+                    <Icon size={14} color={isToolSelected ? '#ffffff' : isToolActive && isLayerActiveInDomain ? tech.color : '#94a3b8'} />
                   ) : (
-                    <span className="text-[10px] font-bold font-mono">
+                    <span className="text-[9px] font-bold font-mono">
                       {tech.name.slice(0, 2)}
                     </span>
                   )}
@@ -238,33 +247,18 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
 
                 <div className="text-left">
                   <div
-                    className={`text-xs font-bold leading-tight ${
-                      isToolSelected && isNight
-                        ? 'text-stone-950 font-black'
+                    className={`text-[11px] font-bold leading-tight ${
+                      isToolSelected
+                        ? 'text-white'
                         : isToolActive && isLayerActiveInDomain
                         ? isNight
-                          ? 'text-[#f8fafc]'
-                          : 'text-[#0f172a]'
+                          ? 'text-[#f5f7f4]'
+                          : 'text-[#151e17]'
                         : 'text-[#94a3b8]'
                     }`}
                   >
                     {tech.name}
                   </div>
-                  {tech.roleTag && (
-                    <div
-                      className={`text-[9px] font-mono font-medium leading-tight ${
-                        isToolSelected && isNight
-                          ? 'text-stone-800'
-                          : isToolActive && isLayerActiveInDomain
-                          ? isNight
-                            ? 'text-stone-300'
-                            : 'text-[#475569]'
-                          : 'text-[#cbd5e1]'
-                      }`}
-                    >
-                      {tech.roleTag}
-                    </div>
-                  )}
                 </div>
               </button>
             );
@@ -273,20 +267,20 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
       </div>
 
       {/* inspect CTA bar */}
-      <div className={`mt-6 pt-3 border-t flex items-center justify-between text-[11px] font-mono transition-colors duration-500 ${
-        isNight ? 'border-emerald-500/20' : 'border-[#0f172a]/10'
+      <div className={`mt-5 pt-3 border-t flex items-center justify-between text-[11px] font-mono transition-colors duration-500 ${
+        isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
       }`}>
-        <span className={isNight ? 'text-amber-400 font-bold' : 'text-[#2d6a4f] font-bold'}>
-          {techItems.length} Tools
+        <span className={isNight ? 'text-amber-400 font-semibold' : 'text-[#1b4332] font-semibold'}>
+          {techItems.length} Tools Teruji
         </span>
         <button
           type="button"
           onClick={handleInspectClick}
-          className={`font-black underline transition-colors cursor-pointer ${
-            isNight ? 'text-stone-200 hover:text-amber-400' : 'text-[#0f172a] hover:text-[#2d6a4f]'
+          className={`font-semibold hover:underline transition-colors cursor-pointer ${
+            isNight ? 'text-[#95a499] hover:text-amber-400' : 'text-[#48564c] hover:text-[#1b4332]'
           }`}
         >
-          Inspeksi Detail &rarr;
+          Detail &rarr;
         </button>
       </div>
     </motion.div>
