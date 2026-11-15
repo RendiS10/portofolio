@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Check, Menu, X, Volume2, VolumeX, Moon, Sun, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { Copy, Check, Menu, X, Volume2, VolumeX, Moon, Sun, ArrowUpRight, MessageCircle, ArrowRight } from 'lucide-react';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useClipboard } from '../../hooks/useClipboard';
 import { profileData } from '../../data/portfolioData';
@@ -22,13 +22,13 @@ export const NavigationBar: React.FC = () => {
   } = useVillageAtmosphere();
 
   const navItems = [
-    { label: 'Profil', id: 'about' },
-    { label: 'Studi Kasus', id: 'projects' },
-    { label: 'Tech Stack', id: 'stack' },
-    { label: 'Aktivitas', id: 'activity' },
-    { label: 'Milestone', id: 'journey' },
-    { label: 'Sertifikasi', id: 'certificates' },
-    { label: 'Kontak', id: 'contact' },
+    { label: 'Profil', fullLabel: 'Profil & Rekayasa', id: 'about', index: '01' },
+    { label: 'Studi Kasus', fullLabel: 'Studi Kasus Proyek', id: 'projects', index: '02' },
+    { label: 'Tech Stack', fullLabel: 'Arsitektur & Stack', id: 'stack', index: '03' },
+    { label: 'Aktivitas', fullLabel: 'Kalender Kontribusi', id: 'activity', index: '04' },
+    { label: 'Milestone', fullLabel: 'Rekam Jejak Milestone', id: 'journey', index: '05' },
+    { label: 'Sertifikasi', fullLabel: 'Kredensial & Sertifikasi', id: 'certificates', index: '06' },
+    { label: 'Kontak', fullLabel: 'Ruang Diskusi & Kontak', id: 'contact', index: '07' },
   ];
 
   const tabRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
@@ -345,182 +345,205 @@ export const NavigationBar: React.FC = () => {
         </div>
       </header>
 
-      {/* Expanded Mobile & Tablet Drawer Modal */}
+      {/* Fullscreen Architectural Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            {/* Backdrop Scrim with Blur */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="lg:hidden fixed inset-0 z-30 bg-black/60 backdrop-blur-sm"
-              aria-hidden="true"
-            />
-
-            {/* Drawer Sheet Container */}
-            <motion.div
-              initial={{ opacity: 0, y: -16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -16, scale: 0.98 }}
-              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className={`lg:hidden fixed top-[68px] sm:top-[76px] left-3 right-3 sm:left-6 sm:right-6 max-h-[calc(100vh-84px)] overflow-y-auto z-40 rounded-3xl p-5 shadow-2xl border backdrop-blur-2xl transition-all ${
-                isNight
-                  ? 'bg-[#0c1410]/98 border-emerald-950/60 text-stone-200 shadow-2xl'
-                  : 'bg-[#fffdf5]/98 border-stone-300 text-stone-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)]'
-              }`}
-            >
-              {/* Primary Navigation Links */}
-              <div className="flex flex-col gap-1">
-                <span className={`text-[10px] uppercase font-mono font-bold tracking-widest px-3 mb-1.5 ${
-                  isNight ? 'text-[#80ed99]' : 'text-emerald-700/80'
-                }`}>
-                  Navigasi Utama
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className={`lg:hidden fixed top-[60px] sm:top-[68px] inset-x-0 bottom-0 z-40 flex flex-col justify-between overflow-y-auto backdrop-blur-2xl transition-colors duration-300 ${
+              isNight
+                ? 'bg-[#090f0c]/98 text-stone-200 border-t border-emerald-950/60'
+                : 'bg-[#fffdf5]/98 text-stone-900 border-t border-stone-200'
+            }`}
+          >
+            {/* Navigation Links Area */}
+            <div className="max-w-lg w-full mx-auto px-6 pt-6 pb-4 flex flex-col">
+              {/* Header Kicker */}
+              <div className="flex items-center justify-between pb-4 mb-2 border-b border-emerald-950/30 dark:border-emerald-950/50">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className={`text-[10px] font-mono font-bold tracking-[0.25em] uppercase ${
+                    isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
+                  }`}>
+                    DIREKTORI // RENDI SETIAWAN
+                  </span>
+                </div>
+                <span className={`text-[10px] font-mono ${isNight ? 'text-stone-500' : 'text-stone-400'}`}>
+                  7 BAGIAN
                 </span>
+              </div>
 
+              {/* Menu items */}
+              <nav className="flex flex-col divide-y divide-stone-200/50 dark:divide-emerald-950/30">
                 {navItems.map((item, idx) => {
                   const isActive = activeSection === item.id;
                   return (
-                    <button
+                    <motion.button
                       key={item.id}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.025 + 0.04, duration: 0.18 }}
                       type="button"
                       onClick={() => handleNavClick(item.id, idx)}
-                      className={`w-full min-h-[46px] text-left px-4 rounded-xl text-sm font-semibold transition-all flex items-center justify-between active:scale-[0.99] cursor-pointer ${
+                      className={`w-full py-3.5 flex items-center justify-between text-left group transition-all duration-200 cursor-pointer ${
                         isActive
                           ? isNight
-                            ? 'bg-emerald-500/15 text-[#80ed99] font-bold border-l-4 border-emerald-500'
-                            : 'bg-emerald-50 text-emerald-900 font-bold border-l-4 border-emerald-600'
+                            ? 'text-[#80ed99]'
+                            : 'text-[#1b4332]'
                           : isNight
-                          ? 'text-stone-300 hover:text-[#80ed99] hover:bg-white/5'
-                          : 'text-stone-700 hover:text-emerald-800 hover:bg-stone-100/80'
+                          ? 'text-stone-300 hover:text-white'
+                          : 'text-stone-700 hover:text-stone-950'
                       }`}
                     >
-                      <span className="flex items-center gap-2">
-                        {item.label}
-                      </span>
-                      {isActive && (
-                        <span className={`w-2 h-2 rounded-full ${
-                          isNight ? 'bg-emerald-400' : 'bg-emerald-600'
-                        }`} />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
+                      <div className="flex items-baseline gap-3.5 min-w-0">
+                        <span className={`text-xs font-mono font-semibold tracking-wider shrink-0 transition-colors ${
+                          isActive
+                            ? isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
+                            : isNight ? 'text-stone-500 group-hover:text-stone-300' : 'text-stone-400 group-hover:text-stone-600'
+                        }`}>
+                          {item.index}
+                        </span>
+                        <span className={`text-lg sm:text-xl tracking-tight transition-all truncate ${
+                          isActive ? 'font-bold' : 'font-medium group-hover:translate-x-1'
+                        }`}>
+                          {item.fullLabel}
+                        </span>
+                      </div>
 
-              {/* Cultural Utilities & Secondary Actions Section */}
-              <div className={`mt-5 pt-4 border-t flex flex-col gap-3 ${
-                isNight ? 'border-emerald-950/40' : 'border-stone-200'
-              }`}>
-                <span className={`text-[10px] uppercase font-mono font-bold tracking-widest px-3 ${
-                  isNight ? 'text-[#80ed99]' : 'text-emerald-700/80'
-                }`}>
-                  Suasana & Kontak Langsung
-                </span>
-
-                {/* Pedesaan Audio Soundscape Toggle Card */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    playBambooTone(isSoundEnabled ? 350 : 600);
-                    toggleSound();
-                  }}
-                  className={`w-full p-3.5 rounded-2xl border text-left flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer ${
-                    isSoundEnabled
-                      ? isNight
-                        ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-200'
-                        : 'bg-emerald-50 border-emerald-300 text-emerald-900'
-                      : isNight
-                      ? 'bg-stone-900/60 border-stone-800 text-stone-400'
-                      : 'bg-stone-100/70 border-stone-200 text-stone-600'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                      isSoundEnabled
-                        ? isNight ? 'bg-emerald-500/20 text-emerald-300' : 'bg-emerald-600 text-white'
-                        : isNight ? 'bg-stone-800 text-stone-500' : 'bg-stone-200 text-stone-500'
-                    }`}>
-                      {isSoundEnabled ? <Volume2 className="w-5 h-5 animate-pulse" /> : <VolumeX className="w-5 h-5" />}
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold leading-tight flex items-center gap-1.5">
-                        <span>Suara Alam Pedesaan</span>
-                        {isSoundEnabled && (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono">
+                      <div className="flex items-center gap-2 shrink-0">
+                        {isActive ? (
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${
+                            isNight
+                              ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99]'
+                              : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+                          }`}>
                             Aktif
                           </span>
+                        ) : (
+                          <ArrowRight className={`w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-60 group-hover:translate-x-0 transition-all ${
+                            isNight ? 'text-stone-400' : 'text-stone-500'
+                          }`} />
                         )}
                       </div>
-                      <div className="text-[11px] opacity-75 font-normal mt-0.5">
-                        Denting angklung, serangga & angin
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-xs font-medium underline opacity-80">
-                    {isSoundEnabled ? 'Matikan' : 'Bunyikan'}
-                  </span>
-                </button>
+                    </motion.button>
+                  );
+                })}
+              </nav>
+            </div>
 
-                {/* Email Direct Quick Copy Card */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    playBambooTone(600);
-                    copy(profileData.contact.email);
-                  }}
-                  className={`w-full p-3.5 rounded-2xl border text-left flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer ${
-                    isNight
-                      ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-100 hover:bg-emerald-500/15'
-                      : 'bg-emerald-50/70 border-emerald-200 text-emerald-950 hover:bg-emerald-100/70'
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                      isNight ? 'bg-emerald-500/20 text-[#80ed99]' : 'bg-emerald-600 text-white'
-                    }`}>
-                      {copied ? <Check className="w-5 h-5 text-emerald-300" /> : <Copy className="w-5 h-5" />}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[11px] opacity-75 font-normal">
-                        {copied ? 'Berhasil Disalin!' : 'Surel / Email'}
-                      </div>
-                      <div className="text-xs font-mono font-semibold truncate">
-                        {profileData.contact.email}
-                      </div>
-                    </div>
-                  </div>
-                  <span className={`text-xs font-medium px-2.5 py-1 rounded-full shrink-0 ${
-                    copied
-                      ? 'bg-emerald-500/20 text-emerald-400 font-bold'
-                      : isNight
-                      ? 'bg-emerald-500/20 text-[#80ed99]'
-                      : 'bg-emerald-200/60 text-emerald-800'
-                  }`}>
-                    {copied ? 'Tersalin' : 'Salin'}
-                  </span>
-                </button>
+            {/* Bottom Utilities Footer */}
+            <div className={`mt-auto border-t transition-colors duration-300 ${
+              isNight ? 'border-emerald-950/60 bg-[#060a08]/80' : 'border-stone-200 bg-[#f7f5ed]/80'
+            }`}>
+              <div className="max-w-lg w-full mx-auto p-5 sm:p-6 space-y-3.5">
+                {/* Atmosphere & Sound in 1 sleek row */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playBambooTone(isSoundEnabled ? 350 : 600);
+                      toggleSound();
+                    }}
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${
+                      isSoundEnabled
+                        ? isNight
+                          ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99]'
+                          : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+                        : isNight
+                        ? 'bg-[#0f1713] border-emerald-950/50 text-stone-400 hover:text-stone-200'
+                        : 'bg-white border-stone-200 text-stone-600 hover:text-stone-800'
+                    }`}
+                  >
+                    {isSoundEnabled ? (
+                      <Volume2 className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                    ) : (
+                      <VolumeX className="w-3.5 h-3.5 opacity-60" />
+                    )}
+                    <span>{isSoundEnabled ? 'Suara: On' : 'Suara: Off'}</span>
+                  </button>
 
-                {/* WhatsApp Quick Connect Button */}
-                <a
-                  href={profileData.contact.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 border transition-all active:scale-[0.98] ${
-                    isNight
-                      ? 'bg-[#14231a] border-emerald-950/60 text-stone-200 hover:bg-[#1a2e22]'
-                      : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
-                  }`}
-                >
-                  <MessageCircle className="w-4 h-4 text-emerald-500" />
-                  <span>Diskusi via WhatsApp</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
-                </a>
+                  <button
+                    type="button"
+                    onClick={toggleAtmosphere}
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${
+                      isNight
+                        ? 'bg-[#0f1713] border-emerald-950/50 text-stone-300 hover:text-white'
+                        : 'bg-white border-stone-200 text-stone-700 hover:text-stone-900'
+                    }`}
+                  >
+                    {atmosphere === 'sunset' ? (
+                      <>
+                        <Sun className="w-3.5 h-3.5 text-emerald-500" />
+                        <span>Mode Pagi</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="w-3.5 h-3.5 text-[#80ed99]" />
+                        <span>Mode Malam</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Direct Action Row: Email & WhatsApp */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playBambooTone(600);
+                      copy(profileData.contact.email);
+                    }}
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${
+                      copied
+                        ? 'bg-emerald-500/20 border-emerald-500/40 text-[#80ed99]'
+                        : isNight
+                        ? 'bg-[#0f1713] border-emerald-950/50 text-stone-300 hover:text-white'
+                        : 'bg-white border-stone-200 text-stone-700 hover:text-stone-900'
+                    }`}
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Tersalin!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5 text-emerald-500" />
+                        <span>Salin Email</span>
+                      </>
+                    )}
+                  </button>
+
+                  <a
+                    href={profileData.contact.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] ${
+                      isNight
+                        ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99] hover:bg-emerald-500/20'
+                        : 'bg-[#1b4332] border-[#1b4332] text-white hover:bg-[#2d6a4f]'
+                    }`}
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-60" />
+                  </a>
+                </div>
+
+                {/* Metadata status footer */}
+                <div className="pt-1 flex items-center justify-between text-[10px] font-mono text-stone-500 dark:text-stone-400">
+                  <span>Bandung, ID (WIB)</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span>Open for Roles</span>
+                  </span>
+                </div>
               </div>
-            </motion.div>
-          </>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
