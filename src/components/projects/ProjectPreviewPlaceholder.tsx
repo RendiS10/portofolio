@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Globe, Smartphone, Image as ImageIcon } from 'lucide-react';
+import React from 'react';
+import { Globe, Smartphone, LayoutGrid, Sparkles } from 'lucide-react';
 import type { Project } from '../../types/portfolio';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
@@ -14,7 +14,6 @@ export const ProjectPreviewPlaceholder: React.FC<ProjectPreviewPlaceholderProps>
   className = '',
   isMobileFrame = false
 }) => {
-  const [imageError, setImageError] = useState(false);
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
   const isMobile = isMobileFrame || project.category === 'mobile' || Boolean(project.isMobileApp);
@@ -24,24 +23,24 @@ export const ProjectPreviewPlaceholder: React.FC<ProjectPreviewPlaceholderProps>
       <div className={`relative flex items-center justify-center p-2 sm:p-4 ${className}`}>
         {/* Smartphone Chassis Frame */}
         <div
-          className={`relative w-full max-w-[270px] sm:max-w-[290px] aspect-[9/18.5] rounded-[38px] sm:rounded-[44px] p-2.5 sm:p-3 border-2 transition-all duration-300 ${
+          className={`relative w-full max-w-[260px] sm:max-w-[280px] aspect-[9/18.5] rounded-[38px] sm:rounded-[44px] p-2.5 sm:p-3 border-2 transition-all duration-300 ${
             isNight
               ? 'bg-[#152119] border-emerald-500/30 shadow-2xl shadow-black/80'
               : 'bg-[#f4f1ea] border-[#e4ded5] shadow-xl shadow-stone-900/10'
           }`}
         >
-          {/* Hardware Button Accents */}
+          {/* Hardware Buttons */}
           <div className="absolute -left-[3px] top-20 w-[3px] h-8 bg-stone-400/50 rounded-l" />
           <div className="absolute -left-[3px] top-32 w-[3px] h-8 bg-stone-400/50 rounded-l" />
           <div className="absolute -right-[3px] top-24 w-[3px] h-12 bg-stone-400/50 rounded-r" />
 
-          {/* Inner Screen Glass */}
+          {/* Inner Screen */}
           <div
             className={`relative w-full h-full rounded-[30px] sm:rounded-[36px] overflow-hidden flex flex-col border ${
               isNight ? 'bg-[#090f0c] border-emerald-500/20' : 'bg-white border-stone-200'
             }`}
           >
-            {/* Dynamic Island / Notch */}
+            {/* Dynamic Island */}
             <div className="absolute top-2.5 inset-x-0 z-20 flex justify-center pointer-events-none">
               <div className="w-20 h-4 bg-black rounded-full flex items-center justify-end pr-2 gap-1.5 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80 animate-pulse" />
@@ -49,35 +48,75 @@ export const ProjectPreviewPlaceholder: React.FC<ProjectPreviewPlaceholderProps>
               </div>
             </div>
 
-            {/* Screen Content */}
-            <div className="relative w-full h-full overflow-hidden flex items-center justify-center pt-8">
-              {!imageError && project.imageUrl ? (
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  onError={() => setImageError(true)}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 ease-out hover:scale-105"
-                />
-              ) : (
-                <div className="flex flex-col items-center justify-center p-6 text-center space-y-3">
-                  <div className={`p-4 rounded-2xl border ${
-                    isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-400' : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+            {/* Mobile App Wireframe Template Skeleton */}
+            <div className="relative w-full h-full flex flex-col justify-between pt-9 pb-3 px-3.5 select-none">
+              {/* App Bar Wireframe */}
+              <div className="flex items-center justify-between pb-2 border-b border-dashed border-stone-300/60 dark:border-emerald-500/20">
+                <div className="flex items-center gap-1.5">
+                  <div className={`w-5 h-5 rounded-md flex items-center justify-center ${
+                    isNight ? 'bg-emerald-500/20 text-emerald-300' : 'bg-[#ebf2ec] text-[#1b4332]'
                   }`}>
-                    <Smartphone className="w-7 h-7" />
+                    <Smartphone className="w-3 h-3" />
                   </div>
-                  <div>
-                    <div className="text-sm font-bold tracking-tight">{project.title}</div>
-                    <p className={`text-[11px] font-mono mt-1 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
-                      Flutter 60fps Native UI
-                    </p>
+                  <span className="text-[10px] font-mono font-bold truncate max-w-[110px]">
+                    {project.title.replace('HolyCat ', '')}
+                  </span>
+                </div>
+                <span className={`text-[8px] font-mono px-1.5 py-0.2 rounded-full border ${
+                  isNight ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+                }`}>
+                  60 FPS
+                </span>
+              </div>
+
+              {/* Wireframe Hero Banner */}
+              <div className={`p-3 rounded-xl border flex flex-col gap-1.5 my-auto ${
+                isNight
+                  ? 'bg-[#111a14] border-emerald-500/25 text-[#f5f7f4]'
+                  : 'bg-[#fcfbf8] border-[#e4ded5] text-[#151e17]'
+              }`}>
+                <div className="flex items-center gap-1 text-[9px] font-mono text-emerald-500 font-bold">
+                  <Sparkles className="w-3 h-3" />
+                  <span>Flutter Clean Architecture</span>
+                </div>
+                <div className="text-xs font-bold leading-tight">
+                  {project.title}
+                </div>
+                <div className={`text-[10px] font-mono leading-relaxed ${
+                  isNight ? 'text-[#95a499]' : 'text-[#48564c]'
+                }`}>
+                  Presentation • Domain • Data
+                </div>
+
+                {/* Skeleton UI blocks */}
+                <div className="grid grid-cols-2 gap-1.5 pt-1.5">
+                  <div className={`p-1.5 rounded-lg border text-center ${
+                    isNight ? 'bg-[#152119] border-emerald-500/15' : 'bg-white border-[#e4ded5]'
+                  }`}>
+                    <div className="text-[8px] font-mono opacity-60">STATE</div>
+                    <div className="text-[9px] font-bold">Riverpod</div>
+                  </div>
+                  <div className={`p-1.5 rounded-lg border text-center ${
+                    isNight ? 'bg-[#152119] border-emerald-500/15' : 'bg-white border-[#e4ded5]'
+                  }`}>
+                    <div className="text-[8px] font-mono opacity-60">CLIENT</div>
+                    <div className="text-[9px] font-bold">Dio HTTP</div>
                   </div>
                 </div>
-              )}
+              </div>
+
+              {/* Bottom Nav Wireframe */}
+              <div className="pt-2 border-t border-dashed border-stone-300/60 dark:border-emerald-500/20 flex items-center justify-around text-[8px] font-mono opacity-70">
+                <span className="font-bold text-emerald-500">Beranda</span>
+                <span>Layanan</span>
+                <span>Aktivitas</span>
+                <span>Profil</span>
+              </div>
             </div>
 
-            {/* Bottom Home Indicator Bar */}
-            <div className="absolute bottom-1.5 inset-x-0 flex justify-center z-20 pointer-events-none">
-              <div className={`w-28 h-1 rounded-full ${isNight ? 'bg-white/40' : 'bg-black/30'}`} />
+            {/* Home Indicator */}
+            <div className="absolute bottom-1 inset-x-0 flex justify-center z-20 pointer-events-none">
+              <div className={`w-24 h-1 rounded-full ${isNight ? 'bg-white/40' : 'bg-black/30'}`} />
             </div>
           </div>
         </div>
@@ -85,7 +124,7 @@ export const ProjectPreviewPlaceholder: React.FC<ProjectPreviewPlaceholderProps>
     );
   }
 
-  // Desktop Web Platform Mockup
+  // Desktop Web Platform Wireframe Template
   return (
     <div
       className={`relative w-full rounded-2xl sm:rounded-3xl border overflow-hidden transition-all duration-300 group/preview ${
@@ -106,7 +145,7 @@ export const ProjectPreviewPlaceholder: React.FC<ProjectPreviewPlaceholderProps>
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80" />
 
           <div
-            className={`ml-2 px-3 py-1 rounded-md text-[11px] font-mono truncate max-w-[180px] sm:max-w-[280px] flex items-center gap-1.5 border ${
+            className={`ml-2 px-3 py-1 rounded-md text-[11px] font-mono truncate max-w-[180px] sm:max-w-[300px] flex items-center gap-1.5 border ${
               isNight
                 ? 'bg-[#090f0c] border-emerald-500/20 text-emerald-300'
                 : 'bg-white border-[#e4ded5] text-[#151e17]'
@@ -124,36 +163,97 @@ export const ProjectPreviewPlaceholder: React.FC<ProjectPreviewPlaceholderProps>
               : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
           }`}
         >
-          <span>WEB PLATFORM</span>
+          <span>PRODUCTION BLUEPRINT</span>
         </div>
       </div>
 
-      {/* Screen Viewport */}
-      <div className={`relative w-full aspect-[16/10] overflow-hidden flex items-center justify-center ${
-        isNight ? 'bg-[#090f0c]' : 'bg-[#fcfbf8]'
-      }`}>
-        {!imageError && project.imageUrl ? (
-          <img
-            src={project.imageUrl}
-            alt={project.title}
-            onError={() => setImageError(true)}
-            className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover/preview:scale-[1.02]"
-          />
-        ) : (
-          <div className="flex flex-col items-center justify-center p-6 text-center space-y-3">
-            <div className={`p-4 rounded-2xl border ${
+      {/* Screen Viewport: High-End Architectural Wireframe Template */}
+      <div
+        className={`relative w-full aspect-[16/10] overflow-hidden flex flex-col justify-between p-5 sm:p-7 select-none ${
+          isNight ? 'bg-[#090f0c]' : 'bg-[#fcfbf8]'
+        }`}
+      >
+        {/* Subtle Topographic Grid Watermark */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.035] dark:opacity-[0.05]">
+          <svg viewBox="0 0 800 500" fill="none" className="w-full h-full" preserveAspectRatio="none">
+            <line x1="0" y1="100" x2="800" y2="100" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+            <line x1="0" y1="250" x2="800" y2="250" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+            <line x1="0" y1="400" x2="800" y2="400" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+            <line x1="200" y1="0" x2="200" y2="500" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+            <line x1="400" y1="0" x2="400" y2="500" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+            <line x1="600" y1="0" x2="600" y2="500" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+          </svg>
+        </div>
+
+        {/* Top Wireframe Navbar */}
+        <div className="relative z-10 flex items-center justify-between pb-3 border-b border-dashed border-stone-300/70 dark:border-emerald-500/20">
+          <div className="flex items-center gap-2">
+            <div className={`p-1.5 rounded-lg border ${
               isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-400' : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
             }`}>
-              <ImageIcon className="w-8 h-8" />
+              <LayoutGrid className="w-3.5 h-3.5" />
             </div>
             <div>
-              <div className="text-base font-bold tracking-tight">{project.title}</div>
-              <p className={`text-xs font-mono mt-0.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+              <div className="text-xs font-bold leading-tight tracking-tight">{project.title}</div>
+              <div className={`text-[10px] font-mono ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
                 {project.subtitle}
-              </p>
+              </div>
             </div>
           </div>
-        )}
+
+          <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
+            isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-300' : 'bg-white border-[#e4ded5] text-[#1b4332]'
+          }`}>
+            Live SSR
+          </span>
+        </div>
+
+        {/* Center Blueprint Diagram */}
+        <div className="relative z-10 my-auto py-2">
+          <div className={`p-4 rounded-2xl border ${
+            isNight ? 'bg-[#111a14]/80 border-emerald-500/20' : 'bg-white/80 border-[#e4ded5]'
+          }`}>
+            <div className="flex items-center justify-between mb-2">
+              <span className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
+                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+              }`}>
+                // Arsitektur Produksi Terverifikasi
+              </span>
+              <span className="text-[10px] font-mono opacity-60">Docker VPS Ingress</span>
+            </div>
+
+            {/* Mini Pipeline Schematic */}
+            <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-mono">
+              <div className={`p-2 rounded-xl border ${
+                isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-200' : 'bg-[#fcfbf8] border-[#e4ded5] text-[#151e17]'
+              }`}>
+                <div className="opacity-60 text-[8px] uppercase">FRONTEND</div>
+                <div className="font-bold mt-0.5">Next.js SSR</div>
+              </div>
+              <div className={`p-2 rounded-xl border ${
+                isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-200' : 'bg-[#fcfbf8] border-[#e4ded5] text-[#151e17]'
+              }`}>
+                <div className="opacity-60 text-[8px] uppercase">BACKEND &amp; QUEUE</div>
+                <div className="font-bold mt-0.5">NestJS / BullMQ</div>
+              </div>
+              <div className={`p-2 rounded-xl border ${
+                isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-200' : 'bg-[#fcfbf8] border-[#e4ded5] text-[#151e17]'
+              }`}>
+                <div className="opacity-60 text-[8px] uppercase">STORAGE &amp; ACID</div>
+                <div className="font-bold mt-0.5">PostgreSQL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Status Ticker */}
+        <div className="relative z-10 flex items-center justify-between pt-2 border-t border-dashed border-stone-300/70 dark:border-emerald-500/20 text-[10px] font-mono">
+          <div className="flex items-center gap-1.5 text-emerald-500 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>3.000+ Pengguna Aktif Terkoneksi</span>
+          </div>
+          <span className="opacity-60">Template Blueprint Wireframe</span>
+        </div>
       </div>
     </div>
   );

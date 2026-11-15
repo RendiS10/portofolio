@@ -73,7 +73,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
       num: '04',
       title: 'Katalog Proyek Lain',
       subtitle: 'Eksplorasi Kode',
-      badge: '5 PROYEK',
+      badge: '6 PROYEK',
       icon: <FolderGit2 className="w-3.5 h-3.5" />
     }
   ];

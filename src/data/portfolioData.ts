@@ -435,6 +435,118 @@ export const projectsData: Project[] = [
       { label: 'Stack', value: 'PHP & MySQL' },
       { label: 'Adoption', value: 'School Institution' }
     ]
+  },
+  {
+    id: 'holycat-mps',
+    title: 'HolyCat Marketplace Picker System (MPS)',
+    subtitle: 'Sistem Barcode Scanner & Manifest Checker Gudang Multi-Marketplace',
+    category: 'fullstack',
+    summary: 'Sistem scanner barcode pergudangan untuk verifikasi picking list, manifest ekspedisi, dan monitoring akurasi pengiriman ribuan pesanan harian tanpa human error.',
+    description: 'Sistem operasional internal gudang HolyCat yang mengotomatisasi proses fulfillment pesanan lintas marketplace: verifikasi barcode produk saat packing, validasi nomor resi pengiriman ekspedisi, dan eliminasi kesalahan pengiriman barang.',
+    architecture: [
+      'Aplikasi scanner barcode berbasis web responsif untuk staf operasional gudang HolyCat',
+      'Validasi real-time manifest shipping ekspedisi (Shopee, Tokopedia, TikTok Shop, Direct Store)',
+      'Integrasi printer thermal otomatis untuk label resi dan surat jalan logistik',
+      'Pencegahan salah packing barang dengan garansi zero-defect fulfillment'
+    ],
+    stack: [
+      'Next.js',
+      'Node.js',
+      'NestJS',
+      'PostgreSQL',
+      'Tailwind CSS',
+      'Zustand'
+    ],
+    highlights: [
+      'Menghilangkan kesalahan kirim barang (packing mismatch) hingga 0%',
+      'Kecepatan proses verifikasi manifest 3x lebih cepat dibanding manual'
+    ],
+    challenges: 'Menangani pemindaian barcode berkecepatan tinggi dengan latensi respons sub-100ms di jaringan gudang.',
+    role: 'Full-Stack Developer',
+    isPrivateRepo: true,
+    privateRepoReason: 'Sistem operasional internal pergudangan HolyCat',
+    imageUrl: '',
+    imageFit: 'contain',
+    featured: false,
+    metrics: [
+      { label: 'Fulfillment', value: 'Zero-Defect' },
+      { label: 'System', value: 'Barcode Scanner' },
+      { label: 'Ops Domain', value: 'Warehouse & MPS' }
+    ]
+  },
+  {
+    id: 'holycat-contract',
+    title: 'Sistem Tanda Tangan Digital & Kontrak',
+    subtitle: 'Platform Legalitas B2B & E-Signature Terenkripsi Dokumen Kemitraan',
+    category: 'fullstack',
+    summary: 'Platform manajemen siklus kontrak dan penandatanganan dokumen digital B2B dengan audit trail terenkripsi, verifikasi OTP, dan integrasi storage Supabase.',
+    description: 'Sistem otomasi legalitas dan kontrak kemitraan B2B HolyCat yang menggantikan tanda tangan basah fisik dengan dokumen elektronik berkekuatan hukum, riwayat audit tamper-proof, dan enkripsi dokumen.',
+    architecture: [
+      'Workflow persetujuan kontrak digital multi-pihak dengan status lifecycle otomatis',
+      'Penyimpanan dokumen PDF terenkripsi dan verifikasi keaslian tanda tangan digital',
+      'Integrasi database PostgreSQL via Prisma ORM dan Supabase Storage',
+      'Audit trail logging lengkap untuk kepatuhan hukum dan riwayat revisi perjanjian'
+    ],
+    stack: [
+      'Next.js',
+      'Prisma ORM',
+      'Supabase',
+      'PostgreSQL',
+      'Tailwind CSS',
+      'TypeScript'
+    ],
+    highlights: [
+      'Mempercepat proses legal onboarding merchant dan mitra dari hitungan hari ke menit',
+      'Enkripsi dokumen digital dan log audit terverifikasi'
+    ],
+    challenges: 'Memastikan integritas hash dokumen PDF tidak berubah setelah proses pembubuhan tanda tangan digital.',
+    role: 'Full-Stack Developer',
+    isPrivateRepo: true,
+    privateRepoReason: 'Sistem legal dan manajemen dokumen internal kemitraan HolyCat',
+    imageUrl: '',
+    imageFit: 'contain',
+    featured: false,
+    metrics: [
+      { label: 'Security', value: 'Encrypted Audit' },
+      { label: 'Data Layer', value: 'Prisma & Supabase' },
+      { label: 'Domain', value: 'Legal B2B' }
+    ]
+  },
+  {
+    id: 'holycat-scrm',
+    title: 'HolyCat Sales CRM (SCRM Platform)',
+    subtitle: 'Platform Mobilitas Tim Sales, Pipeline Prospek & Pelacakan Komisi',
+    category: 'fullstack',
+    summary: 'Sistem CRM penjualan terintegrasi untuk tim sales lapangan: manajemen pipeline prospek, pencatatan kunjungan merchant, dan kalkulasi performa omset penjualan.',
+    description: 'Platform manajemen penjualan terpadu (SCRM) yang menghubungkan tim sales lapangan dengan manajemen pusat: pencatatan prospek merchant toko hewan, geolokasi check-in kunjungan, hingga estimasi komisi otomatis.',
+    architecture: [
+      'Backend REST API modular untuk sinkronisasi data prospek dan histori kunjungan sales',
+      'Dashboard web interaktif untuk pemantauan performa sales rep dan target bulanan',
+      'Integrasi sinkronisasi data faktur penjualan dengan sistem Accurate Online ERP'
+    ],
+    stack: [
+      'Next.js',
+      'Node.js',
+      'PostgreSQL',
+      'Tailwind CSS',
+      'TypeScript'
+    ],
+    highlights: [
+      'Meningkatkan visibilitas pipeline prospek B2B HolyCat secara terpusat',
+      'Integrasi data otomatis dengan modul invoice Accurate Online'
+    ],
+    challenges: 'Menyinkronkan data aktivitas sales lapangan saat koneksi internet tidak stabil dengan mekanisme offline-first.',
+    role: 'Full-Stack Developer',
+    isPrivateRepo: true,
+    privateRepoReason: 'Sistem internal manajemen sales dan komisi kemitraan HolyCat',
+    imageUrl: '',
+    imageFit: 'contain',
+    featured: false,
+    metrics: [
+      { label: 'Domain', value: 'Sales CRM' },
+      { label: 'Backend', value: 'Node.js & REST' },
+      { label: 'Integration', value: 'Accurate ERP' }
+    ]
   }
 ];
 
