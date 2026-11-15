@@ -165,12 +165,12 @@ export const EditorialProfile: React.FC = () => {
             <span className={`text-xs font-mono font-bold uppercase tracking-[0.25em] block mb-2 transition-colors duration-500 ${
               isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
             }`}>
-              Profil &amp; Keahlian
+              Profil &amp; Rekam Jejak Rekayasa
             </span>
             <h2 className={`text-3xl sm:text-5xl font-black tracking-tight leading-[1.08] transition-colors duration-500 ${
               isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'
             }`}>
-              Fullstack &amp; Mobile Developer
+              Full-Stack &amp; Mobile Engineer
             </h2>
           </div>
 
@@ -185,7 +185,7 @@ export const EditorialProfile: React.FC = () => {
             <p className={`max-w-xs text-xs leading-relaxed transition-colors duration-500 ${
               isNight ? 'text-stone-300' : 'text-[#475569]'
             }`}>
-              Berpengalaman mengembangkan aplikasi web skala penuh, aplikasi mobile, arsitektur database, serta manajemen infrastruktur Linux.
+              Berpengalaman merancang ekosistem omnichannel skala produksi, aplikasi mobile Flutter Clean Architecture, integrasi ERP Accurate, dan infrastruktur Linux VPS berbasis 100% Docker.
             </p>
           </div>
         </motion.div>

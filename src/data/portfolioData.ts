@@ -5,15 +5,15 @@ export const profileData: ProfileData = {
   tagline: 'Full-Stack & Mobile Software Engineer',
   education: 'S1 Teknik Informatika (IPK 3.70) • STMIK Mardira Indonesia',
   status: 'Terbuka untuk Peluang Kerja (Full-Stack / Mobile / Backend)',
-  bio: 'Sarjana Teknik Informatika (IPK 3.70) berfokus pada arsitektur web modern, backend REST API, dan aplikasi mobile Flutter dengan pengalaman nyata melayani 3.000+ pengguna aktif, integrasi pembayaran digital Midtrans, dan antrian antarmuka teruji.',
+  bio: 'Sarjana Teknik Informatika (IPK 3.70) berpengalaman merancang arsitektur e-commerce omnichannel, mobile app Flutter Clean Architecture (Riverpod), backend Node.js & NestJS bergaransi transaksi ACID, antrean terdistribusi Redis BullMQ, integrasi ERP Accurate Online, serta manajemen infrastruktur VPS Linux berbasis Docker.',
   experienceStart: '3+ Tahun Pengalaman',
   avatarUrl: '/rendi.jpg',
   interests: [
-    'Full-Stack Architecture',
-    'Mobile Systems (Flutter)',
-    'High-Throughput REST API',
-    'Distributed Caching & Queues',
-    'Relational Database Modeling'
+    'Full-Stack Omnichannel Ecosystems',
+    'Mobile Systems (Flutter Clean Architecture)',
+    'Distributed Queues (Redis & BullMQ)',
+    'ACID Relational Modeling & Prisma',
+    'Linux VPS & Docker Infrastructure'
   ],
   contact: {
     email: 'rendisutendi21@gmail.com',

@@ -28,10 +28,10 @@ export const FloodActionButton: React.FC<FloodActionButtonProps> = ({
             type="button"
             onClick={onTriggerFlood}
             className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#2d6a4f] hover:bg-[#1b4332] text-white text-xs font-mono font-bold shadow-lg shadow-[#2d6a4f]/25 transition-all cursor-pointer hover:scale-105 active:scale-95 group"
-            title="Alirkan air segar ke lahan sawah"
+            title="Eksplorasi interaktif: Alirkan air segar ke lahan sawah"
           >
             <Waves className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-            <span>Irigasi Lahan</span>
+            <span>Simulasi Irigasi</span>
           </motion.button>
         )}
 

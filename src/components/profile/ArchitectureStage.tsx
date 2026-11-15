@@ -15,45 +15,45 @@ export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ isFlooded 
   const pillars = [
     {
       id: 'fullstack',
-      title: 'Full-Stack Web Engineering',
-      tagline: 'Modern, reactive web applications with robust backend systems.',
+      title: 'Omnichannel & Full-Stack Web Engineering',
+      tagline: 'Next.js, Node.js/NestJS, Prisma ORM, Redis BullMQ & Accurate ERP.',
       icon: <Globe className="w-5 h-5 text-emerald-600" />,
       subIcon: <Network className="w-4 h-4 text-emerald-500" />,
       metrics: [
-        { label: 'Frontend', val: 'React / Next.js / Tailwind' },
-        { label: 'Backend', val: 'Node.js / Express / Laravel' },
-        { label: 'State', val: 'Zustand / Redux Toolkit' }
+        { label: 'Frontend', val: 'Next.js App Router / React / Tailwind' },
+        { label: 'Backend', val: 'Node.js / NestJS / Laravel Filament' },
+        { label: 'Data & Queue', val: 'PostgreSQL / Prisma / Redis BullMQ' }
       ],
       description:
-        'Merancang dan membangun antarmuka web interaktif yang cepat, aksesibel, dan terhubung dengan API backend yang aman.'
+        'Merancang ekosistem omnichannel skala produksi: Storefront Next.js reaktif, REST API backend Node.js & NestJS, integrasi ERP Accurate Online otomatis, antrean asinkron Redis BullMQ, serta transaksi database ACID untuk ribuan pengguna aktif.'
     },
     {
       id: 'mobile',
-      title: 'Cross-Platform Mobile Apps',
-      tagline: 'Fluid Flutter applications for Android and iOS.',
+      title: 'Cross-Platform Mobile Architecture',
+      tagline: 'Production Flutter Apps with Clean Architecture & Riverpod.',
       icon: <Smartphone className="w-5 h-5 text-amber-500" />,
       subIcon: <Cpu className="w-4 h-4 text-amber-400" />,
       metrics: [
-        { label: 'Framework', val: 'Flutter & Dart' },
-        { label: 'Architecture', val: 'BLoC / Clean Architecture' },
-        { label: 'Platform', val: 'Android Native & Cross-OS' }
+        { label: 'Framework', val: 'Flutter 3.44+ & Dart' },
+        { label: 'Architecture', val: 'Clean Architecture (Presentation, Domain, Data)' },
+        { label: 'State & Network', val: 'Riverpod / GoRouter / Dio Client' }
       ],
       description:
-        'Pengembangan aplikasi mobile berkinerja native dengan UX responsif, manajemen state terstruktur, dan integrasi hardware.'
+        'Membangun aplikasi mobile Flutter performa tinggi (60fps) untuk Android & iOS dengan Clean Architecture: pemisahan layer ketat, integrasi payment gateway Midtrans, kalkulasi logistik kurir, serta offline secure caching.'
     },
     {
       id: 'infra',
-      title: 'Backend Architecture & Linux',
-      tagline: 'High-availability services, databases & DevOps pipelines.',
+      title: 'Production DevOps & Linux VPS Infrastructure',
+      tagline: '100% Dockerized Services, Caddy Ingress Proxy & High-Availability.',
       icon: <Server className="w-5 h-5 text-teal-600" />,
       subIcon: <Database className="w-4 h-4 text-teal-500" />,
       metrics: [
-        { label: 'Database', val: 'PostgreSQL / MySQL / Redis' },
-        { label: 'DevOps', val: 'Docker / CI-CD / Nginx' },
-        { label: 'OS', val: 'Linux Server / Bash Scripting' }
+        { label: 'Server OS', val: 'Ubuntu 24.04 LTS (8 vCPU / 23 GB RAM)' },
+        { label: 'Container & Proxy', val: 'Docker Compose & Caddy / NGINX Ingress' },
+        { label: 'Database & Cache', val: 'PostgreSQL Clusters & Redis 7 AOF' }
       ],
       description:
-        'Mengonfigurasi server Linux yang tangguh, pipeline otomatisasi deployment, serta optimasi query database untuk beban tinggi.'
+        'Mengelola infrastruktur server VPS Linux berbasis 100% Docker container di bawah /opt/: konfigurasi reverse proxy Caddy dengan auto-SSL, isolasi jaringan zero blast radius, pemantauan proses PM2, serta database pooling Supabase PostgreSQL.'
     }
   ];
 
