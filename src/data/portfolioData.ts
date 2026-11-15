@@ -215,11 +215,13 @@ export const projectsData: Project[] = [
     architecture: [
       'Backend RESTful API dengan Node.js, Express, Prisma ORM, dan PostgreSQL (30+ model relasional: produk, order, voucher, wallet)',
       'Storefront responsif dan interaktif dibangun dengan Next.js, React, Tailwind CSS, TanStack Query, dan Zustand',
+      'Integrasi Accurate Online ERP API untuk sinkronisasi otomatis faktur penjualan (sales invoice), sales order, dan rekonsiliasi stok gudang',
       'Payment gateway Midtrans otomatis dengan penanganan webhook asinkron dan verifikasi signature',
       'Background job processing dan message queue menggunakan BullMQ dan Redis Caching',
       'Integrasi Biteship API untuk kalkulasi ongkos kirim real-time dan pelacakan kurir ekspedisi',
       'Dompet digital in-app HolyPay (top-up, saldo, mutasi) dengan transaksi database terisolasi ACID',
-      'Sistem tracking merchant Holydis (PO & Surat Jalan) dengan Laravel 13, Sanctum, dan React'
+      'Sistem tracking merchant Holydis (PO & Surat Jalan) dengan Laravel 13, Sanctum, dan React',
+      'Marketplace Picker System (MPS) & Barcode Scanner internal gudang untuk verifikasi shipping manifest & zero-defect fulfillment'
     ],
     stack: [
       'Next.js',
@@ -259,10 +261,12 @@ export const projectsData: Project[] = [
     summary: 'Aplikasi mobile customer HolyCat berbasis Flutter dengan Clean Architecture, Riverpod state management, integrasi Dio HTTP Client, dan push notification interaktif.',
     description: 'Aplikasi mobile pelanggan HolyCat yang menyajikan pengalaman belanja mulus di platform Android dan iOS. Menghubungkan pengguna langsung ke katalog produk, konsultasi perawatan, pelacakan pesanan real-time, dan pembayaran dompet digital.',
     architecture: [
-      'Arsitektur berlapis Flutter Clean Architecture (Presentation, Domain, Data Layers)',
-      'State management reaktif berkinerja tinggi menggunakan Riverpod',
-      'Jaringan HTTP terisolasi dengan Dio, caching interceptor, dan token auto-refresh',
-      'Navigasi deklaratif deep-linking menggunakan GoRouter'
+      'Arsitektur berlapis Flutter Clean Architecture (Presentation, Domain, Data Layers) dengan feature-first modularity',
+      'Modul Posyancing (Posyandu Kucing) & KTP Kucing: sistem rekam medis digital (riwayat vaksinasi, sterilisasi, berat badan, serta booking grooming)',
+      'State management reaktif berkinerja tinggi menggunakan Riverpod 2.x & StateNotifier',
+      'Jaringan HTTP terisolasi dengan Dio Client, caching interceptor, dan token auto-refresh',
+      'Navigasi deklaratif deep-linking menggunakan GoRouter',
+      'Integrasi payment gateway Midtrans Snap SDK dan push notification tertarget Firebase Cloud Messaging (FCM)'
     ],
     stack: [
       'Flutter',
