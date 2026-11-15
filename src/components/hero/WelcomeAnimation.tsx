@@ -66,14 +66,14 @@ export const WelcomeAnimation: React.FC<WelcomeAnimationProps> = ({ onComplete }
         animate={{ opacity: phase === 'fade' ? 0 : 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.65, ease: 'easeInOut' }}
-        className="fixed inset-0 z-50 overflow-hidden pointer-events-auto select-none bg-[#1c1917]"
+        className="fixed inset-0 z-50 overflow-hidden pointer-events-auto select-none bg-[#f0fdf4]"
       >
-        {/* Sunset Terrace Layer 1 (Warm Terracotta & Dusk) */}
+        {/* Morning Terrace Layer 1 (Deep Highland Emerald) */}
         <motion.div
           initial={{ y: '100%' }}
           animate={{ y: '0%' }}
           transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 bg-gradient-to-t from-[#29170e] via-[#451e10] to-[#782d11]"
+          className="absolute inset-0 bg-gradient-to-t from-[#14532d] via-[#15803d] to-[#16a34a]"
         >
           <div className="absolute -top-24 inset-x-0 h-24">
             <svg
@@ -84,18 +84,18 @@ export const WelcomeAnimation: React.FC<WelcomeAnimationProps> = ({ onComplete }
             >
               <path
                 d="M0 60 C340 10, 680 90, 1020 30 C1220 70, 1360 20, 1440 50 L1440 120 L0 120 Z"
-                fill="#782d11"
+                fill="#16a34a"
               />
             </svg>
           </div>
         </motion.div>
 
-        {/* Sunset Terrace Layer 2 (Golden Amber & Olive Terrace) */}
+        {/* Morning Terrace Layer 2 (Vibrant Green & Golden Sunlit Ridge) */}
         <motion.div
           initial={{ y: '100%' }}
           animate={{ y: '0%' }}
           transition={{ duration: 1.1, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 bg-gradient-to-t from-[#361d0f] via-[#782d11] to-[#b45309]"
+          className="absolute inset-0 bg-gradient-to-t from-[#15803d] via-[#16a34a] to-[#22c55e]"
         >
           <div className="absolute -top-28 inset-x-0 h-28">
             <svg
@@ -107,26 +107,26 @@ export const WelcomeAnimation: React.FC<WelcomeAnimationProps> = ({ onComplete }
               {/* Rice Terrace Silhouette */}
               <path
                 d="M0 45 C320 85, 640 15, 960 65 C1180 15, 1340 55, 1440 35 L1440 120 L0 120 Z"
-                fill="#b45309"
+                fill="#22c55e"
               />
-              {/* Golden Sunset Ridge Line */}
+              {/* Golden Morning Sunlight Ridge Line */}
               <path
                 d="M0 45 C320 85, 640 15, 960 65 C1180 15, 1340 55, 1440 35"
-                stroke="#fbbf24"
+                stroke="#fde047"
                 strokeWidth="2.5"
-                strokeOpacity="0.85"
+                strokeOpacity="0.9"
                 strokeLinecap="round"
               />
             </svg>
           </div>
         </motion.div>
 
-        {/* Sunset Terrace Layer 3 (Sun-kissed Golden Horizon) */}
+        {/* Morning Terrace Layer 3 (Bright Cerulean Sky & Morning Mist) */}
         <motion.div
           initial={{ y: '100%' }}
           animate={{ y: '0%' }}
           transition={{ duration: 1.25, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 bg-gradient-to-b from-[#1c1917]/95 via-[#381c12]/90 to-[#b45309]/80"
+          className="absolute inset-0 bg-gradient-to-b from-[#e0f2fe]/95 via-[#bae6fd]/90 to-[#22c55e]/80"
         >
           <div className="absolute -top-32 inset-x-0 h-32">
             <svg
@@ -137,23 +137,23 @@ export const WelcomeAnimation: React.FC<WelcomeAnimationProps> = ({ onComplete }
             >
               <path
                 d="M0 60 C380 15, 760 95, 1140 35 C1280 65, 1380 25, 1440 50 L1440 140 L0 140 Z"
-                fill="#1c1917"
+                fill="#bae6fd"
               />
               <path
                 d="M0 60 C380 15, 760 95, 1140 35 C1280 65, 1380 25, 1440 50"
-                stroke="#f59e0b"
+                stroke="#facc15"
                 strokeWidth="2.2"
-                strokeOpacity="0.75"
+                strokeOpacity="0.85"
                 strokeLinecap="round"
               />
             </svg>
           </div>
         </motion.div>
 
-        {/* Atmosphere: Warm Golden Sunset Sunbeam & Evening Mist */}
+        {/* Atmosphere: Bright Morning Sunbeam & Fresh Mountain Breeze */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(245,158,11,0.28),_transparent_70%)]" />
-          <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-[#d97706]/15 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(253,224,71,0.35),_transparent_70%)]" />
+          <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-[#38bdf8]/20 via-transparent to-transparent" />
         </div>
 
         {/* Golden Fireflies (Kunang-Kunang Senja) */}
@@ -255,38 +255,38 @@ export const WelcomeAnimation: React.FC<WelcomeAnimationProps> = ({ onComplete }
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut' }}
-              className="mb-6 drop-shadow-[0_8px_30px_rgba(245,158,11,0.35)]"
+              className="mb-6 drop-shadow-[0_8px_30px_rgba(22,163,74,0.35)]"
             >
               <BrandLogo size="xl" />
             </motion.div>
 
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-widest uppercase drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)]">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-widest uppercase drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)]">
               {profileData.name.toUpperCase()}
             </h1>
 
-            <div className="mt-3.5 flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-widest text-[#fef3c7] uppercase drop-shadow-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#fde047] shadow-[0_0_8px_#fde047]" />
-              <span>Menyusuri Senja di Lanskap Portofolio</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#fde047] shadow-[0_0_8px_#fde047]" />
+            <div className="mt-3.5 flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-widest text-[#15803d] uppercase drop-shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] shadow-[0_0_8px_#22c55e]" />
+              <span>Menyusuri Pagi Cerah di Lanskap Portofolio</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] shadow-[0_0_8px_#22c55e]" />
             </div>
 
-            {/* Organic Progress Track (Golden Sunset Ray) */}
-            <div className="mt-7 w-52 sm:w-64 h-1.5 rounded-full bg-white/15 overflow-hidden border border-white/20 backdrop-blur-sm shadow-inner">
+            {/* Organic Progress Track (Fresh Morning Emerald to Golden Dawn) */}
+            <div className="mt-7 w-52 sm:w-64 h-1.5 rounded-full bg-black/10 overflow-hidden border border-black/15 backdrop-blur-sm shadow-inner">
               <motion.div
                 initial={{ width: '0%' }}
                 animate={{ width: phase === 'bloom' || phase === 'fade' ? '100%' : '0%' }}
                 transition={{ duration: 1.25, ease: 'easeInOut' }}
-                className="h-full bg-gradient-to-r from-[#d97706] via-[#f59e0b] to-[#fef08a] rounded-full shadow-[0_0_12px_#f59e0b]"
+                className="h-full bg-gradient-to-r from-[#16a34a] via-[#4ade80] to-[#fde047] rounded-full shadow-[0_0_12px_#22c55e]"
               />
             </div>
           </motion.div>
         </div>
 
-        {/* Skip button with elegant warm glass styling */}
+        {/* Skip button with elegant frosted glass styling */}
         <button
           type="button"
           onClick={onComplete}
-          className="absolute top-6 right-6 z-20 px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/25 text-xs text-white/90 font-medium transition-colors backdrop-blur-md cursor-pointer hover:border-[#f59e0b]/60"
+          className="absolute top-6 right-6 z-20 px-3.5 py-1.5 rounded-lg bg-black/10 hover:bg-black/20 border border-black/15 text-xs text-[#0f172a] font-bold transition-colors backdrop-blur-md cursor-pointer hover:border-emerald-500/60"
         >
           Lewati
         </button>

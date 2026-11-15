@@ -196,7 +196,7 @@ export const FlagshipSlideCard: React.FC<FlagshipSlideCardProps> = ({
           </div>
 
           {/* project interactive preview stage */}
-          <div className="lg:col-span-6 flex justify-center">
+          <div className="hidden lg:flex lg:col-span-6 justify-center">
             <ProjectPreviewPlaceholder
               project={project}
               className="w-full max-w-lg lg:max-w-none"

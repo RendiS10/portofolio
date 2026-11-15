@@ -18,7 +18,7 @@ export const VillageScenery: React.FC<VillageSceneryProps> = ({ isNight = false 
 
   return (
     <div className="absolute inset-x-0 bottom-0 pointer-events-none z-10 overflow-hidden select-none">
-      <div className="relative w-full max-w-7xl mx-auto h-[260px] sm:h-[320px] md:h-[360px] flex items-end justify-between px-3 sm:px-8">
+      <div className="relative w-full max-w-7xl mx-auto h-[170px] min-[400px]:h-[210px] sm:h-[320px] md:h-[360px] flex items-end justify-between px-3 sm:px-8">
         
         {/* =========================================
             LEFT SCENERY: POHON KELAPA & RUMPUN BAMBU
@@ -63,7 +63,7 @@ export const VillageScenery: React.FC<VillageSceneryProps> = ({ isNight = false 
                 height="280"
                 viewBox="0 0 190 280"
                 fill="none"
-                className="w-[140px] h-[210px] sm:w-[170px] sm:h-[250px] md:w-[190px] md:h-[280px] drop-shadow-xl"
+                className="w-[95px] h-[142px] min-[400px]:w-[120px] min-[400px]:h-[180px] sm:w-[170px] sm:h-[250px] md:w-[190px] md:h-[280px] drop-shadow-xl"
               >
                 <defs>
                   {/* Palm Trunk Gradient */}
@@ -224,7 +224,7 @@ export const VillageScenery: React.FC<VillageSceneryProps> = ({ isNight = false 
                 height="190"
                 viewBox="0 0 220 190"
                 fill="none"
-                className="w-[155px] h-[135px] sm:w-[190px] sm:h-[165px] md:w-[220px] md:h-[190px] drop-shadow-2xl"
+                className="w-[105px] h-[90px] min-[400px]:w-[130px] min-[400px]:h-[112px] sm:w-[190px] sm:h-[165px] md:w-[220px] md:h-[190px] drop-shadow-2xl"
               >
                 <defs>
                   {/* Thatched Roof Gradient */}

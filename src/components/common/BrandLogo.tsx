@@ -1,5 +1,6 @@
 import React from 'react';
 import { profileData } from '../../data/portfolioData';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface BrandLogoProps {
   className?: string;
@@ -20,6 +21,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   };
 
   const currentSize = sizeMap[size];
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
 
   return (
     <div className={`inline-flex items-center gap-2.5 ${className}`}>
@@ -143,11 +146,15 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       </div>
 
       {withText && (
-        <div className="flex flex-col text-left">
-          <span className={`font-bold text-white tracking-wide leading-tight drop-shadow-sm ${currentSize.text}`}>
+        <div className="flex flex-col text-left min-w-0">
+          <span className={`font-bold tracking-wide leading-tight drop-shadow-sm transition-colors duration-300 truncate ${
+            isNight ? 'text-white' : 'text-[#0f172a]'
+          } ${currentSize.text}`}>
             {profileData.name}
           </span>
-          <span className={`${currentSize.sub} text-[#fef08a] font-mono font-medium flex items-center gap-1 drop-shadow-xs truncate max-w-[140px] min-[400px]:max-w-[200px] sm:max-w-none`}>
+          <span className={`${currentSize.sub} font-mono font-medium hidden min-[340px]:flex items-center gap-1 drop-shadow-xs truncate max-w-[130px] min-[400px]:max-w-[200px] sm:max-w-none transition-colors duration-300 ${
+            isNight ? 'text-amber-300' : 'text-[#166534]'
+          }`}>
             &gt;_ {profileData.tagline}
           </span>
         </div>

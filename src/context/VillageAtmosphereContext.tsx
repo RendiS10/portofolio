@@ -25,12 +25,14 @@ export const VillageAtmosphereProvider: React.FC<{ children: React.ReactNode }> 
   const [atmosphere, setAtmosphere] = useState<VillageAtmosphere>('sunset');
   const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(false);
 
-  // Restore stored preferences on mount
+  // Always default to Light Mode (Pagi Cerah) on first load
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedAtmosphere = localStorage.getItem('rs-village-atmosphere') as VillageAtmosphere;
-      if (storedAtmosphere === 'sunset' || storedAtmosphere === 'night') {
-        setAtmosphere(storedAtmosphere);
+      if (storedAtmosphere === 'night') {
+        setAtmosphere('night');
+      } else {
+        setAtmosphere('sunset');
       }
       const isMuted = villageAudio.getMutedState();
       setIsSoundEnabled(!isMuted);
