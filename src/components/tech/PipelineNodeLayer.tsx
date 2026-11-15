@@ -17,7 +17,12 @@ import {
   SiDocker,
   SiLinux,
   SiGit,
-  SiVercel
+  SiVercel,
+  SiRedis,
+  SiNestjs,
+  SiCaddy,
+  SiDart,
+  SiPwa
 } from '@icons-pack/react-simple-icons';
 import type { TechItem, TechLayer } from '../../types/portfolio';
 import type { FlowDomainId } from './PipelineFlowPresets';
@@ -40,7 +45,12 @@ const iconMap: Record<string, React.FC<{ size?: number; color?: string; classNam
   docker: SiDocker,
   linux: SiLinux,
   git: SiGit,
-  vercel: SiVercel
+  vercel: SiVercel,
+  redis: SiRedis,
+  nestjs: SiNestjs,
+  caddy: SiCaddy,
+  dart: SiDart,
+  pwa: SiPwa
 };
 
 interface PipelineNodeLayerProps {

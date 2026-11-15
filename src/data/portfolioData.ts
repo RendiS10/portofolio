@@ -67,6 +67,26 @@ export const techStackData: TechItem[] = [
     projectLinks: ['holycat-mobile']
   },
   {
+    name: 'Dart',
+    category: 'mobile',
+    layer: 'client',
+    iconKey: 'dart',
+    color: '#0175C2',
+    roleTag: 'Mobile Core Engine',
+    usageContext: 'Bahasa inti Flutter dengan sound null-safety, kompilasi AOT native ARM, dan asynchronous streams',
+    projectLinks: ['holycat-mobile']
+  },
+  {
+    name: 'PWA (Progressive Web Apps)',
+    category: 'frontend',
+    layer: 'client',
+    iconKey: 'pwa',
+    color: '#5A0FC8',
+    roleTag: 'Offline Web App',
+    usageContext: 'Aplikasi web offline-first dengan service worker, manifest, dan kapabilitas barcode scanner',
+    projectLinks: ['holycat-mps']
+  },
+  {
     name: 'Tailwind CSS v4',
     category: 'frontend',
     layer: 'client',
@@ -89,6 +109,16 @@ export const techStackData: TechItem[] = [
 
   // backend engine layer
   {
+    name: 'NestJS',
+    category: 'backend',
+    layer: 'backend',
+    iconKey: 'nestjs',
+    color: '#E0234E',
+    roleTag: 'Enterprise Backend',
+    usageContext: 'Arsitektur modular backend TypeScript, REST API Swagger, dependency injection, dan microservices',
+    projectLinks: ['holycat', 'holycat-mps', 'holycat-scrm']
+  },
+  {
     name: 'Node.js',
     category: 'backend',
     layer: 'backend',
@@ -97,6 +127,16 @@ export const techStackData: TechItem[] = [
     roleTag: 'Server Runtime',
     usageContext: 'REST API berkinerja tinggi, Swagger documentation, dan microservices',
     projectLinks: ['holycat', 'jkt48']
+  },
+  {
+    name: 'Redis & BullMQ',
+    category: 'backend',
+    layer: 'backend',
+    iconKey: 'redis',
+    color: '#DC382D',
+    roleTag: 'Distributed Queue & Cache',
+    usageContext: 'Antrean asinkron order timeout, background job cart expiration, dan caching performa tinggi',
+    projectLinks: ['holycat']
   },
   {
     name: 'Laravel',
@@ -180,6 +220,16 @@ export const techStackData: TechItem[] = [
     color: '#0284c7',
     roleTag: 'Containerization',
     usageContext: 'Container deployment, multi-stage Dockerfile, dan konsistensi staging environment',
+    projectLinks: ['holycat']
+  },
+  {
+    name: 'Caddy Ingress',
+    category: 'tools',
+    layer: 'devops',
+    iconKey: 'caddy',
+    color: '#1F88C0',
+    roleTag: 'Reverse Proxy & Ingress',
+    usageContext: 'Reverse proxy server Linux VPS dengan manajemen sertifikat SSL otomatis zero-config dan routing container Docker',
     projectLinks: ['holycat']
   },
   {
@@ -559,14 +609,16 @@ export const experienceData: ExperienceItem[] = [
     badge: 'Produksi / Freelance',
     category: 'project',
     description:
-      'Membangun ekosistem omnichannel pet-care HolyCat secara end-to-end: backend REST API (Node.js/Prisma/PostgreSQL), web storefront Next.js, aplikasi mobile Flutter (Clean Architecture), sistem logistik Holydis (Laravel), serta integrasi Midtrans dan antrian BullMQ + Redis — melayani 3.000+ pengguna terdaftar.',
+      'Merancang dan mengimplementasikan seluruh arsitektur ekosistem omnichannel pet-care HolyCat Labs: backend REST API & microservices (Node.js/NestJS/Prisma/PostgreSQL), storefront Next.js SSR, customer mobile app Flutter Clean Architecture, modul rekam medis Posyancing & KTP Kucing, Marketplace Picker System (MPS) barcode scanner gudang, integrasi ERP Accurate Online, sistem tanda tangan digital kontrak B2B, serta manajemen VPS Linux Ubuntu 24.04 berbasis 100% Docker container melayani 3.000+ pengguna aktif.',
     highlights: [
-      'Arsitektur REST API dengan 50+ endpoints skala produksi dan 30+ model relasional',
-      'Dompet digital in-app HolyPay bergaransi ACID transaction',
-      'Aplikasi mobile Flutter cross-platform (Android & iOS) dengan Clean Architecture',
-      'Integrasi payment gateway Midtrans dan kurir logistik Biteship'
+      'Ekosistem backend 50+ REST API endpoints skala produksi, Redis BullMQ, dan dompet digital HolyPay bergaransi ACID',
+      'Mobile app Flutter Clean Architecture (60fps, Riverpod, Dio) dengan fitur Posyancing & KTP Kucing',
+      'Marketplace Picker System (MPS) & barcode scanner operasional gudang dengan zero-defect fulfillment',
+      'Integrasi Accurate Online ERP API untuk otomasi sinkronisasi faktur penjualan dan rekonsiliasi stok harian',
+      'Platform e-signature digital dan manajemen kontrak kemitraan B2B terenkripsi via Supabase Storage',
+      'Manajemen infrastruktur server Linux VPS Ubuntu 24.04 LTS (100% Docker under /opt/, Caddy Ingress reverse proxy)'
     ],
-    tech: ['Node.js', 'Next.js', 'Flutter', 'Laravel', 'PostgreSQL', 'Prisma', 'Midtrans', 'Redis', 'BullMQ', 'Docker']
+    tech: ['NestJS', 'Next.js', 'Flutter', 'Riverpod', 'Dart', 'Node.js', 'PostgreSQL', 'Prisma', 'Redis', 'BullMQ', 'Docker', 'Caddy', 'Laravel', 'Supabase', 'Midtrans']
   },
   {
     id: 'exp-abbygail',

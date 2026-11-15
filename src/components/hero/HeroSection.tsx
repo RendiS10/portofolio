@@ -97,7 +97,7 @@ export const HeroSection: React.FC = () => {
                 : 'text-[#0f172a] drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] font-semibold'
             }`}
           >
-            Full-Stack &amp; Mobile Developer. Membangun platform web skalabel, aplikasi mobile Flutter, dan arsitektur Linux yang efisien.
+            Software Engineer spesialis arsitektur Omnichannel E-Commerce skala produksi (Next.js &amp; NestJS), Mobile Clean Architecture (Flutter 60fps), dan infrastruktur Linux VPS berbasis 100% Docker.
           </p>
 
           <div className="mt-5 sm:mt-7 flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 px-2">
