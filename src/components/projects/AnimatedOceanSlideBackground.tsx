@@ -9,10 +9,12 @@ import { renderCreaturesByDepth } from './oceanCreatureRenderers';
 
 interface AnimatedOceanSlideBackgroundProps {
   depthLevel: 1 | 2 | 3 | 4;
+  isActive?: boolean;
 }
 
 export const AnimatedOceanSlideBackground: React.FC<AnimatedOceanSlideBackgroundProps> = ({
-  depthLevel
+  depthLevel,
+  isActive = true
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -37,7 +39,7 @@ export const AnimatedOceanSlideBackground: React.FC<AnimatedOceanSlideBackground
     window.addEventListener('resize', handleResize);
 
     const render = () => {
-      if (!isRunning || !ctx || !canvas || !isVisible) return;
+      if (!isRunning || !ctx || !canvas || !isVisible || !isActive) return;
       const width = canvas.width;
       const height = canvas.height;
 
@@ -62,12 +64,16 @@ export const AnimatedOceanSlideBackground: React.FC<AnimatedOceanSlideBackground
       animId = requestAnimationFrame(render);
     };
 
+    if (isActive && isVisible && !animId) {
+      animId = requestAnimationFrame(render);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
-        if (isVisible && !animId && isRunning) {
+        if (isVisible && isActive && !animId && isRunning) {
           animId = requestAnimationFrame(render);
-        } else if (!isVisible && animId) {
+        } else if ((!isVisible || !isActive) && animId) {
           cancelAnimationFrame(animId);
           animId = 0;
         }
@@ -82,7 +88,7 @@ export const AnimatedOceanSlideBackground: React.FC<AnimatedOceanSlideBackground
       if (animId) cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
     };
-  }, [depthLevel]);
+  }, [depthLevel, isActive]);
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">

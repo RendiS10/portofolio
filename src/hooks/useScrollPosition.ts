@@ -1,17 +1,25 @@
 import { useState, useEffect } from 'react';
 
 export function useScrollPosition() {
-  const [scrollY, setScrollY] = useState<number>(0);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrollY(currentScrollY);
-      setIsScrolled(currentScrollY > 40);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const scrolled = currentScrollY > 40;
+          setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -29,5 +37,5 @@ export function useScrollPosition() {
     }
   };
 
-  return { scrollY, isScrolled, scrollToSection };
+  return { scrollY: 0, isScrolled, scrollToSection };
 }

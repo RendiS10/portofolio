@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
 import type { Project, ProjectCategory } from '../../types/portfolio';
 import { projectsData } from '../../data/portfolioData';
 import { FlagshipSlideCard } from './FlagshipProjectParallax';
@@ -43,6 +43,18 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
   const ySlide2 = useTransform(smoothProgress, [0.18, 0.38], ['100%', '0%'], { clamp: true });
   const ySlide3 = useTransform(smoothProgress, [0.46, 0.66], ['100%', '0%'], { clamp: true });
   const ySlide4 = useTransform(smoothProgress, [0.74, 0.96], ['100%', '0%'], { clamp: true });
+
+  // Cull occluded background canvases to keep GPU/CPU 60 FPS
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  useMotionValueEvent(smoothProgress, 'change', (latest) => {
+    let nextIdx = 0;
+    if (latest >= 0.74) nextIdx = 3;
+    else if (latest >= 0.46) nextIdx = 2;
+    else if (latest >= 0.18) nextIdx = 1;
+    else nextIdx = 0;
+
+    setActiveSlideIndex((prev) => (prev !== nextIdx ? nextIdx : prev));
+  });
 
   return (
     <section
@@ -90,6 +102,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
             index={0}
             yMotion="0%"
             depthLevel={1}
+            isActive={activeSlideIndex <= 1}
             onSelectProject={handleSelect}
           />
         )}
@@ -100,6 +113,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
             index={1}
             yMotion={ySlide2}
             depthLevel={2}
+            isActive={activeSlideIndex >= 0 && activeSlideIndex <= 2}
             onSelectProject={handleSelect}
           />
         )}
@@ -110,6 +124,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
             index={2}
             yMotion={ySlide3}
             depthLevel={3}
+            isActive={activeSlideIndex >= 1 && activeSlideIndex <= 3}
             onSelectProject={handleSelect}
           />
         )}
@@ -122,6 +137,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
           <FilteredProjectDock
             projects={projectsData}
             selectedCategory={selectedCategory}
+            isActive={activeSlideIndex >= 2}
             onSelectCategory={setSelectedCategory}
             onSelectProject={handleSelect}
           />

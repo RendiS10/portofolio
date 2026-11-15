@@ -109,12 +109,15 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
     return () => clearInterval(peckInterval);
   }, [isCrowing, hasGoldenEgg]);
 
-  // Walking loop across the bottom terrace
+  // Walking loop across the bottom terrace (pauses when off-screen)
   useEffect(() => {
-    let animId: number;
+    let animId: number = 0;
     let lastTime = performance.now();
+    let isVisible = true;
 
     const walkLoop = (currentTime: number) => {
+      if (!isVisible) return;
+
       const delta = Math.min(0.05, (currentTime - lastTime) / 1000);
       lastTime = currentTime;
 
@@ -135,8 +138,35 @@ export const VillageRooster = forwardRef<VillageRoosterHandle>((_props, ref) => 
       animId = requestAnimationFrame(walkLoop);
     };
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!isVisible) {
+              isVisible = true;
+              lastTime = performance.now();
+              animId = requestAnimationFrame(walkLoop);
+            }
+          } else {
+            isVisible = false;
+            cancelAnimationFrame(animId);
+          }
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    const targetElem = roosterRef.current?.parentElement || roosterRef.current;
+    if (targetElem) {
+      observer.observe(targetElem);
+    }
+
     animId = requestAnimationFrame(walkLoop);
-    return () => cancelAnimationFrame(animId);
+
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animId);
+    };
   }, [isCrowing, isPecking, hasGoldenEgg, x]);
 
   // Dialogue bubble loop

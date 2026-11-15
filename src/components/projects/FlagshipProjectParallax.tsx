@@ -18,6 +18,7 @@ interface FlagshipSlideCardProps {
   yMotion?: any;
   opacityMotion?: any;
   depthLevel?: 1 | 2 | 3;
+  isActive?: boolean;
   onSelectProject: (project: Project) => void;
 }
 
@@ -27,6 +28,7 @@ export const FlagshipSlideCard: React.FC<FlagshipSlideCardProps> = ({
   yMotion = '0%',
   opacityMotion = 1,
   depthLevel = (index + 1) as 1 | 2 | 3,
+  isActive = true,
   onSelectProject
 }) => {
   const zIndex = index === 0 ? 10 : index === 1 ? 20 : 30;
@@ -41,7 +43,7 @@ export const FlagshipSlideCard: React.FC<FlagshipSlideCardProps> = ({
       } shadow-[0_-8px_24px_rgba(15,23,42,0.35)]`}
     >
       {/* background terrace ocean slide */}
-      <AnimatedOceanSlideBackground depthLevel={depthLevel} />
+      <AnimatedOceanSlideBackground depthLevel={depthLevel} isActive={isActive} />
 
       {/* slide metadata */}
       <div className="relative z-10 max-w-7xl mx-auto w-full pt-20 sm:pt-24 px-6 sm:px-12 flex items-center justify-between">

@@ -191,11 +191,16 @@ export function renderGoldenMotes(
     const r = 1.6 + (i % 3) * 1.2;
     const alpha = 0.35 + Math.sin(time * 2 + i) * 0.3;
 
+    // Outer glowing halo (hardware-accelerated 2D pipeline, zero CPU shadowBlur)
+    ctx.beginPath();
+    ctx.arc(mx, my, r * 2.8, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(245, 158, 11, ${alpha * 0.25})`;
+    ctx.fill();
+
+    // Bright inner core
     ctx.beginPath();
     ctx.arc(mx, my, r, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(253, 224, 71, ${alpha})`;
-    ctx.shadowColor = '#f59e0b';
-    ctx.shadowBlur = 8;
     ctx.fill();
   }
   ctx.restore();

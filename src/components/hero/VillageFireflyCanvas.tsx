@@ -24,13 +24,14 @@ export const VillageFireflyCanvas: React.FC = () => {
     let isVisible = true;
     let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
     let height = (canvas.height = canvas.parentElement?.clientHeight || window.innerHeight);
+    let canvasRect = canvas.getBoundingClientRect();
 
     const mousePos = { x: -999, y: -999 };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mousePos.x = e.clientX - rect.left;
-      mousePos.y = e.clientY - rect.top;
+      if (!isVisible) return;
+      mousePos.x = e.clientX - canvasRect.left;
+      mousePos.y = e.clientY - canvasRect.top;
     };
 
     const handleMouseLeave = () => {
@@ -42,9 +43,11 @@ export const VillageFireflyCanvas: React.FC = () => {
       if (!canvas.parentElement) return;
       width = canvas.width = canvas.parentElement.clientWidth;
       height = canvas.height = canvas.parentElement.clientHeight;
+      canvasRect = canvas.getBoundingClientRect();
     };
 
     window.addEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleResize, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
 
@@ -153,6 +156,7 @@ export const VillageFireflyCanvas: React.FC = () => {
       observer.disconnect();
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
     };

@@ -14,6 +14,7 @@ import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 interface FilteredProjectDockProps {
   projects: Project[];
   selectedCategory: ProjectCategory;
+  isActive?: boolean;
   onSelectCategory: (category: ProjectCategory) => void;
   onSelectProject: (project: Project) => void;
 }
@@ -21,6 +22,7 @@ interface FilteredProjectDockProps {
 export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
   projects,
   selectedCategory,
+  isActive = true,
   onSelectCategory,
   onSelectProject
 }) => {
@@ -55,7 +57,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
       isNight ? 'bg-[#08120b]' : 'bg-[#132a20]'
     }`}>
       {/* ocean background */}
-      <AnimatedOceanSlideBackground depthLevel={4} />
+      <AnimatedOceanSlideBackground depthLevel={4} isActive={isActive} />
 
       {/* category and project filter navigation */}
       <div className="relative z-10 max-w-7xl mx-auto w-full pt-20 sm:pt-24 px-4 sm:px-12 flex flex-col gap-2 sm:gap-3 shrink-0">

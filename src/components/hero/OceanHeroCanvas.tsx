@@ -177,11 +177,15 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
 
       let isRunning = true;
       let isVisible = true;
+      let cssWidth = 0;
+      let cssHeight = 0;
 
       const handleResize = () => {
         if (!canvas) return;
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const rect = canvas.getBoundingClientRect();
+        cssWidth = rect.width;
+        cssHeight = rect.height;
         canvas.width = rect.width * dpr;
         canvas.height = rect.height * dpr;
         ctx.scale(dpr, dpr);
@@ -195,9 +199,8 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
 
       const render = () => {
         if (!isRunning || !canvas) return;
-        const rect = canvas.getBoundingClientRect();
-        const width = rect.width;
-        const height = rect.height;
+        const width = cssWidth || canvas.width;
+        const height = cssHeight || canvas.height;
         const isNightTime = isNightRef.current;
 
         ctx.clearRect(0, 0, width, height);

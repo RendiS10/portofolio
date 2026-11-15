@@ -57,34 +57,43 @@ export const NavigationBar: React.FC = () => {
   }, [activeSection]);
 
   useEffect(() => {
+    let rafId: number | null = null;
+
     const handleScroll = () => {
       if (isManualClickRef.current) return;
+      if (rafId !== null) return;
 
-      const scrollPosition = window.scrollY + 240;
-      const isAtBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const scrollPosition = window.scrollY + 240;
+        const isAtBottom =
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
 
-      if (isAtBottom) {
-        setActiveSection('contact');
-        return;
-      }
+        if (isAtBottom) {
+          setActiveSection((prev) => (prev !== 'contact' ? 'contact' : prev));
+          return;
+        }
 
-      for (let i = navItems.length - 1; i >= 0; i--) {
-        const item = navItems[i];
-        const el = document.getElementById(item.id);
-        if (el) {
-          const top = el.offsetTop;
-          if (scrollPosition >= top) {
-            setActiveSection(item.id);
-            break;
+        for (let i = navItems.length - 1; i >= 0; i--) {
+          const item = navItems[i];
+          const el = document.getElementById(item.id);
+          if (el) {
+            const top = el.offsetTop;
+            if (scrollPosition >= top) {
+              setActiveSection((prev) => (prev !== item.id ? item.id : prev));
+              break;
+            }
           }
         }
-      }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleNavClick = (id: string, index = 0) => {
