@@ -1,175 +1,219 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Server, Smartphone, Globe, Cpu, Database, Network } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Server, Smartphone, Globe, CheckCircle2, Cpu, Database, Network } from 'lucide-react';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface ArchitectureStageProps {
-  isFlooded: boolean;
+  viewMode?: 'overview' | 'blueprint';
 }
 
-export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ isFlooded }) => {
+export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode = 'overview' }) => {
   const [activePillar, setActivePillar] = useState<number>(0);
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
 
   const pillars = [
     {
-      id: 'fullstack',
-      title: 'Omnichannel & Full-Stack Web Engineering',
-      tagline: 'Next.js, Node.js/NestJS, Prisma ORM, Redis BullMQ & Accurate ERP.',
-      icon: <Globe className="w-5 h-5 text-emerald-600" />,
+      id: 'omnichannel',
+      badge: 'PRODUKSI 3.000+ USER',
+      title: 'Omnichannel & Distributed Backend',
+      tagline: 'Next.js App Router, NestJS / Node.js, Prisma ORM, Redis BullMQ & Midtrans.',
+      icon: <Globe className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
       subIcon: <Network className="w-4 h-4 text-emerald-500" />,
       metrics: [
-        { label: 'Frontend', val: 'Next.js App Router / React / Tailwind' },
-        { label: 'Backend', val: 'Node.js / NestJS / Laravel Filament' },
-        { label: 'Data & Queue', val: 'PostgreSQL / Prisma / Redis BullMQ' }
+        { label: 'Storefront', val: 'Next.js SSR / TanStack / Tailwind' },
+        { label: 'Backend & Job', val: 'Node.js / NestJS / Redis BullMQ' },
+        { label: 'Database & Transaksi', val: 'PostgreSQL ACID (30+ Models)' }
       ],
       description:
-        'Merancang ekosistem omnichannel skala produksi: Storefront Next.js reaktif, REST API backend Node.js & NestJS, integrasi ERP Accurate Online otomatis, antrean asinkron Redis BullMQ, serta transaksi database ACID untuk ribuan pengguna aktif.'
+        'Merancang ekosistem omnichannel skala produksi HolyCat yang melayani 3.000+ pengguna aktif: storefront reaktif Next.js, 50+ REST endpoints terdokumentasi Swagger, dompet digital in-app HolyPay bergaransi ACID, penanganan webhook payment gateway asinkron, dan integrasi kurir real-time Biteship API.',
+      keyProof: 'Zero Race Conditions pada checkout diskon bertingkat & mutasi wallet.'
     },
     {
       id: 'mobile',
-      title: 'Cross-Platform Mobile Architecture',
-      tagline: 'Production Flutter Apps with Clean Architecture & Riverpod.',
-      icon: <Smartphone className="w-5 h-5 text-amber-500" />,
+      badge: 'FLUTTER CLEAN ARCHITECTURE',
+      title: 'High-Performance Mobile Systems',
+      tagline: 'Flutter 3.44+ Native Cross-Platform with Strict Layer Separation & Riverpod.',
+      icon: <Smartphone className="w-5 h-5 text-amber-500 dark:text-amber-400" />,
       subIcon: <Cpu className="w-4 h-4 text-amber-400" />,
       metrics: [
-        { label: 'Framework', val: 'Flutter 3.44+ & Dart' },
-        { label: 'Architecture', val: 'Clean Architecture (Presentation, Domain, Data)' },
+        { label: 'Framework & Engine', val: 'Flutter 3.44+ & Dart 3.x' },
+        { label: 'Pemisahan Layer', val: 'Clean Arch (Presentation / Domain / Data)' },
         { label: 'State & Network', val: 'Riverpod / GoRouter / Dio Client' }
       ],
       description:
-        'Membangun aplikasi mobile Flutter performa tinggi (60fps) untuk Android & iOS dengan Clean Architecture: pemisahan layer ketat, integrasi payment gateway Midtrans, kalkulasi logistik kurir, serta offline secure caching.'
+        'Membangun aplikasi mobile customer HolyCat dengan arsitektur bersih yang memisahkan dependensi bisnis dari UI: render 60fps konstan, offline-first secure caching, interseptor token auto-refresh, dan push notification tertarget FCM.',
+      keyProof: '100% testable domain entities terpisah dari UI presentation layer.'
     },
     {
       id: 'infra',
-      title: 'Production DevOps & Linux VPS Infrastructure',
-      tagline: '100% Dockerized Services, Caddy Ingress Proxy & High-Availability.',
-      icon: <Server className="w-5 h-5 text-teal-600" />,
+      badge: 'DOCKER PRODUCTION VPS',
+      title: 'DevOps & Linux Server Infrastructure',
+      tagline: '100% Dockerized Services under /opt/, Caddy Ingress & Supabase PostgreSQL.',
+      icon: <Server className="w-5 h-5 text-teal-600 dark:text-teal-400" />,
       subIcon: <Database className="w-4 h-4 text-teal-500" />,
       metrics: [
-        { label: 'Server OS', val: 'Ubuntu 24.04 LTS (8 vCPU / 23 GB RAM)' },
-        { label: 'Container & Proxy', val: 'Docker Compose & Caddy / NGINX Ingress' },
-        { label: 'Database & Cache', val: 'PostgreSQL Clusters & Redis 7 AOF' }
+        { label: 'Server Environment', val: 'Ubuntu 24.04 LTS (8 vCPU / 23GB RAM)' },
+        { label: 'Container Orchestration', val: 'Docker Compose / Caddy Reverse Proxy' },
+        { label: 'Cache & Reliability', val: 'Redis 7 AOF Persistence & PM2' }
       ],
       description:
-        'Mengelola infrastruktur server VPS Linux berbasis 100% Docker container di bawah /opt/: konfigurasi reverse proxy Caddy dengan auto-SSL, isolasi jaringan zero blast radius, pemantauan proses PM2, serta database pooling Supabase PostgreSQL.'
+        'Mengelola infrastruktur VPS Linux produksi berbasis 100% Docker container: otomatisasi sertifikat SSL zero-config Caddy, isolasi jaringan container terfragmentasi (zero blast radius), backup snapshot terjadwal, dan database connection pooling.',
+      keyProof: 'Uptime stabil dengan automated failover & container health check.'
     }
   ];
 
   return (
-    <div className="w-full flex flex-col gap-6 transition-colors duration-500">
-      {/* Selector Tabs */}
-      <div className={`grid grid-cols-3 gap-2.5 p-1.5 rounded-2xl border shadow-sm transition-colors duration-500 ${
-        isNight ? 'bg-[#142118] border-emerald-500/30' : 'bg-[#fffdf5] border-[#d8dfd5]'
+    <div className="w-full flex flex-col gap-5">
+      {/* Tab Switcher */}
+      <div className={`grid grid-cols-3 gap-2 p-1.5 rounded-2xl border transition-colors ${
+        isNight ? 'bg-[#111a14] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
       }`}>
-        {pillars.map((pillar, idx) => (
-          <motion.button
-            key={pillar.id}
-            type="button"
-            onClick={() => setActivePillar(idx)}
-            animate={
-              isFlooded
-                ? {
-                    rotate: idx === 0 ? -18 : idx === 1 ? 20 : -22,
-                    y: idx === 0 ? 14 : idx === 1 ? -16 : 20,
-                    x: idx === 0 ? -8 : idx === 1 ? 8 : 12
-                  }
-                : { rotate: 0, y: 0, x: 0 }
-            }
-            className={`flex flex-col items-center justify-center p-3 rounded-xl text-center transition-all cursor-pointer ${
-              activePillar === idx
-                ? 'bg-[#2d6a4f] text-white shadow-md'
-                : isNight
-                ? 'hover:bg-[#1a2a20] text-stone-300 hover:text-white'
-                : 'hover:bg-[#edf2eb] text-[#475569] hover:text-[#0f172a]'
-            }`}
-          >
-            <span
-              className={`text-xs font-mono font-bold block ${
-                activePillar === idx ? 'text-white' : isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+        {pillars.map((pillar, idx) => {
+          const isActive = activePillar === idx;
+          return (
+            <button
+              key={pillar.id}
+              type="button"
+              onClick={() => setActivePillar(idx)}
+              className={`relative flex flex-col items-center justify-center py-2.5 px-2 rounded-xl text-center transition-all cursor-pointer ${
+                isActive
+                  ? isNight
+                    ? 'bg-emerald-950/80 text-white shadow-sm border border-emerald-500/30'
+                    : 'bg-white text-[#151e17] shadow-sm border border-[#e4ded5]'
+                  : isNight
+                  ? 'text-stone-400 hover:text-stone-200'
+                  : 'text-[#48564c] hover:text-[#151e17]'
               }`}
             >
-              0{idx + 1}
-            </span>
-            <span className="text-xs font-bold leading-tight mt-0.5">
-              {pillar.id.toUpperCase()}
-            </span>
-          </motion.button>
-        ))}
+              <span className={`text-[10px] font-mono font-bold ${
+                isActive ? (isNight ? 'text-emerald-400' : 'text-[#1b4332]') : 'opacity-60'
+              }`}>
+                0{idx + 1}
+              </span>
+              <span className="text-xs font-bold tracking-tight mt-0.5 truncate max-w-full">
+                {pillar.id === 'omnichannel' ? 'Omnichannel' : pillar.id === 'mobile' ? 'Mobile App' : 'DevOps / VPS'}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Active Pillar */}
-      <div className={`relative min-h-[305px] sm:min-h-[315px] rounded-[32px] border shadow-xl overflow-hidden transition-colors duration-500 ${
+      {/* Main Spec Plaque */}
+      <div className={`rounded-3xl border p-6 sm:p-8 transition-colors ${
         isNight
-          ? 'bg-[#142118] border-emerald-500/30 shadow-emerald-950/30'
-          : 'bg-[#fffdf5] border-[#d8dfd5] shadow-[#2d6a4f]/6'
+          ? 'bg-[#111a14] border-emerald-500/20 shadow-2xl shadow-black/40'
+          : 'bg-white border-[#e4ded5] shadow-lg shadow-stone-900/4'
       }`}>
-        <motion.div
-          key={activePillar}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="p-7 sm:p-9 h-full flex flex-col justify-between space-y-5"
-        >
-          <div>
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-3.5">
-                <div className={`p-3 rounded-2xl border shadow-sm shrink-0 transition-colors duration-500 ${
-                  isNight ? 'bg-[#1a2a20] border-emerald-500/20' : 'bg-[#edf2eb] border-[#d8dfd5]'
+        <AnimatePresence mode="wait">
+          {viewMode === 'overview' ? (
+            <motion.div
+              key={`overview-${activePillar}`}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col gap-6"
+            >
+              {/* Plaque Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2.5 rounded-xl border ${
+                    isNight ? 'bg-[#17231c] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
+                  }`}>
+                    {pillars[activePillar].icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight">
+                      {pillars[activePillar].title}
+                    </h3>
+                    <p className={`text-xs font-mono mt-0.5 ${
+                      isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                    }`}>
+                      {pillars[activePillar].tagline}
+                    </p>
+                  </div>
+                </div>
+
+                <span className={`self-start sm:self-auto text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border ${
+                  isNight
+                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                    : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
                 }`}>
-                  {pillars[activePillar].icon}
-                </div>
-                <div>
-                  <h3 className={`text-lg sm:text-2xl font-black tracking-tight leading-tight transition-colors duration-500 ${
-                    isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'
-                  }`}>
-                    {pillars[activePillar].title}
-                  </h3>
-                  <p className={`text-xs font-mono mt-0.5 transition-colors duration-500 ${
-                    isNight ? 'text-amber-300' : 'text-[#2d6a4f]'
-                  }`}>
-                    {pillars[activePillar].tagline}
-                  </p>
-                </div>
+                  {pillars[activePillar].badge}
+                </span>
               </div>
 
-              <div className={`hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full border text-[11px] font-mono transition-colors duration-500 ${
-                isNight ? 'bg-[#1a2a20] border-emerald-500/30 text-amber-300' : 'bg-[#edf2eb] border-[#d8dfd5] text-[#2d6a4f]'
+              {/* Narrative Description */}
+              <p className={`text-xs sm:text-sm leading-relaxed ${
+                isNight ? 'text-[#95a499]' : 'text-[#48564c]'
               }`}>
-                {pillars[activePillar].subIcon}
-                <span className="font-bold">VERIFIED</span>
-              </div>
-            </div>
+                {pillars[activePillar].description}
+              </p>
 
-            <p className={`mt-4 text-xs sm:text-sm leading-relaxed transition-colors duration-500 ${
-              isNight ? 'text-stone-300' : 'text-[#475569]'
-            }`}>
-              {pillars[activePillar].description}
-            </p>
-          </div>
-
-          {/* Metric Badges */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-emerald-500/20">
-            {pillars[activePillar].metrics.map((m, i) => (
-              <div
-                key={i}
-                className={`p-3 rounded-xl border shadow-xs transition-colors duration-500 ${
-                  isNight ? 'bg-[#1a2a20] border-emerald-500/20 text-[#f8fafc]' : 'bg-[#edf2eb] border-[#d8dfd5] text-[#0f172a]'
-                }`}
-              >
-                <div className={`text-[10px] font-mono font-bold uppercase transition-colors duration-500 ${
-                  isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
-                }`}>
-                  {m.label}
-                </div>
-                <div className="text-xs font-bold tracking-tight mt-0.5 truncate">
-                  {m.val}
-                </div>
+              {/* Verified Key Proof */}
+              <div className={`p-3 rounded-xl border flex items-center gap-2.5 text-xs font-mono ${
+                isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-200' : 'bg-[#f8faf7] border-emerald-100 text-[#1b4332]'
+              }`}>
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
+                <span className="font-semibold">{pillars[activePillar].keyProof}</span>
               </div>
-            ))}
-          </div>
-        </motion.div>
+
+              {/* Technical Spec Grid - No Truncation */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-emerald-500/15">
+                {pillars[activePillar].metrics.map((m, i) => (
+                  <div
+                    key={i}
+                    className={`p-3 rounded-xl border ${
+                      isNight ? 'bg-[#152119] border-emerald-500/15' : 'bg-[#fcfbf8] border-[#e4ded5]'
+                    }`}
+                  >
+                    <div className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      isNight ? 'text-amber-400/90' : 'text-[#1b4332]'
+                    }`}>
+                      {m.label}
+                    </div>
+                    <div className="text-xs font-semibold tracking-tight mt-1 leading-snug">
+                      {m.val}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="blueprint-mode"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="font-mono text-xs space-y-4"
+            >
+              <div className={`p-4 rounded-xl border ${
+                isNight ? 'bg-[#090f0c] border-emerald-500/20 text-emerald-300' : 'bg-[#151e17] text-emerald-400'
+              }`}>
+                <div className="text-[10px] uppercase opacity-70 tracking-widest mb-2 font-bold text-amber-400">
+                  // HolyCat Omnichannel Production Data Flow
+                </div>
+                <pre className="text-[11px] leading-relaxed overflow-x-auto whitespace-pre">
+{`[Client: Next.js SSR / Flutter Mobile]
+        │
+        ▼ (HTTPS REST / Dio Interceptor)
+[Caddy Ingress Proxy :443 (Auto-SSL)]
+        │
+        ▼ (Internal Docker Network)
+[Node.js / NestJS Core Engine]
+   ├── [Prisma ORM] ──► [PostgreSQL ACID Cluster]
+   ├── [BullMQ Queue] ──► [Redis 7 In-Memory Cache]
+   └── [Webhook Listener] ◄── [Midtrans Payment Gateway]`}
+                </pre>
+              </div>
+              <p className={`text-xs ${isNight ? 'text-[#95a499]' : 'text-[#48564c]'}`}>
+                Seluruh arsitektur berjalan terisolasi di bawah Linux VPS Ubuntu 24.04 LTS via Docker Compose dengan isolasi internal network bridge.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

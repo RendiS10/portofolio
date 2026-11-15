@@ -180,8 +180,8 @@ export const NavigationBar: React.FC = () => {
               <div
                 className={`absolute top-1 bottom-1 rounded-full pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   isNight
-                    ? 'bg-gradient-to-r from-amber-500/25 via-amber-400/20 to-amber-500/25 border border-amber-400/40 shadow-[0_0_16px_rgba(245,158,11,0.25)]'
-                    : 'bg-gradient-to-r from-emerald-500/20 via-emerald-400/25 to-emerald-500/20 border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.2)]'
+                    ? 'bg-emerald-500/20 border border-emerald-400/40 shadow-[0_0_12px_rgba(52,211,153,0.2)]'
+                    : 'bg-[#ebf2ec] border border-emerald-300/80 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
                 }`}
                 style={{
                   left: `${pillStyle.left}px`,
@@ -274,9 +274,9 @@ export const NavigationBar: React.FC = () => {
                 playBambooTone(600);
                 copy(profileData.contact.email);
               }}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs transition-all cursor-pointer active:scale-95 ${
+              className={`flex items-center gap-2 px-3 py-1.5 min-w-[135px] justify-center rounded-full border text-xs transition-all cursor-pointer active:scale-95 ${
                 isNight
-                  ? 'bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/30 text-amber-100'
+                  ? 'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30 text-emerald-200'
                   : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-300 text-[#14532d]'
               }`}
               title="Salin alamat email"

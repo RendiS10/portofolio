@@ -1,98 +1,73 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { MapPin } from 'lucide-react';
+import { MapPin, GraduationCap } from 'lucide-react';
 import { useCardTilt } from '../../hooks/useCardTilt';
 import { profileData } from '../../data/portfolioData';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
-interface ProfilePhotoCardProps {
-  isFlooded: boolean;
-}
-
-export const ProfilePhotoCard: React.FC<ProfilePhotoCardProps> = ({ isFlooded }) => {
-  const { tiltProps } = useCardTilt(6);
+export const ProfilePhotoCard: React.FC = () => {
+  const { tiltProps } = useCardTilt(4);
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
 
   return (
-    <motion.div
-      animate={
-        isFlooded
-          ? {
-              rotate: -8,
-              y: 22,
-              scale: 0.96,
-              transition: { duration: 0.8, ease: 'easeOut' }
-            }
-          : {
-              rotate: 0,
-              y: 0,
-              scale: 1,
-              transition: { type: 'spring', stiffness: 260, damping: 18 }
-            }
-      }
-      className="relative w-full flex flex-col items-center lg:items-start gap-6 transition-colors duration-500"
-    >
+    <div className="relative w-full flex flex-col items-center lg:items-start gap-4">
+      {/* Bespoke Plaque Mount with Double Hairline Frame */}
       <div
         {...tiltProps}
-        className={`relative w-full max-w-sm rounded-[32px] p-3.5 border shadow-2xl transition-colors duration-500 group cursor-pointer ${
+        className={`relative w-full max-w-sm rounded-[28px] p-3 border transition-all duration-300 group ${
           isNight
-            ? 'bg-[#142118] border-emerald-500/30 shadow-emerald-950/40'
-            : 'bg-[#fffdf5] border-[#d8dfd5] shadow-[#2d6a4f]/8'
+            ? 'bg-[#111a14] border-emerald-500/25 shadow-2xl shadow-black/50'
+            : 'bg-white border-[#e4ded5] shadow-xl shadow-stone-900/5'
         }`}
       >
-        <div className={`relative aspect-[3/4] w-full rounded-[24px] overflow-hidden border flex items-center justify-center transition-colors duration-500 ${
-          isNight ? 'bg-[#1a2a20] border-emerald-500/20' : 'bg-[#edf2eb] border-[#d8dfd5]'
+        {/* Aspect Ratio 4:5 Portrait Frame */}
+        <div className={`relative aspect-[4/5] w-full rounded-[22px] overflow-hidden border ${
+          isNight ? 'bg-[#152119] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
         }`}>
           <img
             src={profileData.avatarUrl || '/rendi.jpg'}
             alt={profileData.name}
-            className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-103"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.src = '/rendi.jpg';
             }}
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/75 via-transparent to-transparent opacity-65 pointer-events-none" />
+          {/* Depth Vignette */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10 pointer-events-none" />
 
-          <div className={`absolute bottom-4 left-4 right-4 p-3 rounded-xl border backdrop-blur-md shadow-sm transition-colors duration-500 ${
-            isNight
-              ? 'bg-[#142118]/90 border-emerald-500/30 text-[#f8fafc]'
-              : 'bg-[#fffdf5]/90 border-[#d8dfd5] text-[#0f172a]'
-          }`}>
-            <div className={`text-sm font-bold ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
+          {/* Active Availability Tag */}
+          <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full backdrop-blur-md bg-black/50 border border-white/20 text-white text-[11px] font-mono flex items-center gap-1.5 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Aktif di Bandung, ID</span>
+          </div>
+
+          {/* Bottom Identity Plaque */}
+          <div className="absolute bottom-3 left-3 right-3 p-3.5 rounded-xl backdrop-blur-md bg-black/65 border border-white/15 text-white shadow-md">
+            <div className="text-base font-bold tracking-tight">
               {profileData.name}
             </div>
-            <div className={`text-xs font-mono mt-0.5 ${isNight ? 'text-amber-300' : 'text-[#2d6a4f]'}`}>
-              {profileData.education}
+            <div className="text-[11px] font-mono text-emerald-300 flex items-center gap-1.5 mt-0.5">
+              <GraduationCap className="w-3.5 h-3.5 shrink-0" />
+              <span>S1 Teknik Informatika (IPK 3.70)</span>
             </div>
           </div>
         </div>
 
-        <div className={`mt-3 px-2 flex items-center justify-between text-[11px] font-mono transition-colors duration-500 ${
-          isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+        {/* Integrated Metadata Plaque - Clean & Editorial */}
+        <div className={`mt-3 px-2.5 py-1 flex items-center justify-between text-xs font-mono ${
+          isNight ? 'text-[#95a499]' : 'text-[#48564c]'
         }`}>
-          <span>FOTO PROFIL</span>
-          <span>ID // {profileData.name.toUpperCase()}</span>
+          <div className="flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-emerald-500" />
+            <span>Bandung, Jawa Barat</span>
+          </div>
+          <span className={`font-semibold ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+            STMIK Mardira Indonesia
+          </span>
         </div>
       </div>
-
-      {/* Location & Operating Environment */}
-      <motion.div
-        animate={isFlooded ? { rotate: 12, x: 24, y: 30 } : { rotate: 0, x: 0, y: 0 }}
-        className={`w-full max-w-sm p-4 rounded-2xl border flex items-center justify-between text-xs font-mono shadow-sm transition-colors duration-500 ${
-          isNight
-            ? 'bg-[#142118] border-emerald-500/30 text-[#f8fafc]'
-            : 'bg-[#fffdf5] border-[#d8dfd5] text-[#0f172a]'
-        }`}
-      >
-        <div className="flex items-center gap-2">
-          <MapPin className={`w-4 h-4 ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`} />
-          <span>Indonesia</span>
-        </div>
-        <span className={`font-bold ${isNight ? 'text-emerald-400' : 'text-[#2d6a4f]'}`}>Linux Enthusiasts</span>
-      </motion.div>
-    </motion.div>
+    </div>
   );
 };
