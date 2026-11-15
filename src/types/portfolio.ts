@@ -44,7 +44,7 @@ export interface ExperienceItem {
   organization: string;
   period: string;
   badge?: string;
-  category?: 'education' | 'bootcamp' | 'project' | 'security';
+  category?: 'education' | 'bootcamp' | 'project' | 'government' | 'security';
   description: string;
   highlights?: string[];
   tech: string[];

@@ -58,7 +58,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
 
   return (
     <section id="stack" className={`relative z-20 -mt-1 w-full select-none transition-colors duration-500 ${
-      isNight ? 'bg-[#0c1510] text-[#f8fafc]' : 'bg-[#f5f3ec] text-[#0f172a]'
+      isNight ? 'bg-[#090f0c] text-[#f5f7f4]' : 'bg-[#fbfaf6] text-[#151e17]'
     }`}>
       {/* background decorations */}
       <TechBeachDecorations />
@@ -72,7 +72,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
           <div className="flex items-center gap-2">
             <span
               className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
-                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
               }`}
             >
               03 // PETA KEAHLIAN &amp; TECH STACK
@@ -99,7 +99,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
                 ? 'bg-[#142118] border-emerald-500/30 text-[#f5f7f4] shadow-sm'
                 : 'bg-white border-[#e4ded5] text-[#151e17] shadow-sm'
             }`}>
-              <Layers className={`w-3.5 h-3.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+              <Layers className={`w-3.5 h-3.5 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
               <span className={`text-xs font-mono font-semibold ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
                 {techStackData.length} Tools &amp; Frameworks
               </span>

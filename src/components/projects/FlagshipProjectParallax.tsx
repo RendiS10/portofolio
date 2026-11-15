@@ -70,8 +70,8 @@ export const FlagshipSlideCard: React.FC<FlagshipProjectCardProps> = ({
               {project.title}
             </h3>
             <p
-              className={`text-xs sm:text-sm font-mono font-semibold ${
-                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+              className={`text-xs sm:text-sm font-mono font-medium ${
+                isNight ? 'text-[#80ed99]' : 'text-[#2d6a4f]'
               }`}
             >
               {project.subtitle}
@@ -99,8 +99,8 @@ export const FlagshipSlideCard: React.FC<FlagshipProjectCardProps> = ({
                 }`}
               >
                 <div
-                  className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
-                    isNight ? 'text-amber-400/90' : 'text-[#1b4332]'
+                  className={`text-[10px] font-mono font-medium uppercase tracking-wider ${
+                    isNight ? 'text-stone-400' : 'text-[#556358]'
                   }`}
                 >
                   {m.label}

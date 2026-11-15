@@ -24,7 +24,7 @@ function PortfolioMain() {
   return (
     <div
       data-theme={atmosphere}
-      className={`min-h-screen transition-colors duration-500 selection:bg-amber-500 selection:text-black ${
+      className={`min-h-screen transition-colors duration-500 selection:bg-[#1b4332] selection:text-[#fbfaf6] dark:selection:bg-[#80ed99] dark:selection:text-[#090f0c] ${
         atmosphere === 'night' ? 'bg-[#0c1510] text-[#f8fafc]' : 'bg-[#f5f3ec] text-[#0f172a]'
       }`}
     >

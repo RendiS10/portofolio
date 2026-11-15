@@ -140,7 +140,7 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
             </span>
             <span
               className={`text-[11px] font-mono font-bold uppercase tracking-wider ${
-                isLayerActiveInDomain ? (isNight ? 'text-amber-400' : 'text-[#1b4332]') : 'text-[#94a3b8]'
+                isLayerActiveInDomain ? (isNight ? 'text-[#80ed99]' : 'text-[#1b4332]') : 'text-[#94a3b8]'
               }`}
             >
               {subtitle}
@@ -270,14 +270,14 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
       <div className={`mt-5 pt-3 border-t flex items-center justify-between text-[11px] font-mono transition-colors duration-500 ${
         isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
       }`}>
-        <span className={isNight ? 'text-amber-400 font-semibold' : 'text-[#1b4332] font-semibold'}>
+        <span className={isNight ? 'text-[#80ed99] font-semibold' : 'text-[#1b4332] font-semibold'}>
           {techItems.length} Tools Teruji
         </span>
         <button
           type="button"
           onClick={handleInspectClick}
           className={`font-semibold hover:underline transition-colors cursor-pointer ${
-            isNight ? 'text-[#95a499] hover:text-amber-400' : 'text-[#48564c] hover:text-[#1b4332]'
+            isNight ? 'text-[#95a499] hover:text-[#80ed99]' : 'text-[#48564c] hover:text-[#1b4332]'
           }`}
         >
           Detail &rarr;

@@ -148,7 +148,7 @@ export const NavigationBar: React.FC = () => {
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
             ? isNight
-              ? 'bg-[#14110f]/90 backdrop-blur-2xl border-b border-amber-500/20 py-2.5 sm:py-3 shadow-[0_10px_35px_rgba(0,0,0,0.55)]'
+              ? 'bg-[#090f0c]/90 backdrop-blur-2xl border-b border-emerald-950/60 py-2.5 sm:py-3 shadow-lg shadow-black/40'
               : 'bg-[#fffdf5]/92 backdrop-blur-2xl border-b border-stone-300/80 py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
             : 'bg-transparent py-3 sm:py-5'
         }`}
@@ -172,7 +172,7 @@ export const NavigationBar: React.FC = () => {
             aria-label="Navigasi Utama"
             className={`hidden lg:flex items-center relative p-1 rounded-full backdrop-blur-xl transition-all ${
               isNight
-                ? 'bg-[#1c1815]/85 hover:bg-[#1c1815]/95 border border-amber-500/25 shadow-[0_4px_24px_rgba(0,0,0,0.35)]'
+                ? 'bg-[#0f1713]/85 hover:bg-[#132019]/90 border border-emerald-950/50 shadow-md'
                 : 'bg-[#fffdf5]/90 hover:bg-[#fffdf5] border border-stone-300/80 shadow-[0_4px_20px_rgba(0,0,0,0.08)]'
             }`}
           >
@@ -204,10 +204,10 @@ export const NavigationBar: React.FC = () => {
                   className={`relative z-10 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 cursor-pointer select-none ${
                     isActive
                       ? isNight
-                        ? 'text-amber-100 font-semibold drop-shadow-[0_2px_8px_rgba(245,158,11,0.5)]'
+                        ? 'text-[#80ed99] font-bold'
                         : 'text-[#14532d] font-bold'
                       : isNight
-                      ? 'text-stone-300 hover:text-amber-200'
+                      ? 'text-stone-400 hover:text-stone-200'
                       : 'text-stone-600 hover:text-[#16a34a]'
                   }`}
                 >
@@ -221,7 +221,7 @@ export const NavigationBar: React.FC = () => {
           <div
             className={`hidden lg:flex items-center gap-1.5 p-1 rounded-full backdrop-blur-xl shrink-0 transition-all ${
               isNight
-                ? 'bg-[#1c1815]/85 border border-amber-500/25 shadow-[0_4px_20px_rgba(0,0,0,0.35)]'
+                ? 'bg-[#0f1713]/85 border border-emerald-950/50 shadow-md'
                 : 'bg-[#fffdf5]/90 border border-stone-300/80 shadow-md'
             }`}
           >
@@ -231,16 +231,16 @@ export const NavigationBar: React.FC = () => {
               onClick={toggleAtmosphere}
               className={`p-2 rounded-full transition-all cursor-pointer group active:scale-95 ${
                 isNight
-                  ? 'text-stone-300 hover:text-amber-300 hover:bg-amber-500/15'
-                  : 'text-stone-700 hover:text-amber-600 hover:bg-amber-50'
+                  ? 'text-stone-300 hover:text-[#80ed99] hover:bg-emerald-500/10'
+                  : 'text-stone-700 hover:text-emerald-700 hover:bg-emerald-50'
               }`}
               title={atmosphere === 'sunset' ? 'Beralih ke Malam Berkunang-kunang' : 'Beralih ke Pagi Sawah Cerah'}
               aria-label="Toggle Atmosphere"
             >
               {atmosphere === 'sunset' ? (
-                <Sun className="w-4 h-4 text-amber-500 group-hover:rotate-45 transition-transform" />
+                <Sun className="w-4 h-4 text-emerald-500 group-hover:rotate-45 transition-transform" />
               ) : (
-                <Moon className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform" />
+                <Moon className="w-4 h-4 text-[#80ed99] group-hover:rotate-12 transition-transform" />
               )}
             </button>
 
@@ -265,7 +265,7 @@ export const NavigationBar: React.FC = () => {
               )}
             </button>
 
-            <div className={`w-[1px] h-4 mx-0.5 ${isNight ? 'bg-amber-500/20' : 'bg-stone-300'}`} />
+            <div className={`w-[1px] h-4 mx-0.5 ${isNight ? 'bg-emerald-950/60' : 'bg-stone-300'}`} />
 
             {/* Email Copy Pill */}
             <button
@@ -288,7 +288,7 @@ export const NavigationBar: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <Copy className={`w-3.5 h-3.5 transition-transform group-hover:rotate-6 ${isNight ? 'text-amber-400' : 'text-emerald-700'}`} />
+                  <Copy className={`w-3.5 h-3.5 transition-transform group-hover:rotate-6 ${isNight ? 'text-[#80ed99]' : 'text-emerald-700'}`} />
                   <span className="font-medium tracking-tight">{profileData.contact.email}</span>
                 </>
               )}
@@ -303,7 +303,7 @@ export const NavigationBar: React.FC = () => {
               onClick={toggleAtmosphere}
               className={`w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all active:scale-95 cursor-pointer ${
                 isNight
-                  ? 'bg-[#1c1815]/90 border-amber-500/30 text-amber-300 shadow-[0_2px_12px_rgba(0,0,0,0.4)]'
+                  ? 'bg-[#0f1713]/90 border-emerald-950/60 text-emerald-400 shadow-sm'
                   : 'bg-[#fffdf5]/95 border-stone-300/90 text-amber-600 shadow-[0_2px_10px_rgba(0,0,0,0.06)]'
               }`}
               aria-label={atmosphere === 'sunset' ? 'Beralih ke Suasana Malam' : 'Beralih ke Suasana Pagi'}
@@ -326,10 +326,10 @@ export const NavigationBar: React.FC = () => {
               className={`w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all active:scale-95 cursor-pointer ${
                 mobileMenuOpen
                   ? isNight
-                    ? 'bg-amber-500/20 border-amber-400 text-amber-200'
+                    ? 'bg-emerald-500/20 border-emerald-400 text-emerald-200'
                     : 'bg-emerald-100 border-emerald-500 text-emerald-800'
                   : isNight
-                  ? 'bg-[#1c1815]/90 border-amber-500/30 text-stone-200 shadow-[0_2px_12px_rgba(0,0,0,0.4)]'
+                  ? 'bg-[#0f1713]/90 border-emerald-950/60 text-stone-200 shadow-sm'
                   : 'bg-[#fffdf5]/95 border-stone-300/90 text-stone-800 shadow-[0_2px_10px_rgba(0,0,0,0.06)]'
               }`}
               aria-label={mobileMenuOpen ? 'Tutup navigasi' : 'Buka navigasi'}
@@ -368,14 +368,14 @@ export const NavigationBar: React.FC = () => {
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               className={`lg:hidden fixed top-[68px] sm:top-[76px] left-3 right-3 sm:left-6 sm:right-6 max-h-[calc(100vh-84px)] overflow-y-auto z-40 rounded-3xl p-5 shadow-2xl border backdrop-blur-2xl transition-all ${
                 isNight
-                  ? 'bg-[#151210]/98 border-amber-500/30 text-stone-200 shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
+                  ? 'bg-[#0c1410]/98 border-emerald-950/60 text-stone-200 shadow-2xl'
                   : 'bg-[#fffdf5]/98 border-stone-300 text-stone-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)]'
               }`}
             >
               {/* Primary Navigation Links */}
               <div className="flex flex-col gap-1">
                 <span className={`text-[10px] uppercase font-mono font-bold tracking-widest px-3 mb-1.5 ${
-                  isNight ? 'text-amber-400/80' : 'text-emerald-700/80'
+                  isNight ? 'text-[#80ed99]' : 'text-emerald-700/80'
                 }`}>
                   Navigasi Utama
                 </span>
@@ -390,10 +390,10 @@ export const NavigationBar: React.FC = () => {
                       className={`w-full min-h-[46px] text-left px-4 rounded-xl text-sm font-semibold transition-all flex items-center justify-between active:scale-[0.99] cursor-pointer ${
                         isActive
                           ? isNight
-                            ? 'bg-amber-500/15 text-amber-200 font-bold border-l-4 border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
+                            ? 'bg-emerald-500/15 text-[#80ed99] font-bold border-l-4 border-emerald-500'
                             : 'bg-emerald-50 text-emerald-900 font-bold border-l-4 border-emerald-600'
                           : isNight
-                          ? 'text-stone-300 hover:text-amber-200 hover:bg-white/5'
+                          ? 'text-stone-300 hover:text-[#80ed99] hover:bg-white/5'
                           : 'text-stone-700 hover:text-emerald-800 hover:bg-stone-100/80'
                       }`}
                     >
@@ -402,7 +402,7 @@ export const NavigationBar: React.FC = () => {
                       </span>
                       {isActive && (
                         <span className={`w-2 h-2 rounded-full ${
-                          isNight ? 'bg-amber-400 shadow-[0_0_8px_#f59e0b]' : 'bg-emerald-600'
+                          isNight ? 'bg-emerald-400' : 'bg-emerald-600'
                         }`} />
                       )}
                     </button>
@@ -412,10 +412,10 @@ export const NavigationBar: React.FC = () => {
 
               {/* Cultural Utilities & Secondary Actions Section */}
               <div className={`mt-5 pt-4 border-t flex flex-col gap-3 ${
-                isNight ? 'border-amber-500/20' : 'border-stone-200'
+                isNight ? 'border-emerald-950/40' : 'border-stone-200'
               }`}>
                 <span className={`text-[10px] uppercase font-mono font-bold tracking-widest px-3 ${
-                  isNight ? 'text-amber-400/80' : 'text-emerald-700/80'
+                  isNight ? 'text-[#80ed99]' : 'text-emerald-700/80'
                 }`}>
                   Suasana & Kontak Langsung
                 </span>
@@ -473,13 +473,13 @@ export const NavigationBar: React.FC = () => {
                   }}
                   className={`w-full p-3.5 rounded-2xl border text-left flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer ${
                     isNight
-                      ? 'bg-amber-500/10 border-amber-500/30 text-amber-100 hover:bg-amber-500/15'
+                      ? 'bg-emerald-500/10 border-emerald-500/25 text-emerald-100 hover:bg-emerald-500/15'
                       : 'bg-emerald-50/70 border-emerald-200 text-emerald-950 hover:bg-emerald-100/70'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                      isNight ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-600 text-white'
+                      isNight ? 'bg-emerald-500/20 text-[#80ed99]' : 'bg-emerald-600 text-white'
                     }`}>
                       {copied ? <Check className="w-5 h-5 text-emerald-300" /> : <Copy className="w-5 h-5" />}
                     </div>
@@ -496,7 +496,7 @@ export const NavigationBar: React.FC = () => {
                     copied
                       ? 'bg-emerald-500/20 text-emerald-400 font-bold'
                       : isNight
-                      ? 'bg-amber-500/20 text-amber-200'
+                      ? 'bg-emerald-500/20 text-[#80ed99]'
                       : 'bg-emerald-200/60 text-emerald-800'
                   }`}>
                     {copied ? 'Tersalin' : 'Salin'}
@@ -510,7 +510,7 @@ export const NavigationBar: React.FC = () => {
                   rel="noopener noreferrer"
                   className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 border transition-all active:scale-[0.98] ${
                     isNight
-                      ? 'bg-stone-900 border-amber-500/20 text-stone-200 hover:bg-stone-800'
+                      ? 'bg-[#14231a] border-emerald-950/60 text-stone-200 hover:bg-[#1a2e22]'
                       : 'bg-white border-stone-200 text-stone-700 hover:bg-stone-50'
                   }`}
                 >

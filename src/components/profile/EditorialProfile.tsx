@@ -76,7 +76,7 @@ export const EditorialProfile: React.FC = () => {
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-3">
               <span className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
-                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
               }`}>
                 01 // REKAM JEJAK REKAYASA &amp; SPESIFIKASI
               </span>
@@ -84,8 +84,13 @@ export const EditorialProfile: React.FC = () => {
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-[1.08] font-sans">
-              Full-Stack &amp; Mobile Engineer
+              Software Engineer
             </h2>
+            <p className={`text-xs sm:text-sm font-mono font-semibold mt-1.5 ${
+              isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
+            }`}>
+              Spesialisasi Rekayasa Full-Stack Web, Mobile Flutter &amp; Cloud Infrastructure
+            </p>
           </div>
 
           {/* Telemetry Switcher & Executive Summary */}
@@ -123,7 +128,7 @@ export const EditorialProfile: React.FC = () => {
             <p className={`max-w-xs text-xs leading-relaxed ${
               isNight ? 'text-[#95a499]' : 'text-[#48564c]'
             }`}>
-              Merancang sistem e-commerce omnichannel skala produksi HolyCat (3.000+ pengguna), mobile app Flutter Clean Architecture, integrasi ERP, dan 100% Docker VPS.
+              Merancang platform e-commerce &amp; retail skala produksi, aplikasi mobile Flutter Clean Architecture, integrasi ERP, dan 100% Docker VPS.
             </p>
           </div>
         </motion.div>

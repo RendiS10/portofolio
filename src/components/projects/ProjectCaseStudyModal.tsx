@@ -96,7 +96,7 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                 </span>
                 <span
                   className={`text-xs font-mono font-bold ${
-                    isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                    isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                   }`}
                 >
                   // {project.role}
@@ -148,8 +148,8 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
                 }`}
               >
                 <div
-                  className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
-                    isNight ? 'text-amber-400/90' : 'text-[#1b4332]'
+                  className={`text-[10px] font-mono font-medium uppercase tracking-wider ${
+                    isNight ? 'text-stone-400' : 'text-[#556358]'
                   }`}
                 >
                   {m.label}
@@ -165,7 +165,7 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
           <div className="space-y-2">
             <h4
               className={`text-xs font-mono uppercase font-bold flex items-center gap-2 ${
-                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
               }`}
             >
               <Layers className="w-4 h-4 text-emerald-500" />
@@ -186,7 +186,7 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
           <div className="space-y-3">
             <h4
               className={`text-xs font-mono uppercase font-bold flex items-center gap-2 ${
-                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
               }`}
             >
               <Code2 className="w-4 h-4 text-emerald-500" />
@@ -213,17 +213,17 @@ export const ProjectCaseStudyModal: React.FC<ProjectCaseStudyModalProps> = ({
           <div className="space-y-2.5">
             <h4
               className={`text-xs font-mono uppercase font-bold flex items-center gap-2 ${
-                isNight ? 'text-amber-400' : 'text-[#92400e]'
+                isNight ? 'text-[#e2a87a]' : 'text-[#7c3a21]'
               }`}
             >
-              <AlertTriangle className="w-4 h-4 text-amber-500" />
+              <AlertTriangle className="w-4 h-4 text-[#c27845]" />
               <span>Tantangan Utama Rekayasa &amp; Resolusi</span>
             </h4>
             <div
               className={`p-4 rounded-2xl border text-xs sm:text-sm leading-relaxed ${
                 isNight
-                  ? 'bg-amber-950/20 border-amber-500/25 text-amber-200'
-                  : 'bg-amber-50/70 border-amber-200 text-[#78350f]'
+                  ? 'bg-[#181916] border-[#8b5a3c]/30 text-[#e4cebe]'
+                  : 'bg-[#faf6f2] border-[#e8d5be] text-[#4a2e1b]'
               }`}
             >
               <p className="font-bold mb-1">Tantangan yang Dihadapi:</p>

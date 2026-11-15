@@ -89,7 +89,7 @@ export const HeroSection: React.FC = () => {
               <span
                 className={`text-sm sm:text-lg md:text-xl font-mono font-bold tracking-tight px-3 py-1 rounded-lg border ${
                   isNight
-                    ? 'bg-amber-400/10 border-amber-400/30 text-amber-300'
+                    ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99]'
                     : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
                 }`}
               >
@@ -127,17 +127,17 @@ export const HeroSection: React.FC = () => {
             >
               <div
                 className={`text-base sm:text-xl font-mono font-black ${
-                  isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                  isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                 }`}
               >
-                3.000+
+                LIVE
               </div>
               <div
                 className={`text-[10px] sm:text-xs font-mono font-medium ${
                   isNight ? 'text-[#95a499]' : 'text-[#64748b]'
                 }`}
               >
-                Pengguna Aktif
+                Sistem Produksi
               </div>
             </div>
 
@@ -150,17 +150,17 @@ export const HeroSection: React.FC = () => {
             >
               <div
                 className={`text-base sm:text-xl font-mono font-black ${
-                  isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                  isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                 }`}
               >
-                50+ REST
+                MODULAR
               </div>
               <div
                 className={`text-[10px] sm:text-xs font-mono font-medium ${
                   isNight ? 'text-[#95a499]' : 'text-[#64748b]'
                 }`}
               >
-                API Endpoints
+                REST API &amp; Swagger
               </div>
             </div>
 
@@ -173,7 +173,7 @@ export const HeroSection: React.FC = () => {
             >
               <div
                 className={`text-base sm:text-xl font-mono font-black ${
-                  isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                  isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                 }`}
               >
                 100%
@@ -210,7 +210,7 @@ export const HeroSection: React.FC = () => {
                   : 'bg-white hover:bg-stone-50 text-[#151e17] border-[#e4ded5] hover:border-[#1b4332]'
               }`}
             >
-              <Download className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+              <Download className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
               <span>Unduh Resume (CV)</span>
             </a>
 

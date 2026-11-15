@@ -36,7 +36,7 @@ export const ContactSection: React.FC = () => {
 
   const recruiterSnippet = `Rendi Sutendi — Full-Stack & Mobile Software Engineer
 • Pendidikan: S1 Teknik Informatika (IPK 3.70 / 4.00), STMIK Mardira Indonesia
-• Pengalaman: HolyCat Labs (3.000+ pengguna, 50+ REST APIs, Flutter Clean Arch, Midtrans ACID), Abby & Gail Mobile App, Dinas Cipta Bintar Kota Bandung
+• Pengalaman: E-Commerce & Retail Produksi (Next.js SSR, Flutter Clean Arch, NestJS/Node.js, Midtrans Gateway), Abby & Gail, Dinas Cipta Bintar Kota Bandung
 • Tech Stack: React, Next.js, Flutter, TypeScript, Node.js, Laravel, PostgreSQL, MySQL, Docker, Linux/NixOS
 • Portofolio: https://rendisutendi.id
 • Email: rendisutendi21@gmail.com | WA: +62 857-2145-1615 | GitHub: https://github.com/RendiS10`;
@@ -79,7 +79,7 @@ export const ContactSection: React.FC = () => {
     <section
       id="contact"
       className={`relative z-20 -mt-1 w-full select-none py-24 overflow-hidden transition-colors duration-500 ${
-        isNight ? 'bg-[#060e08] text-[#f8fafc]' : 'bg-[#132a20] text-[#0f172a]'
+        isNight ? 'bg-[#090f0c] text-[#f5f7f4]' : 'bg-[#fbfaf6] text-[#151e17]'
       }`}
     >
       <ContactOceanCanvas isNight={isNight} />
@@ -107,7 +107,7 @@ export const ContactSection: React.FC = () => {
               <div className="flex items-center gap-2">
                 <span
                   className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
-                    isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                    isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                   }`}
                 >
                   06 // HUBUNGI SAYA &amp; DISKUSI
@@ -115,12 +115,13 @@ export const ContactSection: React.FC = () => {
                 <span className={`w-1.5 h-1.5 rounded-full ${isNight ? 'bg-emerald-400' : 'bg-emerald-600'}`} />
               </div>
 
-              <div className={`px-3 py-1 rounded-full border text-xs font-mono font-semibold ${
+              <div className={`px-3 py-1 rounded-full border text-[11px] font-mono font-semibold flex items-center gap-1.5 ${
                 isNight
                   ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
                   : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
               }`}>
-                STATUS: TERSEDIA UNTUK KARIER
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Status: Terbuka untuk Kolaborasi</span>
               </div>
             </div>
 
@@ -150,7 +151,7 @@ export const ContactSection: React.FC = () => {
             >
               <div className="space-y-2.5">
                 <label className={`text-xs font-mono font-bold uppercase tracking-wider block ${
-                  isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                  isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                 }`}>
                   Pilih Topik Diskusi
                 </label>
@@ -214,7 +215,7 @@ export const ContactSection: React.FC = () => {
                     }`}
                     title="Salin alamat email"
                   >
-                    <Mail className={`w-4 h-4 shrink-0 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+                    <Mail className={`w-4 h-4 shrink-0 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
                     <span>{profileData.contact.email}</span>
                     {copied ? (
                       <Check className="w-4 h-4 text-emerald-500 ml-1 shrink-0" />
@@ -245,7 +246,7 @@ export const ContactSection: React.FC = () => {
                     }`}
                     title="Salin ringkasan singkat profil untuk diteruskan ke tim rekrutmen/internal"
                   >
-                    <FileText className={`w-3.5 h-3.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+                    <FileText className={`w-3.5 h-3.5 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
                     <span>{snippetCopied ? 'Ringkasan Berhasil Disalin!' : 'Salin Ringkasan Kandidat (HR / Tech Lead)'}</span>
                     {snippetCopied && <Check className="w-3.5 h-3.5 text-emerald-400" />}
                   </button>
@@ -289,11 +290,11 @@ export const ContactSection: React.FC = () => {
                       <div className={`flex items-center gap-2 text-xs font-mono font-medium ${
                         isNight ? 'text-emerald-300' : 'text-[#64748b]'
                       }`}>
-                        <Clock className={`w-3.5 h-3.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+                        <Clock className={`w-3.5 h-3.5 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
                         <span>Waktu Lokal (WIB)</span>
                       </div>
                       <span className={`text-sm font-mono font-bold tabular-nums ${
-                        isNight ? 'text-amber-300' : 'text-[#151e17]'
+                        isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'
                       }`}>
                         {currentTime || '16:00:00'}
                       </span>
@@ -310,7 +311,7 @@ export const ContactSection: React.FC = () => {
                   <div className={`space-y-2 pt-2 border-t ${isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'}`}>
                     <div className="flex items-center justify-between">
                       <span className={`text-[11px] sm:text-xs font-mono font-semibold uppercase tracking-wider ${
-                        isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                        isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                       }`}>
                         Kontak Langsung
                       </span>
@@ -406,9 +407,9 @@ export const ContactSection: React.FC = () => {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className={`text-xs font-mono font-bold uppercase flex items-center gap-1.5 ${
-                        isNight ? 'text-amber-300' : 'text-[#1b4332]'
+                        isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                       }`}>
-                        <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                        <Sparkles className="w-3.5 h-3.5 text-[#80ed99]" />
                         <span>Prinsip &amp; Dedikasi Rekayasa</span>
                       </span>
                     </div>
@@ -424,7 +425,7 @@ export const ContactSection: React.FC = () => {
                     onClick={() => setIsFlipped(false)}
                     className={`w-full py-2 px-3 rounded-full text-xs font-mono font-semibold border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                       isNight
-                        ? 'bg-[#111a14] hover:bg-[#1f3025] text-amber-300 border-emerald-500/20'
+                        ? 'bg-[#111a14] hover:bg-[#1f3025] text-stone-200 border-emerald-500/20'
                         : 'bg-[#f4f1ea] hover:bg-[#ebf2ec] text-[#151e17] border-[#e4ded5]'
                     }`}
                   >
@@ -451,7 +452,7 @@ export const ContactSection: React.FC = () => {
         >
           <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-center sm:text-left">
             <div className={`flex items-center justify-center gap-1.5 ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
-              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 shrink-0" />
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500 shrink-0" />
               <span>&copy; {new Date().getFullYear()} {profileData.name}</span>
               <span className="hidden sm:inline text-stone-400">•</span>
             </div>
@@ -469,7 +470,7 @@ export const ContactSection: React.FC = () => {
               onClick={scrollToTop}
               className={`p-2 sm:p-2.5 rounded-full border hover:-translate-y-0.5 active:scale-95 transition-all cursor-pointer ${
                 isNight
-                  ? 'bg-[#17231c] hover:bg-[#203227] text-amber-300 border-emerald-500/20'
+                  ? 'bg-[#17231c] hover:bg-[#203227] text-[#80ed99] border-emerald-500/20'
                   : 'bg-[#f4f1ea] hover:bg-[#ebf2ec] text-[#151e17] border-[#e4ded5]'
               }`}
               title="Kembali ke atas"

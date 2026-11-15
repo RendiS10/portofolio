@@ -63,7 +63,7 @@ export const ProfilePhotoCard: React.FC = () => {
             <MapPin className="w-3.5 h-3.5 text-emerald-500" />
             <span>Bandung, Jawa Barat</span>
           </div>
-          <span className={`font-semibold ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+          <span className={`font-semibold ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
             STMIK Mardira Indonesia
           </span>
         </div>

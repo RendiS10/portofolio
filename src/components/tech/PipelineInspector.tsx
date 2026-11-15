@@ -4,7 +4,6 @@ import {
   Code2,
   CheckCircle2,
   ArrowUpRight,
-  ShieldAlert,
   Lock,
   Terminal,
   Activity
@@ -112,7 +111,7 @@ const layerDetailsMap: Record<
     description:
       'Tier penyimpanan data mengandalkan database relasional teruji (PostgreSQL & MySQL) dengan query teroptimasi, skema relasional ternormalisasi, ORM Prisma, serta backend-as-a-service Supabase dan Firebase.',
     guarantees: [
-      'Integritas Relasi ACID & Migrasi Data',
+      'Integritas Relasi Database & Migrasi Data',
       'Optimasi Query Indexing',
       'Realtime Sync & Automated Backup'
     ]
@@ -161,9 +160,9 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
         }`}>
           <div className="flex items-center gap-4">
             <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center ${
-              isNight ? 'border-red-500/30 bg-red-950/20 text-red-400' : 'border-red-200 bg-red-50 text-red-600'
+              isNight ? 'border-emerald-500/30 bg-emerald-950/20 text-emerald-400' : 'border-[#bed8cb] bg-[#eef5f1] text-[#164e33]'
             }`}>
-              <ShieldAlert className="w-6 h-6" />
+              <Lock className="w-6 h-6" />
             </div>
 
             <div>
@@ -171,12 +170,14 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
                 <span className={`text-xl sm:text-2xl font-bold tracking-tight ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
                   Cyber Security &amp; Systems
                 </span>
-                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">
+                <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border ${
+                  isNight ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/25' : 'bg-[#eef5f1] text-[#164e33] border-[#bed8cb]'
+                }`}>
                   ROADMAP
                 </span>
               </div>
 
-              <div className={`text-xs font-mono font-medium mt-0.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+              <div className={`text-xs font-mono font-medium mt-0.5 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
                 Riset &amp; Eksplorasi Keamanan Siber Berkelanjutan
               </div>
             </div>
@@ -192,7 +193,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
 
         {/* security exploration description */}
         <div className="space-y-2">
-          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
             Fokus Eksplorasi
           </div>
           <p className={`text-xs sm:text-sm font-normal leading-relaxed p-4 rounded-2xl border ${
@@ -204,7 +205,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
 
         {/* security toolkit cards */}
         <div className="space-y-3 pt-1">
-          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
             Domain yang Dipersiapkan
           </div>
 
@@ -301,7 +302,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
                 </span>
               </div>
 
-              <div className={`text-xs font-mono font-medium mt-0.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+              <div className={`text-xs font-mono font-medium mt-0.5 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
                 Kategori: {layerInfo.title}
               </div>
             </div>
@@ -322,7 +323,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
 
         {/* usage context */}
         <div className="space-y-2">
-          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+          <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
             Konteks &amp; Penerapan Produksi
           </div>
           <p className={`text-xs sm:text-sm font-normal leading-relaxed p-4 rounded-2xl border ${
@@ -335,7 +336,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
         {/* connected portfolio projects */}
         <div className="space-y-3 pt-1">
           <div className="flex items-center justify-between">
-            <span className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+            <span className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
               Implementasi di Portofolio
             </span>
             <span className={`text-[11px] font-mono ${isNight ? 'text-[#95a499]' : 'text-[#64748b]'}`}>
@@ -363,7 +364,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
                   </div>
 
                   <h4 className={`text-sm font-bold tracking-tight transition-colors ${
-                    isNight ? 'text-[#f5f7f4] group-hover:text-amber-300' : 'text-[#151e17] group-hover:text-[#1b4332]'
+                    isNight ? 'text-[#f5f7f4] group-hover:text-[#80ed99]' : 'text-[#151e17] group-hover:text-[#1b4332]'
                   }`}>
                     {proj.title}
                   </h4>
@@ -375,7 +376,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
                 </div>
 
                 <div className={`mt-3 pt-2 border-t text-[11px] font-mono font-medium ${
-                  isNight ? 'border-emerald-500/20 text-amber-400' : 'border-[#e4ded5] text-[#1b4332]'
+                  isNight ? 'border-emerald-500/20 text-[#80ed99]' : 'border-[#e4ded5] text-[#1b4332]'
                 }`}>
                   {proj.role.split('(')[0]}
                 </div>
@@ -422,7 +423,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
         </div>
 
         <div className={`px-3 py-1 rounded-full border text-xs font-mono font-medium self-start sm:self-auto ${
-          isNight ? 'bg-[#17231c] border-emerald-500/20 text-amber-300' : 'bg-[#f4f1ea] border-[#e4ded5] text-[#48564c]'
+          isNight ? 'bg-[#17231c] border-emerald-500/20 text-[#80ed99]' : 'bg-[#f4f1ea] border-[#e4ded5] text-[#48564c]'
         }`}>
           {layerInfo.subtitle}
         </div>
@@ -434,7 +435,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
 
       {/* engineering focus */}
       <div className="space-y-2.5 pt-1">
-        <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+        <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
           Standar &amp; Fokus Rekayasa
         </div>
 

@@ -23,7 +23,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
   onSelectCategory,
   onSelectProject
 }) => {
-  const [activeProjectId, setActiveProjectId] = useState<string>(projects[0]?.id || 'holycat');
+  const [activeProjectId, setActiveProjectId] = useState<string>(projects[0]?.id || 'holycat-mobile');
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
 
@@ -56,7 +56,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
         <div>
           <span
             className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
-              isNight ? 'text-amber-400' : 'text-[#1b4332]'
+              isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
             }`}
           >
             03 // KATALOG EKSPLORASI TEKNOLOGI
@@ -180,7 +180,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                       className={`text-[11px] font-mono truncate mt-0.5 ${
                         isSelected
                           ? isNight
-                            ? 'text-amber-400'
+                            ? 'text-[#80ed99]'
                             : 'text-[#1b4332]'
                           : 'opacity-70'
                       }`}
@@ -195,23 +195,23 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                         isNight
-                          ? 'bg-rose-950/40 border-rose-500/30 text-rose-300'
-                          : 'bg-rose-50 border-rose-200 text-rose-800'
+                          ? 'bg-[#16221a] border-emerald-500/20 text-[#95a499]'
+                          : 'bg-[#f4f1ea] border-[#e4ded5] text-[#48564c]'
                       }`}
                     >
-                      <Lock className="w-2.5 h-2.5" />
-                      <span>Private</span>
+                      <Lock className="w-2.5 h-2.5 opacity-70" />
+                      <span>Enterprise NDA</span>
                     </span>
                   ) : (
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                         isNight
                           ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
-                          : 'bg-emerald-50 border-emerald-200 text-[#1b4332]'
+                          : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
                       }`}
                     >
                       <ExternalLink className="w-2.5 h-2.5" />
-                      <span>Live</span>
+                      <span>Live Demo</span>
                     </span>
                   )}
 
@@ -266,7 +266,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                 </div>
                 <p
                   className={`text-xs font-mono font-semibold ${
-                    isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                    isNight ? 'text-[#80ed99]' : 'text-[#2d6a4f]'
                   }`}
                 >
                   {activeProject.subtitle}

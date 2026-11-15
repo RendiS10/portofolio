@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import { Globe, Smartphone, ShoppingBag, FolderGit2 } from 'lucide-react';
+import { Globe, ShoppingBag, FolderGit2 } from 'lucide-react';
 import type { Project, ProjectCategory } from '../../types/portfolio';
 import { projectsData } from '../../data/portfolioData';
 import { FlagshipSlideCard } from './FlagshipProjectParallax';
@@ -40,40 +40,37 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
   const handleSelect = onOpenProject || setLocalActiveProject;
   const activeProject = onOpenProject ? null : localActiveProject;
 
-  // Featured flagship projects (HolyCat Web, HolyCat Mobile, Abby & Gail)
+  // Featured flagship projects: shop.holycatlabs.com & Abby & Gail E-Commerce
   const flagshipProjects = projectsData.filter((p) => p.featured);
+  // All other projects: HolyCat Mobile Flutter, MPS Barcode, Contract E-Sign, SCRM, JKT48, etc.
+  const catalogProjects = projectsData.filter((p) => !p.featured);
 
   const tabs = [
     {
-      id: 'holycat',
-      num: '01',
-      title: 'HolyCat Omnichannel',
-      subtitle: 'Next.js & NestJS API',
-      badge: '3.000+ USER',
-      icon: <Globe className="w-3.5 h-3.5" />
-    },
-    {
-      id: 'holycat-mobile',
-      num: '02',
-      title: 'HolyCat Mobile App',
-      subtitle: 'Flutter Clean Arch',
-      badge: '60FPS NATIVE',
-      icon: <Smartphone className="w-3.5 h-3.5" />
-    },
-    {
       id: 'abbygail',
-      num: '03',
-      title: 'Abby & Gail Retail',
-      subtitle: 'Next.js & PostgreSQL',
-      badge: '2.000+ USER',
+      num: '01',
+      title: 'Abby & Gail Skincare',
+      subtitle: 'abbyandgail.com',
+      badge: 'KOMERSIAL LIVE',
+      tone: 'amber',
       icon: <ShoppingBag className="w-3.5 h-3.5" />
     },
     {
+      id: 'holycat',
+      num: '02',
+      title: 'HolyCat Storefront',
+      subtitle: 'shop.holycatlabs.com',
+      badge: 'LIVE PRODUKSI',
+      tone: 'emerald',
+      icon: <Globe className="w-3.5 h-3.5" />
+    },
+    {
       id: 'catalog',
-      num: '04',
-      title: 'Katalog Proyek Lain',
-      subtitle: 'Eksplorasi Kode',
-      badge: '6 PROYEK',
+      num: '03',
+      title: 'Katalog Proyek Rekayasa',
+      subtitle: 'Mobile Flutter & Internal Systems',
+      badge: `${catalogProjects.length} PROYEK`,
+      tone: 'stone',
       icon: <FolderGit2 className="w-3.5 h-3.5" />
     }
   ];
@@ -112,7 +109,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
             <div className="flex items-center gap-2 mb-2.5">
               <span
                 className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
-                  isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                  isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                 }`}
               >
                 02 // REKAM JEJAK PROYEK &amp; KARYA UNGGULAN
@@ -130,15 +127,17 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
               isNight ? 'text-[#95a499]' : 'text-[#48564c]'
             }`}
           >
-            Pilih studi kasus di bawah untuk membedah arsitektur e-commerce omnichannel HolyCat (3.000+ pengguna), aplikasi mobile Flutter Clean Architecture, dan platform ritel komersial.
+            Studi kasus platform e-commerce skala produksi komersial, aplikasi mobile Flutter, dan sistem otomasi operasional internal.
           </p>
         </motion.div>
 
         {/* Compact Workspace Project Switcher Tabs */}
         <motion.div variants={itemVariants} className="mt-8 sm:mt-10">
           <div
-            className={`grid grid-cols-2 lg:grid-cols-4 gap-2.5 p-2 rounded-2xl border transition-colors ${
-              isNight ? 'bg-[#111a14] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
+            className={`grid grid-cols-1 sm:grid-cols-3 gap-2 p-1.5 rounded-2xl border transition-all duration-300 ${
+              isNight
+                ? 'bg-[#111a14] border-stone-800'
+                : 'bg-[#f4f1ea] border-[#e4ded5]'
             }`}
           >
             {tabs.map((tab, idx) => {
@@ -148,24 +147,24 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(idx)}
-                  className={`relative flex flex-col p-3 rounded-xl text-left transition-all cursor-pointer ${
+                  className={`group relative flex flex-col p-3.5 rounded-xl text-left transition-all duration-200 cursor-pointer ${
                     isActive
                       ? isNight
-                        ? 'bg-emerald-950/80 text-white shadow-sm border border-emerald-500/35'
-                        : 'bg-white text-[#151e17] shadow-sm border border-[#1b4332]/40'
+                        ? 'bg-[#18261e] text-white shadow-sm border border-emerald-500/30'
+                        : 'bg-white text-[#151e17] shadow-sm shadow-stone-900/5 border border-stone-300/80'
                       : isNight
-                      ? 'text-stone-400 hover:text-stone-200 hover:bg-[#152119]'
-                      : 'text-[#48564c] hover:text-[#151e17] hover:bg-white/60'
+                      ? 'text-stone-400 hover:text-stone-200 hover:bg-[#152119]/60 border border-transparent'
+                      : 'text-[#48564c] hover:text-[#151e17] hover:bg-white/60 border border-transparent'
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-1.5 mb-1">
+                  <div className="flex items-center justify-between gap-1.5 mb-1.5">
                     <span
-                      className={`text-[10px] font-mono font-bold flex items-center gap-1 ${
+                      className={`text-[11px] font-mono font-bold flex items-center gap-1.5 transition-colors ${
                         isActive
                           ? isNight
                             ? 'text-emerald-400'
                             : 'text-[#1b4332]'
-                          : 'opacity-60'
+                          : 'opacity-50 group-hover:opacity-80'
                       }`}
                     >
                       {tab.icon}
@@ -173,22 +172,37 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
                     </span>
 
                     <span
-                      className={`text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full border ${
+                      className={`inline-flex items-center gap-1 text-[9px] font-mono font-semibold px-2 py-0.5 rounded border transition-all ${
                         isActive
                           ? isNight
-                            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                            : 'bg-[#ebf2ec] text-[#1b4332] border-emerald-200'
-                          : 'opacity-50 border-transparent'
+                            ? 'bg-[#203327] text-emerald-300 border-emerald-500/30'
+                            : 'bg-[#ebf2ec] text-[#1b4332] border-[#1b4332]/25'
+                          : isNight
+                          ? 'bg-transparent text-stone-500 border-stone-800'
+                          : 'bg-transparent text-stone-500 border-stone-300/60'
                       }`}
                     >
-                      {tab.badge}
+                      {isActive && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#2d6a4f] dark:bg-[#52b788]" />
+                      )}
+                      <span>{tab.badge}</span>
                     </span>
                   </div>
 
-                  <div className="text-xs sm:text-sm font-bold tracking-tight truncate">
+                  <div className="text-xs sm:text-sm font-bold tracking-tight truncate font-sans">
                     {tab.title}
                   </div>
-                  <div className="text-[11px] font-mono opacity-70 truncate mt-0.5">
+                  <div
+                    className={`text-[11px] font-mono truncate mt-0.5 transition-colors ${
+                      isActive
+                        ? isNight
+                          ? 'text-stone-300'
+                          : 'text-[#48564c]'
+                        : isNight
+                        ? 'text-stone-500'
+                        : 'text-stone-500'
+                    }`}
+                  >
                     {tab.subtitle}
                   </div>
                 </button>
@@ -200,7 +214,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
         {/* Active Stage Dossier (Unified Single-Height Stage) */}
         <div className="mt-6 sm:mt-8">
           <AnimatePresence mode="wait">
-            {activeTab < 3 && flagshipProjects[activeTab] ? (
+            {activeTab < flagshipProjects.length && flagshipProjects[activeTab] ? (
               <motion.div
                 key={flagshipProjects[activeTab].id}
                 initial={{ opacity: 0, y: 12 }}
@@ -223,7 +237,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
                 transition={{ duration: 0.22, ease: 'easeOut' }}
               >
                 <FilteredProjectDock
-                  projects={projectsData}
+                  projects={catalogProjects}
                   selectedCategory={selectedCategory}
                   onSelectCategory={setSelectedCategory}
                   onSelectProject={handleSelect}

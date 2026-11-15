@@ -146,16 +146,20 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       </div>
 
       {withText && (
-        <div className="flex flex-col text-left min-w-0">
-          <span className={`font-bold tracking-wide leading-tight drop-shadow-sm transition-colors duration-300 truncate ${
-            isNight ? 'text-white' : 'text-[#0f172a]'
-          } ${currentSize.text}`}>
+        <div className="flex flex-col text-left min-w-0 justify-center">
+          <span
+            className={`font-bold tracking-tight leading-tight transition-colors duration-300 truncate font-sans ${
+              isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'
+            } ${currentSize.text}`}
+          >
             {profileData.name}
           </span>
-          <span className={`${currentSize.sub} font-mono font-medium hidden min-[340px]:flex items-center gap-1 drop-shadow-xs truncate max-w-[130px] min-[400px]:max-w-[200px] sm:max-w-none transition-colors duration-300 ${
-            isNight ? 'text-amber-300' : 'text-[#166534]'
-          }`}>
-            &gt;_ {profileData.tagline}
+          <span
+            className={`text-[10px] font-mono font-bold uppercase tracking-[0.18em] transition-colors duration-300 leading-tight mt-0.5 truncate ${
+              isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
+            }`}
+          >
+            Software Engineer
           </span>
         </div>
       )}

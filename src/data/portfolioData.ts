@@ -5,14 +5,14 @@ export const profileData: ProfileData = {
   tagline: 'Full-Stack & Mobile Software Engineer',
   education: 'S1 Teknik Informatika (IPK 3.70) • STMIK Mardira Indonesia',
   status: 'Terbuka untuk Peluang Kerja (Full-Stack / Mobile / Backend)',
-  bio: 'Sarjana Teknik Informatika (IPK 3.70) berpengalaman merancang arsitektur e-commerce omnichannel, mobile app Flutter Clean Architecture (Riverpod), backend Node.js & NestJS bergaransi transaksi ACID, antrean terdistribusi Redis BullMQ, integrasi ERP Accurate Online, serta manajemen infrastruktur VPS Linux berbasis Docker.',
+  bio: 'Sarjana Teknik Informatika (IPK 3.70) berpengalaman merancang arsitektur e-commerce & retail, mobile app Flutter Clean Architecture (Riverpod), backend Node.js & NestJS modular, antrean terdistribusi Redis BullMQ, integrasi ERP Accurate Online, serta manajemen infrastruktur VPS Linux berbasis Docker.',
   experienceStart: '3+ Tahun Pengalaman',
   avatarUrl: '/rendi.jpg',
   interests: [
-    'Full-Stack Omnichannel Ecosystems',
+    'Full-Stack Web Systems',
     'Mobile Systems (Flutter Clean Architecture)',
     'Distributed Queues (Redis & BullMQ)',
-    'ACID Relational Modeling & Prisma',
+    'Relational Database Modeling & Prisma',
     'Linux VPS & Docker Infrastructure'
   ],
   contact: {
@@ -129,6 +129,16 @@ export const techStackData: TechItem[] = [
     projectLinks: ['holycat', 'jkt48']
   },
   {
+    name: 'Adonis.js',
+    category: 'backend',
+    layer: 'backend',
+    iconKey: 'adonisjs',
+    color: '#5A45FF',
+    roleTag: 'Node.js MVC Framework',
+    usageContext: 'Backend REST API modular dengan TypeScript, Lucid ORM, validasi VineJS, dan integrasi Midtrans',
+    projectLinks: ['abbygail']
+  },
+  {
     name: 'Redis & BullMQ',
     category: 'backend',
     layer: 'backend',
@@ -136,7 +146,7 @@ export const techStackData: TechItem[] = [
     color: '#DC382D',
     roleTag: 'Distributed Queue & Cache',
     usageContext: 'Antrean asinkron order timeout, background job cart expiration, dan caching performa tinggi',
-    projectLinks: ['holycat']
+    projectLinks: ['holycat', 'abbygail']
   },
   {
     name: 'Laravel',
@@ -157,7 +167,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'postgresql',
     color: '#2563eb',
     roleTag: 'Relational Core',
-    usageContext: 'Pemodelan data relasional kompleks, indeks teroptimasi, dan ACID transactions',
+    usageContext: 'Pemodelan data relasional kompleks, indeks teroptimasi, dan transaksi database terisolasi',
     projectLinks: ['holycat', 'abbygail']
   },
   {
@@ -256,39 +266,90 @@ export const techStackData: TechItem[] = [
 
 export const projectsData: Project[] = [
   {
-    id: 'holycat',
-    title: 'HolyCat Omnichannel Ecosystem',
-    subtitle: 'Ekosistem E-Commerce & Pet-Care Terintegrasi Skala Produksi (3.000+ Pengguna)',
+    id: 'abbygail',
+    title: 'Abby & Gail Skincare E-Commerce',
+    subtitle: 'abbyandgail.com — Retail Skincare Modern Next.js SSR & Adonis.js',
     category: 'fullstack',
-    summary: 'Platform omnichannel pet-care end-to-end yang melayani 3.000+ pengguna aktif: RESTful API teruji, web storefront Next.js, sistem tracking merchant Holydis, payment gateway Midtrans, dan background job BullMQ + Redis.',
-    description: 'Sistem produksi komprehensif yang dirancang dan diimplementasikan secara end-to-end untuk brand pet-care HolyCat. Mengintegrasikan web storefront customer, CMS admin dashboard, modul logistik ekspedisi, serta transaksi dompet digital HolyPay dengan jaminan ACID transaction.',
+    summary: 'Platform retail e-commerce produk kecantikan & fashion untuk brand Abby n Bev (SJA Textile) dengan Next.js 15, Adonis.js v6, CMS Ant Design, dan payment gateway Midtrans.',
+    description: 'Sistem e-commerce ritel skala komersial terintegrasi yang mencakup storefront performa tinggi berbasis Next.js 15 App Router (SSR), Content Management System (CMS) admin dengan Ant Design & Vite, modul pembayaran Midtrans, serta backend REST API berbasis Adonis.js v6 dan PostgreSQL.',
+    architecture: [
+      'Frontend storefront customer modern dengan Next.js 15 App Router, React 19, Tailwind CSS v4, dan Radix UI',
+      'Backend REST API berarsitektur MVC dengan Adonis.js v6 TypeScript, Lucid ORM, dan validasi VineJS',
+      'CMS admin internal responsif dengan React 18, Vite, Ant Design (antd 5), Tiptap WYSIWYG, dan Zustand',
+      'Integrasi payment gateway Midtrans otomatis dengan penanganan webhook status transaksi asinkron',
+      'Perancangan skema relasional 30+ tabel database PostgreSQL dengan indexing efisien dan Redis caching'
+    ],
+    stack: [
+      'Next.js 15',
+      'Adonis.js v6',
+      'TypeScript',
+      'PostgreSQL',
+      'Lucid ORM',
+      'Midtrans',
+      'Tailwind CSS v4',
+      'Ant Design',
+      'Redis',
+      'Vite'
+    ],
+    highlights: [
+      'Ekosistem e-commerce terintegrasi: Web Storefront Next.js 15, CMS Admin Ant Design, dan API Adonis.js v6',
+      'Transaksi pembayaran digital real-time via Midtrans Payment Gateway',
+      'Arsitektur 30+ tabel relasional PostgreSQL teroptimasi dengan Lucid ORM'
+    ],
+    challenges: 'Mengoptimalkan waktu respons database pada kueri katalog produk multi-varian dan transaksi diskon bertingkat.',
+    role: 'Fullstack Web Developer',
+    demoUrl: 'https://abbyandgail.com/',
+    isPrivateRepo: true,
+    privateRepoReason: 'Repository privat komersial perusahaan (SJA Textile)',
+    imageUrl: '/projects/green-sustainify.png',
+    imageFit: 'cover',
+    featured: true,
+    metrics: [
+      { label: 'Status Sistem', value: 'Live Komersial' },
+      { label: 'Framework & Engine', value: 'Next.js 15 & Adonis.js v6' },
+      { label: 'Database & ORM', value: '30+ Tabel PostgreSQL & Lucid' }
+    ]
+  },
+  {
+    id: 'holycat',
+    title: 'HolyCat E-Commerce Storefront',
+    subtitle: 'shop.holycatlabs.com — Platform Belanja Pet-Care Terintegrasi Skala Produksi',
+    category: 'fullstack',
+    summary: 'Platform e-commerce pet-care end-to-end skala produksi: RESTful API teruji otomatis (Mocha & Supertest), web storefront Next.js reaktif (TanStack & Zustand), status live Socket.io, sistem tracking merchant Holydis, payment gateway Midtrans, dan background job BullMQ + Redis.',
+    description: 'Sistem produksi komprehensif yang dirancang dan diimplementasikan secara end-to-end untuk brand pet-care HolyCat. Mengintegrasikan web storefront customer, CMS admin dashboard, modul logistik ekspedisi, serta pengelolaan dompet digital internal HolyPay yang aman.',
     architecture: [
       'Backend RESTful API dengan Node.js, Express, Prisma ORM, dan PostgreSQL (30+ model relasional: produk, order, voucher, wallet)',
       'Storefront responsif dan interaktif dibangun dengan Next.js, React, Tailwind CSS, TanStack Query, dan Zustand',
+      'Pengujian otomatis REST API komprehensif menggunakan Mocha, Chai, dan Supertest, serta pengujian E2E frontend dengan Cypress',
+      'Komunikasi dua arah real-time menggunakan Socket.io untuk notifikasi pembaruan status transaksi live',
       'Integrasi Accurate Online ERP API untuk sinkronisasi otomatis faktur penjualan (sales invoice), sales order, dan rekonsiliasi stok gudang',
       'Payment gateway Midtrans otomatis dengan penanganan webhook asinkron dan verifikasi signature',
       'Background job processing dan message queue menggunakan BullMQ dan Redis Caching',
       'Integrasi Biteship API untuk kalkulasi ongkos kirim real-time dan pelacakan kurir ekspedisi',
-      'Dompet digital in-app HolyPay (top-up, saldo, mutasi) dengan transaksi database terisolasi ACID',
+      'Dompet digital in-app HolyPay (top-up, saldo, mutasi) dengan pencatatan transaksi yang aman',
       'Sistem tracking merchant Holydis (PO & Surat Jalan) dengan Laravel 13, Sanctum, dan React',
-      'Marketplace Picker System (MPS) & Barcode Scanner internal gudang untuk verifikasi shipping manifest & zero-defect fulfillment'
+      'Marketplace Picker System (MPS) & Barcode Scanner internal gudang untuk verifikasi shipping manifest otomatis'
     ],
     stack: [
-      'Next.js',
+      'Next.js 16',
       'Node.js',
-      'Flutter',
-      'Laravel',
+      'Express',
       'PostgreSQL',
-      'Prisma',
+      'Prisma ORM',
       'Midtrans',
-      'Redis',
       'BullMQ',
+      'Redis',
+      'Socket.io',
+      'Tailwind CSS v4',
+      'TanStack Query',
+      'Supertest',
+      'Cypress',
       'Docker'
     ],
     highlights: [
-      'Melayani 3.000+ pengguna aktif terdaftar secara live di produksi',
-      '50+ REST API endpoints terdokumentasi lengkap via Swagger UI',
-      'Arsitektur transaksi finansial dompet digital HolyPay bergaransi ACID'
+      'Berjalan live di produksi dengan transaksi Midtrans & sinkronisasi ERP Accurate Online',
+      'RESTful API modular terdokumentasi Swagger UI dan teruji otomatis (Mocha, Chai & Supertest)',
+      'Storefront Next.js reaktif dengan TanStack Query, Zustand, dan automated E2E Cypress'
     ],
     challenges: 'Mengkoordinasikan sinkronisasi transaksi real-time antara webhook payment gateway, background queue BullMQ, mutasi dompet digital internal, dan kalkulasi logistik multi-ekspedisi tanpa race condition.',
     role: 'Lead Software Engineer (Full-Stack & Mobile)',
@@ -298,9 +359,9 @@ export const projectsData: Project[] = [
     imageFit: 'cover',
     featured: true,
     metrics: [
-      { label: 'Active Users', value: '3.000+' },
-      { label: 'API Endpoints', value: '50+ REST' },
-      { label: 'Architecture', value: 'Omnichannel' }
+      { label: 'Status Sistem', value: 'Live Produksi' },
+      { label: 'Database & Relasi', value: '30+ Model PostgreSQL' },
+      { label: 'Queue & Gateway', value: 'BullMQ + Midtrans Webhook' }
     ]
   },
   {
@@ -338,51 +399,11 @@ export const projectsData: Project[] = [
     demoStatusLabel: 'Aplikasi Mobile Native (Android & iOS)',
     imageUrl: '/projects/holycat.jpg',
     imageFit: 'cover',
-    featured: true,
+    featured: false,
     metrics: [
       { label: 'Mobile Engine', value: 'Flutter & Dart' },
       { label: 'State Paradigm', value: 'Riverpod' },
       { label: 'Platform', value: 'Cross-Platform' }
-    ]
-  },
-  {
-    id: 'abbygail',
-    title: 'Abby & Gail Skincare E-Commerce',
-    subtitle: 'Platform E-Commerce Skincare Modern dengan Next.js SSR & Adonis.js (2.000+ Pengguna)',
-    category: 'fullstack',
-    summary: 'Platform retail e-commerce produk perawatan kulit untuk brand Abby & Gail (SJA Textile) yang melayani 2.000+ pengguna terdaftar dengan Next.js, Adonis.js TypeScript, dan PostgreSQL.',
-    description: 'Sistem e-commerce ritel skala komersial yang mencakup storefront performa tinggi berbasis Server-Side Rendering (SSR) dan Content Management System (CMS) admin dengan kontrol otorisasi multi-role RBAC.',
-    architecture: [
-      'Frontend storefront modern dengan Next.js dan optimasi Server-Side Rendering (SSR)',
-      'Backend 50+ REST API endpoints modular dengan Adonis.js MVC Architecture',
-      'Perancangan skema relasional 30+ tabel database PostgreSQL dengan indexing efisien',
-      'Kontrol otorisasi Role-Based Access Control (RBAC) untuk admin, staf, dan customer'
-    ],
-    stack: [
-      'Next.js',
-      'Adonis.js',
-      'TypeScript',
-      'PostgreSQL',
-      'Tailwind CSS',
-      'REST API'
-    ],
-    highlights: [
-      'Melayani 2.000+ pengguna aktif terdaftar di produksi komersial',
-      '50+ REST endpoints dengan validasi data skema ketat',
-      'CMS admin interaktif untuk manajemen inventaris & pesanan'
-    ],
-    challenges: 'Mengoptimalkan waktu respons database pada kueri katalog produk multi-varian dan transaksi diskon bertingkat.',
-    role: 'Fullstack Web Developer',
-    demoUrl: 'https://abbyandgail.com/',
-    isPrivateRepo: true,
-    privateRepoReason: 'Repository privat komersial perusahaan (SJA Textile)',
-    imageUrl: '/projects/green-sustainify.png',
-    imageFit: 'cover',
-    featured: true,
-    metrics: [
-      { label: 'Registered Users', value: '2.000+' },
-      { label: 'REST Endpoints', value: '50+ APIs' },
-      { label: 'DB Architecture', value: '30+ Tables' }
     ]
   },
   {
@@ -491,8 +512,8 @@ export const projectsData: Project[] = [
     title: 'HolyCat Marketplace Picker System (MPS)',
     subtitle: 'Sistem Barcode Scanner & Manifest Checker Gudang Multi-Marketplace',
     category: 'fullstack',
-    summary: 'Sistem scanner barcode pergudangan untuk verifikasi picking list, manifest ekspedisi, dan monitoring akurasi pengiriman ribuan pesanan harian tanpa human error.',
-    description: 'Sistem operasional internal gudang HolyCat yang mengotomatisasi proses fulfillment pesanan lintas marketplace: verifikasi barcode produk saat packing, validasi nomor resi pengiriman ekspedisi, dan eliminasi kesalahan pengiriman barang.',
+    summary: 'Sistem barcode scanner gudang multi-marketplace untuk verifikasi picking list, manifest ekspedisi, dan monitoring fulfillment tanpa packing mismatch.',
+    description: 'Aplikasi scanner barcode berbasis web untuk tim gudang HolyCat yang mengotomatisasi verifikasi packing barang, mencetak resi termal, dan memvalidasi shipping manifest secara real-time.',
     architecture: [
       'Aplikasi scanner barcode berbasis web responsif untuk staf operasional gudang HolyCat',
       'Validasi real-time manifest shipping ekspedisi (Shopee, Tokopedia, TikTok Shop, Direct Store)',
@@ -529,8 +550,8 @@ export const projectsData: Project[] = [
     title: 'Sistem Tanda Tangan Digital & Kontrak',
     subtitle: 'Platform Legalitas B2B & E-Signature Terenkripsi Dokumen Kemitraan',
     category: 'fullstack',
-    summary: 'Platform manajemen siklus kontrak dan penandatanganan dokumen digital B2B dengan audit trail terenkripsi, verifikasi OTP, dan integrasi storage Supabase.',
-    description: 'Sistem otomasi legalitas dan kontrak kemitraan B2B HolyCat yang menggantikan tanda tangan basah fisik dengan dokumen elektronik berkekuatan hukum, riwayat audit tamper-proof, dan enkripsi dokumen.',
+    summary: 'Platform e-signature dan manajemen siklus kontrak B2B terenkripsi dengan audit trail tamper-proof dan integrasi Supabase Storage.',
+    description: 'Sistem legalitas digital kemitraan B2B HolyCat yang menggantikan dokumen fisik dengan e-kontrak sah, verifikasi hash SHA-256, dan workflow persetujuan multi-pihak.',
     architecture: [
       'Workflow persetujuan kontrak digital multi-pihak dengan status lifecycle otomatis',
       'Penyimpanan dokumen PDF terenkripsi dan verifikasi keaslian tanda tangan digital',
@@ -567,8 +588,8 @@ export const projectsData: Project[] = [
     title: 'HolyCat Sales CRM (SCRM Platform)',
     subtitle: 'Platform Mobilitas Tim Sales, Pipeline Prospek & Pelacakan Komisi',
     category: 'fullstack',
-    summary: 'Sistem CRM penjualan terintegrasi untuk tim sales lapangan: manajemen pipeline prospek, pencatatan kunjungan merchant, dan kalkulasi performa omset penjualan.',
-    description: 'Platform manajemen penjualan terpadu (SCRM) yang menghubungkan tim sales lapangan dengan manajemen pusat: pencatatan prospek merchant toko hewan, geolokasi check-in kunjungan, hingga estimasi komisi otomatis.',
+    summary: 'Platform CRM mobilitas tim sales: tracking prospek merchant pet shop, geolokasi check-in kunjungan, dan sinkronisasi faktur Accurate Online ERP.',
+    description: 'Sistem manajemen tim sales lapangan untuk monitoring kunjungan toko, pipeline prospek baru, dan kalkulasi performa penjualan terintegrasi modul invoice Accurate ERP.',
     architecture: [
       'Backend REST API modular untuk sinkronisasi data prospek dan histori kunjungan sales',
       'Dashboard web interaktif untuk pemantauan performa sales rep dan target bulanan',
@@ -609,32 +630,32 @@ export const experienceData: ExperienceItem[] = [
     badge: 'Produksi / Freelance',
     category: 'project',
     description:
-      'Merancang dan mengimplementasikan seluruh arsitektur ekosistem omnichannel pet-care HolyCat Labs: backend REST API & microservices (Node.js/NestJS/Prisma/PostgreSQL), storefront Next.js SSR, customer mobile app Flutter Clean Architecture, modul rekam medis Posyancing & KTP Kucing, Marketplace Picker System (MPS) barcode scanner gudang, integrasi ERP Accurate Online, sistem tanda tangan digital kontrak B2B, serta manajemen VPS Linux Ubuntu 24.04 berbasis 100% Docker container melayani 3.000+ pengguna aktif.',
+      'Memimpin rekayasa ekosistem omnichannel pet-care HolyCat Labs skala produksi: web storefront Next.js SSR, mobile Flutter Clean Architecture, backend modular Express/NestJS, dan otomatisasi pergudangan dengan Docker VPS.',
     highlights: [
-      'Ekosistem backend 50+ REST API endpoints skala produksi, Redis BullMQ, dan dompet digital HolyPay bergaransi ACID',
+      'Ekosistem backend RESTful API modular skala produksi teruji otomatis (Mocha, Chai & Supertest), Redis BullMQ, dan dompet digital HolyPay',
+      'Storefront Next.js SSR performa tinggi dengan TanStack Query, Zustand, Tailwind CSS v4, dan pengujian E2E Cypress',
       'Mobile app Flutter Clean Architecture (60fps, Riverpod, Dio) dengan fitur Posyancing & KTP Kucing',
-      'Marketplace Picker System (MPS) & barcode scanner operasional gudang dengan zero-defect fulfillment',
-      'Integrasi Accurate Online ERP API untuk otomasi sinkronisasi faktur penjualan dan rekonsiliasi stok harian',
-      'Platform e-signature digital dan manajemen kontrak kemitraan B2B terenkripsi via Supabase Storage',
-      'Manajemen infrastruktur server Linux VPS Ubuntu 24.04 LTS (100% Docker under /opt/, Caddy Ingress reverse proxy)'
+      'Marketplace Picker System (MPS) barcode scanner gudang & integrasi otomatis faktur Accurate Online ERP',
+      'Manajemen server Linux VPS Ubuntu 24.04 LTS (100% Docker container under /opt/, Caddy Ingress reverse proxy)'
     ],
-    tech: ['NestJS', 'Next.js', 'Flutter', 'Riverpod', 'Dart', 'Node.js', 'PostgreSQL', 'Prisma', 'Redis', 'BullMQ', 'Docker', 'Caddy', 'Laravel', 'Supabase', 'Midtrans']
+    tech: ['Next.js 16', 'Express', 'Node.js', 'Flutter', 'Riverpod', 'Dart', 'PostgreSQL', 'Prisma', 'Redis', 'BullMQ', 'Docker', 'Caddy', 'Laravel', 'Supabase', 'Midtrans', 'Socket.io', 'Supertest', 'Cypress']
   },
   {
     id: 'exp-abbygail',
     period: 'Jan 2026 - Apr 2026',
     role: 'Fullstack Web Developer',
-    organization: 'Abby & Gail (SJA Textile) — Bandung',
+    organization: 'Abby n Bev (SJA Textile) — Bandung',
     badge: 'Kontrak Komersial',
     category: 'project',
     description:
-      'Mengembangkan platform ritel e-commerce produk perawatan kulit melayani 2.000+ pengguna terdaftar. Membangun 50+ REST endpoints dengan Adonis.js MVC, arsitektur skema relasional 30+ tabel PostgreSQL, dan storefront Next.js SSR.',
+      'Membangun platform ritel fashion & skincare komersial terpadu: storefront Next.js 15 (LCP sub-100ms), dashboard admin Ant Design v5, payment gateway Midtrans, dan backend Adonis.js v6 dengan 30+ tabel PostgreSQL.',
     highlights: [
-      'Membangun 50+ REST API endpoints dengan Adonis.js modular service layer',
-      'Merancang arsitektur 30+ tabel relasional PostgreSQL untuk inventaris dan pesanan',
-      'CMS admin interaktif dengan kontrol otorisasi Role-Based Access Control (RBAC)'
+      'Storefront customer-facing modern Next.js 15 App Router, React 19, dan Tailwind CSS v4',
+      'CMS admin dashboard operasional: React, Vite, Ant Design (antd 5), Tiptap WYSIWYG, dan Zustand',
+      'Backend REST API arsitektur MVC Adonis.js v6 TypeScript, validasi VineJS, dan integrasi Midtrans',
+      'Perancangan skema relasional 30+ tabel PostgreSQL teroptimasi dengan Lucid ORM dan Redis caching'
     ],
-    tech: ['Next.js', 'Adonis.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS']
+    tech: ['Next.js 15', 'Adonis.js v6', 'React 19', 'TypeScript', 'PostgreSQL', 'Lucid ORM', 'Tailwind CSS v4', 'Ant Design', 'Midtrans', 'Redis', 'Vite', 'Zod']
   },
   {
     id: 'exp-ciptabintar',
@@ -642,7 +663,7 @@ export const experienceData: ExperienceItem[] = [
     role: 'Backend Developer & IT Operations Intern',
     organization: 'Dinas Cipta Bintar — Pemerintah Kota Bandung',
     badge: 'Magang Kedinasan',
-    category: 'security',
+    category: 'government',
     description:
       'Mengembangkan REST API dengan NestJS & TypeScript untuk sistem integrasi pelayanan masyarakat, serta mengelola dan mengoptimasi performa query database MySQL di lingkungan kedinasan.',
     highlights: [
@@ -653,6 +674,22 @@ export const experienceData: ExperienceItem[] = [
     tech: ['NestJS', 'TypeScript', 'MySQL', 'REST API', 'Linux']
   },
   {
+    id: 'exp-msib',
+    period: 'Feb 2024 - Jun 2024',
+    role: 'Front-End & Back-End Web Developer',
+    organization: 'Dicoding × Kampus Merdeka Kemendikbudristek',
+    badge: 'Studi Independen Kemendikbud',
+    category: 'education',
+    description:
+      'Program akselerasi pengembangan web modern standar industri: Single Page Application (SPA), RESTful API, arsitektur frontend modular, dan capstone project Green Economy.',
+    highlights: [
+      'Lulusan program Studi Independen Bersertifikat (SIB) Cycle 6',
+      'Pengembangan REST API dan Single Page Application modular',
+      'Capstone project pengembangan web bertema Green Economy'
+    ],
+    tech: ['React', 'Node.js', 'Express', 'JavaScript', 'REST API', 'Webpack']
+  },
+  {
     id: 'edu-stmik',
     period: 'Agt 2021 - Des 2025',
     role: 'S1 Teknik Informatika (IPK 3.70)',
@@ -660,7 +697,7 @@ export const experienceData: ExperienceItem[] = [
     badge: 'Pendidikan Formal',
     category: 'education',
     description:
-      'Menyelesaikan studi sarjana Teknik Informatika dengan predikat sangat memuaskan (IPK 3.70 / 4.00). Mendalami rekayasa perangkat lunak, arsitektur sistem berbasis web & mobile, pemodelan basis data relasional, dan algoritma komputasi.',
+      'Lulus sarjana Teknik Informatika dengan predikat Sangat Memuaskan (IPK 3.70 / 4.00). Fokus pada rekayasa perangkat lunak web & mobile, arsitektur basis data, dan sistem terdistribusi.',
     highlights: [
       'IPK Akhir: 3.70 / 4.00 (Predikat Sangat Memuaskan)',
       'Fokus Rekayasa Perangkat Lunak Web & Mobile',

@@ -80,16 +80,20 @@ export const CertificatesSection: React.FC = () => {
     <section
       id="certificates"
       className={`relative z-20 w-full select-none py-20 sm:py-28 overflow-hidden transition-colors duration-500 ${
-        isNight ? 'bg-[#0c1510] text-[#f8fafc]' : 'bg-[#f5f3ec] text-[#0f172a]'
+        isNight ? 'bg-[#090f0c] text-[#f5f7f4]' : 'bg-[#fbfaf6] text-[#151e17]'
       }`}
     >
       {/* Decorative Warm Terraced Background Shapes */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <div className={`absolute -top-32 right-10 w-96 h-96 rounded-full blur-2xl ${
-          isNight ? 'bg-[radial-gradient(ellipse_at_center,_#2d6a4f_0%,_transparent_70%)]' : 'bg-[radial-gradient(ellipse_at_center,_#fde047_0%,_transparent_70%)]'
+          isNight
+            ? 'bg-[radial-gradient(ellipse_at_center,_rgba(45,106,79,0.18)_0%,_transparent_70%)]'
+            : 'bg-[radial-gradient(ellipse_at_center,_rgba(226,238,221,0.6)_0%,_transparent_70%)]'
         }`} />
         <div className={`absolute -bottom-32 left-10 w-96 h-96 rounded-full blur-2xl ${
-          isNight ? 'bg-[radial-gradient(ellipse_at_center,_#163828_0%,_transparent_70%)]' : 'bg-[radial-gradient(ellipse_at_center,_#52b788_0%,_transparent_70%)]'
+          isNight
+            ? 'bg-[radial-gradient(ellipse_at_center,_rgba(22,56,40,0.15)_0%,_transparent_70%)]'
+            : 'bg-[radial-gradient(ellipse_at_center,_rgba(235,242,236,0.7)_0%,_transparent_70%)]'
         }`} />
       </div>
 
@@ -101,7 +105,7 @@ export const CertificatesSection: React.FC = () => {
           <div className="flex items-center gap-2">
             <span
               className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
-                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
               }`}
             >
               05 // KREDENSIAL &amp; LISENSI RESMI
@@ -158,7 +162,7 @@ export const CertificatesSection: React.FC = () => {
                   selectedCategory === cat.id
                     ? 'bg-white/20 text-white'
                     : isNight
-                    ? 'bg-[#1a2a20] text-amber-300 border border-emerald-500/30'
+                    ? 'bg-[#1a2a20] text-[#80ed99] border border-emerald-500/25'
                     : 'bg-[#ebf2ec] text-[#1b4332] border border-emerald-200'
                 }`}
               >
@@ -203,7 +207,7 @@ export const CertificatesSection: React.FC = () => {
                 <div className="absolute top-2.5 left-2.5">
                   <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full border shadow-xs backdrop-blur-sm ${
                     isNight
-                      ? 'bg-[#142118]/90 text-amber-300 border-emerald-500/30'
+                      ? 'bg-[#142118]/90 text-[#80ed99] border-emerald-500/20'
                       : 'bg-white/90 text-[#1b4332] border-[#e4ded5]'
                   }`}>
                     {cert.category}
@@ -214,7 +218,7 @@ export const CertificatesSection: React.FC = () => {
                   <div className="absolute top-2.5 right-2.5">
                     <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border shadow-xs backdrop-blur-sm ${
                       isNight
-                        ? 'bg-[#142118]/90 text-amber-300 border-emerald-500/30'
+                        ? 'bg-[#142118]/90 text-[#80ed99] border-emerald-500/20'
                         : 'bg-white/90 text-[#151e17] border-[#e4ded5]'
                     }`}>
                       {cert.year}
@@ -227,12 +231,12 @@ export const CertificatesSection: React.FC = () => {
               <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
                 <div>
                   <h4 className={`text-sm font-bold leading-snug line-clamp-2 transition-colors ${
-                    isNight ? 'text-[#f5f7f4] group-hover:text-amber-300' : 'text-[#151e17] group-hover:text-[#1b4332]'
+                    isNight ? 'text-[#f5f7f4] group-hover:text-[#80ed99]' : 'text-[#151e17] group-hover:text-[#1b4332]'
                   }`}>
                     {cert.title}
                   </h4>
                   <p className={`text-xs font-mono font-medium mt-1 line-clamp-1 ${
-                    isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                    isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                   }`}>
                     {cert.issuer}
                   </p>
@@ -261,10 +265,10 @@ export const CertificatesSection: React.FC = () => {
                   setVisibleCount(filteredCerts.length);
                 }
               }}
-              className={`px-6 py-3 rounded-2xl border text-xs font-mono font-black transition-all cursor-pointer ${
+              className={`px-6 py-3 rounded-xl border text-xs font-mono font-semibold transition-all cursor-pointer shadow-sm hover:-translate-y-0.5 active:translate-y-0 ${
                 isNight
-                  ? 'bg-[#142118] hover:bg-[#1a2a20] border-emerald-500/35 text-[#f8fafc] shadow-[4px_4px_0px_#040906]'
-                  : 'bg-[#fffdf5] hover:bg-[#edf2eb] border-2 border-[#0f172a] text-[#0f172a] shadow-[4px_4px_0px_#0f172a]'
+                  ? 'bg-[#142118] hover:bg-[#192b1f] border-emerald-500/30 text-[#f5f7f4] hover:border-emerald-400/50'
+                  : 'bg-white hover:bg-[#f4f1ea] border-[#e4ded5] text-[#151e17] hover:border-[#1b4332]/40'
               }`}
             >
               {visibleCount >= filteredCerts.length
@@ -291,18 +295,18 @@ export const CertificatesSection: React.FC = () => {
               exit={{ scale: 0.92, y: 20 }}
               onClick={(e) => e.stopPropagation()}
               className={`relative max-w-4xl w-full rounded-[24px] sm:rounded-[32px] border overflow-hidden shadow-2xl flex flex-col ${
-                isNight ? 'bg-[#142118] border-emerald-500/40 text-[#f8fafc]' : 'bg-[#fffdf5] border-2 sm:border-3 border-[#0f172a] text-[#0f172a]'
+                isNight ? 'bg-[#142118] border-emerald-500/40 text-[#f8fafc]' : 'bg-white border border-[#e4ded5] text-[#151e17]'
               }`}
             >
               {/* Modal Header */}
               <div className={`p-4 sm:p-5 flex items-center justify-between border-b ${
-                isNight ? 'border-emerald-500/20' : 'border-[#0f172a]/20'
+                isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
               }`}>
                 <div>
-                  <h3 className={`text-base sm:text-lg font-black line-clamp-1 ${isNight ? 'text-[#f8fafc]' : 'text-[#0f172a]'}`}>
+                  <h3 className={`text-base sm:text-lg font-black line-clamp-1 ${isNight ? 'text-[#f8fafc]' : 'text-[#151e17]'}`}>
                     {activeCert.title}
                   </h3>
-                  <p className={`text-xs font-mono font-bold ${isNight ? 'text-amber-400' : 'text-[#2d6a4f]'}`}>
+                  <p className={`text-xs font-mono font-bold ${isNight ? 'text-[#80ed99]' : 'text-[#2d6a4f]'}`}>
                     {activeCert.issuer} {activeCert.year && `• ${activeCert.year}`}
                   </p>
                 </div>
@@ -311,7 +315,7 @@ export const CertificatesSection: React.FC = () => {
                   type="button"
                   onClick={() => setActiveCertIndex(null)}
                   className={`p-2 rounded-xl border transition-colors cursor-pointer ${
-                    isNight ? 'bg-[#1a2a20] border-emerald-500/30 text-stone-300 hover:text-white' : 'bg-[#edf2eb] hover:bg-[#fde047] border-[#0f172a] text-[#0f172a]'
+                    isNight ? 'bg-[#1a2a20] border-emerald-500/30 text-stone-300 hover:text-white' : 'bg-[#f4f1ea] hover:bg-[#e4ded5] border-[#e4ded5] text-[#151e17]'
                   }`}
                   aria-label="Tutup pratinjau"
                 >

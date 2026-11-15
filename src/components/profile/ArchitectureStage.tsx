@@ -14,49 +14,34 @@ export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode =
 
   const pillars = [
     {
-      id: 'omnichannel',
-      badge: 'PRODUKSI 3.000+ USER',
-      title: 'Omnichannel & Distributed Backend',
-      tagline: 'Next.js App Router, NestJS / Node.js, Prisma ORM, Redis BullMQ & Midtrans.',
+      id: 'fullstack',
+      badge: 'SISTEM PRODUKSI LIVE',
+      title: 'Full-Stack Web Architecture',
+      tagline: 'Platform E-Commerce Skala Produksi dengan Transaksi Finansial Aman',
       icon: <Globe className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
       subIcon: <Network className="w-4 h-4 text-emerald-500" />,
-      metrics: [
-        { label: 'Storefront', val: 'Next.js SSR / TanStack / Tailwind' },
-        { label: 'Backend & Job', val: 'Node.js / NestJS / Redis BullMQ' },
-        { label: 'Database & Transaksi', val: 'PostgreSQL ACID (30+ Models)' }
-      ],
       description:
-        'Merancang ekosistem omnichannel skala produksi HolyCat yang melayani 3.000+ pengguna aktif: storefront reaktif Next.js, 50+ REST endpoints terdokumentasi Swagger, dompet digital in-app HolyPay bergaransi ACID, penanganan webhook payment gateway asinkron, dan integrasi kurir real-time Biteship API.',
+        'Merancang platform e-commerce omnichannel & backend terdistribusi skala produksi: storefront reaktif Next.js SSR, RESTful API modular terdokumentasi Swagger, sistem dompet digital in-app (HolyPay), pembayaran Midtrans otomatis, dan integrasi kurir real-time.',
       keyProof: 'Zero Race Conditions pada checkout diskon bertingkat & mutasi wallet.'
     },
     {
       id: 'mobile',
       badge: 'FLUTTER CLEAN ARCHITECTURE',
       title: 'High-Performance Mobile Systems',
-      tagline: 'Flutter 3.44+ Native Cross-Platform with Strict Layer Separation & Riverpod.',
-      icon: <Smartphone className="w-5 h-5 text-amber-500 dark:text-amber-400" />,
-      subIcon: <Cpu className="w-4 h-4 text-amber-400" />,
-      metrics: [
-        { label: 'Framework & Engine', val: 'Flutter 3.44+ & Dart 3.x' },
-        { label: 'Pemisahan Layer', val: 'Clean Arch (Presentation / Domain / Data)' },
-        { label: 'State & Network', val: 'Riverpod / GoRouter / Dio Client' }
-      ],
+      tagline: 'Aplikasi Mobile 60fps Native Performance Berbasis Clean Architecture',
+      icon: <Smartphone className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
+      subIcon: <Cpu className="w-4 h-4 text-emerald-400" />,
       description:
-        'Membangun aplikasi mobile customer HolyCat dengan arsitektur bersih yang memisahkan dependensi bisnis dari UI: render 60fps konstan, offline-first secure caching, interseptor token auto-refresh, dan push notification tertarget FCM.',
+        'Membangun aplikasi mobile customer performa tinggi dengan arsitektur bersih yang memisahkan dependensi bisnis dari UI: render 60fps konstan, offline-first secure caching, interseptor token auto-refresh, dan push notification tertarget FCM.',
       keyProof: '100% testable domain entities terpisah dari UI presentation layer.'
     },
     {
       id: 'infra',
       badge: 'DOCKER PRODUCTION VPS',
-      title: 'DevOps & Linux Server Infrastructure',
-      tagline: '100% Dockerized Services under /opt/, Caddy Ingress & Supabase PostgreSQL.',
+      title: 'DevOps & Cloud Infrastructure',
+      tagline: 'Infrastruktur Linux VPS & Orkestrasi Kontainer Docker Terisolasi',
       icon: <Server className="w-5 h-5 text-teal-600 dark:text-teal-400" />,
       subIcon: <Database className="w-4 h-4 text-teal-500" />,
-      metrics: [
-        { label: 'Server Environment', val: 'Ubuntu 24.04 LTS (8 vCPU / 23GB RAM)' },
-        { label: 'Container Orchestration', val: 'Docker Compose / Caddy Reverse Proxy' },
-        { label: 'Cache & Reliability', val: 'Redis 7 AOF Persistence & PM2' }
-      ],
       description:
         'Mengelola infrastruktur VPS Linux produksi berbasis 100% Docker container: otomatisasi sertifikat SSL zero-config Caddy, isolasi jaringan container terfragmentasi (zero blast radius), backup snapshot terjadwal, dan database connection pooling.',
       keyProof: 'Uptime stabil dengan automated failover & container health check.'
@@ -92,7 +77,7 @@ export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode =
                 0{idx + 1}
               </span>
               <span className="text-xs font-bold tracking-tight mt-0.5 truncate max-w-full">
-                {pillar.id === 'omnichannel' ? 'Omnichannel' : pillar.id === 'mobile' ? 'Mobile App' : 'DevOps / VPS'}
+                {pillar.id === 'fullstack' ? 'Full-Stack Web' : pillar.id === 'mobile' ? 'Mobile Flutter' : 'Cloud & DevOps'}
               </span>
             </button>
           );
@@ -128,7 +113,7 @@ export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode =
                       {pillars[activePillar].title}
                     </h3>
                     <p className={`text-xs font-mono mt-0.5 ${
-                      isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                      isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
                     }`}>
                       {pillars[activePillar].tagline}
                     </p>
@@ -158,27 +143,6 @@ export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode =
                 <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
                 <span className="font-semibold">{pillars[activePillar].keyProof}</span>
               </div>
-
-              {/* Technical Spec Grid - No Truncation */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-emerald-500/15">
-                {pillars[activePillar].metrics.map((m, i) => (
-                  <div
-                    key={i}
-                    className={`p-3 rounded-xl border ${
-                      isNight ? 'bg-[#152119] border-emerald-500/15' : 'bg-[#fcfbf8] border-[#e4ded5]'
-                    }`}
-                  >
-                    <div className={`text-[10px] font-mono font-bold uppercase tracking-wider ${
-                      isNight ? 'text-amber-400/90' : 'text-[#1b4332]'
-                    }`}>
-                      {m.label}
-                    </div>
-                    <div className="text-xs font-semibold tracking-tight mt-1 leading-snug">
-                      {m.val}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -192,8 +156,8 @@ export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode =
               <div className={`p-4 rounded-xl border ${
                 isNight ? 'bg-[#090f0c] border-emerald-500/20 text-emerald-300' : 'bg-[#151e17] text-emerald-400'
               }`}>
-                <div className="text-[10px] uppercase opacity-70 tracking-widest mb-2 font-bold text-amber-400">
-                  // HolyCat Omnichannel Production Data Flow
+                <div className="text-[10px] uppercase opacity-70 tracking-widest mb-2 font-bold text-[#80ed99]">
+                  // Production Omnichannel & E-Commerce Data Flow
                 </div>
                 <pre className="text-[11px] leading-relaxed overflow-x-auto whitespace-pre">
 {`[Client: Next.js SSR / Flutter Mobile]
@@ -203,7 +167,7 @@ export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode =
         │
         ▼ (Internal Docker Network)
 [Node.js / NestJS Core Engine]
-   ├── [Prisma ORM] ──► [PostgreSQL ACID Cluster]
+   ├── [Prisma ORM] ──► [PostgreSQL Relational DB]
    ├── [BullMQ Queue] ──► [Redis 7 In-Memory Cache]
    └── [Webhook Listener] ◄── [Midtrans Payment Gateway]`}
                 </pre>

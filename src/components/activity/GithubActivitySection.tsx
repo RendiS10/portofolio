@@ -31,9 +31,7 @@ export const GithubActivitySection: React.FC = () => {
     <section
       id="activity"
       className={`relative -mt-2 pt-28 pb-24 sm:pt-36 sm:pb-32 overflow-hidden select-none z-20 transition-colors duration-500 ${
-        isNight
-          ? 'bg-gradient-to-b from-[#0c1510] via-[#112217] to-[#0c1510] text-[#f8fafc]'
-          : 'bg-gradient-to-b from-[#d8dfd5] via-[#e5ede3] to-[#e5ede3] text-[#0f172a]'
+        isNight ? 'bg-[#090f0c] text-[#f5f7f4]' : 'bg-[#fbfaf6] text-[#151e17]'
       }`}
     >
       {/* organic coastal sand dune boundary transition */}
@@ -47,12 +45,12 @@ export const GithubActivitySection: React.FC = () => {
         >
           <path
             d="M-40,0 L1480,0 L1480,24 C1120,68 760,12 380,56 C200,78 60,32 -40,58 Z"
-            fill={isNight ? '#0a140f' : '#cad8c5'}
-            opacity="0.65"
+            fill={isNight ? '#0a140f' : '#e4ded5'}
+            opacity="0.4"
           />
           <path
             d="M-40,0 L1480,0 L1480,14 C1160,48 780,6 400,38 C210,54 70,22 -40,42 Z"
-            fill={isNight ? '#0c1510' : '#d8dfd5'}
+            fill={isNight ? '#090f0c' : '#fbfaf6'}
           />
         </svg>
       </div>
@@ -65,12 +63,12 @@ export const GithubActivitySection: React.FC = () => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ type: 'spring', stiffness: 220, damping: 24 }}
           className={`flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 sm:pb-14 border-b transition-colors duration-500 ${
-            isNight ? 'border-emerald-500/25' : 'border-[#0f172a]/15'
+            isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
           }`}
         >
           <div className="max-w-2xl">
             <span className={`text-xs font-mono font-bold uppercase tracking-[0.25em] block mb-2 transition-colors duration-500 ${
-              isNight ? 'text-amber-400' : 'text-[#2d6a4f]'
+              isNight ? 'text-[#80ed99]' : 'text-[#2d6a4f]'
             }`}>
               AKTIVITAS GITHUB
             </span>
@@ -115,7 +113,7 @@ export const GithubActivitySection: React.FC = () => {
                     : 'bg-[#f4f1ea] hover:bg-[#ebf2ec] border-[#e4ded5] text-[#151e17]'
                 }`}
               >
-                <SiGithub className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+                <SiGithub className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
                 <span>@{username}</span>
               </a>
 
@@ -185,7 +183,7 @@ export const GithubActivitySection: React.FC = () => {
             <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-colors duration-500 ${
               isNight ? 'bg-[#16221a] border-emerald-500/20' : 'bg-[#fcfbf9] border-[#e4ded5]'
             }`}>
-              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
                 <GitCommit className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#1b4332] dark:text-emerald-400" />
                 <span>TOTAL COMMIT</span>
               </div>
@@ -200,7 +198,7 @@ export const GithubActivitySection: React.FC = () => {
             <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-colors duration-500 ${
               isNight ? 'bg-[#16221a] border-emerald-500/20' : 'bg-[#fcfbf9] border-[#e4ded5]'
             }`}>
-              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
                 <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#ea580c]" />
                 <span>HARI TERAKTIF</span>
               </div>
@@ -215,7 +213,7 @@ export const GithubActivitySection: React.FC = () => {
             <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-colors duration-500 ${
               isNight ? 'bg-[#16221a] border-emerald-500/20' : 'bg-[#fcfbf9] border-[#e4ded5]'
             }`}>
-              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`}>
+              <div className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-bold ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
                 <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#16a34a]" />
                 <span>HARI PRODUKTIF</span>
               </div>

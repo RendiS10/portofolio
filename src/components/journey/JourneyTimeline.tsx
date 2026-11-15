@@ -4,7 +4,7 @@ import {
   GraduationCap,
   Layers,
   Rocket,
-  ShieldCheck,
+  Landmark,
   Calendar,
   CheckCircle2
 } from 'lucide-react';
@@ -25,35 +25,43 @@ const categoryConfig: Record<
 > = {
   education: {
     icon: GraduationCap,
-    nodeBg: 'bg-amber-100 dark:bg-amber-950/40',
-    nodeText: 'text-amber-800 dark:text-amber-300',
-    tagBg: 'bg-amber-50 dark:bg-amber-950/30',
-    tagText: 'text-amber-800 dark:text-amber-300',
-    tagBorder: 'border-amber-300 dark:border-amber-500/30'
+    nodeBg: 'bg-[#ebf2ec] dark:bg-[#142118]',
+    nodeText: 'text-[#1b4332] dark:text-[#80ed99]',
+    tagBg: 'bg-[#f4f7f4] dark:bg-[#101b13]',
+    tagText: 'text-[#1b4332] dark:text-[#a3b899]',
+    tagBorder: 'border-[#bed8cb] dark:border-emerald-500/20'
   },
-  bootcamp: {
-    icon: Layers,
-    nodeBg: 'bg-emerald-100 dark:bg-emerald-950/40',
-    nodeText: 'text-emerald-800 dark:text-emerald-300',
-    tagBg: 'bg-emerald-50 dark:bg-emerald-950/30',
-    tagText: 'text-[#1b4332] dark:text-emerald-300',
-    tagBorder: 'border-emerald-300 dark:border-emerald-500/30'
+  government: {
+    icon: Landmark,
+    nodeBg: 'bg-[#e2ede7] dark:bg-[#13241b]',
+    nodeText: 'text-[#164e33] dark:text-[#6ee7b7]',
+    tagBg: 'bg-[#eef5f1] dark:bg-[#0f1d16]',
+    tagText: 'text-[#164e33] dark:text-[#6ee7b7]',
+    tagBorder: 'border-[#bed8cb] dark:border-emerald-500/25'
   },
   project: {
     icon: Rocket,
-    nodeBg: 'bg-emerald-100 dark:bg-emerald-950/40',
-    nodeText: 'text-emerald-800 dark:text-emerald-300',
-    tagBg: 'bg-emerald-50 dark:bg-emerald-950/30',
-    tagText: 'text-[#1b4332] dark:text-emerald-300',
-    tagBorder: 'border-emerald-300 dark:border-emerald-500/30'
+    nodeBg: 'bg-[#d8eedf] dark:bg-[#152a1e]',
+    nodeText: 'text-[#1b4332] dark:text-[#34d399]',
+    tagBg: 'bg-[#edf7f1] dark:bg-[#102017]',
+    tagText: 'text-[#1b4332] dark:text-[#34d399]',
+    tagBorder: 'border-[#b5dec5] dark:border-emerald-500/30'
+  },
+  bootcamp: {
+    icon: Layers,
+    nodeBg: 'bg-[#e2ede7] dark:bg-[#13241b]',
+    nodeText: 'text-[#164e33] dark:text-[#6ee7b7]',
+    tagBg: 'bg-[#eef5f1] dark:bg-[#0f1d16]',
+    tagText: 'text-[#164e33] dark:text-[#6ee7b7]',
+    tagBorder: 'border-[#bed8cb] dark:border-emerald-500/25'
   },
   security: {
-    icon: ShieldCheck,
-    nodeBg: 'bg-sky-100 dark:bg-sky-950/40',
-    nodeText: 'text-sky-800 dark:text-sky-300',
-    tagBg: 'bg-sky-50 dark:bg-sky-950/30',
-    tagText: 'text-sky-800 dark:text-sky-300',
-    tagBorder: 'border-sky-300 dark:border-sky-500/30'
+    icon: Landmark,
+    nodeBg: 'bg-[#e2ede7] dark:bg-[#13241b]',
+    nodeText: 'text-[#164e33] dark:text-[#6ee7b7]',
+    tagBg: 'bg-[#eef5f1] dark:bg-[#0f1d16]',
+    tagText: 'text-[#164e33] dark:text-[#6ee7b7]',
+    tagBorder: 'border-[#bed8cb] dark:border-emerald-500/25'
   }
 };
 
@@ -106,7 +114,7 @@ export const JourneyTimeline: React.FC = () => {
           <div className="flex items-center gap-2">
             <span
               className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
-                isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
               }`}
             >
               04 // REKAM JEJAK &amp; PENGALAMAN KERJA
@@ -131,7 +139,7 @@ export const JourneyTimeline: React.FC = () => {
             {/* vertical progress */}
             <motion.div
               style={{ scaleY: smoothProgress, transformOrigin: 'top' }}
-              className="w-full h-full bg-gradient-to-b from-[#1b4332] via-emerald-500 to-amber-500 rounded-full"
+              className="w-full h-full bg-gradient-to-b from-[#1b4332] via-[#2d6a4f] to-[#52b788] dark:from-[#2d6a4f] dark:via-[#52b788] dark:to-[#80ed99] rounded-full"
             />
           </div>
 
@@ -156,7 +164,7 @@ export const JourneyTimeline: React.FC = () => {
               >
                 {/* timeline node icon */}
                 <div
-                  className={`absolute left-[-26px] sm:left-[-52px] -translate-x-1/2 top-4 sm:top-6 w-8 h-8 sm:w-11 sm:h-11 rounded-full border ${config.nodeBg} ${config.nodeText} border-stone-300 dark:border-emerald-500/30 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform z-10`}
+                  className={`absolute left-[-26px] sm:left-[-52px] -translate-x-1/2 top-4 sm:top-6 w-8 h-8 sm:w-11 sm:h-11 rounded-full border ${config.nodeBg} ${config.nodeText} border-[#d5ded8] dark:border-emerald-500/30 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform z-10`}
                 >
                   <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
@@ -185,10 +193,10 @@ export const JourneyTimeline: React.FC = () => {
 
                     <div className={`flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border text-[10px] sm:text-xs font-mono font-semibold ${
                       isNight
-                        ? 'bg-[#17231c] border-emerald-500/20 text-amber-300'
-                        : 'bg-[#f4f1ea] border-[#e4ded5] text-[#1b4332]'
+                        ? 'bg-[#142018] border-emerald-500/20 text-[#c5d5c8]'
+                        : 'bg-[#f6f4ee] border-[#e4ded5] text-[#2d4033]'
                     }`}>
-                      <Calendar className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${isNight ? 'text-amber-400' : 'text-[#1b4332]'}`} />
+                      <Calendar className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${isNight ? 'text-[#80ed99]' : 'text-[#2d6a4f]'}`} />
                       <span>{item.period}</span>
                     </div>
                   </div>
@@ -196,12 +204,12 @@ export const JourneyTimeline: React.FC = () => {
                   {/* role and organization */}
                   <div>
                     <h3 className={`text-lg sm:text-2xl font-bold tracking-tight transition-colors ${
-                      isNight ? 'text-[#f5f7f4] group-hover:text-amber-300' : 'text-[#151e17] group-hover:text-[#1b4332]'
+                      isNight ? 'text-[#f5f7f4] group-hover:text-[#80ed99]' : 'text-[#151e17] group-hover:text-[#1b4332]'
                     }`}>
                       {item.role}
                     </h3>
                     <div className={`text-xs sm:text-sm font-mono font-semibold mt-0.5 sm:mt-1 ${
-                      isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                      isNight ? 'text-[#80ed99]' : 'text-[#2d6a4f]'
                     }`}>
                       {item.organization}
                     </div>
@@ -220,7 +228,7 @@ export const JourneyTimeline: React.FC = () => {
                       isNight ? 'bg-[#16221a] border-emerald-500/20' : 'bg-[#fcfbf9] border-[#e4ded5]'
                     }`}>
                       <div className={`text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider ${
-                        isNight ? 'text-amber-400' : 'text-[#1b4332]'
+                        isNight ? 'text-[#a3b899]' : 'text-[#1b4332]'
                       }`}>
                         Poin Kunci &amp; Bukti Kerja
                       </div>

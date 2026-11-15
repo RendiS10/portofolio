@@ -25,7 +25,7 @@ const getHeatmapColor = (level: number, isNight: boolean): string => {
       return 'bg-[#15803d] border-[#14532d] hover:bg-[#14532d]';
     case 0:
     default:
-      return isNight ? 'bg-[#122016] border-[#1d3525] hover:border-emerald-400' : 'bg-[#e2eadc] border-[#cad8c5] hover:border-[#cbd5e1]';
+      return isNight ? 'bg-[#122016] border-[#1d3525] hover:border-emerald-400' : 'bg-[#f0ece1] border-[#e2ddd3] hover:border-[#b5dec5]';
   }
 };
 
@@ -55,7 +55,7 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
   if (loading) {
     return (
       <div className={`w-full p-4 sm:p-6 rounded-2xl border transition-colors duration-500 ${
-        isNight ? 'bg-[#1a2a20] border-emerald-500/30' : 'bg-[#edf2eb] border-[#0f172a]'
+        isNight ? 'bg-[#142018] border-emerald-500/20' : 'bg-[#fcfbf9] border-[#e4ded5]'
       }`}>
         <div className="animate-pulse space-y-3">
           <div className="h-4 w-40 bg-emerald-500/20 rounded-md mb-2" />
@@ -116,7 +116,7 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
 
   return (
     <div ref={containerRef} className={`relative w-full rounded-2xl border p-3.5 sm:p-6 transition-colors duration-500 ${
-      isNight ? 'bg-[#1a2a20] border-emerald-500/35 shadow-[3px_3px_0px_#040906]' : 'bg-[#edf2eb]/80 border-2 border-[#0f172a] shadow-[3px_3px_0px_#0f172a]'
+      isNight ? 'bg-[#142018] border-emerald-500/20 shadow-sm' : 'bg-[#fcfbf9] border-[#e4ded5] shadow-sm'
     }`}>
       <AnimatePresence>
         {hoveredCell && (

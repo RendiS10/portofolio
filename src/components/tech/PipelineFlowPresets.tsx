@@ -67,7 +67,7 @@ export const PipelineFlowPresets: React.FC<PipelineFlowPresetsProps> = ({
       <div className="flex items-center justify-between">
         <span
           className={`text-xs font-mono font-bold uppercase tracking-wider ${
-            isNight ? 'text-amber-400' : 'text-[#1b4332]'
+            isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
           }`}
         >
           Kategori Arsitektur
