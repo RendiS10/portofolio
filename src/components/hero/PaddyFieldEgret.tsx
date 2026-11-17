@@ -1,28 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 
-const EGRET_DIALOGUES = [
-  'Menatap terasering sawah keemasan dari atas langit sore ~',
-  'Semilir angin senja pegunungan sejuk dan damai banget!',
-  'Hamparan sawah berkilau disinari cahaya matahari sore!',
-  'Burung kuntul meluncur santai di atas perbukitan senja ~',
-  'Pemandangan desa asri terlihat begitu hangat dari ketinggian!',
-  'Arus angin lembah sore enak banget buat meluncur!',
-  'Portofolio Rendi terlihat kokoh dan elegan di bawah sinar senja!'
-];
-
-const createShuffledDeck = (items: string[], lastItem?: string): string[] => {
-  const deck = [...items];
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-  if (lastItem && deck[0] === lastItem && deck.length > 1) {
-    [deck[0], deck[deck.length - 1]] = [deck[deck.length - 1], deck[0]];
-  }
-  return deck;
-};
-
 const ALTITUDE_ZONES = [
   { min: 10, max: 20 },
   { min: 24, max: 32 },
@@ -32,13 +10,9 @@ const ALTITUDE_ZONES = [
 export const PaddyFieldEgret: React.FC = () => {
   const [direction, setDirection] = useState<'ltr' | 'rtl'>('ltr');
   const [altitudePercent, setAltitudePercent] = useState<number>(14);
-  const [currentQuip, setCurrentQuip] = useState<string | null>(null);
 
   const x = useMotionValue(-160);
   const egretRef = useRef<HTMLDivElement | null>(null);
-
-  const deckRef = useRef<string[]>(createShuffledDeck(EGRET_DIALOGUES));
-  const lastQuipRef = useRef<string>('');
 
   useEffect(() => {
     let animId: number;
@@ -116,36 +90,13 @@ export const PaddyFieldEgret: React.FC = () => {
     };
   }, [direction, x]);
 
-  useEffect(() => {
-    const quipInterval = setInterval(() => {
-      if (egretRef.current) {
-        const rect = egretRef.current.getBoundingClientRect();
-        if (rect.right > 100 && rect.left < window.innerWidth - 100) {
-          if (deckRef.current.length === 0) {
-            deckRef.current = createShuffledDeck(EGRET_DIALOGUES, lastQuipRef.current);
-          }
-
-          const nextQuip = deckRef.current.pop() || EGRET_DIALOGUES[0];
-          lastQuipRef.current = nextQuip;
-          setCurrentQuip(nextQuip);
-
-          setTimeout(() => {
-            setCurrentQuip(null);
-          }, 3200);
-        }
-      }
-    }, 8500);
-
-    return () => clearInterval(quipInterval);
-  }, []);
-
   return (
     <motion.div
       ref={egretRef}
       style={{
-        x,
-        top: `${altitudePercent}%`,
         position: 'absolute',
+        top: `${altitudePercent}%`,
+        x,
         pointerEvents: 'none'
       }}
       className="z-20 select-none"
@@ -247,20 +198,6 @@ export const PaddyFieldEgret: React.FC = () => {
               fill="#F1F5F9"
             />
           </svg>
-
-          {/* Speech Bubble */}
-          {currentQuip && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.75, y: 6 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.75, y: 6 }}
-              className={`absolute -top-10 left-1/2 -translate-x-1/2 px-3.5 py-1.5 rounded-2xl bg-[#fffdf5]/95 text-[#2d6a4f] text-xs font-bold shadow-xl border-2 border-[#52b788] whitespace-nowrap backdrop-blur-md flex items-center gap-1.5 ${
-                direction === 'rtl' ? '-scale-x-100' : 'scale-x-100'
-              }`}
-            >
-              <span className="drop-shadow-xs">{currentQuip}</span>
-            </motion.div>
-          )}
         </motion.div>
       </div>
     </motion.div>

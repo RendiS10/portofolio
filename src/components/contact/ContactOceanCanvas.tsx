@@ -40,20 +40,29 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
     let isRunning = true;
     let isVisible = false;
 
-    // Evening fireflies
-    const fireflies: { x: number; y: number; radius: number; speed: number; wobbleSpeed: number; seed: number; alpha: number }[] = [];
+    // Ambient floating particles (pollen/dew in morning, luminous fireflies at night)
+    const fireflies: {
+      x: number;
+      y: number;
+      radius: number;
+      speed: number;
+      wobbleSpeed: number;
+      seed: number;
+      alpha: number;
+    }[] = [];
+
     const initFireflies = (width: number, height: number) => {
       fireflies.length = 0;
-      const count = Math.floor(width / 45);
+      const count = Math.floor(width / 50);
       for (let i = 0; i < count; i++) {
         fireflies.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: 1.5 + Math.random() * 3.5,
-          speed: 0.6 + Math.random() * 1.1,
-          wobbleSpeed: 1.2 + Math.random() * 2,
+          radius: isNight ? 1.5 + Math.random() * 3 : 1 + Math.random() * 1.5,
+          speed: 0.4 + Math.random() * 0.8,
+          wobbleSpeed: 1.0 + Math.random() * 1.5,
           seed: Math.random() * 100,
-          alpha: 0.35 + Math.random() * 0.5
+          alpha: isNight ? 0.35 + Math.random() * 0.5 : 0.12 + Math.random() * 0.18
         });
       }
     };
@@ -69,7 +78,7 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // click handler to trigger ripple feedback
+    // Click ripple feedback
     const handleClick = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -79,34 +88,34 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
         x,
         y,
         radius: 4,
-        maxRadius: 140,
-        alpha: 0.9,
-        speed: 3.2
+        maxRadius: 130,
+        alpha: isNight ? 0.85 : 0.5,
+        speed: 2.8
       });
 
       ripplesRef.current.push({
         x,
         y,
         radius: 2,
-        maxRadius: 90,
-        alpha: 0.65,
-        speed: 2.0
+        maxRadius: 80,
+        alpha: isNight ? 0.6 : 0.35,
+        speed: 1.8
       });
 
-      // create golden ember droplets
-      const count = 16;
+      // Warm ember droplets
+      const count = isNight ? 14 : 8;
       for (let i = 0; i < count; i++) {
         const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
-        const speed = 2.5 + Math.random() * 4.5;
+        const speed = 2.2 + Math.random() * 3.5;
         dropletsRef.current.push({
           x,
           y,
           vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 2.5,
-          radius: 1.5 + Math.random() * 2.5,
-          alpha: 1,
-          decay: 0.02 + Math.random() * 0.015,
-          gravity: 0.18
+          vy: Math.sin(angle) * speed - 2.0,
+          radius: 1.2 + Math.random() * 2.0,
+          alpha: isNight ? 1.0 : 0.6,
+          decay: 0.022 + Math.random() * 0.015,
+          gravity: 0.16
         });
       }
     };
@@ -124,7 +133,7 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
       ctx.clearRect(0, 0, width, height);
       time += 0.016;
 
-      // Dynamic Background Gradient
+      // Harmonic Background Gradient: Morning Mist Ivory vs Night Peat Obsidian
       const duskGrad = ctx.createLinearGradient(0, 0, 0, height);
       if (isNight) {
         duskGrad.addColorStop(0, '#040b06');      // Midnight emerald
@@ -132,40 +141,52 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
         duskGrad.addColorStop(0.70, '#0a1a10');   // Starry obsidian
         duskGrad.addColorStop(1.0, '#030805');    // Pitch black emerald night
       } else {
-        duskGrad.addColorStop(0, '#15803d');      // Vibrant emerald highland
-        duskGrad.addColorStop(0.35, '#166534');   // Lush tea garden
-        duskGrad.addColorStop(0.70, '#14532d');   // Countryside valley
-        duskGrad.addColorStop(1.0, '#052e16');    // Deep fertile soil
+        duskGrad.addColorStop(0, '#fbfaf6');      // Warm mist ivory
+        duskGrad.addColorStop(0.40, '#f5f3ec');   // Soft highland dew
+        duskGrad.addColorStop(0.80, '#edf2eb');   // Gentle morning sage
+        duskGrad.addColorStop(1.0, '#e5ece3');    // Subtle green-tinted ivory
       }
       ctx.fillStyle = duskGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // Terrace Ridge Lines
-      const drawRidgeLine = (yPos: number, freq: number, amp: number, speed: number, alpha: number, color: string) => {
+      // Smooth Topographic Elevation Contour Waves (NO highway dash lines!)
+      const drawContourLine = (
+        yPos: number,
+        freq: number,
+        amp: number,
+        speed: number,
+        alpha: number,
+        color: string
+      ) => {
         ctx.save();
         ctx.beginPath();
-        for (let x = 0; x <= width; x += 10) {
-          const wy = yPos + Math.sin(x * freq + time * speed) * amp + Math.cos(x * (freq * 0.7) - time * (speed * 0.5)) * (amp * 0.5);
+        for (let x = 0; x <= width; x += 8) {
+          const wy =
+            yPos +
+            Math.sin(x * freq + time * speed) * amp +
+            Math.cos(x * (freq * 0.7) - time * (speed * 0.5)) * (amp * 0.5);
           if (x === 0) ctx.moveTo(x, wy);
           else ctx.lineTo(x, wy);
         }
         ctx.strokeStyle = color;
         ctx.globalAlpha = alpha;
-        ctx.lineWidth = 2;
-        ctx.setLineDash([12, 14]);
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([]); // Clean continuous natural contour
         ctx.stroke();
         ctx.restore();
       };
 
-      const ridgeColor1 = isNight ? '#10b981' : '#fde047';
-      const ridgeColor2 = isNight ? '#059669' : '#86efac';
-      const ridgeColor3 = isNight ? '#047857' : '#4ade80';
+      if (isNight) {
+        drawContourLine(height * 0.20, 0.0035, 9, 0.7, 0.22, '#10b981');
+        drawContourLine(height * 0.50, 0.0030, 11, 0.55, 0.16, '#059669');
+        drawContourLine(height * 0.78, 0.0032, 10, 0.45, 0.12, '#047857');
+      } else {
+        drawContourLine(height * 0.20, 0.0035, 8, 0.65, 0.10, '#1b4332');
+        drawContourLine(height * 0.50, 0.0030, 10, 0.50, 0.08, '#2d6a4f');
+        drawContourLine(height * 0.78, 0.0032, 9, 0.40, 0.06, '#40916c');
+      }
 
-      drawRidgeLine(height * 0.20, 0.005, 8, 1.0, 0.45, ridgeColor1);
-      drawRidgeLine(height * 0.50, 0.004, 10, 0.8, 0.35, ridgeColor2);
-      drawRidgeLine(height * 0.75, 0.004, 9, 0.7, 0.30, ridgeColor3);
-
-      // Floating Autumn / Tea Leaves
+      // Gentle floating autumn/tea leaf in the breeze
       const drawLeaf = (lx: number, ly: number, angle: number, size: number, color: string) => {
         ctx.save();
         ctx.translate(lx, ly);
@@ -180,11 +201,12 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
         ctx.restore();
       };
 
-      const leafX = ((time * 28) % (width + 100)) - 50;
-      const leafY = height * 0.38 + Math.sin(time * 1.4) * 10;
-      drawLeaf(leafX, leafY, Math.sin(time * 1.6) * 0.4, 9, 'rgba(251, 191, 36, 0.7)');
+      const leafX = ((time * 22) % (width + 120)) - 60;
+      const leafY = height * 0.36 + Math.sin(time * 1.2) * 8;
+      const leafColor = isNight ? 'rgba(251, 191, 36, 0.5)' : 'rgba(27, 67, 50, 0.15)';
+      drawLeaf(leafX, leafY, Math.sin(time * 1.4) * 0.35, 8, leafColor);
 
-      // Twilight Fireflies (GPU hardware-accelerated dual arc)
+      // Ambient Floating Particles
       ctx.save();
       for (const b of fireflies) {
         b.y -= b.speed;
@@ -193,22 +215,30 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
           b.x = Math.random() * width;
         }
 
-        const wobbleX = b.x + Math.sin(time * b.wobbleSpeed + b.seed) * 5;
+        const wobbleX = b.x + Math.sin(time * b.wobbleSpeed + b.seed) * 4;
         const currentAlpha = b.alpha * (0.6 + Math.sin(time * 2 + b.seed) * 0.4);
 
-        ctx.beginPath();
-        ctx.arc(wobbleX, b.y, b.radius * 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(245, 158, 11, ${currentAlpha * 0.35})`;
-        ctx.fill();
+        if (isNight) {
+          ctx.beginPath();
+          ctx.arc(wobbleX, b.y, b.radius * 2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(245, 158, 11, ${currentAlpha * 0.35})`;
+          ctx.fill();
 
-        ctx.beginPath();
-        ctx.arc(wobbleX, b.y, b.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(253, 224, 71, ${currentAlpha})`;
-        ctx.fill();
+          ctx.beginPath();
+          ctx.arc(wobbleX, b.y, b.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(253, 224, 71, ${currentAlpha})`;
+          ctx.fill();
+        } else {
+          // Daylight: subtle dew/sun glint particle
+          ctx.beginPath();
+          ctx.arc(wobbleX, b.y, b.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(27, 67, 50, ${currentAlpha * 0.6})`;
+          ctx.fill();
+        }
       }
       ctx.restore();
 
-      // Ripples with Warm Golden Glow
+      // Ripples feedback on click
       for (let i = ripplesRef.current.length - 1; i >= 0; i--) {
         const r = ripplesRef.current[i];
         r.radius += r.speed;
@@ -222,19 +252,15 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
         ctx.save();
         ctx.beginPath();
         ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(251, 191, 36, ${r.alpha * 0.85})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(r.x, r.y, r.radius * 0.5, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(254, 240, 138, ${r.alpha * 0.5})`;
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = isNight
+          ? `rgba(251, 191, 36, ${r.alpha * 0.85})`
+          : `rgba(27, 67, 50, ${r.alpha * 0.35})`;
+        ctx.lineWidth = 1.2;
         ctx.stroke();
         ctx.restore();
       }
 
-      // Golden Splash Droplets
+      // Splash droplets
       for (let i = dropletsRef.current.length - 1; i >= 0; i--) {
         const d = dropletsRef.current[i];
         d.x += d.vx;
@@ -249,13 +275,10 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
 
         ctx.save();
         ctx.beginPath();
-        ctx.arc(d.x, d.y, d.radius * 2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(245, 158, 11, ${d.alpha * 0.35})`;
-        ctx.fill();
-
-        ctx.beginPath();
         ctx.arc(d.x, d.y, d.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(253, 224, 71, ${d.alpha * 0.9})`;
+        ctx.fillStyle = isNight
+          ? `rgba(253, 224, 71, ${d.alpha * 0.9})`
+          : `rgba(27, 67, 50, ${d.alpha * 0.4})`;
         ctx.fill();
         ctx.restore();
       }
@@ -286,7 +309,7 @@ export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight 
         parent.removeEventListener('click', handleClick);
       }
     };
-  }, []);
+  }, [isNight]);
 
   return (
     <canvas

@@ -207,7 +207,7 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
         timeRef.current += 0.012;
         const t = timeRef.current;
 
-        // 1. SKY GRADIENT (Day: Fresh Cerulean Morning | Night: Deep Starry Highland)
+        // 1. SKY GRADIENT (Day: Fresh Tropical Morning | Night: Deep Starry Highland)
         const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
         if (isNightTime) {
           skyGrad.addColorStop(0, '#040b08');
@@ -216,7 +216,7 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
           skyGrad.addColorStop(0.88, '#142a1f');
           skyGrad.addColorStop(1, '#1b3427');
         } else {
-          // Fresh morning / bright day in the countryside
+          // Fresh bright morning in the countryside
           skyGrad.addColorStop(0, '#38bdf8');      // Fresh tropical morning sky
           skyGrad.addColorStop(0.28, '#7dd3fc');   // Soft cerulean blue
           skyGrad.addColorStop(0.58, '#bae6fd');   // Gentle highland cyan mist
@@ -275,7 +275,7 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
           ctx.globalCompositeOperation = 'source-over';
           ctx.restore();
         } else {
-          // Bright Morning Sun
+          // Bright Warm Morning Sun
           ctx.save();
           const sunHaloGrad = ctx.createRadialGradient(
             sunX, sunY, 15,

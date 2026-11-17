@@ -82,6 +82,52 @@ section {
   scrollbar-width: none !important;
 }
 
+/* ============================================================
+   EDITORIAL BESPOKE SCROLLBAR (Tactile & Refined)
+   Smooth slim scrollbar with natural bamboo/emerald thumb
+   ============================================================ */
+.editorial-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(27, 67, 50, 0.28) transparent;
+}
+
+.editorial-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.editorial-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+  margin: 6px 0;
+}
+
+.editorial-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(27, 67, 50, 0.25);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+
+.editorial-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(27, 67, 50, 0.65);
+}
+
+/* Night Mode Scrollbar Color Tokens */
+[data-theme="night"] .editorial-scrollbar,
+.dark .editorial-scrollbar {
+  scrollbar-color: rgba(82, 183, 136, 0.35) transparent;
+}
+
+[data-theme="night"] .editorial-scrollbar::-webkit-scrollbar-thumb,
+.dark .editorial-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(82, 183, 136, 0.3);
+}
+
+[data-theme="night"] .editorial-scrollbar::-webkit-scrollbar-thumb:hover,
+.dark .editorial-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 237, 153, 0.7);
+}
+
 /* Golden village ambient glow */
 .nav-glow-active {
   text-shadow: 0 0 12px rgba(245, 158, 11, 0.45);

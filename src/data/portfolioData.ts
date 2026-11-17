@@ -16,7 +16,7 @@ export const profileData: ProfileData = {
     'Linux VPS & Docker Infrastructure'
   ],
   contact: {
-    email: 'rendisutendi21@gmail.com',
+    email: 'rendisutendi10@gmail.com',
     github: 'https://github.com/RendiS10',
     linkedin: 'https://linkedin.com/in/rendi-sutendi-813a90270',
     location: 'Bandung, Indonesia',
@@ -44,7 +44,7 @@ export const techStackData: TechItem[] = [
     color: '#0284c7',
     roleTag: 'Component UI',
     usageContext: 'Komponen UI modular, custom hooks, dan state management reaktif',
-    projectLinks: ['holycat', 'jkt48', 'green-sustainify']
+    projectLinks: ['holycat', 'holycat-holydis', 'holycat-webprofile', 'jkt48', 'green-sustainify']
   },
   {
     name: 'Next.js',
@@ -54,7 +54,7 @@ export const techStackData: TechItem[] = [
     color: '#0f172a',
     roleTag: 'App Framework',
     usageContext: 'Server-Side Rendering (SSR), App Router, dan performa tinggi e-commerce',
-    projectLinks: ['holycat', 'abbygail']
+    projectLinks: ['holycat', 'holycat-posyancing', 'abbygail']
   },
   {
     name: 'Flutter',
@@ -116,7 +116,7 @@ export const techStackData: TechItem[] = [
     color: '#E0234E',
     roleTag: 'Enterprise Backend',
     usageContext: 'Arsitektur modular backend TypeScript, REST API Swagger, dependency injection, dan microservices',
-    projectLinks: ['holycat', 'holycat-mps', 'holycat-scrm']
+    projectLinks: ['holycat', 'holycat-posyancing', 'holycat-mps', 'holycat-scrm']
   },
   {
     name: 'Node.js',
@@ -156,7 +156,7 @@ export const techStackData: TechItem[] = [
     color: '#ef4444',
     roleTag: 'MVC & REST Engine',
     usageContext: 'REST API, Sanctum token authentication, dan sistem tracking logistik Holydis',
-    projectLinks: ['holycat']
+    projectLinks: ['holycat', 'holycat-holydis']
   },
 
   // database and cloud persistence layer
@@ -168,7 +168,7 @@ export const techStackData: TechItem[] = [
     color: '#2563eb',
     roleTag: 'Relational Core',
     usageContext: 'Pemodelan data relasional kompleks, indeks teroptimasi, dan transaksi database terisolasi',
-    projectLinks: ['holycat', 'abbygail']
+    projectLinks: ['holycat', 'holycat-holydis', 'abbygail']
   },
   {
     name: 'Prisma ORM',
@@ -178,7 +178,7 @@ export const techStackData: TechItem[] = [
     color: '#6366f1',
     roleTag: 'Type-Safe ORM',
     usageContext: 'Database migrations type-safe, schema declarative, dan queries teroptimasi',
-    projectLinks: ['holycat']
+    projectLinks: ['holycat', 'holycat-posyancing']
   },
   {
     name: 'MySQL',
@@ -408,11 +408,11 @@ export const projectsData: Project[] = [
   },
   {
     id: 'jkt48',
-    title: 'JKT48 Merchandise E-Commerce',
-    subtitle: 'Prototype Platform Belanja Merchandise dengan Reaktif State & REST API',
+    title: 'JKT48 Fan Merchandise (Concept Study)',
+    subtitle: 'Studi Kasus Konsep E-Commerce & Micro-Storefront Fanbase JKT48',
     category: 'fullstack',
-    summary: 'Platform e-commerce prototype merchandise bertema JKT48 dengan integrasi keranjang interaktif, katalog responsif, dan backend REST API.',
-    description: 'Proyek web aplikasi e-commerce modern yang mengimplementasikan arsitektur micro-storefront dengan React.js, Express.js, dan MySQL.',
+    summary: 'Studi kasus eksplorasi arsitektur e-commerce bertema merchandise fanbase JKT48: keranjang belanja reaktif, katalog produk multi-varian, dan REST API Express.js.',
+    description: 'Proyek eksperimental berbasis studi kasus independen untuk merancang micro-storefront merchandise fanbase idol culture dengan React.js, Express.js, dan MySQL (bukan sistem resmi internal JKT48).',
     architecture: [
       'Frontend interaktif dengan React.js dan Tailwind CSS',
       'Backend REST API dengan Express.js dan Node.js runtime',
@@ -426,19 +426,20 @@ export const projectsData: Project[] = [
       'MySQL'
     ],
     highlights: [
-      'Integrasi keranjang belanja reaktif real-time',
+      'Studi kasus konsep arsitektur e-commerce bertema merchandise fanbase',
+      'Integrasi keranjang belanja reaktif real-time dan katalog produk',
       'Desain UI modern terinspirasi estetika idol culture'
     ],
     challenges: 'Mendesain struktur database relasional yang fleksibel untuk variasi ukuran, edisi, dan bundling item merchandise.',
-    role: 'Full-Stack Developer',
+    role: 'Full-Stack Developer (Personal Concept)',
     githubUrl: 'https://github.com/RendiS10/e-commerce-jkt48',
     imageUrl: '/projects/jkt48.jpg',
     imageFit: 'cover',
     featured: false,
     metrics: [
+      { label: 'Status Proyek', value: 'Konsep Fanbase' },
       { label: 'Frontend', value: 'React & Tailwind' },
-      { label: 'Backend', value: 'Express.js' },
-      { label: 'Database', value: 'MySQL' }
+      { label: 'Backend Engine', value: 'Express & MySQL' }
     ]
   },
   {
@@ -618,6 +619,100 @@ export const projectsData: Project[] = [
       { label: 'Backend', value: 'Node.js & REST' },
       { label: 'Integration', value: 'Accurate ERP' }
     ]
+  },
+  {
+    id: 'holycat-holydis',
+    title: 'Holydis Merchant Logistics & Ekspedisi',
+    subtitle: 'Sistem Tracking Pengiriman, Purchase Order & Surat Jalan Merchant',
+    category: 'fullstack',
+    summary: 'Platform pelacakan ekspedisi dan logistik merchant B2B HolyCat: manajemen purchase order, pembuatan surat jalan PDF otomatis, dan kelola status pengiriman armada.',
+    description: 'Sistem distribusi dan logistik merchant (Holydis) yang mengintegrasikan backend REST API Laravel 13 dengan frontend dashboard React Vite, otentikasi Sanctum, dan modul export dokumen DomPDF.',
+    architecture: [
+      'Backend RESTful API dengan Laravel 13, PHP 8.3, dan Sanctum token authentication',
+      'Dashboard internal merchant & admin dengan React, Vite, dan Tailwind CSS',
+      'Otomasi penerbitan dokumen Purchase Order dan Surat Jalan berbasis PDF via DomPDF',
+      'Notifikasi transaksional status pengiriman via email service Resend'
+    ],
+    stack: ['Laravel 13', 'PHP 8.3', 'PostgreSQL', 'React', 'Vite', 'Tailwind CSS', 'Sanctum', 'DomPDF'],
+    highlights: [
+      'Otomasi penerbitan surat jalan dan purchase order PDF resmi',
+      'Backend modular teruji dengan arsitektur RESTful Laravel 13 & PostgreSQL',
+      'Dashboard logistik merchant responsif untuk monitoring status armada'
+    ],
+    challenges: 'Mengelola siklus status pengiriman multi-tahap (PO dibuat, diproses, dikirim, diterima) dengan validasi surat jalan yang ketat.',
+    role: 'Backend & Full-Stack Developer',
+    isPrivateRepo: true,
+    privateRepoReason: 'Sistem operasional internal logistik dan distribusi HolyCat Labs',
+    imageUrl: '',
+    imageFit: 'contain',
+    featured: false,
+    metrics: [
+      { label: 'Backend API', value: 'Laravel 13' },
+      { label: 'Dokumen Logistik', value: 'PDF Surat Jalan' },
+      { label: 'Database', value: 'PostgreSQL' }
+    ]
+  },
+  {
+    id: 'holycat-posyancing',
+    title: 'Posyancing — Rekam Medis & KTP Kucing',
+    subtitle: 'Sistem Manajemen Kesehatan Hewan, Monitoring Pertumbuhan & Kartu Identitas Digital',
+    category: 'fullstack',
+    summary: 'Platform rekam medis posyandu pet-care terintegrasi: riwayat vaksinasi dan sterilisasi, grafik monitoring tumbuh kembang, booking grooming, dan pencetakan KTP Kucing digital.',
+    description: 'Sistem kesehatan hewan komprehensif yang memadukan backend NestJS modular dengan frontend Next.js Ant Design, integrasi storage AWS S3 untuk foto hewan, payment gateway Midtrans, serta visualisasi grafik berat badan Chart.js.',
+    architecture: [
+      'Backend enterprise modular dengan NestJS, TypeScript, Swagger docs, dan Prisma ORM',
+      'Dashboard web operasional klinik dengan Next.js, React, Ant Design (antd), dan Recharts/Chart.js',
+      'Penyimpanan foto profil hewan dan dokumen medis terenkripsi di AWS S3',
+      'Generator kartu digital KTP Kucing dengan QR Code scanner interaktif dan export PDF via jsPDF'
+    ],
+    stack: ['NestJS', 'Next.js', 'Prisma ORM', 'Ant Design', 'TypeScript', 'AWS S3', 'Chart.js', 'Midtrans'],
+    highlights: [
+      'Penerbitan kartu identitas KTP Kucing digital ber-QR code unik',
+      'Visualisasi analitik grafik tumbuh kembang hewan (berat, nutrisi, vaksinasi)',
+      'Backend API terstruktur rapi dengan NestJS, Swagger, dan Prisma'
+    ],
+    challenges: 'Merancang generator kartu digital KTP Kucing dengan rendering HTML-to-Canvas beresolusi tinggi tanpa penurunan kualitas cetak.',
+    role: 'Full-Stack Developer & System Architect',
+    isPrivateRepo: true,
+    privateRepoReason: 'Sistem internal rekam medis dan klinik HolyCat Labs',
+    imageUrl: '',
+    imageFit: 'contain',
+    featured: false,
+    metrics: [
+      { label: 'Backend Core', value: 'NestJS Modular' },
+      { label: 'Dashboard UI', value: 'Ant Design & Next.js' },
+      { label: 'Fitur Unggulan', value: 'KTP Kucing QR' }
+    ]
+  },
+  {
+    id: 'holycat-webprofile',
+    title: 'HolyCat Labs Corporate Landing Page',
+    subtitle: 'Platform Profil Korporat & Peta Cabang Klinik Interaktif GIS',
+    category: 'fullstack',
+    summary: 'Website profil perusahaan resmi HolyCat Labs dengan showcase ekosistem layanan, katalog produk, dan peta interaktif lokasi cabang klinik & pet shop.',
+    description: 'Landing page korporat modern berbasis React dan Vite dengan performa tinggi, animasi halus Tailwind CSS, dan integrasi peta geolokasi cabang Leaflet GIS.',
+    architecture: [
+      'Frontend Single Page Application berkinerja tinggi dengan React dan Vite',
+      'Integrasi peta interaktif lokasi cabang pet shop & klinik hewan dengan Leaflet GIS',
+      'Desain modern responsif dengan Tailwind CSS dan notifikasi interaktif Sonner'
+    ],
+    stack: ['React', 'Vite', 'Tailwind CSS', 'Leaflet GIS', 'TypeScript'],
+    highlights: [
+      'Peta interaktif cabang klinik dan pet shop HolyCat di berbagai kota',
+      'Antarmuka modern ramah mobile dengan waktu muat instan Vite'
+    ],
+    challenges: 'Mengoptimalkan rendering marker peta multi-lokasi klinik dengan clustering interaktif Leaflet.',
+    role: 'Frontend Web Developer',
+    isPrivateRepo: true,
+    privateRepoReason: 'Website profil korporat resmi HolyCat Labs',
+    imageUrl: '',
+    imageFit: 'contain',
+    featured: false,
+    metrics: [
+      { label: 'Frontend Engine', value: 'React & Vite' },
+      { label: 'Geo Location', value: 'Leaflet GIS' },
+      { label: 'Desain', value: 'Tailwind CSS' }
+    ]
   }
 ];
 
@@ -697,13 +792,13 @@ export const experienceData: ExperienceItem[] = [
     badge: 'Pendidikan Formal',
     category: 'education',
     description:
-      'Lulus sarjana Teknik Informatika dengan predikat Sangat Memuaskan (IPK 3.70 / 4.00). Fokus pada rekayasa perangkat lunak web & mobile, arsitektur basis data, dan sistem terdistribusi.',
+      'Lulus sarjana Teknik Informatika dengan predikat Sangat Memuaskan (IPK 3.70 / 4.00). Fokus studi pada perancangan sistem informasi, arsitektur basis data relasional, pemodelan proses bisnis, dan integrasi sistem digital.',
     highlights: [
       'IPK Akhir: 3.70 / 4.00 (Predikat Sangat Memuaskan)',
-      'Fokus Rekayasa Perangkat Lunak Web & Mobile',
-      'Riset & Implementasi Sistem Informasi Terdistribusi'
+      'Fokus Perancangan Sistem Informasi & Analisis Bisnis',
+      'Arsitektur Basis Data Relasional & Integrasi Sistem'
     ],
-    tech: ['Software Engineering', 'System Architecture', 'Database Design', 'Algorithms', 'Web Development']
+    tech: ['Sistem Informasi', 'Database Design', 'System Analysis', 'Business Process', 'Data Modeling']
   }
 ];
 

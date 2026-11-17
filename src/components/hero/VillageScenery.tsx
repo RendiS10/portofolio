@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 interface VillageSceneryProps {
   isNight?: boolean;
 }
 
 export const VillageScenery: React.FC<VillageSceneryProps> = ({ isNight = false }) => {
-  const [hutQuip, setHutQuip] = useState<string | null>(null);
-
-  const handleHutClick = () => {
-    if (hutQuip) return;
-    setHutQuip('Saung bambu peneduh di tepi pematang sawah ~ 🎋');
-    setTimeout(() => {
-      setHutQuip(null);
-    }, 2800);
-  };
-
   return (
     <div className="absolute inset-x-0 bottom-0 pointer-events-none z-10 overflow-hidden select-none">
       <div className="relative w-full max-w-7xl mx-auto h-[170px] min-[400px]:h-[210px] sm:h-[320px] md:h-[360px] flex items-end justify-between px-3 sm:px-8">
@@ -197,28 +187,7 @@ export const VillageScenery: React.FC<VillageSceneryProps> = ({ isNight = false 
           {/* Traditional Sundanese/Javanese Saung Sawah (Gubuk Bambu Pematang) */}
           <div className="relative pointer-events-auto">
             {/* Clickable Speech Bubble */}
-            <AnimatePresence>
-              {hutQuip && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -6, scale: 0.9 }}
-                  transition={{ duration: 0.25 }}
-                  className="absolute -top-12 sm:-top-14 right-2 sm:right-6 whitespace-nowrap px-3 py-1.5 rounded-xl bg-[#fffdf5] border-2 border-[#78350f] text-[#451a03] font-bold text-xs shadow-lg shadow-[#78350f]/25 z-40"
-                >
-                  {hutQuip}
-                  <div className="absolute -bottom-1.5 right-8 w-3 h-3 bg-[#fffdf5] border-b-2 border-r-2 border-[#78350f] rotate-45" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleHutClick}
-              className="cursor-pointer group select-none"
-              title="Klik Saung Bambu"
-            >
+            <div className="select-none pointer-events-none">
               <svg
                 width="220"
                 height="190"
@@ -309,7 +278,7 @@ export const VillageScenery: React.FC<VillageSceneryProps> = ({ isNight = false 
                 <path d="M 100 120 L 96 172 M 120 120 L 116 172" stroke="url(#bambooStiltGrad)" strokeWidth="3" strokeLinecap="round" />
                 <path d="M 99 133 H 119 M 98 146 H 118 M 97 159 H 117" stroke="#451a03" strokeWidth="2" strokeLinecap="round" />
               </svg>
-            </motion.div>
+            </div>
           </div>
         </div>
 
