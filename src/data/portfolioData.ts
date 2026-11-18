@@ -713,6 +713,126 @@ export const projectsData: Project[] = [
       { label: 'Geo Location', value: 'Leaflet GIS' },
       { label: 'Desain', value: 'Tailwind CSS' }
     ]
+  },
+  {
+    id: 'web-wisuda',
+    title: 'Web Pengajuan Wisuda',
+    subtitle: 'Sistem Informasi Pengajuan & Verifikasi Berkas Wisuda Mahasiswa Kampus',
+    category: 'fullstack',
+    summary: 'Aplikasi pengajuan berkas wisuda berbasis web dengan alur verifikasi dokumen bertahap per-role admin fakultas dan rektorat.',
+    description: 'Sistem informasi akademik berbasis web yang dibangun untuk mendigitalkan proses pendaftaran wisuda, upload berkas persyaratan (skripsi, bebas perpus, SPP), serta verifikasi dokumen bertingkat antar departemen kampus.',
+    architecture: [
+      'Arsitektur MVC berbasis framework CodeIgniter dengan routing modular',
+      'Database relasional MySQL dengan relasi data mahasiswa, berkas, dan status verifikasi',
+      'Autentikasi role-based access control (RBAC) untuk mahasiswa, admin jurusan, dan superadmin'
+    ],
+    stack: ['CodeIgniter', 'PHP', 'MySQL', 'Bootstrap', 'JavaScript'],
+    highlights: [
+      'Alur verifikasi berkas berjenjang multi-role (mahasiswa, prodi, akademik)',
+      'Otomatisasi validasi kelayakan wisuda dan cetak bukti pendaftaran',
+      'Repositori publik aktif terdokumentasi di GitHub'
+    ],
+    challenges: 'Merancang alur validasi dokumen multi-tahap agar mahasiswa dapat melacak status revisi berkas secara transparan.',
+    role: 'Full-Stack Developer',
+    githubUrl: 'https://github.com/RendiS10/web-wisuda',
+    imageUrl: '/projects/wisuda.jpg',
+    imageFit: 'cover',
+    featured: false,
+    metrics: [
+      { label: 'Framework', value: 'CodeIgniter' },
+      { label: 'Database', value: 'MySQL' },
+      { label: 'Domain', value: 'Akademik Kampus' }
+    ]
+  },
+  {
+    id: 'siakad-app',
+    title: 'Siakad App (Sistem Informasi Akademik)',
+    subtitle: 'Platform Pengelolaan Nilai, KRS, dan Data Mahasiswa Kampus',
+    category: 'fullstack',
+    summary: 'Sistem Informasi Akademik (Siakad) berbasis web untuk manajemen data mahasiswa, input kartu rencana studi (KRS), transkrip nilai, dan status tagihan perkuliahan.',
+    description: 'Aplikasi web komprehensif untuk tata kelola administrasi akademik perguruan tinggi, mencakup portal mahasiswa untuk pengisian KRS dan melihat KHS, serta portal dosen untuk penilaian mahasiswa.',
+    architecture: [
+      'Backend PHP native terstruktur dengan konsep object-oriented & MVC',
+      'Skema relasional MySQL multi-tabel (mahasiswa, dosen, mata kuliah, jadwal, nilai)',
+      'Antarmuka responsif ramah desktop dan tablet'
+    ],
+    stack: ['PHP', 'MySQL', 'Bootstrap', 'JavaScript', 'HTML5/CSS3'],
+    highlights: [
+      'Manajemen portal ganda (Portal Mahasiswa & Portal Dosen)',
+      'Kalkulasi otomatis IP/IPK semester dan cetak Kartu Hasil Studi',
+      'Tersedia di repositori publik GitHub'
+    ],
+    challenges: 'Menjaga akurasi kalkulasi indeks prestasi dan aturan prasyarat pengambilan SKS mata kuliah.',
+    role: 'Backend & Full-Stack Developer',
+    githubUrl: 'https://github.com/RendiS10/siakad',
+    imageUrl: '/projects/siakad.jpg',
+    imageFit: 'cover',
+    featured: false,
+    metrics: [
+      { label: 'Domain', value: 'Sistem Akademik' },
+      { label: 'Engine', value: 'PHP & MySQL' },
+      { label: 'Fitur', value: 'KRS & Nilai' }
+    ]
+  },
+  {
+    id: 'java-crud',
+    title: 'Java Desktop CRUD (SIAKAD Desktop)',
+    subtitle: 'Aplikasi GUI Desktop Pengelolaan Data Mahasiswa & Nilai',
+    category: 'fullstack',
+    summary: 'Aplikasi desktop berbasis Java GUI Swing dan NetBeans untuk pengelolaan data master mahasiswa, pencatatan nilai, dan pelaporan database MySQL.',
+    description: 'Sistem desktop mandiri yang dibangun dengan Java Swing untuk mengelola data operasional mahasiswa secara cepat melalui koneksi JDBC ke database MySQL.',
+    architecture: [
+      'Arsitektur Java Swing Desktop dengan komponen JFrame kustom',
+      'Konektivitas database terisolasi menggunakan Java Database Connectivity (JDBC)',
+      'Validasi input form dan penanganan error interaktif'
+    ],
+    stack: ['Java', 'Swing GUI', 'MySQL', 'JDBC', 'NetBeans'],
+    highlights: [
+      'Aplikasi desktop responsif dengan antarmuka GUI intuitif',
+      'Operasi CRUD lengkap terhubung langsung ke database MySQL',
+      'Tersedia di repositori publik GitHub'
+    ],
+    challenges: 'Mengelola penanganan event listener UI Swing dan kestabilan pooling koneksi JDBC saat transaksi data intensif.',
+    role: 'Desktop Application Developer',
+    githubUrl: 'https://github.com/RendiS10/java-smt4a',
+    imageUrl: '/projects/java-crud.jpg',
+    imageFit: 'cover',
+    featured: false,
+    metrics: [
+      { label: 'Platform', value: 'Java Desktop' },
+      { label: 'GUI Framework', value: 'Swing' },
+      { label: 'Database', value: 'MySQL (JDBC)' }
+    ]
+  },
+  {
+    id: 'dicoding-web',
+    title: 'Dicoding Web Fundamental Showcase',
+    subtitle: 'Website Showcase Responsif & Standar Semantik Web Modern',
+    category: 'fullstack',
+    summary: 'Website interaktif standar industri yang dibangun dengan semantic HTML5, CSS Grid/Flexbox fluid, dan manipulasi DOM JavaScript native.',
+    description: 'Proyek submisi akhir kelas Dasar Pemrograman Web Dicoding Indonesia yang berhasil lulus dengan nilai sempurna, menerapkan prinsip semantik web aksesibel dan tata letak responsif.',
+    architecture: [
+      'Struktur dokumen semantik HTML5 murni',
+      'Tata letak responsif menggunakan CSS Grid dan Flexbox modern',
+      'Interaktivitas dinamis dengan JavaScript ES6 DOM manipulation'
+    ],
+    stack: ['HTML5', 'CSS3', 'JavaScript (ES6)', 'DOM API'],
+    highlights: [
+      'Lulus dengan predikat sempurna pada kurikulum resmi Dicoding',
+      '100% responsif di seluruh ukuran layar tanpa framework tambahan',
+      'Tersedia di repositori publik GitHub'
+    ],
+    challenges: 'Membangun antarmuka modern dan interaktif tanpa dependensi library/framework eksternal.',
+    role: 'Frontend Developer',
+    githubUrl: 'https://github.com/RendiS10/MyLearningProgress_Dicoding',
+    imageUrl: '/projects/dicoding-web.jpg',
+    imageFit: 'cover',
+    featured: false,
+    metrics: [
+      { label: 'Kurikulum', value: 'Dicoding Indonesia' },
+      { label: 'Core', value: 'Vanilla Web' },
+      { label: 'Standar', value: 'W3C Semantic' }
+    ]
   }
 ];
 
@@ -799,6 +919,38 @@ export const experienceData: ExperienceItem[] = [
       'Arsitektur Basis Data Relasional & Integrasi Sistem'
     ],
     tech: ['Sistem Informasi', 'Database Design', 'System Analysis', 'Business Process', 'Data Modeling']
+  },
+  {
+    id: 'exp-csa-mentor',
+    period: '2023 - 2024',
+    role: 'Academic Mentor & Divisi Pemrograman',
+    organization: 'Creative Student Association (CSA) — STMIK Mardira',
+    badge: 'Organisasi & Mentorship',
+    category: 'education',
+    description:
+      'Memimpin dan memfasilitasi program bimbingan belajar (Study Club) divisi pemrograman bagi 30+ mahasiswa junior, mencakup logika algoritma dasar, struktur data, dan pengembangan web full-stack.',
+    highlights: [
+      'Membimbing 30+ mahasiswa junior dalam algoritma & dasar web development',
+      'Mengorganisasi kurikulum praktikum mingguan dan sesi peer-programming',
+      'Menerima sertifikat penghargaan resmi sebagai Mentor Study Club CSA'
+    ],
+    tech: ['Algoritma', 'Data Structures', 'Web Development', 'PHP', 'JavaScript', 'Mentorship']
+  },
+  {
+    id: 'exp-matlaulanwar',
+    period: '2024',
+    role: 'Project Manager & Web Developer',
+    organization: "SMA Mathla'ul Anwar",
+    badge: 'Proyek Implementasi',
+    category: 'project',
+    description:
+      'Memimpin perancangan dan implementasi Sistem Informasi Kelulusan (SIK) berbasis web responsif untuk mengotomatisasi pengumuman hasil kelulusan ratusan siswa secara aman dan terpusat.',
+    highlights: [
+      'Memimpin seluruh siklus hidup proyek (analisis kebutuhan, desain DB, hingga deploy)',
+      'Menjamin ketersediaan sistem saat lonjakan akses serentak pada hari pengumuman',
+      'Mendapatkan Sertifikat Apresiasi resmi dari Kepala Sekolah'
+    ],
+    tech: ['PHP', 'MySQL', 'Bootstrap', 'Project Management', 'Database Security']
   }
 ];
 
@@ -813,8 +965,16 @@ export const certificatesData: CertificateItem[] = [
     year: '2024'
   },
   {
+    id: 'cert-belajar-bekerja',
+    title: 'Belajar Bekerja Bootcamp: Web Developer (Nilai Akhir A)',
+    issuer: 'Luarsekolah',
+    category: 'penghargaan',
+    imageUrl: '/certificates/luarsekolah/belajarbekerjaluarsekolah.jpg',
+    year: '2026'
+  },
+  {
     id: 'cert-pbi',
-    title: 'Project Based Internship — Luarsekolah',
+    title: 'Project-based Internship Web Developer',
     issuer: 'Luarsekolah',
     category: 'penghargaan',
     imageUrl: '/certificates/luarsekolah/pbi.jpg',
@@ -947,6 +1107,38 @@ export const certificatesData: CertificateItem[] = [
     category: 'kelas',
     imageUrl: '/certificates/dicoding/meniti-karir.jpg',
     year: '2024'
+  },
+  {
+    id: 'cert-ml-pemula',
+    title: 'Belajar Machine Learning untuk Pemula',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/BelajarMachineLearninguntukPemula.png',
+    year: '2026'
+  },
+  {
+    id: 'cert-python-pemula',
+    title: 'Memulai Pemrograman dengan Python',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/Memulai Pemrograman dengan Python.png',
+    year: '2026'
+  },
+  {
+    id: 'cert-prompt-eng',
+    title: 'Prompt Engineering untuk Software Developer',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/Prompt Engineering untuk Software Developer.png',
+    year: '2026'
+  },
+  {
+    id: 'cert-pengembangan-diri',
+    title: 'Belajar Strategi Pengembangan Diri',
+    issuer: 'Dicoding Indonesia',
+    category: 'kelas',
+    imageUrl: '/certificates/dicoding/Belajar Strategi Pengembangan Diri.png',
+    year: '2026'
   },
   {
     id: 'cert-js-mastery',

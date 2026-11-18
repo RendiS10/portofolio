@@ -126,8 +126,8 @@ export const HeroSection: React.FC = () => {
             </TactileButton>
 
             <a
-              href="/CV_Rendi_Sutendi.docx"
-              download="CV_Rendi_Sutendi.docx"
+              href="/CV_Rendi_Sutendi_Software_Engineer.pdf"
+              download="CV_Rendi_Sutendi_Software_Engineer.pdf"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => playBambooTone(640)}
