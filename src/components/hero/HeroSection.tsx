@@ -115,7 +115,7 @@ export const HeroSection: React.FC = () => {
             Merancang ekosistem omnichannel skala produksi, aplikasi mobile Flutter 60fps dengan Clean Architecture, serta infrastruktur Linux VPS berbasis 100% Docker.
           </p>
 
-          {/* Clean Dual CTAs: Exploratory & Professional Resume */}
+          {/* Clean Dual CTAs: Exploratory & Professional Resume (EN & ID Dual Mode) */}
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4 px-2">
             <TactileButton
               variant="primary"
@@ -125,21 +125,55 @@ export const HeroSection: React.FC = () => {
               Eksplorasi Proyek
             </TactileButton>
 
-            <a
-              href="/CV_Rendi_Sutendi_Software_Engineer.pdf"
-              download="CV_Rendi_Sutendi_Software_Engineer.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => playBambooTone(640)}
-              className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all select-none cursor-pointer hover:-translate-y-0.5 shadow-sm backdrop-blur-md border ${
+            {/* Dual-Mode Resume Download Group (EN & ID) */}
+            <div
+              className={`inline-flex items-center p-1 rounded-xl shadow-sm backdrop-blur-md border transition-all ${
                 isNight
-                  ? 'bg-[#17231c]/90 hover:bg-[#203227] text-[#f5f7f4] border-emerald-500/30 hover:border-emerald-400'
-                  : 'bg-white hover:bg-stone-50 text-[#151e17] border-[#e4ded5] hover:border-[#1b4332]'
+                  ? 'bg-[#17231c]/90 border-emerald-500/30'
+                  : 'bg-white/90 border-[#e4ded5]'
               }`}
             >
-              <Download className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
-              <span>Unduh Resume (CV)</span>
-            </a>
+              <span className={`px-2.5 py-1.5 text-xs sm:text-sm font-medium flex items-center gap-1.5 ${
+                isNight ? 'text-stone-300' : 'text-stone-700'
+              }`}>
+                <Download className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
+                <span className="font-semibold">CV:</span>
+              </span>
+
+              <a
+                href="/CV_Rendi_Sutendi_Software_Engineer_EN.pdf"
+                download="CV_Rendi_Sutendi_Software_Engineer_EN.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => playBambooTone(640)}
+                className={`px-3 py-1.5 rounded-lg font-semibold text-xs sm:text-sm transition-all select-none cursor-pointer flex items-center gap-1 ${
+                  isNight
+                    ? 'hover:bg-emerald-950/80 text-emerald-300 hover:text-emerald-200 border border-transparent hover:border-emerald-500/40'
+                    : 'hover:bg-emerald-50 text-emerald-800 hover:text-emerald-900 border border-transparent hover:border-emerald-200'
+                }`}
+                title="Download English ATS Resume (Global/FAANG Standard)"
+              >
+                <span>🇬🇧 EN</span>
+              </a>
+
+              <span className={`text-xs select-none ${isNight ? 'text-emerald-500/40' : 'text-stone-300'}`}>•</span>
+
+              <a
+                href="/CV_Rendi_Sutendi_Software_Engineer_ID.pdf"
+                download="CV_Rendi_Sutendi_Software_Engineer_ID.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => playBambooTone(700)}
+                className={`px-3 py-1.5 rounded-lg font-semibold text-xs sm:text-sm transition-all select-none cursor-pointer flex items-center gap-1 ${
+                  isNight
+                    ? 'hover:bg-emerald-950/80 text-emerald-300 hover:text-emerald-200 border border-transparent hover:border-emerald-500/40'
+                    : 'hover:bg-emerald-50 text-emerald-800 hover:text-emerald-900 border border-transparent hover:border-emerald-200'
+                }`}
+                title="Unduh CV Bahasa Indonesia (Standar Korporat & BUMN)"
+              >
+                <span>🇮🇩 ID</span>
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>

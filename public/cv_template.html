@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rendi Sutendi - Software Engineer Resume</title>
   <style>
-    /* ATS Gold-Standard Single-Page Resume Stylesheet (Jake's Resume / Harvard CS Standard) */
+    /* ATS Gold-Standard Single-Page Resume Stylesheet */
     @page {
       size: A4 portrait;
       margin: 6mm 11mm 6mm 11mm;
@@ -25,6 +25,71 @@
       background-color: #ffffff;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Screen-Only Language Switcher Floating Bar */
+    .no-print {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: #111827;
+      color: #f9fafb;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .lang-pill-container {
+      display: inline-flex;
+      background: #1f2937;
+      padding: 3px;
+      border-radius: 9999px;
+      border: 1px solid #374151;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #9ca3af;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn:hover {
+      color: #ffffff;
+    }
+
+    .lang-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .print-btn {
+      background: #059669;
+      color: #ffffff;
+      border: none;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .print-btn:hover {
+      background: #047857;
     }
 
     .resume-container {
@@ -86,7 +151,7 @@
       line-height: 1.15;
     }
 
-    /* Entry Headers (Company / Role / Dates / Location) */
+    /* Entry Headers */
     .entry {
       margin-bottom: 3px;
     }
@@ -163,8 +228,11 @@
 
     /* Print Optimization */
     @media print {
+      .no-print {
+        display: none !important;
+      }
       body {
-        font-size: 8.9pt;
+        font-size: 8.8pt;
       }
       .resume-container {
         max-width: 100%;
@@ -174,12 +242,30 @@
         text-decoration: none;
         color: #000000;
       }
+      .lang-view {
+        display: none !important;
+      }
+      .lang-view.active-view {
+        display: block !important;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="resume-container">
+  <!-- Floating Screen Language Switcher -->
+  <div class="no-print">
+    <div class="lang-pill-container">
+      <button id="btn-en" class="lang-btn active" onclick="switchLang('en')">🇬🇧 English (Global / ATS)</button>
+      <button id="btn-id" class="lang-btn" onclick="switchLang('id')">🇮🇩 Bahasa Indonesia (Nasional / BUMN)</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 1. ENGLISH RESUME (GLOBAL / ATS STANDARD)   -->
+  <!-- ========================================== -->
+  <div id="cv-en" class="resume-container lang-view active-view">
 
     <!-- Header Section -->
     <header>
@@ -201,18 +287,21 @@
 
     <!-- Technical Skills Section -->
     <section id="skills">
-      <h2>Technical Skills</h2>
+      <h2>Technical Skills &amp; Competencies</h2>
       <div class="skills-category">
-        <strong>Languages:</strong> TypeScript, JavaScript (ES6+), Dart, PHP 8.3, SQL, HTML5, CSS3, Bash/Shell Scripting
+        <strong>Languages:</strong> TypeScript, JavaScript (ES6+), Dart, PHP 8.3, SQL, HTML5/CSS3, Bash
       </div>
       <div class="skills-category">
-        <strong>Frontend &amp; Mobile:</strong> React, Next.js (App Router, SSR), Flutter (Clean Architecture, Riverpod 2.x), Tailwind CSS, Vite, PWA
+        <strong>Frontend &amp; Mobile:</strong> React 19, Next.js 16 (App Router, SSR), Flutter (Clean Architecture, Riverpod 2.x), Tailwind CSS v4, Zustand, TanStack Query
       </div>
       <div class="skills-category">
-        <strong>Backend &amp; Distributed Systems:</strong> Node.js, NestJS, Express.js, Adonis.js v6, Laravel 13, Redis, BullMQ (Queues), REST APIs
+        <strong>Backend &amp; Distributed:</strong> Node.js, NestJS, Adonis.js v6, Laravel 13, Express, Redis, BullMQ, REST APIs, Midtrans Webhooks
       </div>
       <div class="skills-category">
-        <strong>Databases &amp; DevOps:</strong> PostgreSQL, MySQL, Supabase, Prisma ORM, Lucid ORM, Docker Compose, Linux VPS (Ubuntu), Caddy (TLS)
+        <strong>Databases &amp; DevOps:</strong> PostgreSQL, MySQL, Supabase, Prisma ORM, Lucid ORM, Docker Compose, Linux VPS (Ubuntu), Caddy TLS
+      </div>
+      <div class="skills-category">
+        <strong>Core Competencies:</strong> System Design, Cross-Functional Collaboration, Code Reviews, Technical Writing, Agile Scrum
       </div>
     </section>
 
@@ -231,11 +320,11 @@
           <span class="date-range">Jan 2025 – Present</span>
         </div>
         <ul>
-          <li>Architected production omnichannel pet-care ecosystem spanning Next.js 16 SSR storefront, NestJS/Express services, and cross-platform Flutter app.</li>
-          <li>Engineered native Flutter app (Riverpod 2.x, Clean Architecture, Dio) with Posyancing pet medical tracking and digital KTP Kucing QR verification.</li>
-          <li>Built Marketplace Picker System (MPS) barcode scanner for Tokopedia, Shopee, and TikTok Shop, cutting dispatch verification by 3x with 0% packing errors.</li>
-          <li>Designed asynchronous background workers using Redis and BullMQ for Midtrans webhooks, order timeout workflows, and Accurate Online ERP inventory sync.</li>
-          <li>Automated Linux VPS deployment (Ubuntu 24.04 LTS) with Docker Compose and Caddy ingress reverse proxy with automatic zero-touch TLS provisioning.</li>
+          <li>Architected omnichannel pet-care ecosystem across Next.js 16 SSR storefront, NestJS services, and Flutter mobile app.</li>
+          <li>Engineered 60fps Flutter app (Riverpod 2.x, Dio) with Posyancing health tracking and cryptographic QR verification (KTP Kucing).</li>
+          <li>Built Marketplace Picker System (MPS) barcode scanner, accelerating dispatch verification by 3x with 0% packing errors (Zero-Defect).</li>
+          <li>Designed background workers via Redis and BullMQ for Midtrans webhooks, order timeouts, and 2-way Accurate Online ERP sync.</li>
+          <li>Automated Linux VPS deployment via Docker Compose and Caddy ingress reverse proxy with zero-touch automatic TLS provisioning.</li>
         </ul>
       </div>
 
@@ -250,10 +339,10 @@
           <span class="date-range">Jan 2026 – Apr 2026</span>
         </div>
         <ul>
-          <li>Delivered commercial retail e-commerce platform (abbyandgail.com) utilizing Next.js 15 App Router and React 19, achieving sub-100ms LCP via SSR and caching.</li>
-          <li>Engineered backend service with Adonis.js v6 (TypeScript) across 30+ PostgreSQL tables, enforcing schema integrity via Lucid ORM and VineJS validations.</li>
-          <li>Integrated Midtrans Snap payment gateway with idempotent webhook processors to eliminate race conditions across asynchronous customer order settlements.</li>
-          <li>Built back-office admin CMS with Ant Design v5, Zustand, and Tiptap rich-text editor for product inventory management and multi-channel order fulfillment.</li>
+          <li>Delivered commercial retail platform (abbyandgail.com) via Next.js 15 App Router and React 19, achieving sub-100ms LCP through SSR.</li>
+          <li>Engineered backend service with Adonis.js v6 across 30+ PostgreSQL tables via Lucid ORM and VineJS validations.</li>
+          <li>Integrated Midtrans Snap gateway with idempotent webhooks, eliminating race conditions across asynchronous customer order settlements.</li>
+          <li>Built back-office admin CMS with Ant Design v5, Zustand, and Tiptap for inventory management and multi-tier pricing workflows.</li>
         </ul>
       </div>
 
@@ -268,9 +357,9 @@
           <span class="date-range">Oct 2024 – Jan 2025</span>
         </div>
         <ul>
-          <li>Developed public spatial planning RESTful API endpoints utilizing NestJS and TypeScript to facilitate municipal spatial zoning data interchange.</li>
-          <li>Optimized MySQL relational schema indexing and query execution across legacy spatial archives, reducing complex query response times by 40%.</li>
-          <li>Formulated OpenAPI/Swagger documentation contracts and coordinated automated integration test suites with municipal engineering teams.</li>
+          <li>Developed spatial planning REST APIs with NestJS and TypeScript to facilitate municipal zoning data interchange.</li>
+          <li>Optimized MySQL indexing and query execution across legacy spatial archives, reducing complex query response times by 40%.</li>
+          <li>Formulated OpenAPI/Swagger contracts and coordinated automated integration test suites with municipal engineering teams.</li>
         </ul>
       </div>
     </section>
@@ -286,12 +375,12 @@
           <span class="location"><a href="https://shop.holycatlabs.com/" target="_blank">shop.holycatlabs.com</a></span>
         </div>
         <div class="entry-subheader">
-          <span class="role-title">Next.js 16, TypeScript, TanStack Query, Zustand, Midtrans Snap, Redis BullMQ, Cypress</span>
+          <span class="role-title">Next.js 16, TypeScript, TanStack Query, Zustand, Midtrans, Redis BullMQ, Cypress</span>
           <span class="date-range">Live Production</span>
         </div>
         <ul>
-          <li>Engineered high-concurrency production e-commerce storefront with Server-Side Rendering (SSR), reactive cart state, dynamic catalog, and Cypress E2E testing.</li>
-          <li>Integrated Midtrans Snap payment gateway with Redis/BullMQ background queue processing and real-time Accurate Online ERP sales invoice synchronization.</li>
+          <li>Engineered production storefront with SSR, reactive cart state, dynamic catalog, and automated Cypress E2E test suites.</li>
+          <li>Integrated Midtrans Snap gateway with Redis/BullMQ background queue processing and real-time Accurate Online ERP synchronization.</li>
         </ul>
       </div>
 
@@ -302,12 +391,12 @@
           <span class="location"><a href="https://abbyandgail.com" target="_blank">abbyandgail.com</a></span>
         </div>
         <div class="entry-subheader">
-          <span class="role-title">Next.js 15, Adonis.js v6, TypeScript, PostgreSQL, Ant Design v5, Lucid ORM</span>
+          <span class="role-title">Next.js 15, Adonis.js v6, TypeScript, PostgreSQL, Ant Design, Lucid ORM</span>
           <span class="date-range">Commercial Retail</span>
         </div>
         <ul>
-          <li>Architected commercial retail platform featuring Next.js 15 customer storefront (sub-100ms LCP) and full back-office Ant Design CMS for catalog management.</li>
-          <li>Designed 30+ model relational PostgreSQL database schema with Lucid ORM, enforcing strict transaction isolation and multi-tier discount pricing rules.</li>
+          <li>Architected retail platform featuring Next.js 15 customer storefront (sub-100ms LCP) and full back-office Ant Design CMS.</li>
+          <li>Designed 30+ table PostgreSQL database schema with Lucid ORM, enforcing strict transaction isolation and multi-tier pricing rules.</li>
         </ul>
       </div>
 
@@ -318,12 +407,12 @@
           <span class="location">Enterprise Warehouse ERP</span>
         </div>
         <div class="entry-subheader">
-          <span class="role-title">Next.js, NestJS, Node.js, PostgreSQL, Zustand, Thermal Print API, Accurate Online ERP API</span>
+          <span class="role-title">Next.js, NestJS, Node.js, PostgreSQL, Zustand, Thermal Print API, Accurate ERP API</span>
           <span class="date-range">Internal Enterprise ERP</span>
         </div>
         <ul>
-          <li>Built high-throughput warehouse barcode fulfillment web app supporting multi-channel orders (Shopee, Tokopedia, TikTok Shop) with sub-100ms scan latency.</li>
-          <li>Cut dispatch verification by 300% (3x faster) and eliminated packing mismatch errors to 0%, integrating automated thermal printing and Accurate Online ERP sync.</li>
+          <li>Built warehouse barcode fulfillment web app supporting multi-channel orders (Shopee, Tokopedia, TikTok Shop) with sub-100ms scan latency.</li>
+          <li>Cut dispatch verification by 3x and eliminated packing mismatch errors to 0%, integrating automated thermal printing and ERP sync.</li>
         </ul>
       </div>
     </section>
@@ -341,8 +430,8 @@
           <span class="date-range">Aug 2021 – Dec 2025</span>
         </div>
         <ul>
-          <li><strong>GPA:</strong> 3.70 / 4.00 (Graduated with Honors / <em>Predikat Sangat Memuaskan</em>). Relevant: Data Structures, Distributed Systems, Software Engineering.</li>
-          <li><strong>Leadership &amp; Mentorship:</strong> Academic Mentor, Creative Student Association (CSA) Study Club — Mentored 30+ juniors in Full-Stack Web &amp; Algorithms.</li>
+          <li><strong>GPA:</strong> 3.70 / 4.00 (Graduated with Honors). Relevant: Data Structures, Distributed Systems, Software Engineering.</li>
+          <li><strong>Mentorship:</strong> Academic Mentor, CSA Study Club — Mentored 30+ juniors in Full-Stack Web Development &amp; Algorithms.</li>
         </ul>
       </div>
     </section>
@@ -359,6 +448,228 @@
     </section>
 
   </div>
+
+
+  <!-- ========================================== -->
+  <!-- 2. INDONESIAN RESUME (BAHASA INDONESIA)    -->
+  <!-- ========================================== -->
+  <div id="cv-id" class="resume-container lang-view" style="display: none;">
+
+    <!-- Header Section -->
+    <header>
+      <h1>Rendi Sutendi</h1>
+      <div class="contact-info">
+        <span>Bandung, Indonesia</span>
+        <span class="separator">|</span>
+        <span>(+62) 857-2145-1615</span>
+        <span class="separator">|</span>
+        <a href="mailto:rendisutendi10@gmail.com">rendisutendi10@gmail.com</a>
+        <span class="separator">|</span>
+        <a href="https://linkedin.com/in/rendi-sutendi-813a90270" target="_blank">linkedin.com/in/rendi-sutendi</a>
+        <span class="separator">|</span>
+        <a href="https://github.com/RendiS10" target="_blank">github.com/RendiS10</a>
+        <span class="separator">|</span>
+        <a href="https://rendisutendi.id" target="_blank">rendisutendi.id</a>
+      </div>
+    </header>
+
+    <!-- Technical Skills Section -->
+    <section id="skills-id">
+      <h2>Keahlian Teknis &amp; Kompetensi</h2>
+      <div class="skills-category">
+        <strong>Bahasa Pemrograman:</strong> TypeScript, JavaScript (ES6+), Dart, PHP 8.3, SQL, HTML5/CSS3, Bash
+      </div>
+      <div class="skills-category">
+        <strong>Frontend &amp; Mobile:</strong> React 19, Next.js 16 (App Router, SSR), Flutter (Clean Architecture, Riverpod 2.x), Tailwind CSS v4, Zustand, TanStack Query
+      </div>
+      <div class="skills-category">
+        <strong>Backend &amp; Sistem Terdistribusi:</strong> Node.js, NestJS, Adonis.js v6, Laravel 13, Express, Redis, BullMQ, REST APIs, Webhook Midtrans
+      </div>
+      <div class="skills-category">
+        <strong>Basis Data &amp; DevOps:</strong> PostgreSQL, MySQL, Supabase, Prisma ORM, Lucid ORM, Docker Compose, Linux VPS (Ubuntu), Ingress Caddy (TLS)
+      </div>
+      <div class="skills-category">
+        <strong>Kompetensi Rekayasa:</strong> Desain Sistem, Kolaborasi Lintas Fungsi, Code Review, Dokumentasi Teknis, Agile Scrum
+      </div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section id="experience-id">
+      <h2>Pengalaman Profesional</h2>
+
+      <!-- HolyCat Labs -->
+      <div class="entry">
+        <div class="entry-header">
+          <span class="org-name">HolyCat Labs</span>
+          <span class="location">Bandung, Indonesia</span>
+        </div>
+        <div class="entry-subheader">
+          <span class="role-title">Software Engineer (Full-Stack &amp; Mobile)</span>
+          <span class="date-range">Jan 2025 – Sekarang</span>
+        </div>
+        <ul>
+          <li>Merancang ekosistem omnichannel pet-care mencakup storefront Next.js 16 SSR, layanan modular NestJS, dan aplikasi mobile Flutter.</li>
+          <li>Mengembangkan aplikasi mobile Flutter 60fps (Riverpod 2.x, Dio) dengan modul Posyancing dan verifikasi QR Code kriptografis (KTP Kucing).</li>
+          <li>Membangun barcode scanner Marketplace Picker System (MPS), mempercepat verifikasi manifes 3x lipat dengan 0% salah kemas (Zero-Defect).</li>
+          <li>Merancang background worker via Redis dan BullMQ untuk webhook Midtrans, timeout pesanan, dan sinkronisasi 2 arah ERP Accurate Online.</li>
+          <li>Mengotomatisasi deployment Linux VPS via Docker Compose dan reverse proxy Caddy ingress dengan provisi sertifikat TLS otomatis.</li>
+        </ul>
+      </div>
+
+      <!-- Abby n Bev / SJA Textile -->
+      <div class="entry">
+        <div class="entry-header">
+          <span class="org-name">Abby n Bev (SJA Textile)</span>
+          <span class="location">Bandung, Indonesia</span>
+        </div>
+        <div class="entry-subheader">
+          <span class="role-title">Full-Stack Web Developer (Kontrak)</span>
+          <span class="date-range">Jan 2026 – Apr 2026</span>
+        </div>
+        <ul>
+          <li>Membangun platform ritel komersial (abbyandgail.com) via Next.js 15 App Router dan React 19, mencapai LCP sub-100ms melalui SSR.</li>
+          <li>Merekayasa REST API backend dengan Adonis.js v6 pada 30+ tabel PostgreSQL melalui Lucid ORM dan validasi skema VineJS.</li>
+          <li>Mengintegrasikan payment gateway Midtrans Snap dengan pemrosesan webhook idempotent guna mencegah race condition pada pesanan.</li>
+          <li>Mengembangkan CMS admin back-office dengan Ant Design v5, Zustand, dan Tiptap untuk inventaris dan alur harga bertingkat.</li>
+        </ul>
+      </div>
+
+      <!-- Dinas Cipta Bintar Kota Bandung -->
+      <div class="entry">
+        <div class="entry-header">
+          <span class="org-name">Dinas Cipta Bintar — Pemerintah Kota Bandung</span>
+          <span class="location">Bandung, Indonesia</span>
+        </div>
+        <div class="entry-subheader">
+          <span class="role-title">Backend Developer &amp; IT Operations Intern</span>
+          <span class="date-range">Okt 2024 – Jan 2025</span>
+        </div>
+        <ul>
+          <li>Mengembangkan endpoint RESTful API tata ruang publik berbasis NestJS dan TypeScript guna memfasilitasi pertukaran data zonasi kota.</li>
+          <li>Mengoptimalkan indexing skema MySQL dan eksekusi query pada arsip spasial, memotong waktu respons query kompleks hingga 40%.</li>
+          <li>Menyusun kontrak dokumentasi OpenAPI/Swagger serta mengoordinasikan automated integration test bersama tim rekayasa perangkat lunak.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Featured Engineering Projects Section -->
+    <section id="projects-id">
+      <h2>Proyek Rekayasa Sistem Unggulan</h2>
+
+      <!-- HolyCat Flagship E-Commerce -->
+      <div class="entry">
+        <div class="entry-header">
+          <span class="org-name">HolyCat Omnichannel E-Commerce Platform</span>
+          <span class="location"><a href="https://shop.holycatlabs.com/" target="_blank">shop.holycatlabs.com</a></span>
+        </div>
+        <div class="entry-subheader">
+          <span class="role-title">Next.js 16, TypeScript, TanStack Query, Zustand, Midtrans, Redis BullMQ, Cypress</span>
+          <span class="date-range">Live Produksi</span>
+        </div>
+        <ul>
+          <li>Mengembangkan storefront produksi dengan SSR, state keranjang reaktif, katalog dinamis, dan automated E2E test Cypress.</li>
+          <li>Mengintegrasikan payment gateway Midtrans Snap dengan antrean Redis/BullMQ dan sinkronisasi faktur real-time ke Accurate Online ERP.</li>
+        </ul>
+      </div>
+
+      <!-- Abby & Gail Commercial E-Commerce -->
+      <div class="entry">
+        <div class="entry-header">
+          <span class="org-name">Abby &amp; Gail B2B Retail E-Commerce &amp; CMS</span>
+          <span class="location"><a href="https://abbyandgail.com" target="_blank">abbyandgail.com</a></span>
+        </div>
+        <div class="entry-subheader">
+          <span class="role-title">Next.js 15, Adonis.js v6, TypeScript, PostgreSQL, Ant Design, Lucid ORM</span>
+          <span class="date-range">Ritel Komersial</span>
+        </div>
+        <ul>
+          <li>Merancang platform ritel komersial berkecepatan tinggi (LCP sub-100ms) serta CMS admin Ant Design untuk tata kelola katalog produk.</li>
+          <li>Merancang skema database PostgreSQL 30+ tabel dengan Lucid ORM, menegakkan isolasi transaksi ketat dan aturan harga bertingkat.</li>
+        </ul>
+      </div>
+
+      <!-- HolyCat MPS & Warehouse Barcode ERP -->
+      <div class="entry">
+        <div class="entry-header">
+          <span class="org-name">HolyCat Marketplace Picker System (MPS &amp; Barcode ERP)</span>
+          <span class="location">ERP Pergudangan Enterprise</span>
+        </div>
+        <div class="entry-subheader">
+          <span class="role-title">Next.js, NestJS, Node.js, PostgreSQL, Zustand, Thermal Print API, Accurate ERP API</span>
+          <span class="date-range">ERP Internal Enterprise</span>
+        </div>
+        <ul>
+          <li>Membangun aplikasi barcode scanner gudang untuk pesanan multi-kanal (Shopee, Tokopedia, TikTok Shop) dengan latensi sub-100ms.</li>
+          <li>Mempercepat verifikasi pengiriman 3x lipat dan meniadakan salah kemas hingga 0%, terintegrasi cetak termal dan sinkronisasi Accurate ERP.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education-id">
+      <h2>Pendidikan</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="org-name">STMIK Mardira Indonesia</span>
+          <span class="location">Bandung, Indonesia</span>
+        </div>
+        <div class="entry-subheader">
+          <span class="role-title">Sarjana Teknik Informatika (S1), Fokus Sistem Informasi</span>
+          <span class="date-range">Agt 2021 – Des 2025</span>
+        </div>
+        <ul>
+          <li><strong>IPK:</strong> 3.70 / 4.00 (Predikat Sangat Memuaskan). Mata Kuliah Relevan: Struktur Data, Sistem Terdistribusi, Rekayasa Perangkat Lunak.</li>
+          <li><strong>Mentorship:</strong> Mentor Akademik, CSA Study Club — Membimbing 30+ mahasiswa junior dalam Pemrograman Web Full-Stack &amp; Algoritma.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Verified Certifications Section -->
+    <section id="certifications-id">
+      <h2>Sertifikasi &amp; Kredensial Terverifikasi</h2>
+      <ul>
+        <li><strong>Studi Independen Bersertifikat (SIB Dicoding Cycle 6):</strong> Kemendikbudristek &times; Dicoding Indonesia (900+ Jam Kurikulum Full-Stack) &mdash; 2024</li>
+        <li><strong>Belajar Bekerja Bootcamp (Web Developer, Nilai Akhir A):</strong> Luarsekolah &mdash; 2026</li>
+        <li><strong>Project-Based Internship (Web Developer):</strong> Luarsekolah &mdash; 2024</li>
+        <li><strong>Surat Keterangan Magang Resmi (Layanan IT &amp; Backend):</strong> Dinas Cipta Bintar Pemerintah Kota Bandung &mdash; 2025</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- Interactive Language Switcher Script -->
+  <script>
+    function switchLang(lang) {
+      const enView = document.getElementById('cv-en');
+      const idView = document.getElementById('cv-id');
+      const btnEn = document.getElementById('btn-en');
+      const btnId = document.getElementById('btn-id');
+
+      if (lang === 'id') {
+        enView.style.display = 'none';
+        enView.classList.remove('active-view');
+        idView.style.display = 'block';
+        idView.classList.add('active-view');
+        btnEn.classList.remove('active');
+        btnId.classList.add('active');
+        document.title = "Rendi Sutendi - CV Software Engineer (Bahasa Indonesia)";
+      } else {
+        idView.style.display = 'none';
+        idView.classList.remove('active-view');
+        enView.style.display = 'block';
+        enView.classList.add('active-view');
+        btnId.classList.remove('active');
+        btnEn.classList.add('active');
+        document.title = "Rendi Sutendi - Software Engineer Resume";
+      }
+    }
+
+    // Auto-switch based on URL query parameter e.g. cv_template.html?lang=id
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('lang') === 'id') {
+      switchLang('id');
+    }
+  </script>
 
 </body>
 </html>
