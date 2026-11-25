@@ -6,6 +6,7 @@ import { FlagshipSlideCard } from './FlagshipProjectParallax';
 import { FilteredProjectDock } from './FilteredProjectDock';
 import { ProjectCaseStudyModal } from './ProjectCaseStudyModal';
 import { ProjectTabs, type ProjectTabItem } from './ProjectTabs';
+import { HeadingAccent } from '../common/HeadingAccent';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface ProjectShowcaseProps {
@@ -77,6 +78,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onOpenProject 
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
             Proyek Unggulan
           </h2>
+          <HeadingAccent />
           <p className={`mt-3 text-base leading-relaxed ${isNight ? 'text-[#95a499]' : 'text-[#48564c]'}`}>
             Sistem yang saya bangun di Holycatlabs dan proyek komersial lainnya: e-commerce, CRM penjualan, dan aplikasi mobile.
           </p>

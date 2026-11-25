@@ -12,6 +12,9 @@ import { GithubActivitySection } from './components/activity/GithubActivitySecti
 import { JourneyTimeline } from './components/journey/JourneyTimeline';
 import { CertificatesSection } from './components/credentials/CertificatesSection';
 import { ContactSection } from './components/contact/ContactSection';
+import { SectionDivider } from './components/common/SectionDivider';
+import { ScrollProgress } from './components/common/ScrollProgress';
+import { AmbientParticles } from './components/common/AmbientParticles';
 import { ProjectCaseStudyModal } from './components/projects/ProjectCaseStudyModal';
 
 const WELCOME_SEEN_KEY = 'welcome-seen';
@@ -48,16 +51,24 @@ function PortfolioMain() {
         <WelcomeAnimation onComplete={handleWelcomeComplete} />
       )}
 
+      <ScrollProgress />
+      <AmbientParticles />
       <NavigationBar />
 
       <main className="relative">
         <HeroSection />
         <EditorialProfile />
+        <SectionDivider />
         <ProjectShowcase onOpenProject={setActiveModalProject} />
+        <SectionDivider />
         <TechGrid onOpenProject={setActiveModalProject} />
+        <SectionDivider />
         <GithubActivitySection />
+        <SectionDivider />
         <JourneyTimeline />
+        <SectionDivider />
         <CertificatesSection />
+        <SectionDivider />
         <ContactSection />
       </main>
 

@@ -237,14 +237,14 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                     }}
                     type="button"
                     onClick={() => setActiveProjectId(project.id)}
-                    className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 group ${
+                    className={`w-full text-left rs-lift p-3.5 sm:p-4 rounded-2xl border cursor-pointer flex items-center justify-between gap-3 group ${
                       isSelected
                         ? isNight
                           ? 'bg-[#17231c] border-[#80ed99]/50 shadow-md text-white ring-1 ring-[#80ed99]/30'
                           : 'bg-white border-[#1b4332] shadow-md text-[#151e17] ring-1 ring-[#1b4332]/20'
                         : isNight
-                        ? 'bg-[#111a14] border-[#1f2d24] text-[#95a499] hover:bg-[#17231c] hover:border-[#80ed99]/40'
-                        : 'bg-[#fcfbf8] border-[#e4ded5] text-[#48564c] hover:bg-white hover:border-[#1b4332]/40'
+                        ? 'bg-[#111a14] border-[#1f2d24] text-[#95a499] rs-lift-shadow hover:bg-[#17231c] hover:border-[#80ed99]/50'
+                        : 'rs-lift-shadow bg-[#fcfbf8] border-[#e4ded5] text-[#48564c] hover:bg-white hover:border-[#1b4332]/60'
                     }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">

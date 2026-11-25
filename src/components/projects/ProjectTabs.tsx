@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export interface ProjectTabItem {
   id: string;
@@ -14,6 +15,7 @@ interface ProjectTabsProps {
 }
 
 export const ProjectTabs: React.FC<ProjectTabsProps> = ({ tabs, activeIndex, onChange, isNight }) => {
+  const reduceMotion = useReducedMotion();
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -26,17 +28,21 @@ export const ProjectTabs: React.FC<ProjectTabsProps> = ({ tabs, activeIndex, onC
   };
 
   const tabClass = (active: boolean) =>
-    `flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border text-center transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 ${
+    `relative flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border border-transparent text-center transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 ${
       isNight ? 'focus-visible:ring-[#80ed99]' : 'focus-visible:ring-[#1b4332]'
     } ${
       active
         ? isNight
-          ? 'bg-[#17231c] border-[#1f2d24] text-[#f5f7f4] shadow-sm'
-          : 'bg-white border-[#e4ded5] text-[#151e17] shadow-sm'
+          ? 'text-[#f5f7f4]'
+          : 'text-[#151e17]'
         : isNight
-        ? 'border-transparent text-[#95a499] hover:text-[#f5f7f4]'
-        : 'border-transparent text-[#48564c] hover:text-[#151e17]'
+        ? 'text-[#95a499] hover:text-[#f5f7f4]'
+        : 'text-[#48564c] hover:text-[#151e17]'
     }`;
+
+  const pillClass = `absolute inset-0 rounded-xl border shadow-sm ${
+    isNight ? 'bg-[#17231c] border-[#1f2d24]' : 'bg-white border-[#e4ded5]'
+  }`;
 
   return (
     <div
@@ -64,13 +70,21 @@ export const ProjectTabs: React.FC<ProjectTabsProps> = ({ tabs, activeIndex, onC
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={tabClass(isActive)}
           >
-            <span className={`text-[10px] font-mono font-bold ${isActive ? '' : 'opacity-60'}`}>
+            {isActive && (
+              <motion.span
+                layoutId="project-tabs-pill"
+                aria-hidden="true"
+                transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 32 }}
+                className={pillClass}
+              />
+            )}
+            <span className={`relative z-10 text-[10px] font-mono font-bold ${isActive ? '' : 'opacity-60'}`}>
               {String(index + 1).padStart(2, '0')}
             </span>
-            <span className="mt-0.5 text-xs sm:text-sm font-bold tracking-tight leading-tight max-w-full">
+            <span className="relative z-10 mt-0.5 text-xs sm:text-sm font-bold tracking-tight leading-tight max-w-full">
               {tab.title}
             </span>
-            <span className="mt-0.5 text-[11px] font-mono opacity-70 truncate max-w-full">
+            <span className="relative z-10 mt-0.5 text-[11px] font-mono opacity-70 truncate max-w-full">
               {tab.subtitle}
             </span>
           </button>

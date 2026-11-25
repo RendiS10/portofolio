@@ -1,10 +1,11 @@
-import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { Copy, Check, Mail, MapPin, Send, ArrowUp, MessageCircle, FileText } from 'lucide-react';
 import { useClipboard } from '../../hooks/useClipboard';
 import { profileData } from '../../data/portfolioData';
 import { ContactPaddyCanvas } from './ContactPaddyCanvas';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
+import { HeadingAccent } from '../common/HeadingAccent';
 
 const WHATSAPP_FALLBACK = 'https://wa.me/6285721451615';
 const EMAIL_SUBJECT = 'Inquiry: Full-Stack / Mobile';
@@ -13,6 +14,8 @@ export const ContactSection: React.FC = () => {
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
   const reduceMotion = useReducedMotion();
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const cardInView = useInView(cardRef, { once: true, amount: 0.4 });
   const emailClipboard = useClipboard();
   const snippetClipboard = useClipboard(3000);
 
@@ -57,6 +60,7 @@ export const ContactSection: React.FC = () => {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 mb-16">
         <motion.div
+          ref={cardRef}
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
@@ -66,6 +70,7 @@ export const ContactSection: React.FC = () => {
           }`}
         >
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Hubungi Saya</h2>
+          <HeadingAccent />
           <p className={`mt-3 text-sm sm:text-base leading-relaxed max-w-2xl ${muted}`}>
             Terbuka untuk peluang Full-Stack / Mobile, Bandung &amp; Remote. Hubungi saya lewat WhatsApp atau email.
           </p>
@@ -77,12 +82,18 @@ export const ContactSection: React.FC = () => {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none focus-visible:ring-2 ${focusRing} ${
+                  className={`relative inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition-colors focus:outline-none focus-visible:ring-2 ${focusRing} ${
                     isNight
                       ? 'bg-[#80ed99] hover:bg-[#9af2ae] text-[#090f0c]'
                       : 'bg-[#1b4332] hover:bg-[#153427] text-[#fbfaf6]'
                   }`}
                 >
+                  <span
+                    aria-hidden="true"
+                    className={`rs-pulse-ring absolute inset-0 rounded-lg border-2 ${cardInView ? 'rs-pulse-on' : ''} ${
+                      isNight ? 'border-[#80ed99]/35' : 'border-[#1b4332]/35'
+                    }`}
+                  />
                   <MessageCircle className="w-4 h-4 shrink-0" />
                   <span>Chat WhatsApp</span>
                 </a>

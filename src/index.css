@@ -139,20 +139,8 @@ section {
    ============================================================ */
 
 /* Section Canvas Backgrounds */
-[data-theme="night"] section#about,
-[data-theme="night"] section#projects,
-[data-theme="night"] section#stack,
-[data-theme="night"] section#certificates,
 [data-theme="night"] .bg-\[\#f5f3ec\] {
   background-color: #0c1510 !important;
-}
-
-[data-theme="night"] section#activity {
-  background: linear-gradient(180deg, #0c1510 0%, #122117 50%, #0c1510 100%) !important;
-}
-
-[data-theme="night"] section#contact {
-  background-color: #080f0b !important;
 }
 
 /* Night Cards & Surfaces */
@@ -230,4 +218,145 @@ section {
 [data-theme="night"] .shadow-\[6px_6px_0px_\#0f172a\],
 [data-theme="night"] .shadow-\[10px_10px_0px_\#0f172a\] {
   box-shadow: 6px 6px 0px #040906, 0 0 32px rgba(0, 0, 0, 0.75) !important;
+}
+
+/* ============================================================
+   RS AMBIENT MOTION (pembatas bukit, daun, kunang-kunang)
+   Hanya transform/opacity; semua dimatikan saat prefers-reduced-motion.
+   ============================================================ */
+@keyframes rs-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes rs-leaf-fall {
+  0% { transform: translate3d(0, -8vh, 0) rotate(-20deg); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate3d(5vw, 55vh, 0) rotate(40deg); }
+  90% { opacity: 1; }
+  100% { transform: translate3d(-2vw, 112vh, 0) rotate(110deg); opacity: 0; }
+}
+
+@keyframes rs-firefly {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.1; }
+  25% { transform: translate3d(14px, -10px, 0); opacity: 1; }
+  50% { transform: translate3d(26px, 6px, 0); opacity: 0.3; }
+  75% { transform: translate3d(8px, 16px, 0); opacity: 0.9; }
+}
+
+.rs-drift {
+  animation: rs-drift 80s linear infinite;
+  will-change: transform;
+}
+
+.rs-leaf-fall {
+  animation: rs-leaf-fall linear infinite;
+  will-change: transform;
+}
+
+.rs-firefly {
+  animation: rs-firefly ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-drift,
+  .rs-leaf-fall,
+  .rs-firefly {
+    animation: none;
+  }
+
+  .rs-particles {
+    display: none;
+  }
+}
+
+/* ============================================================
+   RS SECTION MOTION (isi section: heatmap, denyut WhatsApp, apung foto, hover kartu)
+   Hanya transform/opacity (plus border/bayangan pada hover kartu); semua
+   dimatikan atau diminimalkan saat prefers-reduced-motion.
+   ============================================================ */
+@keyframes rs-cell-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes rs-pulse-ring {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.35); }
+}
+
+@keyframes rs-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -6px, 0); }
+}
+
+/* Sel disembunyikan sampai heatmap terlihat; delay per kolom lewat --col-delay. */
+.rs-heat-pending .rs-heat-cell {
+  opacity: 0;
+}
+
+.rs-heat-in .rs-heat-cell {
+  animation: rs-cell-in 0.4s ease-out backwards;
+  animation-delay: var(--col-delay, 0s);
+}
+
+.rs-pulse-ring {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rs-pulse-on {
+  animation: rs-pulse-ring 1.6s ease-out 0.8s 2;
+}
+
+.rs-float {
+  animation: rs-float 6s ease-in-out infinite;
+}
+
+/* Berhenti saat hover supaya tidak bentrok dengan tilt kartu di dalamnya. */
+.rs-float:hover {
+  animation-play-state: paused;
+}
+
+/* Warna border hover ditentukan di komponen; di sini hanya gerak dan bayangan. */
+.rs-lift {
+  transition-property: transform, border-color, background-color, color, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+.rs-lift:hover,
+.rs-lift:focus-visible {
+  transform: translate3d(0, -2px, 0);
+}
+
+/* Bayangan hanya saat hover agar ring fokus (box-shadow) tidak tertimpa. */
+.rs-lift-shadow:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="night"] .rs-lift-shadow:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-heat-pending .rs-heat-cell {
+    opacity: 1;
+  }
+
+  .rs-heat-in .rs-heat-cell,
+  .rs-pulse-on,
+  .rs-float {
+    animation: none;
+  }
+
+  .rs-pulse-ring {
+    display: none;
+  }
+
+  .rs-lift:hover,
+  .rs-lift:focus-visible {
+    transform: none;
+  }
 }

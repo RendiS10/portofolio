@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface Area {
@@ -53,6 +54,7 @@ export const ArchitectureStage: React.FC = () => {
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
+  const reduceMotion = useReducedMotion();
   const muted = isNight ? 'text-[#95a499]' : 'text-[#48564c]';
   const divider = isNight ? 'border-[#1f2d24]' : 'border-[#e4ded5]';
   const area = AREAS[activeIndex];
@@ -67,17 +69,21 @@ export const ArchitectureStage: React.FC = () => {
   };
 
   const tabClass = (active: boolean) =>
-    `flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border text-center transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 ${
+    `relative flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border border-transparent text-center transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 ${
       isNight ? 'focus-visible:ring-[#80ed99]' : 'focus-visible:ring-[#1b4332]'
     } ${
       active
         ? isNight
-          ? 'bg-[#17231c] border-[#1f2d24] text-[#f5f7f4] shadow-sm'
-          : 'bg-white border-[#e4ded5] text-[#151e17] shadow-sm'
+          ? 'text-[#f5f7f4]'
+          : 'text-[#151e17]'
         : isNight
-        ? 'border-transparent text-[#95a499] hover:text-[#f5f7f4]'
-        : 'border-transparent text-[#48564c] hover:text-[#151e17]'
+        ? 'text-[#95a499] hover:text-[#f5f7f4]'
+        : 'text-[#48564c] hover:text-[#151e17]'
     }`;
+
+  const pillClass = `absolute inset-0 rounded-xl border shadow-sm ${
+    isNight ? 'bg-[#17231c] border-[#1f2d24]' : 'bg-white border-[#e4ded5]'
+  }`;
 
   return (
     <div className="w-full flex flex-col gap-8">
@@ -104,33 +110,48 @@ export const ArchitectureStage: React.FC = () => {
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={tabClass(index === activeIndex)}
           >
-            <span className={`text-[10px] font-mono font-bold ${
+            {index === activeIndex && (
+              <motion.span
+                layoutId="area-tab-pill"
+                aria-hidden="true"
+                transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 32 }}
+                className={pillClass}
+              />
+            )}
+            <span className={`relative z-10 text-[10px] font-mono font-bold ${
               index === activeIndex ? '' : 'opacity-60'
             }`}>
               {String(index + 1).padStart(2, '0')}
             </span>
-            <span className="mt-0.5 text-xs sm:text-sm font-bold tracking-tight leading-tight max-w-full">
+            <span className="relative z-10 mt-0.5 text-xs sm:text-sm font-bold tracking-tight leading-tight max-w-full">
               {item.title}
             </span>
           </button>
         ))}
       </div>
 
-      <div
-        role="tabpanel"
-        id={`area-panel-${area.id}`}
-        aria-labelledby={`area-tab-${area.id}`}
-        className={`pt-5 border-t ${divider}`}
-      >
-        <p className={`text-sm leading-relaxed ${muted}`}>{area.summary}</p>
-        <ul className={`mt-3 space-y-1.5 text-sm leading-relaxed list-disc pl-5 ${
-          isNight ? 'marker:text-[#80ed99]' : 'marker:text-[#1b4332]'
-        }`}>
-          {area.evidence.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={area.id}
+          role="tabpanel"
+          id={`area-panel-${area.id}`}
+          aria-labelledby={`area-tab-${area.id}`}
+          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+          transition={{ duration: reduceMotion ? 0 : 0.25, ease: 'easeOut' }}
+          className={`pt-5 border-t ${divider}`}
+        >
+          <p className={`text-sm leading-relaxed ${muted}`}>{area.summary}</p>
+          <ul className={`mt-3 space-y-1.5 text-sm leading-relaxed list-disc pl-5 ${
+            isNight ? 'marker:text-[#80ed99]' : 'marker:text-[#1b4332]'
+          }`}>
+            {area.evidence.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };

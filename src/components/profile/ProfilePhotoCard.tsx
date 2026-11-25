@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { MapPin, GraduationCap } from 'lucide-react';
 import { useCardTilt } from '../../hooks/useCardTilt';
 import { profileData } from '../../data/portfolioData';
@@ -8,13 +9,16 @@ export const ProfilePhotoCard: React.FC = () => {
   const { tiltProps } = useCardTilt(4);
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className="relative w-full flex flex-col items-center lg:items-start gap-4">
+      {/* Apung di pembungkus luar karena tilt memakai transform inline pada kartu di dalamnya */}
+      <div className="rs-float relative w-full max-w-sm">
       {/* Bespoke Plaque Mount with Double Hairline Frame */}
       <div
         {...tiltProps}
-        className={`relative w-full max-w-sm rounded-[28px] p-3 border transition-all duration-300 group ${
+        className={`relative w-full rounded-[28px] p-3 border transition-all duration-300 group ${
           isNight
             ? 'bg-[#111a14] border-[#1f2d24] shadow-2xl shadow-black/50'
             : 'bg-white border-[#e4ded5] shadow-xl shadow-stone-900/5'
@@ -24,7 +28,11 @@ export const ProfilePhotoCard: React.FC = () => {
         <div className={`relative aspect-[4/5] w-full rounded-[22px] overflow-hidden border ${
           isNight ? 'bg-[#152119] border-[#1f2d24]' : 'bg-[#f4f1ea] border-[#e4ded5]'
         }`}>
-          <img
+          <motion.img
+            initial={reduceMotion ? false : { clipPath: 'inset(0 0 100% 0)' }}
+            whileInView={{ clipPath: 'inset(0 0 0% 0)' }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: reduceMotion ? 0 : 0.8, ease: 'easeOut' }}
             src={profileData.avatarUrl || '/rendi.jpg'}
             alt={profileData.name}
             className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-103"
@@ -67,6 +75,7 @@ export const ProfilePhotoCard: React.FC = () => {
             STMIK Mardira Indonesia
           </span>
         </div>
+      </div>
       </div>
     </div>
   );

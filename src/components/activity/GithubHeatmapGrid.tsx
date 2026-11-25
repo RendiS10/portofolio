@@ -11,7 +11,13 @@ interface ContributionDay {
 interface GithubHeatmapGridProps {
   contributions: ContributionDay[];
   loading?: boolean;
+  revealed?: boolean;
+  replayKey?: string;
 }
+
+// Delay per kolom dibatasi agar total isi ulang tidak lebih dari sekitar 1,2 detik.
+const COLUMN_DELAY_STEP_S = 0.008;
+const COLUMN_DELAY_MAX_S = 1.2;
 
 const getHeatmapColor = (level: number, isNight: boolean): string => {
   if (isNight) {
@@ -53,7 +59,9 @@ const formatIndonesianDate = (dateString: string): string => {
 
 export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
   contributions,
-  loading = false
+  loading = false,
+  revealed = true,
+  replayKey
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [hoveredCell, setHoveredCell] = useState<{
@@ -186,14 +194,22 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
             </div>
 
             {/* heatmap grid */}
-            <div className="grid grid-flow-col grid-rows-7 gap-[3px] flex-1">
+            <div
+              key={replayKey}
+              className={`grid grid-flow-col grid-rows-7 gap-[3px] flex-1 ${revealed ? 'rs-heat-in' : 'rs-heat-pending'}`}
+            >
               {weeks.map((week, wIdx) =>
                 week.map((day, dIdx) => (
                   <div
                     key={`${wIdx}-${dIdx}`}
                     onMouseEnter={(e) => handleCellHover(e, day)}
                     onMouseLeave={() => setHoveredCell(null)}
-                    className={`w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-[2.5px] border cursor-pointer transition-transform hover:scale-135 hover:z-20 ${getHeatmapColor(
+                    style={
+                      {
+                        '--col-delay': `${Math.min(wIdx * COLUMN_DELAY_STEP_S, COLUMN_DELAY_MAX_S)}s`
+                      } as React.CSSProperties
+                    }
+                    className={`rs-heat-cell w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-[2.5px] border cursor-pointer transition-transform hover:scale-135 hover:z-20 ${getHeatmapColor(
                       day.level,
                       isNight
                     )}`}

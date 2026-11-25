@@ -1,11 +1,13 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { GitCommit, Calendar, Flame, ExternalLink, RefreshCw } from 'lucide-react';
 import { SiGithub } from '@icons-pack/react-simple-icons';
 import { useGithubContributions } from '../../hooks/useGithubContributions';
 import { GithubHeatmapGrid } from './GithubHeatmapGrid';
 import { profileData } from '../../data/portfolioData';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
+import { useCountUp } from '../../hooks/useCountUp';
+import { HeadingAccent } from '../common/HeadingAccent';
 
 const formatIndonesianDateShort = (dateString: string): string => {
   const date = new Date(dateString);
@@ -21,6 +23,10 @@ export const GithubActivitySection: React.FC = () => {
   const { data, loading, error, selectedYear, setSelectedYear, stats } = useGithubContributions(username);
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
+
+  const heatmapRef = useRef<HTMLDivElement | null>(null);
+  const heatmapInView = useInView(heatmapRef, { once: true, amount: 0.3 });
+  const animatedTotal = useCountUp(stats.totalContributions, heatmapInView);
 
   const formatYearLabel = (yearKey: string): string => {
     if (yearKey === 'lastYear') return '1 Tahun Terakhir';
@@ -51,6 +57,7 @@ export const GithubActivitySection: React.FC = () => {
             }`}>
               Aktivitas GitHub
             </h2>
+            <HeadingAccent />
           </div>
 
           <p className={`max-w-md text-xs sm:text-sm font-medium leading-relaxed transition-colors duration-500 ${
@@ -96,7 +103,7 @@ export const GithubActivitySection: React.FC = () => {
                   ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
                   : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
               }`}>
-                {stats.totalContributions.toLocaleString('id-ID')} Kontribusi
+                {animatedTotal.toLocaleString('id-ID')} Kontribusi
               </span>
             </div>
 
@@ -127,7 +134,7 @@ export const GithubActivitySection: React.FC = () => {
           </div>
 
           {/* error state or heatmap grid */}
-          <div className="py-4 sm:py-6">
+          <div ref={heatmapRef} className="py-4 sm:py-6">
             {error ? (
               <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
                 <p className="text-sm text-red-600 dark:text-red-400 font-medium">
@@ -146,6 +153,8 @@ export const GithubActivitySection: React.FC = () => {
               <GithubHeatmapGrid
                 contributions={data?.contributions || []}
                 loading={loading}
+                revealed={heatmapInView}
+                replayKey={selectedYear}
               />
             )}
           </div>
@@ -162,7 +171,7 @@ export const GithubActivitySection: React.FC = () => {
                 <span>TOTAL COMMIT</span>
               </div>
               <div className={`text-xl sm:text-2xl font-bold mt-1.5 sm:mt-2 ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
-                {stats.totalContributions.toLocaleString('id-ID')}
+                {animatedTotal.toLocaleString('id-ID')}
               </div>
               <span className={`text-[10px] sm:text-[11px] font-mono mt-0.5 block truncate ${isNight ? 'text-[#95a499]' : 'text-[#64748b]'}`}>
                 periode {formatYearLabel(selectedYear)}

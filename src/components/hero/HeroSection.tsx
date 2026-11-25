@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, Download } from 'lucide-react';
 import { PaddyHeroCanvas } from './PaddyHeroCanvas';
 import type { PaddyHeroHandle } from './PaddyHeroCanvas';
@@ -10,10 +10,22 @@ import { VillageDragonfly } from './VillageDragonfly';
 import { TactileButton } from '../ui/TactileButton';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
+const SCENERY_SHIFT_PX = 40;
+const CONTENT_SHIFT_PX = -24;
+const CONTENT_MIN_OPACITY = 0.4;
+
 export const HeroSection: React.FC = () => {
   const paddyRef = useRef<PaddyHeroHandle | null>(null);
   const { atmosphere, playBambooTone } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const reduceMotion = useReducedMotion();
+
+  // Kanvas latar sengaja tidak ikut bergeser agar tidak membuka celah di tepi hero.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const sceneryY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : SCENERY_SHIFT_PX]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : CONTENT_SHIFT_PX]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 1], [1, reduceMotion ? 1 : CONTENT_MIN_OPACITY]);
 
   const handleScrollToProjects = () => {
     playBambooTone(520);
@@ -24,7 +36,7 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full min-h-[90vh] sm:min-h-screen flex flex-col justify-between pt-24 pb-16 sm:pt-28 sm:pb-20 overflow-hidden select-none">
+    <section ref={sectionRef} className="relative w-full min-h-[90vh] sm:min-h-screen flex flex-col justify-between pt-24 pb-16 sm:pt-28 sm:pb-20 overflow-hidden select-none">
       {/* Background Terrace & Breeze Canvas */}
       <div className="absolute inset-0 z-0 pointer-events-auto">
         <PaddyHeroCanvas ref={paddyRef} isNight={isNight} />
@@ -39,14 +51,19 @@ export const HeroSection: React.FC = () => {
       {isNight && <VillageFireflyCanvas />}
 
       {/* Authentic Countryside Landscape: Saung Sawah & Coconut Palms */}
-      <VillageScenery isNight={isNight} />
+      <motion.div style={{ y: sceneryY }} className="absolute inset-0 z-10 pointer-events-none">
+        <VillageScenery isNight={isNight} />
+      </motion.div>
 
       {/* Serene Wildlife Atmosphere (Quiet natural flight, zero text bubbles) */}
       {!isNight && <PaddyFieldEgret />}
       {!isNight && <VillageDragonfly />}
 
       {/* Main Editorial Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 w-full flex-1 flex flex-col items-center justify-center my-auto">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 max-w-4xl mx-auto px-5 sm:px-8 w-full flex-1 flex flex-col items-center justify-center my-auto"
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,7 +149,7 @@ export const HeroSection: React.FC = () => {
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };

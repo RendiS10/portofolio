@@ -3,9 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { certificatesData } from '../../data/portfolioData';
 import type { CertificateCategory } from '../../types/portfolio';
+import { Reveal } from '../common/Reveal';
+import { HeadingAccent } from '../common/HeadingAccent';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 const INITIAL_VISIBLE = 8;
+const MAX_STAGGER_STEPS = 7;
+const STAGGER_STEP_S = 0.04;
 
 // Sertifikat paling relevan untuk peran Full Stack tampil lebih dulu; sisanya mengikuti urutan data.
 const PRIORITY_IDS = [
@@ -88,15 +92,17 @@ export const CertificatesSection: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-12 space-y-8 sm:space-y-10">
-        <div className={`pb-6 sm:pb-8 border-b ${divider}`}>
+        <Reveal className={`pb-6 sm:pb-8 border-b ${divider}`}>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.08]">
             Sertifikat &amp; Pelatihan
           </h2>
+          <HeadingAccent />
           <p className={`mt-3 text-sm sm:text-base leading-relaxed max-w-2xl ${muted}`}>
             Sertifikat kursus dan pelatihan dari Dicoding, Luarsekolah, RevoU, dan penyelenggara lain.
           </p>
-        </div>
+        </Reveal>
 
+        <Reveal delay={0.05}>
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1" role="group" aria-label="Filter kategori">
           {CATEGORIES.map((cat) => {
             const active = selectedCategory === cat.id;
@@ -126,18 +132,19 @@ export const CertificatesSection: React.FC = () => {
             );
           })}
         </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {visibleCerts.map((cert, idx) => (
+            <Reveal key={cert.id} delay={Math.min(idx, MAX_STAGGER_STEPS) * STAGGER_STEP_S} className="grid">
             <button
-              key={cert.id}
               type="button"
               onClick={() => setActiveCertIndex(idx)}
               aria-label={`Perbesar sertifikat ${cert.title}`}
-              className={`group text-left rounded-xl border overflow-hidden flex flex-col cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 ${
+              className={`rs-lift rs-lift-shadow group text-left rounded-xl border overflow-hidden flex flex-col cursor-pointer focus:outline-none focus-visible:ring-2 ${
                 isNight
                   ? 'bg-[#111a14] border-[#1f2d24] hover:border-[#80ed99]/50 focus-visible:ring-[#80ed99]'
-                  : 'bg-white border-[#e4ded5] hover:border-[#1b4332]/50 focus-visible:ring-[#1b4332]'
+                  : 'bg-white border-[#e4ded5] hover:border-[#1b4332]/60 focus-visible:ring-[#1b4332]'
               }`}
             >
               <div className={`aspect-[4/3] w-full border-b overflow-hidden ${
@@ -159,6 +166,7 @@ export const CertificatesSection: React.FC = () => {
                 </p>
               </div>
             </button>
+            </Reveal>
           ))}
         </div>
 

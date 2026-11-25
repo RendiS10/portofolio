@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { ProfilePhotoCard } from './ProfilePhotoCard';
 import { ArchitectureStage } from './ArchitectureStage';
+import { HeadingAccent } from '../common/HeadingAccent';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 export const EditorialProfile: React.FC = () => {
@@ -36,6 +37,7 @@ export const EditorialProfile: React.FC = () => {
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
             Tentang &amp; Fokus Kerja
           </h2>
+          <HeadingAccent />
           <p className={`mt-3 text-base leading-relaxed ${isNight ? 'text-[#95a499]' : 'text-[#48564c]'}`}>
             Full Stack Developer dengan pengalaman membangun e-commerce, sistem gudang, dan CRM penjualan, plus aplikasi mobile Flutter.
           </p>

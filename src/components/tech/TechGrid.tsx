@@ -5,6 +5,8 @@ import { techStackData, projectsData } from '../../data/portfolioData';
 import { PipelineFlowPresets, type FlowDomainId } from './PipelineFlowPresets';
 import { PipelineNodeLayer } from './PipelineNodeLayer';
 import { PipelineInspector } from './PipelineInspector';
+import { Reveal } from '../common/Reveal';
+import { HeadingAccent } from '../common/HeadingAccent';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface TechGridProps {
@@ -56,13 +58,13 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
   };
 
   return (
-    <section id="stack" className={`relative z-20 -mt-1 w-full select-none transition-colors duration-500 ${
+    <section id="stack" className={`relative z-20 w-full select-none transition-colors duration-500 ${
       isNight ? 'bg-[#090f0c] text-[#f5f7f4]' : 'bg-[#fbfaf6] text-[#151e17]'
     }`}>
       {/* content wrapper */}
       <div className="relative z-10 pt-14 sm:pt-16 pb-20 max-w-7xl mx-auto px-6 sm:px-12">
         {/* header */}
-        <div className={`space-y-4 pb-8 border-b transition-colors duration-500 ${
+        <Reveal className={`space-y-4 pb-8 border-b transition-colors duration-500 ${
           isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
         }`}>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
@@ -72,6 +74,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               }`}>
                 Teknologi yang Pernah Saya Pakai
               </h2>
+              <HeadingAccent className="mt-3" />
               <p className={`text-sm sm:text-base font-normal mt-2 max-w-2xl leading-relaxed transition-colors duration-500 ${
                 isNight ? 'text-[#95a499]' : 'text-[#48564c]'
               }`}>
@@ -90,15 +93,15 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               </span>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* category filter selector */}
-        <div className="mt-8">
+        <Reveal className="mt-8" delay={0.05}>
           <PipelineFlowPresets
             activeDomain={activeDomain}
             onSelectDomain={handleSelectDomain}
           />
-        </div>
+        </Reveal>
 
         {/* architecture layer cards */}
         <div className="mt-8 sm:mt-10 space-y-3 sm:space-y-4">
@@ -110,6 +113,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            <Reveal className="grid" delay={0}>
             <PipelineNodeLayer
               layerId="client"
               stepNumber="01"
@@ -123,7 +127,9 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               onSelectLayer={handleSelectLayer}
               isLayerSelected={selectedLayer === 'client'}
             />
+            </Reveal>
 
+            <Reveal className="grid" delay={0.06}>
             <PipelineNodeLayer
               layerId="backend"
               stepNumber="02"
@@ -137,7 +143,9 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               onSelectLayer={handleSelectLayer}
               isLayerSelected={selectedLayer === 'backend'}
             />
+            </Reveal>
 
+            <Reveal className="grid" delay={0.12}>
             <PipelineNodeLayer
               layerId="database"
               stepNumber="03"
@@ -151,7 +159,9 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               onSelectLayer={handleSelectLayer}
               isLayerSelected={selectedLayer === 'database'}
             />
+            </Reveal>
 
+            <Reveal className="grid" delay={0.18}>
             <PipelineNodeLayer
               layerId="devops"
               stepNumber="04"
@@ -165,11 +175,12 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               onSelectLayer={handleSelectLayer}
               isLayerSelected={selectedLayer === 'devops'}
             />
+            </Reveal>
           </div>
         </div>
 
         {/* technology deep inspector */}
-        <div className="mt-8 sm:mt-10">
+        <Reveal className="mt-8 sm:mt-10">
           <PipelineInspector
             selectedTech={selectedTech}
             selectedLayer={selectedLayer}
@@ -177,7 +188,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
             onClearTechSelection={() => setSelectedTech(null)}
             onSelectProject={handleSelectProject}
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   );
