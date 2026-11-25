@@ -1,6 +1,5 @@
 import React from 'react';
 import { legibleIconColor } from './techIconColor';
-import { motion } from 'framer-motion';
 import {
   SiReact,
   SiNextdotjs,
@@ -102,24 +101,22 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
   };
 
   return (
-    <motion.div
-      whileHover={isLayerActiveInDomain ? { y: -2 } : undefined}
-      transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+    <div
       onClick={() => {
         if (isLayerActiveInDomain) {
           onSelectLayer(layerId);
         }
       }}
-      className={`p-5 sm:p-6 rounded-2xl sm:rounded-3xl border transition-all duration-300 relative flex flex-col justify-between ${
+      className={`p-5 sm:p-6 rounded-2xl sm:rounded-3xl border relative flex flex-col justify-between ${
         !isLayerActiveInDomain
-          ? 'bg-[#f8fafc]/50 border-dashed border-[#cbd5e1] opacity-35 grayscale pointer-events-none cursor-not-allowed select-none shadow-none'
+          ? 'transition-all duration-300 bg-[#f8fafc]/50 border-dashed border-[#cbd5e1] opacity-35 grayscale pointer-events-none cursor-not-allowed select-none shadow-none'
           : isLayerSelected
           ? isNight
-            ? 'bg-[#152119] border-emerald-400 shadow-md ring-1 ring-emerald-400 cursor-pointer'
-            : 'bg-white border-[#1b4332] shadow-md ring-1 ring-[#1b4332] cursor-pointer'
+            ? 'rs-lift bg-[#152119] border-emerald-400 shadow-md ring-1 ring-emerald-400 cursor-pointer'
+            : 'rs-lift bg-white border-[#1b4332] shadow-md ring-1 ring-[#1b4332] cursor-pointer'
           : isNight
-          ? 'bg-[#111a14] border-emerald-500/20 shadow-sm cursor-pointer hover:border-emerald-500/40 hover:bg-[#142118]'
-          : 'bg-white border-[#e4ded5] shadow-sm cursor-pointer hover:border-[#1b4332]/40 hover:bg-[#fcfbf9]'
+          ? 'rs-lift rs-lift-shadow bg-[#111a14] border-[#1f2d24] shadow-sm cursor-pointer hover:border-[#80ed99]/50 hover:bg-[#142118]'
+          : 'rs-lift rs-lift-shadow bg-white border-[#e4ded5] shadow-sm cursor-pointer hover:border-[#1b4332]/60 hover:bg-[#fcfbf9]'
       }`}
     >
       <div>
@@ -284,6 +281,6 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
           Detail &rarr;
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 };
