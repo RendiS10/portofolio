@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { MapPin, GraduationCap } from 'lucide-react';
 import { useCardTilt } from '../../hooks/useCardTilt';
 import { profileData } from '../../data/portfolioData';
@@ -10,6 +10,9 @@ export const ProfilePhotoCard: React.FC = () => {
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
   const reduceMotion = useReducedMotion();
+  // Pemicu dipasang di bingkai, bukan di gambar: gambar yang sudah terpotong habis tidak pernah dianggap terlihat.
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const frameInView = useInView(frameRef, { once: true, amount: 0.3 });
 
   return (
     <div className="relative w-full flex flex-col items-center lg:items-start gap-4">
@@ -25,13 +28,12 @@ export const ProfilePhotoCard: React.FC = () => {
         }`}
       >
         {/* Aspect Ratio 4:5 Portrait Frame */}
-        <div className={`relative aspect-[4/5] w-full rounded-[22px] overflow-hidden border ${
+        <div ref={frameRef} className={`relative aspect-[4/5] w-full rounded-[22px] overflow-hidden border ${
           isNight ? 'bg-[#152119] border-[#1f2d24]' : 'bg-[#f4f1ea] border-[#e4ded5]'
         }`}>
           <motion.img
-            initial={reduceMotion ? false : { clipPath: 'inset(0 0 100% 0)' }}
-            whileInView={{ clipPath: 'inset(0 0 0% 0)' }}
-            viewport={{ once: true, amount: 0.3 }}
+            initial={false}
+            animate={{ clipPath: reduceMotion || frameInView ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)' }}
             transition={{ duration: reduceMotion ? 0 : 0.8, ease: 'easeOut' }}
             src={profileData.avatarUrl || '/rendi.jpg'}
             alt={profileData.name}
