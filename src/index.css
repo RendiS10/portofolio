@@ -151,10 +151,6 @@ section {
   background: linear-gradient(180deg, #0c1510 0%, #122117 50%, #0c1510 100%) !important;
 }
 
-[data-theme="night"] section#activity svg path {
-  fill: #0c1510 !important;
-}
-
 [data-theme="night"] section#contact {
   background-color: #080f0b !important;
 }

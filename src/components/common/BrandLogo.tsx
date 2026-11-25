@@ -159,7 +159,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
               isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
             }`}
           >
-            Software Engineer
+            Full Stack Developer
           </span>
         </div>
       )}

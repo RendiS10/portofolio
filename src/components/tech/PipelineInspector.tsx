@@ -1,4 +1,5 @@
 import React from 'react';
+import { legibleIconColor } from './techIconColor';
 import { motion } from 'framer-motion';
 import {
   Code2,
@@ -85,11 +86,11 @@ const layerDetailsMap: Record<
     subtitle: 'User Interface & Interaction Layer',
     role: 'Frontend Engineering',
     description:
-      'Tier antarmuka pengguna berfokus pada responsivitas tinggi, arsitektur komponen modular (React & Next.js), styling modern berbasis Tailwind CSS, serta aplikasi mobile native-performance dengan Flutter.',
+      'Tier antarmuka pengguna berfokus pada responsivitas tinggi, arsitektur komponen modular (React & Next.js), styling modern berbasis Tailwind CSS, serta aplikasi mobile Android dengan Flutter.',
     guarantees: [
-      'Render SSR & Hybrid CSR',
-      'Desain Responsif Mobile-First',
-      'Aksesibilitas & Kecepatan LCP'
+      'Komponen React dan Next.js',
+      'Desain responsif mobile-first',
+      'State management dengan Zustand dan Riverpod'
     ]
   },
   backend: {
@@ -109,11 +110,11 @@ const layerDetailsMap: Record<
     subtitle: 'Storage, Querying & Cache Layer',
     role: 'Database Management',
     description:
-      'Tier penyimpanan data mengandalkan database relasional teruji (PostgreSQL & MySQL) dengan query teroptimasi, skema relasional ternormalisasi, ORM Prisma, serta backend-as-a-service Supabase dan Firebase.',
+      'Tier penyimpanan data mengandalkan database relasional (PostgreSQL & MySQL) dengan query teroptimasi, skema relasional ternormalisasi, ORM Prisma, serta backend-as-a-service Supabase dan Firebase.',
     guarantees: [
       'Integritas Relasi Database & Migrasi Data',
       'Optimasi Query Indexing',
-      'Realtime Sync & Automated Backup'
+      'Backup harian ke Cloudflare R2'
     ]
   },
   devops: {
@@ -121,11 +122,11 @@ const layerDetailsMap: Record<
     subtitle: 'Deployment, OS & Operations Layer',
     role: 'Systems & Reliability',
     description:
-      'Tier operasional mencakup containerization aplikasi dengan Docker, deployment otomatisasi CI/CD, konfigurasi reverse proxy Nginx, serta pengelolaan lingkungan server berbasis Linux OS.',
+      'Tier operasional mencakup containerization aplikasi dengan Docker, deployment otomatisasi CI/CD, konfigurasi reverse proxy Caddy dengan TLS otomatis, serta pengelolaan lingkungan server berbasis Linux OS.',
     guarantees: [
       'Isolasi Lingkungan dengan Docker',
-      'Konfigurasi Nginx & SSL/TLS',
-      'Automated Git Workflow CI/CD'
+      'Reverse proxy Caddy dengan TLS otomatis',
+      'CI/CD dengan GitHub Actions'
     ]
   }
 };
@@ -279,10 +280,10 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
               className={`w-12 h-12 rounded-2xl border flex items-center justify-center ${
                 isNight ? 'bg-[#17231c] border-emerald-500/30' : 'bg-[#ebf2ec] border-emerald-200'
               }`}
-              style={{ color: selectedTech.color }}
+              style={{ color: legibleIconColor(selectedTech.color, isNight) }}
             >
               {Icon ? (
-                <Icon size={26} color={selectedTech.color} />
+                <Icon size={26} color={legibleIconColor(selectedTech.color, isNight)} />
               ) : (
                 <Code2 className="w-6 h-6 text-[#1b4332]" />
               )}
@@ -436,7 +437,7 @@ export const PipelineInspector: React.FC<PipelineInspectorProps> = ({
       {/* engineering focus */}
       <div className="space-y-2.5 pt-1">
         <div className={`text-xs font-mono font-bold uppercase tracking-wider ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>
-          Standar &amp; Fokus Rekayasa
+          Yang pernah saya kerjakan
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

@@ -2,11 +2,11 @@ import type { ProfileData, Project, TechItem, ExperienceItem, CertificateItem } 
 
 export const profileData: ProfileData = {
   name: 'Rendi Sutendi',
-  tagline: 'Full-Stack & Mobile Software Engineer',
+  tagline: 'Full Stack Developer',
   education: 'S1 Teknik Informatika (IPK 3.70) • STMIK Mardira Indonesia',
   status: 'Terbuka untuk Peluang Kerja (Full-Stack / Mobile / Backend)',
   bio: 'Sarjana Teknik Informatika (IPK 3.70) berpengalaman merancang arsitektur e-commerce & retail, mobile app Flutter Clean Architecture (Riverpod), backend Node.js & NestJS modular, antrean terdistribusi Redis BullMQ, integrasi ERP Accurate Online, serta manajemen infrastruktur VPS Linux berbasis Docker.',
-  experienceStart: '3+ Tahun Pengalaman',
+  experienceStart: '2 Tahun Pengalaman (sejak Okt 2024)',
   avatarUrl: '/rendi.jpg',
   interests: [
     'Full-Stack Web Systems',
@@ -16,7 +16,7 @@ export const profileData: ProfileData = {
     'Linux VPS & Docker Infrastructure'
   ],
   contact: {
-    email: 'rendisutendi10@gmail.com',
+    email: 'rendisutendi21@gmail.com',
     github: 'https://github.com/RendiS10',
     linkedin: 'https://linkedin.com/in/rendi-sutendi-813a90270',
     location: 'Bandung, Indonesia',
@@ -53,7 +53,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'nextdotjs',
     color: '#0f172a',
     roleTag: 'App Framework',
-    usageContext: 'Server-Side Rendering (SSR), App Router, dan performa tinggi e-commerce',
+    usageContext: 'App Router dan frontend e-commerce',
     projectLinks: ['holycat', 'holycat-posyancing', 'abbygail']
   },
   {
@@ -63,7 +63,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'flutter',
     color: '#0284c7',
     roleTag: 'Native Mobile',
-    usageContext: 'Aplikasi mobile cross-platform Android & iOS dengan Clean Architecture dan 60fps UI',
+    usageContext: 'Aplikasi mobile Android dengan Clean Architecture, Riverpod, dan Dio',
     projectLinks: ['holycat-mobile']
   },
   {
@@ -73,7 +73,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'dart',
     color: '#0175C2',
     roleTag: 'Mobile Core Engine',
-    usageContext: 'Bahasa inti Flutter dengan sound null-safety, kompilasi AOT native ARM, dan asynchronous streams',
+    usageContext: 'Bahasa pemrograman yang dipakai Flutter',
     projectLinks: ['holycat-mobile']
   },
   {
@@ -83,7 +83,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'pwa',
     color: '#5A0FC8',
     roleTag: 'Offline Web App',
-    usageContext: 'Aplikasi web offline-first dengan service worker, manifest, dan kapabilitas barcode scanner',
+    usageContext: 'Aplikasi web PWA dengan service worker dan manifest',
     projectLinks: ['holycat-mps']
   },
   {
@@ -115,7 +115,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'nestjs',
     color: '#E0234E',
     roleTag: 'Enterprise Backend',
-    usageContext: 'Arsitektur modular backend TypeScript, REST API Swagger, dependency injection, dan microservices',
+    usageContext: 'Arsitektur modular backend TypeScript, REST API dengan Swagger dan dependency injection',
     projectLinks: ['holycat', 'holycat-posyancing', 'holycat-mps', 'holycat-scrm']
   },
   {
@@ -125,7 +125,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'nodejs',
     color: '#22c55e',
     roleTag: 'Server Runtime',
-    usageContext: 'REST API berkinerja tinggi, Swagger documentation, dan microservices',
+    usageContext: 'REST API dengan Express dan dokumentasi Swagger',
     projectLinks: ['holycat', 'jkt48']
   },
   {
@@ -156,7 +156,7 @@ export const techStackData: TechItem[] = [
     color: '#ef4444',
     roleTag: 'MVC & REST Engine',
     usageContext: 'REST API, Sanctum token authentication, dan sistem tracking logistik Holydis',
-    projectLinks: ['holycat', 'holycat-holydis']
+    projectLinks: ['holycat-holydis']
   },
 
   // database and cloud persistence layer
@@ -239,7 +239,7 @@ export const techStackData: TechItem[] = [
     iconKey: 'caddy',
     color: '#1F88C0',
     roleTag: 'Reverse Proxy & Ingress',
-    usageContext: 'Reverse proxy server Linux VPS dengan manajemen sertifikat SSL otomatis zero-config dan routing container Docker',
+    usageContext: 'Reverse proxy server Linux VPS dengan TLS otomatis dan routing container Docker',
     projectLinks: ['holycat']
   },
   {
@@ -301,7 +301,7 @@ export const projectsData: Project[] = [
     demoUrl: 'https://abbyandgail.com/',
     isPrivateRepo: true,
     privateRepoReason: 'Repository privat komersial perusahaan (SJA Textile)',
-    imageUrl: '/projects/green-sustainify.png',
+    imageUrl: '',
     imageFit: 'cover',
     featured: true,
     metrics: [
@@ -313,71 +313,64 @@ export const projectsData: Project[] = [
   {
     id: 'holycat',
     title: 'HolyCat E-Commerce Storefront',
-    subtitle: 'shop.holycatlabs.com — Platform Belanja Pet-Care Terintegrasi Skala Produksi',
+    subtitle: 'shop.holycatlabs.com — Storefront dan Backend E-Commerce Pet-Care',
     category: 'fullstack',
-    summary: 'Platform e-commerce pet-care end-to-end skala produksi: RESTful API teruji otomatis (Mocha & Supertest), web storefront Next.js reaktif (TanStack & Zustand), status live Socket.io, sistem tracking merchant Holydis, payment gateway Midtrans, dan background job BullMQ + Redis.',
-    description: 'Sistem produksi komprehensif yang dirancang dan diimplementasikan secara end-to-end untuk brand pet-care HolyCat. Mengintegrasikan web storefront customer, CMS admin dashboard, modul logistik ekspedisi, serta pengelolaan dompet digital internal HolyPay yang aman.',
+    summary: 'Storefront dan backend e-commerce pet-care: REST API Node.js dengan Express 5, Prisma, dan PostgreSQL, storefront Next.js dan React 19, pembayaran Midtrans, serta dompet digital HolyPay.',
+    description: 'Sistem e-commerce untuk brand pet-care HolyCat yang saya bangun dari backend sampai storefront. Mencakup katalog dan pesanan, pembayaran Midtrans, dompet digital internal HolyPay, antrean job, dan notifikasi real-time.',
     architecture: [
-      'Backend RESTful API dengan Node.js, Express, Prisma ORM, dan PostgreSQL (30+ model relasional: produk, order, voucher, wallet)',
-      'Storefront responsif dan interaktif dibangun dengan Next.js, React, Tailwind CSS, TanStack Query, dan Zustand',
-      'Pengujian otomatis REST API komprehensif menggunakan Mocha, Chai, dan Supertest, serta pengujian E2E frontend dengan Cypress',
-      'Komunikasi dua arah real-time menggunakan Socket.io untuk notifikasi pembaruan status transaksi live',
-      'Integrasi Accurate Online ERP API untuk sinkronisasi otomatis faktur penjualan (sales invoice), sales order, dan rekonsiliasi stok gudang',
-      'Payment gateway Midtrans otomatis dengan penanganan webhook asinkron dan verifikasi signature',
-      'Background job processing dan message queue menggunakan BullMQ dan Redis Caching',
-      'Integrasi Biteship API untuk kalkulasi ongkos kirim real-time dan pelacakan kurir ekspedisi',
-      'Dompet digital in-app HolyPay (top-up, saldo, mutasi) dengan pencatatan transaksi yang aman',
-      'Sistem tracking merchant Holydis (PO & Surat Jalan) dengan Laravel 13, Sanctum, dan React',
-      'Marketplace Picker System (MPS) & Barcode Scanner internal gudang untuk verifikasi shipping manifest otomatis'
+      'Backend REST API Node.js dengan Express 5, Prisma, dan PostgreSQL (36 model, 78 migrasi), dokumentasi Swagger',
+      'Keamanan: JWT HttpOnly cookie, CSRF, RBAC, rate limiting, dan verifikasi signature webhook Midtrans',
+      'Dompet digital HolyPay dengan database transaction dan row lock',
+      'Antrean BullMQ (Redis) dan notifikasi real-time Socket.IO',
+      'Storefront Next.js dan React 19 dengan Zustand, diuji dengan Cypress',
+      'Deployment dengan Docker'
     ],
     stack: [
-      'Next.js 16',
+      'Next.js',
       'Node.js',
       'Express',
       'PostgreSQL',
-      'Prisma ORM',
+      'Prisma',
       'Midtrans',
       'BullMQ',
       'Redis',
-      'Socket.io',
-      'Tailwind CSS v4',
-      'TanStack Query',
-      'Supertest',
+      'Socket.IO',
+      'Zustand',
       'Cypress',
       'Docker'
     ],
     highlights: [
-      'Berjalan live di produksi dengan transaksi Midtrans & sinkronisasi ERP Accurate Online',
-      'RESTful API modular terdokumentasi Swagger UI dan teruji otomatis (Mocha, Chai & Supertest)',
-      'Storefront Next.js reaktif dengan TanStack Query, Zustand, dan automated E2E Cypress'
+      'Live di produksi dengan pembayaran Midtrans',
+      'REST API terdokumentasi Swagger dengan 36 model dan 78 migrasi PostgreSQL',
+      'Dompet digital HolyPay memakai database transaction dan row lock'
     ],
-    challenges: 'Mengkoordinasikan sinkronisasi transaksi real-time antara webhook payment gateway, background queue BullMQ, mutasi dompet digital internal, dan kalkulasi logistik multi-ekspedisi tanpa race condition.',
-    role: 'Lead Software Engineer (Full-Stack & Mobile)',
+    challenges: 'Menjaga konsistensi saldo dompet digital dan status pesanan ketika webhook pembayaran, antrean job, dan mutasi saldo berjalan bersamaan.',
+    role: 'Full Stack Developer',
     demoUrl: 'https://shop.holycatlabs.com/',
     githubUrl: 'https://github.com/RendiS10/holycat-ecommerce-frontend',
     imageUrl: '/projects/holycat.jpg',
     imageFit: 'cover',
     featured: true,
     metrics: [
-      { label: 'Status Sistem', value: 'Live Produksi' },
-      { label: 'Database & Relasi', value: '30+ Model PostgreSQL' },
-      { label: 'Queue & Gateway', value: 'BullMQ + Midtrans Webhook' }
+      { label: 'Status', value: 'Live' },
+      { label: 'Model', value: 'PostgreSQL 36 model, 78 migrasi' },
+      { label: 'Antrean', value: 'BullMQ + Midtrans Webhook' }
     ]
   },
   {
     id: 'holycat-mobile',
     title: 'HolyCat Mobile Customer App',
-    subtitle: 'Aplikasi Mobile Native Cross-Platform Pet-Care dengan Clean Architecture',
+    subtitle: 'Aplikasi Android Pelanggan HolyCat dengan Flutter Clean Architecture',
     category: 'mobile',
-    summary: 'Aplikasi mobile customer HolyCat berbasis Flutter dengan Clean Architecture, Riverpod state management, integrasi Dio HTTP Client, dan push notification interaktif.',
-    description: 'Aplikasi mobile pelanggan HolyCat yang menyajikan pengalaman belanja mulus di platform Android dan iOS. Menghubungkan pengguna langsung ke katalog produk, konsultasi perawatan, pelacakan pesanan real-time, dan pembayaran dompet digital.',
+    summary: 'Aplikasi Android pelanggan HolyCat berbasis Flutter dengan Clean Architecture, Riverpod, Dio, autentikasi OTP, dan pembayaran event Posyancing via Midtrans.',
+    description: 'Aplikasi Android untuk pelanggan HolyCat yang terhubung ke backend HolyCat. Mencakup masuk dengan OTP dan pembayaran event Posyancing via Midtrans. Saat ini berada di tahap closed testing Google Play.',
     architecture: [
-      'Arsitektur berlapis Flutter Clean Architecture (Presentation, Domain, Data Layers) dengan feature-first modularity',
-      'Modul Posyancing (Posyandu Kucing) & KTP Kucing: sistem rekam medis digital (riwayat vaksinasi, sterilisasi, berat badan, serta booking grooming)',
-      'State management reaktif berkinerja tinggi menggunakan Riverpod 2.x & StateNotifier',
-      'Jaringan HTTP terisolasi dengan Dio Client, caching interceptor, dan token auto-refresh',
-      'Navigasi deklaratif deep-linking menggunakan GoRouter',
-      'Integrasi payment gateway Midtrans Snap SDK dan push notification tertarget Firebase Cloud Messaging (FCM)'
+      'Arsitektur berlapis Flutter Clean Architecture (Presentation, Domain, Data) dengan struktur feature-first',
+      'State management dengan Riverpod',
+      'Jaringan HTTP dengan Dio',
+      'Autentikasi OTP',
+      'Pembayaran event Posyancing via Midtrans',
+      'Distribusi lewat closed testing Google Play'
     ],
     stack: [
       'Flutter',
@@ -385,25 +378,26 @@ export const projectsData: Project[] = [
       'Riverpod',
       'Dio',
       'Clean Architecture',
-      'REST API'
+      'REST API',
+      'Midtrans'
     ],
     highlights: [
-      'Pengalaman pengguna 60fps responsif di platform Android dan iOS',
-      'Arsitektur Clean Architecture memisahkan logika bisnis dari UI',
-      'Integrasi sinkron dengan backend Node.js dan database PostgreSQL HolyCat'
+      'Clean Architecture memisahkan logika bisnis dari UI',
+      'Terhubung ke backend Node.js dan PostgreSQL HolyCat',
+      'Sedang closed testing di Google Play'
     ],
-    challenges: 'Menerapkan arsitektur Flutter yang skalabel dan mudah di-maintain dengan pemisahan dependensi ketat dan penanganan offline state caching.',
+    challenges: 'Menerapkan Clean Architecture Flutter dengan pemisahan dependensi yang ketat agar fitur baru mudah ditambahkan.',
     role: 'Mobile Application Engineer',
     githubUrl: 'https://github.com/RendiS10',
     isMobileApp: true,
-    demoStatusLabel: 'Aplikasi Mobile Native (Android & iOS)',
+    demoStatusLabel: 'Aplikasi Android (closed testing Google Play)',
     imageUrl: '/projects/holycat.jpg',
     imageFit: 'cover',
     featured: false,
     metrics: [
-      { label: 'Mobile Engine', value: 'Flutter & Dart' },
-      { label: 'State Paradigm', value: 'Riverpod' },
-      { label: 'Platform', value: 'Cross-Platform' }
+      { label: 'Platform', value: 'Android' },
+      { label: 'Framework', value: 'Flutter & Dart' },
+      { label: 'State', value: 'Riverpod' }
     ]
   },
   {
@@ -513,13 +507,13 @@ export const projectsData: Project[] = [
     title: 'HolyCat Marketplace Picker System (MPS)',
     subtitle: 'Sistem Barcode Scanner & Manifest Checker Gudang Multi-Marketplace',
     category: 'fullstack',
-    summary: 'Sistem barcode scanner gudang multi-marketplace untuk verifikasi picking list, manifest ekspedisi, dan monitoring fulfillment tanpa packing mismatch.',
+    summary: 'Sistem barcode scanner gudang multi-marketplace untuk verifikasi picking list, manifest ekspedisi, dan monitoring fulfillment untuk mengurangi packing mismatch.',
     description: 'Aplikasi scanner barcode berbasis web untuk tim gudang HolyCat yang mengotomatisasi verifikasi packing barang, mencetak resi termal, dan memvalidasi shipping manifest secara real-time.',
     architecture: [
       'Aplikasi scanner barcode berbasis web responsif untuk staf operasional gudang HolyCat',
       'Validasi real-time manifest shipping ekspedisi (Shopee, Tokopedia, TikTok Shop, Direct Store)',
       'Integrasi printer thermal otomatis untuk label resi dan surat jalan logistik',
-      'Pencegahan salah packing barang dengan garansi zero-defect fulfillment'
+      'Pencegahan salah packing barang dengan validasi manifest sebelum barang dikirim'
     ],
     stack: [
       'Next.js',
@@ -530,10 +524,9 @@ export const projectsData: Project[] = [
       'Zustand'
     ],
     highlights: [
-      'Menghilangkan kesalahan kirim barang (packing mismatch) hingga 0%',
-      'Kecepatan proses verifikasi manifest 3x lebih cepat dibanding manual'
+      'Verifikasi manifest dan picking list sebelum barang dikirim untuk mengurangi packing mismatch'
     ],
-    challenges: 'Menangani pemindaian barcode berkecepatan tinggi dengan latensi respons sub-100ms di jaringan gudang.',
+    challenges: 'Menangani pemindaian barcode berkecepatan tinggi dengan respons yang cukup cepat di jaringan gudang.',
     role: 'Full-Stack Developer',
     isPrivateRepo: true,
     privateRepoReason: 'Sistem operasional internal pergudangan HolyCat',
@@ -541,7 +534,7 @@ export const projectsData: Project[] = [
     imageFit: 'contain',
     featured: false,
     metrics: [
-      { label: 'Fulfillment', value: 'Zero-Defect' },
+      { label: 'Fulfillment', value: 'Verifikasi Manifest' },
       { label: 'System', value: 'Barcode Scanner' },
       { label: 'Ops Domain', value: 'Warehouse & MPS' }
     ]
@@ -586,38 +579,44 @@ export const projectsData: Project[] = [
   },
   {
     id: 'holycat-scrm',
-    title: 'HolyCat Sales CRM (SCRM Platform)',
-    subtitle: 'Platform Mobilitas Tim Sales, Pipeline Prospek & Pelacakan Komisi',
+    title: 'HolyCat Sales CRM (SCRM)',
+    subtitle: 'CRM Tim Sales: Prospek, Kunjungan, dan Integrasi Accurate Online',
     category: 'fullstack',
-    summary: 'Platform CRM mobilitas tim sales: tracking prospek merchant pet shop, geolokasi check-in kunjungan, dan sinkronisasi faktur Accurate Online ERP.',
-    description: 'Sistem manajemen tim sales lapangan untuk monitoring kunjungan toko, pipeline prospek baru, dan kalkulasi performa penjualan terintegrasi modul invoice Accurate ERP.',
+    summary: 'CRM untuk tim sales HolyCat: backend NestJS dengan 35 modul domain, frontend PWA Next.js, aplikasi mobile sales Flutter, dan integrasi Accurate Online. Live di scrm.holycat.id sejak 5 November 2026.',
+    description: 'Sistem CRM internal untuk tim sales lapangan HolyCat, mencakup backend, frontend PWA, dan aplikasi mobile sales. Berjalan live di scrm.holycat.id sejak 5 November 2026. Integrasi Accurate Online masih dalam mode uji.',
     architecture: [
-      'Backend REST API modular untuk sinkronisasi data prospek dan histori kunjungan sales',
-      'Dashboard web interaktif untuk pemantauan performa sales rep dan target bulanan',
-      'Integrasi sinkronisasi data faktur penjualan dengan sistem Accurate Online ERP'
+      'Backend NestJS dengan Prisma dan PostgreSQL, 35 modul domain',
+      'Otorisasi RBAC dan Row-Level Security, serta penanganan request ganda',
+      'Integrasi Accurate Online dengan pola outbox dan adapter (masih mode uji)',
+      'Frontend PWA Next.js dengan TypeScript',
+      'Aplikasi mobile sales Flutter dengan antrean offline dan refresh token otomatis',
+      'Lebih dari 170 file test API dengan Vitest, termasuk e2e'
     ],
     stack: [
-      'Next.js',
-      'Node.js',
+      'NestJS',
+      'Prisma',
       'PostgreSQL',
-      'Tailwind CSS',
-      'TypeScript'
+      'Next.js',
+      'TypeScript',
+      'Flutter',
+      'Vitest'
     ],
     highlights: [
-      'Meningkatkan visibilitas pipeline prospek B2B HolyCat secara terpusat',
-      'Integrasi data otomatis dengan modul invoice Accurate Online'
+      'Live di scrm.holycat.id sejak 5 November 2026',
+      '35 modul domain dengan RBAC dan Row-Level Security',
+      'Aplikasi mobile sales Flutter dengan antrean offline'
     ],
-    challenges: 'Menyinkronkan data aktivitas sales lapangan saat koneksi internet tidak stabil dengan mekanisme offline-first.',
+    challenges: 'Menjaga data aktivitas sales tetap konsisten ketika aplikasi mobile bekerja offline lalu menyinkronkan antrean ke server, tanpa menggandakan request.',
     role: 'Full-Stack Developer',
     isPrivateRepo: true,
-    privateRepoReason: 'Sistem internal manajemen sales dan komisi kemitraan HolyCat',
+    privateRepoReason: 'Sistem internal manajemen sales HolyCat',
     imageUrl: '',
     imageFit: 'contain',
-    featured: false,
+    featured: true,
     metrics: [
-      { label: 'Domain', value: 'Sales CRM' },
-      { label: 'Backend', value: 'Node.js & REST' },
-      { label: 'Integration', value: 'Accurate ERP' }
+      { label: 'Status', value: 'Live sejak 5 November 2026' },
+      { label: 'Backend', value: 'NestJS, 35 modul domain' },
+      { label: 'Integrasi', value: 'Accurate Online (mode uji)' }
     ]
   },
   {
@@ -819,7 +818,7 @@ export const projectsData: Project[] = [
     stack: ['HTML5', 'CSS3', 'JavaScript (ES6)', 'DOM API'],
     highlights: [
       'Lulus dengan predikat sempurna pada kurikulum resmi Dicoding',
-      '100% responsif di seluruh ukuran layar tanpa framework tambahan',
+      'Responsif di berbagai ukuran layar tanpa framework tambahan',
       'Tersedia di repositori publik GitHub'
     ],
     challenges: 'Membangun antarmuka modern dan interaktif tanpa dependensi library/framework eksternal.',
@@ -839,21 +838,22 @@ export const projectsData: Project[] = [
 export const experienceData: ExperienceItem[] = [
   {
     id: 'exp-holycat',
-    period: '2025 - Sekarang',
-    role: 'Software Engineer (Full-Stack & Mobile)',
+    period: 'Sep 2025 - Sekarang',
+    role: 'Full Stack Developer & Mobile Developer',
     organization: 'Holycatlabs',
-    badge: 'Produksi / Freelance',
+    badge: 'Freelance → Full-time',
     category: 'project',
     description:
-      'Memimpin rekayasa ekosistem omnichannel pet-care HolyCat Labs skala produksi: web storefront Next.js SSR, mobile Flutter Clean Architecture, backend modular Express/NestJS, dan otomatisasi pergudangan dengan Docker VPS.',
+      'Membangun e-commerce, sistem gudang dan fulfillment, CRM penjualan, serta aplikasi mobile Flutter untuk Holycatlabs, sekaligus mengelola server dan tim developer.',
     highlights: [
-      'Ekosistem backend RESTful API modular skala produksi teruji otomatis (Mocha, Chai & Supertest), Redis BullMQ, dan dompet digital HolyPay',
-      'Storefront Next.js SSR performa tinggi dengan TanStack Query, Zustand, Tailwind CSS v4, dan pengujian E2E Cypress',
-      'Mobile app Flutter Clean Architecture (60fps, Riverpod, Dio) dengan fitur Posyancing & KTP Kucing',
-      'Marketplace Picker System (MPS) barcode scanner gudang & integrasi otomatis faktur Accurate Online ERP',
-      'Manajemen server Linux VPS Ubuntu 24.04 LTS (100% Docker container under /opt/, Caddy Ingress reverse proxy)'
+      'Backend REST API HolyCat (Node.js, Express 5, Prisma, PostgreSQL) dengan antrean BullMQ dan notifikasi real-time Socket.IO',
+      'Aplikasi mobile Android dengan Flutter (Riverpod, Dio), closed testing Google Play',
+      'SCRM (NestJS, Next.js PWA, Flutter) yang live sejak 5 November 2026, dengan integrasi Accurate Online dalam mode uji',
+      'Manifest Checker dan Marketplace Picker System untuk verifikasi resi dan packing gudang',
+      'Holydis (Laravel) untuk tracking Purchase Order dan Surat Jalan, serta Teken.ID untuk tanda tangan digital',
+      'VPS Ubuntu 24.04 dengan Docker Compose, Caddy, dan CI/CD GitHub Actions; admin repositori dan pengelola tim developer'
     ],
-    tech: ['Next.js 16', 'Express', 'Node.js', 'Flutter', 'Riverpod', 'Dart', 'PostgreSQL', 'Prisma', 'Redis', 'BullMQ', 'Docker', 'Caddy', 'Laravel', 'Supabase', 'Midtrans', 'Socket.io', 'Supertest', 'Cypress']
+    tech: ['Node.js', 'Express', 'NestJS', 'Next.js', 'Flutter', 'PostgreSQL', 'Prisma', 'BullMQ', 'Docker', 'Laravel']
   },
   {
     id: 'exp-abbygail',
@@ -863,7 +863,7 @@ export const experienceData: ExperienceItem[] = [
     badge: 'Kontrak Komersial',
     category: 'project',
     description:
-      'Membangun platform ritel fashion & skincare komersial terpadu: storefront Next.js 15 (LCP sub-100ms), dashboard admin Ant Design v5, payment gateway Midtrans, dan backend Adonis.js v6 dengan 30+ tabel PostgreSQL.',
+      'Membangun platform ritel fashion & skincare komersial terpadu: storefront Next.js 15, dashboard admin Ant Design v5, payment gateway Midtrans, dan backend Adonis.js v6 dengan 30+ tabel PostgreSQL.',
     highlights: [
       'Storefront customer-facing modern Next.js 15 App Router, React 19, dan Tailwind CSS v4',
       'CMS admin dashboard operasional: React, Vite, Ant Design (antd 5), Tiptap WYSIWYG, dan Zustand',
@@ -971,14 +971,6 @@ export const certificatesData: CertificateItem[] = [
     category: 'penghargaan',
     imageUrl: '/certificates/luarsekolah/belajarbekerjaluarsekolah.jpg',
     year: '2026'
-  },
-  {
-    id: 'cert-pbi',
-    title: 'Project-based Internship Web Developer',
-    issuer: 'Luarsekolah',
-    category: 'penghargaan',
-    imageUrl: '/certificates/luarsekolah/pbi.jpg',
-    year: '2024'
   },
   {
     id: 'cert-ciptabintar',

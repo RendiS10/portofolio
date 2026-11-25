@@ -1,296 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useCallback, useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { BrandLogo } from '../common/BrandLogo';
 import { profileData } from '../../data/portfolioData';
+import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface WelcomeAnimationProps {
   onComplete: () => void;
 }
 
-// Fireflies (Kunang-kunang sawah) that softly float and pulse in the warm sunset breeze
-const FIREFLIES = [
-  { id: 1, x: '12%', y: '25%', size: 4, dur: 3.2, delay: 0.1 },
-  { id: 2, x: '28%', y: '65%', size: 6, dur: 2.8, delay: 0.3 },
-  { id: 3, x: '42%', y: '18%', size: 5, dur: 3.6, delay: 0.5 },
-  { id: 4, x: '68%', y: '32%', size: 4, dur: 3.0, delay: 0.2 },
-  { id: 5, x: '82%', y: '70%', size: 6, dur: 3.4, delay: 0.4 },
-  { id: 6, x: '88%', y: '22%', size: 5, dur: 2.6, delay: 0.6 },
-  { id: 7, x: '20%', y: '45%', size: 4, dur: 3.8, delay: 0.7 },
-  { id: 8, x: '75%', y: '55%', size: 5, dur: 2.9, delay: 0.3 },
-  { id: 9, x: '55%', y: '78%', size: 4, dur: 3.1, delay: 0.8 },
-  { id: 10, x: '35%', y: '85%', size: 5, dur: 3.5, delay: 0.5 },
-  { id: 11, x: '62%', y: '15%', size: 4, dur: 2.7, delay: 0.2 },
-  { id: 12, x: '15%', y: '78%', size: 6, dur: 3.3, delay: 0.9 },
-];
-
-// Floating leaves drifting in the sunset breeze
-const FLOATING_LEAVES = [
-  { id: 1, startX: '8%', endX: '18%', startY: '95vh', endY: '-15vh', rot: 140, dur: 2.8, delay: 0.1, size: 22 },
-  { id: 2, startX: '24%', endX: '36%', startY: '100vh', endY: '-10vh', rot: -180, dur: 3.2, delay: 0.3, size: 26 },
-  { id: 3, startX: '48%', endX: '58%', startY: '98vh', endY: '-20vh', rot: 210, dur: 2.9, delay: 0.2, size: 20 },
-  { id: 4, startX: '72%', endX: '84%', startY: '96vh', endY: '-15vh', rot: -160, dur: 3.1, delay: 0.4, size: 24 },
-  { id: 5, startX: '88%', endX: '95%', startY: '100vh', endY: '-10vh', rot: 190, dur: 3.4, delay: 0.5, size: 22 },
-  { id: 6, startX: '38%', endX: '46%', startY: '95vh', endY: '-18vh', rot: -220, dur: 2.7, delay: 0.6, size: 28 },
-];
+const SHOW_MS = 1600;
+const FADE_MS = 400;
+const REDUCED_MOTION_SHOW_MS = 500;
 
 export const WelcomeAnimation: React.FC<WelcomeAnimationProps> = ({ onComplete }) => {
-  const [phase, setPhase] = useState<'rise' | 'bloom' | 'fade' | 'done'>('rise');
+  const [leaving, setLeaving] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const { atmosphere } = useVillageAtmosphere();
+  const isNight = atmosphere === 'night';
+
+  // onComplete harus stabil (useCallback di parent), kalau tidak timer di bawah diulang tiap render.
+  const finish = useCallback(() => {
+    setLeaving(true);
+    window.setTimeout(onComplete, reduceMotion ? 0 : FADE_MS);
+  }, [onComplete, reduceMotion]);
 
   useEffect(() => {
-    const t1 = setTimeout(() => {
-      setPhase('bloom');
-    }, 1000);
-
-    const t2 = setTimeout(() => {
-      setPhase('fade');
-    }, 2200);
-
-    const t3 = setTimeout(() => {
-      setPhase('done');
-      onComplete();
-    }, 2850);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
+    const timer = window.setTimeout(finish, reduceMotion ? REDUCED_MOTION_SHOW_MS : SHOW_MS);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') finish();
     };
-  }, [onComplete]);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [finish, reduceMotion]);
 
-  if (phase === 'done') return null;
+  const surface = isNight ? 'bg-[#0c1510] text-[#f8fafc]' : 'bg-[#f5f3ec] text-[#0f172a]';
+  const muted = isNight ? 'text-[#f8fafc]/65' : 'text-[#0f172a]/65';
+  const track = isNight ? 'bg-white/15' : 'bg-[#1b4332]/15';
+  const fill = isNight ? 'bg-[#80ed99]' : 'bg-[#1b4332]';
 
   return (
-    <AnimatePresence>
+    <div
+      role="status"
+      aria-label="Memuat portofolio"
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center px-6 text-center transition-opacity ease-out ${surface} ${
+        leaving ? 'opacity-0 pointer-events-none' : 'opacity-100'
+      }`}
+      style={{ transitionDuration: reduceMotion ? '0ms' : `${FADE_MS}ms` }}
+    >
       <motion.div
-        initial={{ opacity: 1 }}
-        animate={{ opacity: phase === 'fade' ? 0 : 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.65, ease: 'easeInOut' }}
-        className="fixed inset-0 z-50 overflow-hidden pointer-events-auto select-none bg-[#f0fdf4]"
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="flex flex-col items-center"
       >
-        {/* Morning Terrace Layer 1 (Deep Highland Emerald) */}
-        <motion.div
-          initial={{ y: '100%' }}
-          animate={{ y: '0%' }}
-          transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 bg-gradient-to-t from-[#14532d] via-[#15803d] to-[#16a34a]"
-        >
-          <div className="absolute -top-24 inset-x-0 h-24">
-            <svg
-              viewBox="0 0 1440 120"
-              fill="none"
-              preserveAspectRatio="none"
-              className="w-full h-full"
-            >
-              <path
-                d="M0 60 C340 10, 680 90, 1020 30 C1220 70, 1360 20, 1440 50 L1440 120 L0 120 Z"
-                fill="#16a34a"
-              />
-            </svg>
-          </div>
-        </motion.div>
-
-        {/* Morning Terrace Layer 2 (Vibrant Green & Golden Sunlit Ridge) */}
-        <motion.div
-          initial={{ y: '100%' }}
-          animate={{ y: '0%' }}
-          transition={{ duration: 1.1, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 bg-gradient-to-t from-[#15803d] via-[#16a34a] to-[#22c55e]"
-        >
-          <div className="absolute -top-28 inset-x-0 h-28">
-            <svg
-              viewBox="0 0 1440 120"
-              fill="none"
-              preserveAspectRatio="none"
-              className="w-full h-full"
-            >
-              {/* Rice Terrace Silhouette */}
-              <path
-                d="M0 45 C320 85, 640 15, 960 65 C1180 15, 1340 55, 1440 35 L1440 120 L0 120 Z"
-                fill="#22c55e"
-              />
-              {/* Golden Morning Sunlight Ridge Line */}
-              <path
-                d="M0 45 C320 85, 640 15, 960 65 C1180 15, 1340 55, 1440 35"
-                stroke="#fde047"
-                strokeWidth="2.5"
-                strokeOpacity="0.9"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-        </motion.div>
-
-        {/* Morning Terrace Layer 3 (Bright Cerulean Sky & Morning Mist) */}
-        <motion.div
-          initial={{ y: '100%' }}
-          animate={{ y: '0%' }}
-          transition={{ duration: 1.25, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 bg-gradient-to-b from-[#e0f2fe]/95 via-[#bae6fd]/90 to-[#22c55e]/80"
-        >
-          <div className="absolute -top-32 inset-x-0 h-32">
-            <svg
-              viewBox="0 0 1440 140"
-              fill="none"
-              preserveAspectRatio="none"
-              className="w-full h-full"
-            >
-              <path
-                d="M0 60 C380 15, 760 95, 1140 35 C1280 65, 1380 25, 1440 50 L1440 140 L0 140 Z"
-                fill="#bae6fd"
-              />
-              <path
-                d="M0 60 C380 15, 760 95, 1140 35 C1280 65, 1380 25, 1440 50"
-                stroke="#facc15"
-                strokeWidth="2.2"
-                strokeOpacity="0.85"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-        </motion.div>
-
-        {/* Atmosphere: Bright Morning Sunbeam & Fresh Mountain Breeze */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(253,224,71,0.35),_transparent_70%)]" />
-          <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-[#38bdf8]/20 via-transparent to-transparent" />
+        <div className="mb-6">
+          <BrandLogo size="xl" />
         </div>
 
-        {/* Golden Fireflies (Kunang-Kunang Senja) */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {FIREFLIES.map((f) => (
-            <motion.div
-              key={f.id}
-              initial={{ opacity: 0, scale: 0.4 }}
-              animate={{
-                opacity: [0.2, 0.95, 0.4, 1, 0.3],
-                scale: [0.8, 1.3, 0.9, 1.35, 0.8],
-                x: [0, 14, -10, 8, 0],
-                y: [0, -12, -22, -8, 0],
-              }}
-              transition={{
-                duration: f.dur,
-                delay: f.delay,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              style={{
-                left: f.x,
-                top: f.y,
-                width: f.size,
-                height: f.size,
-              }}
-              className="absolute rounded-full bg-[#fde047] shadow-[0_0_12px_#fde047,0_0_24px_rgba(253,224,71,0.7)]"
-            />
-          ))}
-        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
+          {profileData.name}
+        </h1>
 
-        {/* Floating Leaves in the Golden Sunset Wind */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {FLOATING_LEAVES.map((leaf) => (
-            <motion.div
-              key={leaf.id}
-              initial={{
-                x: leaf.startX,
-                y: leaf.startY,
-                opacity: 0,
-                rotate: 0,
-              }}
-              animate={{
-                x: leaf.endX,
-                y: leaf.endY,
-                opacity: [0, 0.8, 0.9, 0],
-                rotate: leaf.rot,
-              }}
-              transition={{
-                duration: leaf.dur,
-                delay: leaf.delay,
-                repeat: Infinity,
-                ease: 'easeOut',
-              }}
-              className="absolute select-none pointer-events-none"
-            >
-              <svg
-                width={leaf.size}
-                height={leaf.size}
-                viewBox="0 0 24 24"
-                fill="none"
-                className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)] opacity-80"
-              >
-                <path
-                  d="M17 3C16.5 4.5 15.5 6.5 17 8C8 10 5 16 5 21C10 21 16 18 18 9C18.5 6.5 17.5 4 17 3Z"
-                  fill="url(#sunsetLeafGrad)"
-                />
-                <path
-                  d="M7 19C10 16 13 13 17 9"
-                  stroke="#78350f"
-                  strokeWidth="0.9"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="sunsetLeafGrad" x1="5" y1="3" x2="18" y2="21">
-                    <stop offset="0%" stopColor="#fde047" />
-                    <stop offset="50%" stopColor="#f59e0b" />
-                    <stop offset="100%" stopColor="#b45309" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </motion.div>
-          ))}
-        </div>
+        <p className={`mt-3 text-sm sm:text-base ${muted}`}>
+          Full-Stack &amp; Mobile Engineer · Bandung
+        </p>
 
-        {/* Center Content: Monogram Logo, Title & Progress Bar */}
-        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6">
+        <div className={`mt-8 h-0.5 w-48 sm:w-56 overflow-hidden rounded-full ${track}`}>
           <motion.div
-            initial={{ opacity: 0, scale: 0.85, y: 20 }}
-            animate={{
-              opacity: phase === 'bloom' ? 1 : phase === 'fade' ? 0 : 0,
-              scale: phase === 'bloom' ? 1 : phase === 'fade' ? 1.08 : 0.85,
-              y: phase === 'bloom' ? 0 : phase === 'fade' ? -20 : 20,
-            }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex flex-col items-center"
-          >
-            {/* The Brand Monogram Logo with Gentle Hover-Levitation */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut' }}
-              className="mb-6 drop-shadow-[0_8px_30px_rgba(22,163,74,0.35)]"
-            >
-              <BrandLogo size="xl" />
-            </motion.div>
-
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#0f172a] tracking-widest uppercase drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)]">
-              {profileData.name.toUpperCase()}
-            </h1>
-
-            <div className="mt-3.5 flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-widest text-[#15803d] uppercase drop-shadow-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] shadow-[0_0_8px_#22c55e]" />
-              <span>Menyusuri Pagi Cerah di Lanskap Portofolio</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] shadow-[0_0_8px_#22c55e]" />
-            </div>
-
-            {/* Organic Progress Track (Fresh Morning Emerald to Golden Dawn) */}
-            <div className="mt-7 w-52 sm:w-64 h-1.5 rounded-full bg-black/10 overflow-hidden border border-black/15 backdrop-blur-sm shadow-inner">
-              <motion.div
-                initial={{ width: '0%' }}
-                animate={{ width: phase === 'bloom' || phase === 'fade' ? '100%' : '0%' }}
-                transition={{ duration: 1.25, ease: 'easeInOut' }}
-                className="h-full bg-gradient-to-r from-[#16a34a] via-[#4ade80] to-[#fde047] rounded-full shadow-[0_0_12px_#22c55e]"
-              />
-            </div>
-          </motion.div>
+            initial={{ width: reduceMotion ? '100%' : '0%' }}
+            animate={{ width: '100%' }}
+            transition={{ duration: SHOW_MS / 1000, ease: 'easeInOut' }}
+            className={`h-full ${fill}`}
+          />
         </div>
-
-        {/* Skip button with elegant frosted glass styling */}
-        <button
-          type="button"
-          onClick={onComplete}
-          className="absolute top-6 right-6 z-20 px-3.5 py-1.5 rounded-lg bg-black/10 hover:bg-black/20 border border-black/15 text-xs text-[#0f172a] font-bold transition-colors backdrop-blur-md cursor-pointer hover:border-emerald-500/60"
-        >
-          Lewati
-        </button>
       </motion.div>
-    </AnimatePresence>
+
+      <button
+        type="button"
+        onClick={finish}
+        className={`absolute top-6 right-6 rounded-lg border px-3.5 py-1.5 text-xs font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1b4332] dark:focus-visible:ring-[#80ed99] ${
+          isNight
+            ? 'border-white/25 text-[#f8fafc] hover:bg-white/10'
+            : 'border-[#1b4332]/30 text-[#1b4332] hover:bg-[#1b4332]/10'
+        }`}
+      >
+        Lewati
+      </button>
+    </div>
   );
 };

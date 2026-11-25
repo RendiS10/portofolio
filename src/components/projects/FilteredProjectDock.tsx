@@ -104,22 +104,13 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
       {/* Category Filter Navigation Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span
-            className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
-              isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
-            }`}
-          >
-            03 // KATALOG EKSPLORASI TEKNOLOGI
-          </span>
-          <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
-            Indeks Portofolio &amp; Eksplorasi Kode
-          </h3>
+          <h3 className="text-xl sm:text-2xl font-bold tracking-tight">Proyek Lainnya</h3>
         </div>
 
         {/* Category Selection Tabs */}
         <div
           className={`p-1.5 rounded-2xl border flex items-center gap-1.5 transition-colors self-start sm:self-auto ${
-            isNight ? 'bg-[#111a14] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
+            isNight ? 'bg-[#111a14] border-[#1f2d24]' : 'bg-[#f4f1ea] border-[#e4ded5]'
           }`}
         >
           {categories.map((cat) => {
@@ -137,10 +128,10 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition-all cursor-pointer ${
                   isActive
                     ? isNight
-                      ? 'bg-emerald-500/20 text-emerald-300 shadow-sm border border-emerald-500/30'
+                      ? 'bg-[#17231c] text-[#80ed99] shadow-sm border border-[#1f2d24]'
                       : 'bg-white text-[#151e17] shadow-sm border border-[#e4ded5]'
                     : isNight
-                    ? 'text-stone-400 hover:text-stone-200'
+                    ? 'text-[#95a499] hover:text-[#f5f7f4]'
                     : 'text-[#48564c] hover:text-[#151e17]'
                 }`}
               >
@@ -149,7 +140,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                   className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
                     isActive
                       ? isNight
-                        ? 'bg-emerald-400/20 text-emerald-300'
+                        ? 'bg-[#17231c] text-[#80ed99]'
                         : 'bg-[#ebf2ec] text-[#1b4332]'
                       : 'opacity-60'
                   }`}
@@ -174,10 +165,10 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
               className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-mono transition-all shrink-0 cursor-pointer ${
                 isSelected
                   ? isNight
-                    ? 'bg-emerald-950/80 text-white border-emerald-500/35 shadow-sm'
+                    ? 'bg-[#17231c] text-white border-[#80ed99]/50 shadow-sm'
                     : 'bg-white text-[#151e17] border-[#1b4332] shadow-sm font-bold'
                   : isNight
-                  ? 'bg-[#152119] text-stone-300 border-emerald-500/15'
+                  ? 'bg-[#152119] text-[#95a499] border-[#1f2d24]'
                   : 'bg-[#fcfbf8] text-[#48564c] border-[#e4ded5]'
               }`}
             >
@@ -201,13 +192,13 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
             >
               <Compass className="w-3.5 h-3.5" />
               <span>
-                PROYEK {String(activeIndex + 1).padStart(2, '0')} / {String(filteredProjects.length).padStart(2, '0')}
+                Proyek {String(activeIndex + 1).padStart(2, '0')} / {String(filteredProjects.length).padStart(2, '0')}
               </span>
             </span>
 
             <span
               className={`text-[10px] flex items-center gap-1 ${
-                isNight ? 'text-stone-400' : 'text-stone-500'
+                isNight ? 'text-[#95a499]' : 'text-[#48564c]'
               }`}
             >
               <SlidersHorizontal className="w-3 h-3 opacity-60" />
@@ -249,10 +240,10 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                     className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 group ${
                       isSelected
                         ? isNight
-                          ? 'bg-emerald-950/70 border-emerald-500/40 shadow-md text-white ring-1 ring-emerald-500/30'
+                          ? 'bg-[#17231c] border-[#80ed99]/50 shadow-md text-white ring-1 ring-[#80ed99]/30'
                           : 'bg-white border-[#1b4332] shadow-md text-[#151e17] ring-1 ring-[#1b4332]/20'
                         : isNight
-                        ? 'bg-[#111a14] border-emerald-500/15 text-stone-300 hover:bg-[#17231c] hover:border-emerald-500/30'
+                        ? 'bg-[#111a14] border-[#1f2d24] text-[#95a499] hover:bg-[#17231c] hover:border-[#80ed99]/40'
                         : 'bg-[#fcfbf8] border-[#e4ded5] text-[#48564c] hover:bg-white hover:border-[#1b4332]/40'
                     }`}
                   >
@@ -261,9 +252,9 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                         className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-lg border shrink-0 transition-colors ${
                           isSelected
                             ? isNight
-                              ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                              : 'bg-[#ebf2ec] text-[#1b4332] border-emerald-200'
-                            : 'opacity-60 border-stone-200/40 dark:border-stone-800'
+                              ? 'bg-[#17231c] text-[#80ed99] border-[#1f2d24]'
+                              : 'bg-[#ebf2ec] text-[#1b4332] border-[#e4ded5]'
+                            : 'opacity-60 border-[#e4ded5]'
                         }`}
                       >
                         {String(idx + 1).padStart(2, '0')}
@@ -291,8 +282,8 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                         <span
                           className={`text-[10px] font-mono px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                             isNight
-                              ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
-                              : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+                              ? 'bg-[#152119] border-[#1f2d24] text-[#80ed99]'
+                              : 'bg-[#ebf2ec] border-[#e4ded5] text-[#1b4332]'
                           }`}
                         >
                           <ExternalLink className="w-2.5 h-2.5" />
@@ -302,19 +293,19 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                         <span
                           className={`text-[10px] font-mono px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                             isNight
-                              ? 'bg-[#16221a] border-emerald-500/20 text-[#95a499]'
+                              ? 'bg-[#16221a] border-[#1f2d24] text-[#95a499]'
                               : 'bg-[#f4f1ea] border-[#e4ded5] text-[#48564c]'
                           }`}
                         >
                           <Lock className="w-2.5 h-2.5 opacity-70" />
-                          <span>Enterprise NDA</span>
+                          <span>Repo privat</span>
                         </span>
                       ) : project.githubUrl ? (
                         <span
                           className={`text-[10px] font-mono px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                             isNight
-                              ? 'bg-emerald-950/30 border-emerald-500/20 text-emerald-400'
-                              : 'bg-[#ebf2ec]/80 border-emerald-200/80 text-[#1b4332]'
+                              ? 'bg-[#152119] border-[#1f2d24] text-[#80ed99]'
+                              : 'bg-[#ebf2ec]/80 border-[#e4ded5] text-[#1b4332]'
                           }`}
                         >
                           <Code2 className="w-2.5 h-2.5" />
@@ -324,7 +315,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                         <span
                           className={`text-[10px] font-mono px-2 py-0.5 rounded-md border flex items-center gap-1 ${
                             isNight
-                              ? 'bg-[#16221a] border-emerald-500/20 text-[#95a499]'
+                              ? 'bg-[#16221a] border-[#1f2d24] text-[#95a499]'
                               : 'bg-[#f4f1ea] border-[#e4ded5] text-[#48564c]'
                           }`}
                         >
@@ -335,7 +326,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                       <ChevronRight
                         className={`w-4 h-4 transition-transform duration-200 ${
                           isSelected
-                            ? 'translate-x-0.5 text-emerald-400'
+                            ? 'translate-x-0.5'
                             : 'opacity-40 group-hover:translate-x-0.5 group-hover:opacity-80'
                         }`}
                       />
@@ -358,7 +349,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
               <div
                 className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border shadow-sm flex items-center gap-1 animate-pulse pointer-events-auto cursor-pointer ${
                   isNight
-                    ? 'bg-[#152119] border-emerald-500/30 text-emerald-300'
+                    ? 'bg-[#152119] border-[#1f2d24] text-[#80ed99]'
                     : 'bg-white border-[#e4ded5] text-[#1b4332]'
                 }`}
                 onClick={() => {
@@ -383,8 +374,8 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
               transition={{ duration: 0.2 }}
               className={`p-6 sm:p-8 rounded-3xl border flex flex-col gap-5 transition-colors ${
                 isNight
-                  ? 'bg-[#111a14] border-emerald-500/20 shadow-2xl shadow-black/40'
-                  : 'bg-white border-[#e4ded5] shadow-lg shadow-stone-900/4'
+                  ? 'bg-[#111a14] border-[#1f2d24] shadow-2xl shadow-black/40'
+                  : 'bg-white border-[#e4ded5] shadow-lg shadow-black/5'
               }`}
             >
               {/* Device Preview Frame */}
@@ -403,8 +394,8 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                   <span
                     className={`text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${
                       isNight
-                        ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
-                        : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+                        ? 'bg-[#17231c] border-[#1f2d24] text-[#80ed99]'
+                        : 'bg-[#ebf2ec] border-[#e4ded5] text-[#1b4332]'
                     }`}
                   >
                     {activeProject.role}
@@ -435,7 +426,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                     key={tech}
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-mono border ${
                       isNight
-                        ? 'bg-[#152119] border-emerald-500/15 text-[#f5f7f4]'
+                        ? 'bg-[#152119] border-[#1f2d24] text-[#f5f7f4]'
                         : 'bg-[#f4f1ea] border-[#e4ded5] text-[#151e17]'
                     }`}
                   >
@@ -447,7 +438,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
               {/* Actions Row */}
               <div
                 className={`pt-3 flex flex-wrap items-center gap-3 border-t ${
-                  isNight ? 'border-emerald-500/15' : 'border-[#e4ded5]'
+                  isNight ? 'border-[#1f2d24]' : 'border-[#e4ded5]'
                 }`}
               >
                 <button
@@ -455,7 +446,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                   onClick={() => onSelectProject(activeProject)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer shadow-sm active:scale-95 ${
                     isNight
-                      ? 'bg-emerald-500 hover:bg-emerald-400 text-[#090f0c]'
+                      ? 'bg-[#80ed99] hover:bg-[#6fdc88] text-[#090f0c]'
                       : 'bg-[#1b4332] hover:bg-[#143427] text-white'
                   }`}
                 >
@@ -470,7 +461,7 @@ export const FilteredProjectDock: React.FC<FilteredProjectDockProps> = ({
                     rel="noopener noreferrer"
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono font-semibold border transition-all ${
                       isNight
-                        ? 'bg-[#152119] border-emerald-500/25 text-emerald-300 hover:bg-[#1a2a20]'
+                        ? 'bg-[#152119] border-[#1f2d24] text-[#80ed99] hover:bg-[#1a2a20]'
                         : 'bg-[#fcfbf8] border-[#e4ded5] text-[#151e17] hover:bg-white'
                     }`}
                   >

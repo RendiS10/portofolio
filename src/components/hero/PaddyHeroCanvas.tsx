@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 
-export interface OceanHeroHandle {
+const WAVE_REFERENCE_WIDTH = 1400;
+
+export interface PaddyHeroHandle {
   triggerSplash: (x: number, y: number, intensity?: number) => void;
   triggerRipple: (x: number, y: number, size?: number) => void;
 }
@@ -45,12 +47,12 @@ interface WindRipple {
   speed: number;
 }
 
-interface OceanHeroCanvasProps {
+interface PaddyHeroCanvasProps {
   className?: string;
   isNight?: boolean;
 }
 
-export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>(
+export const PaddyHeroCanvas = forwardRef<PaddyHeroHandle, PaddyHeroCanvasProps>(
   ({ className = '', isNight = false }, ref) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const leavesRef = useRef<FloatingLeaf[]>([]);
@@ -216,12 +218,12 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
           skyGrad.addColorStop(0.88, '#142a1f');
           skyGrad.addColorStop(1, '#1b3427');
         } else {
-          // Fresh bright morning in the countryside
-          skyGrad.addColorStop(0, '#38bdf8');      // Fresh tropical morning sky
-          skyGrad.addColorStop(0.28, '#7dd3fc');   // Soft cerulean blue
-          skyGrad.addColorStop(0.58, '#bae6fd');   // Gentle highland cyan mist
-          skyGrad.addColorStop(0.82, '#e0f2fe');   // Bright sunlit valley horizon
-          skyGrad.addColorStop(1, '#f0fdf4');      // Morning dew light over terraces
+          // Pucat hangat agar menyatu dengan latar krem situs, bukan langit biru jenuh
+          skyGrad.addColorStop(0, '#cfe0d2');
+          skyGrad.addColorStop(0.3, '#dde9d6');
+          skyGrad.addColorStop(0.62, '#eaeedb');
+          skyGrad.addColorStop(0.85, '#f2f0df');
+          skyGrad.addColorStop(1, '#f5f3ec');
         }
         ctx.fillStyle = skyGrad;
         ctx.fillRect(0, 0, width, height);
@@ -281,18 +283,18 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
             sunX, sunY, 15,
             sunX, sunY, Math.min(width * 0.65, 480)
           );
-          sunHaloGrad.addColorStop(0, 'rgba(254, 240, 138, 0.55)');
-          sunHaloGrad.addColorStop(0.3, 'rgba(253, 224, 71, 0.28)');
-          sunHaloGrad.addColorStop(0.7, 'rgba(125, 211, 252, 0.15)');
+          sunHaloGrad.addColorStop(0, 'rgba(250, 204, 110, 0.40)');
+          sunHaloGrad.addColorStop(0.3, 'rgba(250, 204, 110, 0.18)');
+          sunHaloGrad.addColorStop(0.7, 'rgba(250, 204, 110, 0.06)');
           sunHaloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
           ctx.fillStyle = sunHaloGrad;
           ctx.fillRect(0, 0, width, height);
 
           // Glowing Sun Disc
           const sunDiscGrad = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, 44);
-          sunDiscGrad.addColorStop(0, '#ffffff');
-          sunDiscGrad.addColorStop(0.35, '#fef08a');
-          sunDiscGrad.addColorStop(0.75, 'rgba(253, 224, 71, 0.9)');
+          sunDiscGrad.addColorStop(0, '#fffaf0');
+          sunDiscGrad.addColorStop(0.35, '#f8d98a');
+          sunDiscGrad.addColorStop(0.75, 'rgba(244, 190, 90, 0.9)');
           sunDiscGrad.addColorStop(1, 'rgba(245, 158, 11, 0)');
           ctx.fillStyle = sunDiscGrad;
           ctx.beginPath();
@@ -303,7 +305,7 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
           ctx.save();
           ctx.globalAlpha = 0.09 + Math.sin(t * 1.5) * 0.02;
           const rayGrad = ctx.createLinearGradient(sunX, sunY, width * 0.2, height * 0.85);
-          rayGrad.addColorStop(0, '#fef08a');
+          rayGrad.addColorStop(0, '#f8d98a');
           rayGrad.addColorStop(1, 'transparent');
           ctx.fillStyle = rayGrad;
 
@@ -349,6 +351,8 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
         drawWindStream(height * 0.62, 0.0038, 0.9, 0.24, 1.5);
 
         // 4. TERRACED HILL RIDGES (Terasering Sawah Pegunungan)
+        // Di layar sempit frekuensi tetap membuat bukit tampak lurus, jadi diperapat mengikuti lebar kanvas.
+        const waveScale = Math.max(1, WAVE_REFERENCE_WIDTH / width);
         // Ridge Layer 1 - Distant Mountains
         ctx.save();
         ctx.beginPath();
@@ -358,16 +362,16 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
         for (let x = 0; x <= width; x += 10) {
           const ry =
             ridge1Base +
-            Math.sin(x * 0.0028 + 0.5) * 36 +
-            Math.cos(x * 0.006 + t * 0.1) * 8;
+            Math.sin(x * waveScale * 0.0028 + 0.5) * 36 +
+            Math.cos(x * waveScale * 0.006 + t * 0.1) * 8;
           ctx.lineTo(x, ry);
         }
         ctx.lineTo(width, height);
         ctx.closePath();
-        ctx.fillStyle = isNightTime ? 'rgba(7, 18, 12, 0.95)' : '#0e7490';
+        ctx.fillStyle = isNightTime ? 'rgba(7, 18, 12, 0.95)' : '#a9c7ad';
         ctx.fill();
 
-        ctx.strokeStyle = isNightTime ? 'rgba(128, 237, 153, 0.3)' : 'rgba(186, 230, 253, 0.6)';
+        ctx.strokeStyle = isNightTime ? 'rgba(128, 237, 153, 0.3)' : 'rgba(255, 255, 255, 0.6)';
         ctx.lineWidth = 1.4;
         ctx.stroke();
         ctx.restore();
@@ -381,16 +385,16 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
         for (let x = 0; x <= width; x += 8) {
           const ry =
             ridge2Base +
-            Math.sin(x * 0.0036 - 1.2) * 28 +
-            Math.sin(x * 0.008 + t * 0.15) * 6;
+            Math.sin(x * waveScale * 0.0036 - 1.2) * 28 +
+            Math.sin(x * waveScale * 0.008 + t * 0.15) * 6;
           ctx.lineTo(x, ry);
         }
         ctx.lineTo(width, height);
         ctx.closePath();
-        ctx.fillStyle = isNightTime ? 'rgba(14, 34, 23, 0.96)' : '#16a34a';
+        ctx.fillStyle = isNightTime ? 'rgba(14, 34, 23, 0.96)' : '#6fa57c';
         ctx.fill();
 
-        ctx.strokeStyle = isNightTime ? 'rgba(253, 224, 71, 0.45)' : '#86efac';
+        ctx.strokeStyle = isNightTime ? 'rgba(253, 224, 71, 0.45)' : '#a8d2b0';
         ctx.lineWidth = 2.2;
         ctx.stroke();
         ctx.restore();
@@ -404,8 +408,8 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
         for (let x = 0; x <= width; x += 6) {
           const ry =
             ridge3Base +
-            Math.sin(x * 0.0042 + 2.1) * 20 +
-            Math.cos(x * 0.007 - t * 0.2) * 5;
+            Math.sin(x * waveScale * 0.0042 + 2.1) * 20 +
+            Math.cos(x * waveScale * 0.007 - t * 0.2) * 5;
           ctx.lineTo(x, ry);
         }
         ctx.lineTo(width, height);
@@ -413,7 +417,7 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
         ctx.fillStyle = isNightTime ? '#0c1510' : '#f5f3ec';
         ctx.fill();
 
-        ctx.strokeStyle = isNightTime ? '#2d5a44' : '#22c55e';
+        ctx.strokeStyle = isNightTime ? '#2d5a44' : '#3f7a55';
         ctx.lineWidth = 3.2;
         ctx.stroke();
         ctx.restore();
@@ -565,4 +569,4 @@ export const OceanHeroCanvas = forwardRef<OceanHeroHandle, OceanHeroCanvasProps>
   }
 );
 
-OceanHeroCanvas.displayName = 'OceanHeroCanvas';
+PaddyHeroCanvas.displayName = 'PaddyHeroCanvas';

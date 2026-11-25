@@ -1,183 +1,135 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Server, Smartphone, Globe, CheckCircle2, Cpu, Database, Network } from 'lucide-react';
+import React, { useRef, useState } from 'react';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
-interface ArchitectureStageProps {
-  viewMode?: 'overview' | 'blueprint';
+interface Area {
+  id: string;
+  title: string;
+  summary: string;
+  evidence: string[];
 }
 
-export const ArchitectureStage: React.FC<ArchitectureStageProps> = ({ viewMode = 'overview' }) => {
-  const [activePillar, setActivePillar] = useState<number>(0);
+const AREAS: Area[] = [
+  {
+    id: 'fullstack',
+    title: 'Full-Stack Web',
+    summary: 'Membangun aplikasi web end-to-end, dari API dan database sampai antarmuka, untuk e-commerce, sistem gudang, CRM penjualan, dan dashboard internal.',
+    evidence: [
+      'Backend REST API dengan Node.js (Express, NestJS) dan Laravel, database PostgreSQL dengan Prisma, dokumentasi API dengan Swagger',
+      'Frontend Next.js dan React dengan TypeScript dan Zustand',
+      'Autentikasi dan otorisasi: JWT HttpOnly cookie, CSRF, RBAC, Row-Level Security, rate limiting, dan verifikasi signature webhook',
+      'Konsistensi data: database transaction, row locking, Transactional Outbox, dan penanganan request ganda',
+      'Antrean BullMQ, notifikasi real-time Socket.IO, dan cron job',
+      'Integrasi Midtrans, Accurate Online ERP, dan sinkronisasi data dari Notion',
+      'Pengujian dengan Cypress, Vitest, PHPUnit, dan Playwright'
+    ]
+  },
+  {
+    id: 'mobile',
+    title: 'Mobile Flutter',
+    summary: 'Membangun aplikasi mobile Android dengan Flutter untuk pelanggan dan tim sales.',
+    evidence: [
+      'Clean Architecture dengan Riverpod untuk state dan Dio untuk jaringan',
+      'Autentikasi OTP dan pembayaran lewat Midtrans',
+      'Antrean offline dan refresh token otomatis untuk penggunaan di lapangan',
+      'Distribusi lewat closed testing Google Play'
+    ]
+  },
+  {
+    id: 'infra',
+    title: 'Server & Deployment',
+    summary: 'Menyiapkan dan mengelola sendiri server serta alur rilis untuk sekitar 11 aplikasi.',
+    evidence: [
+      'VPS Ubuntu 24.04 dengan Docker Compose per aplikasi',
+      'Caddy dengan TLS otomatis, firewall UFW, dan akses SSH berbasis kunci',
+      'CI/CD GitHub Actions dengan deploy via SSH user non-root, rilis dibatalkan otomatis bila migrasi gagal',
+      'Backup harian ke Cloudflare R2',
+      'Admin repositori GitHub dan pengelola tim developer: merge PR, deploy, dan pembagian pekerjaan'
+    ]
+  }
+];
+
+export const ArchitectureStage: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const { atmosphere } = useVillageAtmosphere();
   const isNight = atmosphere === 'night';
+  const muted = isNight ? 'text-[#95a499]' : 'text-[#48564c]';
+  const divider = isNight ? 'border-[#1f2d24]' : 'border-[#e4ded5]';
+  const area = AREAS[activeIndex];
 
-  const pillars = [
-    {
-      id: 'fullstack',
-      badge: 'SISTEM PRODUKSI LIVE',
-      title: 'Full-Stack Web Architecture',
-      tagline: 'Platform E-Commerce Skala Produksi dengan Transaksi Finansial Aman',
-      icon: <Globe className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
-      subIcon: <Network className="w-4 h-4 text-emerald-500" />,
-      description:
-        'Merancang platform e-commerce omnichannel & backend terdistribusi skala produksi: storefront reaktif Next.js SSR, RESTful API modular terdokumentasi Swagger, sistem dompet digital in-app (HolyPay), pembayaran Midtrans otomatis, dan integrasi kurir real-time.',
-      keyProof: 'Zero Race Conditions pada checkout diskon bertingkat & mutasi wallet.'
-    },
-    {
-      id: 'mobile',
-      badge: 'FLUTTER CLEAN ARCHITECTURE',
-      title: 'High-Performance Mobile Systems',
-      tagline: 'Aplikasi Mobile 60fps Native Performance Berbasis Clean Architecture',
-      icon: <Smartphone className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />,
-      subIcon: <Cpu className="w-4 h-4 text-emerald-400" />,
-      description:
-        'Membangun aplikasi mobile customer performa tinggi dengan arsitektur bersih yang memisahkan dependensi bisnis dari UI: render 60fps konstan, offline-first secure caching, interseptor token auto-refresh, dan push notification tertarget FCM.',
-      keyProof: '100% testable domain entities terpisah dari UI presentation layer.'
-    },
-    {
-      id: 'infra',
-      badge: 'DOCKER PRODUCTION VPS',
-      title: 'DevOps & Cloud Infrastructure',
-      tagline: 'Infrastruktur Linux VPS & Orkestrasi Kontainer Docker Terisolasi',
-      icon: <Server className="w-5 h-5 text-teal-600 dark:text-teal-400" />,
-      subIcon: <Database className="w-4 h-4 text-teal-500" />,
-      description:
-        'Mengelola infrastruktur VPS Linux produksi berbasis 100% Docker container: otomatisasi sertifikat SSL zero-config Caddy, isolasi jaringan container terfragmentasi (zero blast radius), backup snapshot terjadwal, dan database connection pooling.',
-      keyProof: 'Uptime stabil dengan automated failover & container health check.'
-    }
-  ];
+  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+    const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const next = (index + step + AREAS.length) % AREAS.length;
+    setActiveIndex(next);
+    tabRefs.current[next]?.focus();
+  };
+
+  const tabClass = (active: boolean) =>
+    `flex flex-col items-center justify-center py-2.5 px-2 rounded-xl border text-center transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 ${
+      isNight ? 'focus-visible:ring-[#80ed99]' : 'focus-visible:ring-[#1b4332]'
+    } ${
+      active
+        ? isNight
+          ? 'bg-[#17231c] border-[#1f2d24] text-[#f5f7f4] shadow-sm'
+          : 'bg-white border-[#e4ded5] text-[#151e17] shadow-sm'
+        : isNight
+        ? 'border-transparent text-[#95a499] hover:text-[#f5f7f4]'
+        : 'border-transparent text-[#48564c] hover:text-[#151e17]'
+    }`;
 
   return (
-    <div className="w-full flex flex-col gap-5">
-      {/* Tab Switcher */}
-      <div className={`grid grid-cols-3 gap-2 p-1.5 rounded-2xl border transition-colors ${
-        isNight ? 'bg-[#111a14] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
-      }`}>
-        {pillars.map((pillar, idx) => {
-          const isActive = activePillar === idx;
-          return (
-            <button
-              key={pillar.id}
-              type="button"
-              onClick={() => setActivePillar(idx)}
-              className={`relative flex flex-col items-center justify-center py-2.5 px-2 rounded-xl text-center transition-all cursor-pointer ${
-                isActive
-                  ? isNight
-                    ? 'bg-emerald-950/80 text-white shadow-sm border border-emerald-500/30'
-                    : 'bg-white text-[#151e17] shadow-sm border border-[#e4ded5]'
-                  : isNight
-                  ? 'text-stone-400 hover:text-stone-200'
-                  : 'text-[#48564c] hover:text-[#151e17]'
-              }`}
-            >
-              <span className={`text-[10px] font-mono font-bold ${
-                isActive ? (isNight ? 'text-emerald-400' : 'text-[#1b4332]') : 'opacity-60'
-              }`}>
-                0{idx + 1}
-              </span>
-              <span className="text-xs font-bold tracking-tight mt-0.5 truncate max-w-full">
-                {pillar.id === 'fullstack' ? 'Full-Stack Web' : pillar.id === 'mobile' ? 'Mobile Flutter' : 'Cloud & DevOps'}
-              </span>
-            </button>
-          );
-        })}
+    <div className="w-full flex flex-col gap-8">
+      <div
+        role="tablist"
+        aria-label="Area keahlian"
+        className={`grid grid-cols-3 gap-2 p-1.5 rounded-2xl border ${
+          isNight ? 'bg-[#111a14] border-[#1f2d24]' : 'bg-[#f4f1ea] border-[#e4ded5]'
+        }`}
+      >
+        {AREAS.map((item, index) => (
+          <button
+            key={item.id}
+            ref={(el) => {
+              tabRefs.current[index] = el;
+            }}
+            id={`area-tab-${item.id}`}
+            type="button"
+            role="tab"
+            aria-selected={index === activeIndex}
+            aria-controls={`area-panel-${item.id}`}
+            tabIndex={index === activeIndex ? 0 : -1}
+            onClick={() => setActiveIndex(index)}
+            onKeyDown={(e) => handleKeyDown(e, index)}
+            className={tabClass(index === activeIndex)}
+          >
+            <span className={`text-[10px] font-mono font-bold ${
+              index === activeIndex ? '' : 'opacity-60'
+            }`}>
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <span className="mt-0.5 text-xs sm:text-sm font-bold tracking-tight leading-tight max-w-full">
+              {item.title}
+            </span>
+          </button>
+        ))}
       </div>
 
-      {/* Main Spec Plaque */}
-      <div className={`rounded-3xl border p-6 sm:p-8 transition-colors ${
-        isNight
-          ? 'bg-[#111a14] border-emerald-500/20 shadow-2xl shadow-black/40'
-          : 'bg-white border-[#e4ded5] shadow-lg shadow-stone-900/4'
-      }`}>
-        <AnimatePresence mode="wait">
-          {viewMode === 'overview' ? (
-            <motion.div
-              key={`overview-${activePillar}`}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col gap-6"
-            >
-              {/* Plaque Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className={`p-2.5 rounded-xl border ${
-                    isNight ? 'bg-[#17231c] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
-                  }`}>
-                    {pillars[activePillar].icon}
-                  </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold tracking-tight">
-                      {pillars[activePillar].title}
-                    </h3>
-                    <p className={`text-xs font-mono mt-0.5 ${
-                      isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
-                    }`}>
-                      {pillars[activePillar].tagline}
-                    </p>
-                  </div>
-                </div>
-
-                <span className={`self-start sm:self-auto text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border ${
-                  isNight
-                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
-                    : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
-                }`}>
-                  {pillars[activePillar].badge}
-                </span>
-              </div>
-
-              {/* Narrative Description */}
-              <p className={`text-xs sm:text-sm leading-relaxed ${
-                isNight ? 'text-[#95a499]' : 'text-[#48564c]'
-              }`}>
-                {pillars[activePillar].description}
-              </p>
-
-              {/* Verified Key Proof */}
-              <div className={`p-3 rounded-xl border flex items-center gap-2.5 text-xs font-mono ${
-                isNight ? 'bg-[#152119] border-emerald-500/20 text-emerald-200' : 'bg-[#f8faf7] border-emerald-100 text-[#1b4332]'
-              }`}>
-                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
-                <span className="font-semibold">{pillars[activePillar].keyProof}</span>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="blueprint-mode"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="font-mono text-xs space-y-4"
-            >
-              <div className={`p-4 rounded-xl border ${
-                isNight ? 'bg-[#090f0c] border-emerald-500/20 text-emerald-300' : 'bg-[#151e17] text-emerald-400'
-              }`}>
-                <div className="text-[10px] uppercase opacity-70 tracking-widest mb-2 font-bold text-[#80ed99]">
-                  // Production Omnichannel & E-Commerce Data Flow
-                </div>
-                <pre className="text-[11px] leading-relaxed overflow-x-auto whitespace-pre">
-{`[Client: Next.js SSR / Flutter Mobile]
-        │
-        ▼ (HTTPS REST / Dio Interceptor)
-[Caddy Ingress Proxy :443 (Auto-SSL)]
-        │
-        ▼ (Internal Docker Network)
-[Node.js / NestJS Core Engine]
-   ├── [Prisma ORM] ──► [PostgreSQL Relational DB]
-   ├── [BullMQ Queue] ──► [Redis 7 In-Memory Cache]
-   └── [Webhook Listener] ◄── [Midtrans Payment Gateway]`}
-                </pre>
-              </div>
-              <p className={`text-xs ${isNight ? 'text-[#95a499]' : 'text-[#48564c]'}`}>
-                Seluruh arsitektur berjalan terisolasi di bawah Linux VPS Ubuntu 24.04 LTS via Docker Compose dengan isolasi internal network bridge.
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div
+        role="tabpanel"
+        id={`area-panel-${area.id}`}
+        aria-labelledby={`area-tab-${area.id}`}
+        className={`pt-5 border-t ${divider}`}
+      >
+        <p className={`text-sm leading-relaxed ${muted}`}>{area.summary}</p>
+        <ul className={`mt-3 space-y-1.5 text-sm leading-relaxed list-disc pl-5 ${
+          isNight ? 'marker:text-[#80ed99]' : 'marker:text-[#1b4332]'
+        }`}>
+          {area.evidence.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );

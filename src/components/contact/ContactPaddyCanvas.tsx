@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-interface ContactOceanCanvasProps {
+interface ContactPaddyCanvasProps {
   isNight?: boolean;
 }
 
@@ -24,7 +24,7 @@ interface WaterRipple {
   speed: number;
 }
 
-export const ContactOceanCanvas: React.FC<ContactOceanCanvasProps> = ({ isNight = false }) => {
+export const ContactPaddyCanvas: React.FC<ContactPaddyCanvasProps> = ({ isNight = false }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const dropletsRef = useRef<SplashDroplet[]>([]);
   const ripplesRef = useRef<WaterRipple[]>([]);

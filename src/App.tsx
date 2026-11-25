@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { Project } from './types/portfolio';
 import { useLenisSmoothScroll } from './hooks/useLenisSmoothScroll';
 import { VillageAtmosphereProvider, useVillageAtmosphere } from './context/VillageAtmosphereContext';
@@ -14,8 +14,24 @@ import { CertificatesSection } from './components/credentials/CertificatesSectio
 import { ContactSection } from './components/contact/ContactSection';
 import { ProjectCaseStudyModal } from './components/projects/ProjectCaseStudyModal';
 
+const WELCOME_SEEN_KEY = 'welcome-seen';
+
 function PortfolioMain() {
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    try {
+      return sessionStorage.getItem(WELCOME_SEEN_KEY) !== '1';
+    } catch {
+      return true;
+    }
+  });
+  const handleWelcomeComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem(WELCOME_SEEN_KEY, '1');
+    } catch {
+      // Storage diblokir: layar sambutan tampil lagi di kunjungan berikutnya, tidak fatal.
+    }
+    setShowWelcome(false);
+  }, []);
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
   const { atmosphere } = useVillageAtmosphere();
 
@@ -29,7 +45,7 @@ function PortfolioMain() {
       }`}
     >
       {showWelcome && (
-        <WelcomeAnimation onComplete={() => setShowWelcome(false)} />
+        <WelcomeAnimation onComplete={handleWelcomeComplete} />
       )}
 
       <NavigationBar />

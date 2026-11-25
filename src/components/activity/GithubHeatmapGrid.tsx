@@ -14,18 +14,32 @@ interface GithubHeatmapGridProps {
 }
 
 const getHeatmapColor = (level: number, isNight: boolean): string => {
+  if (isNight) {
+    // Makin banyak kontribusi makin terang, supaya terbaca di latar gelap.
+    switch (level) {
+      case 1:
+        return 'bg-[#1f4a30] border-[#2a5a3b] hover:border-[#80ed99]';
+      case 2:
+        return 'bg-[#2f7a4b] border-[#3a8a58] hover:border-[#80ed99]';
+      case 3:
+        return 'bg-[#52b788] border-[#63c799] hover:border-[#80ed99]';
+      case 4:
+        return 'bg-[#80ed99] border-[#9af2ae] hover:border-white';
+      default:
+        return 'bg-[#1a271f] border-[#243629] hover:border-[#80ed99]';
+    }
+  }
   switch (level) {
     case 1:
-      return 'bg-[#86efac] border-[#4ade80] hover:bg-[#4ade80]';
+      return 'bg-[#cfe3d4] border-[#b9d3c0] hover:border-[#1b4332]';
     case 2:
-      return 'bg-[#4ade80] border-[#22c55e] hover:bg-[#22c55e]';
+      return 'bg-[#8fbf9f] border-[#79ae8b] hover:border-[#1b4332]';
     case 3:
-      return 'bg-[#22c55e] border-[#16a34a] hover:bg-[#16a34a]';
+      return 'bg-[#3f7a55] border-[#33684a] hover:border-[#1b4332]';
     case 4:
-      return 'bg-[#15803d] border-[#14532d] hover:bg-[#14532d]';
-    case 0:
+      return 'bg-[#1b4332] border-[#12301f] hover:border-[#0b1f14]';
     default:
-      return isNight ? 'bg-[#122016] border-[#1d3525] hover:border-emerald-400' : 'bg-[#f0ece1] border-[#e2ddd3] hover:border-[#b5dec5]';
+      return 'bg-[#efebe0] border-[#e2ddd3] hover:border-[#1b4332]';
   }
 };
 
@@ -55,7 +69,7 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
   if (loading) {
     return (
       <div className={`w-full p-4 sm:p-6 rounded-2xl border transition-colors duration-500 ${
-        isNight ? 'bg-[#142018] border-emerald-500/20' : 'bg-[#fcfbf9] border-[#e4ded5]'
+        isNight ? 'bg-[#142018] border-[#1f2d24]' : 'bg-[#fcfbf9] border-[#e4ded5]'
       }`}>
         <div className="animate-pulse space-y-3">
           <div className="h-4 w-40 bg-emerald-500/20 rounded-md mb-2" />
@@ -116,7 +130,7 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
 
   return (
     <div ref={containerRef} className={`relative w-full rounded-2xl border p-3.5 sm:p-6 transition-colors duration-500 ${
-      isNight ? 'bg-[#142018] border-emerald-500/20 shadow-sm' : 'bg-[#fcfbf9] border-[#e4ded5] shadow-sm'
+      isNight ? 'bg-[#142018] border-[#1f2d24] shadow-sm' : 'bg-[#fcfbf9] border-[#e4ded5] shadow-sm'
     }`}>
       <AnimatePresence>
         {hoveredCell && (
@@ -192,7 +206,7 @@ export const GithubHeatmapGrid: React.FC<GithubHeatmapGridProps> = ({
           {/* heatmap legend */}
           <div className="flex items-center justify-between mt-3.5 pt-3 border-t border-[#0f172a]/10 text-[10px] sm:text-[11px] font-mono font-bold text-[#64748b]">
             <span className="flex items-center gap-1.5">
-              <span>Aktivitas Kode Otentik</span>
+              <span>Kontribusi publik</span>
             </span>
 
             <div className="flex items-center gap-1.5">

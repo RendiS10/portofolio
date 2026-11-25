@@ -1,4 +1,5 @@
 import React from 'react';
+import { legibleIconColor } from './techIconColor';
 import { motion } from 'framer-motion';
 import {
   SiReact,
@@ -232,12 +233,12 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
                       isToolSelected
                         ? '#ffffff'
                         : isToolActive && isLayerActiveInDomain
-                        ? tech.color
+                        ? legibleIconColor(tech.color, isNight)
                         : '#94a3b8'
                   }}
                 >
                   {Icon ? (
-                    <Icon size={14} color={isToolSelected ? '#ffffff' : isToolActive && isLayerActiveInDomain ? tech.color : '#94a3b8'} />
+                    <Icon size={14} color={isToolSelected ? '#ffffff' : isToolActive && isLayerActiveInDomain ? legibleIconColor(tech.color, isNight) : '#94a3b8'} />
                   ) : (
                     <span className="text-[9px] font-bold font-mono">
                       {tech.name.slice(0, 2)}
@@ -271,7 +272,7 @@ export const PipelineNodeLayer: React.FC<PipelineNodeLayerProps> = ({
         isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
       }`}>
         <span className={isNight ? 'text-[#80ed99] font-semibold' : 'text-[#1b4332] font-semibold'}>
-          {techItems.length} Tools Teruji
+          {techItems.length} teknologi
         </span>
         <button
           type="button"

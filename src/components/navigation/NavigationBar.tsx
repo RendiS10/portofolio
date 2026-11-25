@@ -23,7 +23,7 @@ export const NavigationBar: React.FC = () => {
 
   const navItems = [
     { label: 'Profil', fullLabel: 'Profil & Rekayasa', id: 'about', index: '01' },
-    { label: 'Studi Kasus', fullLabel: 'Studi Kasus Proyek', id: 'projects', index: '02' },
+    { label: 'Proyek', fullLabel: 'Proyek Unggulan', id: 'projects', index: '02' },
     { label: 'Tech Stack', fullLabel: 'Arsitektur & Stack', id: 'stack', index: '03' },
     { label: 'Aktivitas', fullLabel: 'Kalender Kontribusi', id: 'activity', index: '04' },
     { label: 'Milestone', fullLabel: 'Rekam Jejak Milestone', id: 'journey', index: '05' },

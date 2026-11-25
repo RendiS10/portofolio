@@ -16,13 +16,13 @@ export const ProfilePhotoCard: React.FC = () => {
         {...tiltProps}
         className={`relative w-full max-w-sm rounded-[28px] p-3 border transition-all duration-300 group ${
           isNight
-            ? 'bg-[#111a14] border-emerald-500/25 shadow-2xl shadow-black/50'
+            ? 'bg-[#111a14] border-[#1f2d24] shadow-2xl shadow-black/50'
             : 'bg-white border-[#e4ded5] shadow-xl shadow-stone-900/5'
         }`}
       >
         {/* Aspect Ratio 4:5 Portrait Frame */}
         <div className={`relative aspect-[4/5] w-full rounded-[22px] overflow-hidden border ${
-          isNight ? 'bg-[#152119] border-emerald-500/20' : 'bg-[#f4f1ea] border-[#e4ded5]'
+          isNight ? 'bg-[#152119] border-[#1f2d24]' : 'bg-[#f4f1ea] border-[#e4ded5]'
         }`}>
           <img
             src={profileData.avatarUrl || '/rendi.jpg'}
@@ -39,7 +39,7 @@ export const ProfilePhotoCard: React.FC = () => {
 
           {/* Active Availability Tag */}
           <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full backdrop-blur-md bg-black/50 border border-white/20 text-white text-[11px] font-mono flex items-center gap-1.5 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[#80ed99] animate-pulse" />
             <span>Aktif di Bandung, ID</span>
           </div>
 
@@ -48,7 +48,7 @@ export const ProfilePhotoCard: React.FC = () => {
             <div className="text-base font-bold tracking-tight">
               {profileData.name}
             </div>
-            <div className="text-[11px] font-mono text-emerald-300 flex items-center gap-1.5 mt-0.5">
+            <div className="text-[11px] font-mono text-[#80ed99] flex items-center gap-1.5 mt-0.5">
               <GraduationCap className="w-3.5 h-3.5 shrink-0" />
               <span>S1 Teknik Informatika (IPK 3.70)</span>
             </div>
@@ -60,7 +60,7 @@ export const ProfilePhotoCard: React.FC = () => {
           isNight ? 'text-[#95a499]' : 'text-[#48564c]'
         }`}>
           <div className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-emerald-500" />
+            <MapPin className={`w-3.5 h-3.5 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
             <span>Bandung, Jawa Barat</span>
           </div>
           <span className={`font-semibold ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`}>

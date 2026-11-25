@@ -5,7 +5,6 @@ import { techStackData, projectsData } from '../../data/portfolioData';
 import { PipelineFlowPresets, type FlowDomainId } from './PipelineFlowPresets';
 import { PipelineNodeLayer } from './PipelineNodeLayer';
 import { PipelineInspector } from './PipelineInspector';
-import { TechBeachDecorations } from './TechBeachDecorations';
 import { useVillageAtmosphere } from '../../context/VillageAtmosphereContext';
 
 interface TechGridProps {
@@ -60,37 +59,23 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
     <section id="stack" className={`relative z-20 -mt-1 w-full select-none transition-colors duration-500 ${
       isNight ? 'bg-[#090f0c] text-[#f5f7f4]' : 'bg-[#fbfaf6] text-[#151e17]'
     }`}>
-      {/* background decorations */}
-      <TechBeachDecorations />
-
       {/* content wrapper */}
       <div className="relative z-10 pt-14 sm:pt-16 pb-20 max-w-7xl mx-auto px-6 sm:px-12">
         {/* header */}
         <div className={`space-y-4 pb-8 border-b transition-colors duration-500 ${
           isNight ? 'border-emerald-500/20' : 'border-[#e4ded5]'
         }`}>
-          <div className="flex items-center gap-2">
-            <span
-              className={`text-[11px] font-mono font-bold tracking-[0.28em] uppercase ${
-                isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
-              }`}
-            >
-              03 // PETA KEAHLIAN &amp; TECH STACK
-            </span>
-            <span className={`w-1.5 h-1.5 rounded-full ${isNight ? 'bg-emerald-400' : 'bg-emerald-600'}`} />
-          </div>
-
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.08] transition-colors duration-500 ${
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.08] transition-colors duration-500 ${
                 isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'
               }`}>
-                Tech Stack &amp; Tools Produksi
+                Teknologi yang Pernah Saya Pakai
               </h2>
               <p className={`text-sm sm:text-base font-normal mt-2 max-w-2xl leading-relaxed transition-colors duration-500 ${
                 isNight ? 'text-[#95a499]' : 'text-[#48564c]'
               }`}>
-                Teknologi yang saya gunakan secara langsung pada lingkungan produksi untuk membangun sistem web performan tinggi, aplikasi mobile native, dan pipeline VPS.
+                Daftar teknologi yang pernah saya gunakan di proyek kerja dan pribadi. Tingkat pemakaiannya berbeda-beda, dan tidak semuanya saya kuasai sama mahirnya.
               </p>
             </div>
 
@@ -101,7 +86,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
             }`}>
               <Layers className={`w-3.5 h-3.5 ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'}`} />
               <span className={`text-xs font-mono font-semibold ${isNight ? 'text-[#f5f7f4]' : 'text-[#151e17]'}`}>
-                {techStackData.length} Tools &amp; Frameworks
+                {techStackData.length} teknologi
               </span>
             </div>
           </div>
@@ -130,7 +115,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               stepNumber="01"
               title="Client / Frontend"
               subtitle="Web & Mobile Interface"
-              roleDescription="UI interaktif, state management, render SSR/CSR, responsivitas."
+              roleDescription="UI interaktif, state management, dan responsivitas."
               techItems={clientTech}
               activeDomain={activeDomain}
               selectedTech={selectedTech}
@@ -144,7 +129,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               stepNumber="02"
               title="Backend Services"
               subtitle="API & Server Logic"
-              roleDescription="Routing, otentikasi, validasi data, microservices, integrasi payment."
+              roleDescription="Routing, otentikasi, validasi data, dan integrasi payment."
               techItems={backendTech}
               activeDomain={activeDomain}
               selectedTech={selectedTech}
@@ -172,7 +157,7 @@ export const TechGrid: React.FC<TechGridProps> = ({ onOpenProject }) => {
               stepNumber="04"
               title="DevOps & OS"
               subtitle="Deployment & Platform"
-              roleDescription="Containerization, Linux system admin, CI/CD pipeline, web server Nginx."
+              roleDescription="Containerization, Linux system admin, CI/CD pipeline, dan reverse proxy Caddy."
               techItems={devopsTech}
               activeDomain={activeDomain}
               selectedTech={selectedTech}
