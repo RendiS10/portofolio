@@ -6,7 +6,7 @@
 [![Website](https://img.shields.io/badge/Website-rendisutendi.id-0f172a?style=for-the-badge&logo=googlechrome&logoColor=white)](https://rendisutendi.id)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Rendi_Sutendi-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rendi-sutendi-813a90270)
 [![Email](https://img.shields.io/badge/Email-rendisutendi21@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:rendisutendi21@gmail.com)
-[![Resume](https://img.shields.io/badge/Resume-DOCX_CV-1b4332?style=for-the-badge&logo=microsoftword&logoColor=white)](https://rendisutendi.id/CV_Rendi_Sutendi_English%20(Full%20Stack%20v15%20EN).docx)
+[![Resume](https://img.shields.io/badge/Resume-PDF_CV-1b4332?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://rendisutendi.id/CV_Rendi_Sutendi_English%20(Full%20Stack%20v15%20EN).pdf)
 
 <p align="center">
   Software Engineer based in Bandung, Indonesia. Specializing in high-throughput transactional platforms, event-driven background job queues (Redis + BullMQ), enterprise ERP synchronizations (Accurate Online), and 60fps cross-platform mobile apps with Flutter Clean Architecture.

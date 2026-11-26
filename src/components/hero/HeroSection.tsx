@@ -118,15 +118,15 @@ export const HeroSection: React.FC = () => {
               </span>
 
               <a
-                href="/CV_Rendi_Sutendi_English%20(Full%20Stack%20v15%20EN).docx"
-                download="CV_Rendi_Sutendi_English (Full Stack v15 EN).docx"
+                href="/CV_Rendi_Sutendi_English%20(Full%20Stack%20v15%20EN).pdf"
+                download="CV_Rendi_Sutendi_English (Full Stack v15 EN).pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => playBambooTone(640)}
                 className={`px-3 py-1.5 rounded-lg font-semibold text-xs sm:text-sm transition-colors select-none cursor-pointer ${
                   isNight ? 'text-[#80ed99] hover:bg-white/10' : 'text-[#1b4332] hover:bg-[#1b4332]/10'
                 }`}
-                title="Download English CV (Word, ATS-friendly)"
+                title="Download English CV (PDF, ATS-friendly)"
               >
                 EN
               </a>
@@ -134,15 +134,15 @@ export const HeroSection: React.FC = () => {
               <span className={`text-xs select-none ${isNight ? 'text-white/30' : 'text-stone-300'}`}>•</span>
 
               <a
-                href="/CV_Rendi_Sutendi_Indonesia%20(Full%20Stack%20v15).docx"
-                download="CV_Rendi_Sutendi_Indonesia (Full Stack v15).docx"
+                href="/CV_Rendi_Sutendi_Indonesia%20(Full%20Stack%20v15).pdf"
+                download="CV_Rendi_Sutendi_Indonesia (Full Stack v15).pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => playBambooTone(700)}
                 className={`px-3 py-1.5 rounded-lg font-semibold text-xs sm:text-sm transition-colors select-none cursor-pointer ${
                   isNight ? 'text-[#80ed99] hover:bg-white/10' : 'text-[#1b4332] hover:bg-[#1b4332]/10'
                 }`}
-                title="Unduh CV Bahasa Indonesia (Word, ramah ATS)"
+                title="Unduh CV Bahasa Indonesia (PDF, ramah ATS)"
               >
                 ID
               </a>
