@@ -15,11 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-<<<<<<< HEAD
-  # Build job
-=======
   # 1. Job Build (Kompilasi project & upload artefak)
->>>>>>> 850bc055d40ac3ea79d25c60cb9150dc18c145b7
   build:
     runs-on: ubuntu-latest
     steps:
@@ -46,11 +42,7 @@ jobs:
         with:
           path: './dist'
 
-<<<<<<< HEAD
-  # Deployment job
-=======
   # 2. Job Deployment (Berjalan setelah build sukses berkat 'needs: build')
->>>>>>> 850bc055d40ac3ea79d25c60cb9150dc18c145b7
   deploy:
     environment:
       name: github-pages
