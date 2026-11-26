@@ -145,13 +145,12 @@ export const NavigationBar: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? isNight
-              ? 'bg-[#090f0c]/90 backdrop-blur-2xl border-b border-emerald-950/60 py-2.5 sm:py-3 shadow-lg shadow-black/40'
-              : 'bg-[#fffdf5]/92 backdrop-blur-2xl border-b border-stone-300/80 py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
-            : 'bg-transparent py-3 sm:py-5'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${isScrolled
+          ? isNight
+            ? 'bg-[#090f0c]/90 backdrop-blur-2xl border-b border-emerald-950/60 py-2.5 sm:py-3 shadow-lg shadow-black/40'
+            : 'bg-[#fffdf5]/92 backdrop-blur-2xl border-b border-stone-300/80 py-2.5 sm:py-3 shadow-[0_4px_20px_rgba(0,0,0,0.06)]'
+          : 'bg-transparent py-3 sm:py-5'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3">
           {/* Brand Logo - Responsive with smooth scale */}
@@ -170,19 +169,17 @@ export const NavigationBar: React.FC = () => {
           {/* Desktop Nav Pill (Only visible on >= 1024px) */}
           <nav
             aria-label="Navigasi Utama"
-            className={`hidden lg:flex items-center relative p-1 rounded-full backdrop-blur-xl transition-all ${
-              isNight
-                ? 'bg-[#0f1713]/85 hover:bg-[#132019]/90 border border-emerald-950/50 shadow-md'
-                : 'bg-[#fffdf5]/90 hover:bg-[#fffdf5] border border-stone-300/80 shadow-[0_4px_20px_rgba(0,0,0,0.08)]'
-            }`}
+            className={`hidden lg:flex items-center relative p-1 rounded-full backdrop-blur-xl transition-all ${isNight
+              ? 'bg-[#0f1713]/85 hover:bg-[#132019]/90 border border-emerald-950/50 shadow-md'
+              : 'bg-[#fffdf5]/90 hover:bg-[#fffdf5] border border-stone-300/80 shadow-[0_4px_20px_rgba(0,0,0,0.08)]'
+              }`}
           >
             {pillStyle.width > 0 && (
               <div
-                className={`absolute top-1 bottom-1 rounded-full pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isNight
-                    ? 'bg-emerald-500/20 border border-emerald-400/40 shadow-[0_0_12px_rgba(52,211,153,0.2)]'
-                    : 'bg-[#ebf2ec] border border-emerald-300/80 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
-                }`}
+                className={`absolute top-1 bottom-1 rounded-full pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${isNight
+                  ? 'bg-emerald-500/20 border border-emerald-400/40 shadow-[0_0_12px_rgba(52,211,153,0.2)]'
+                  : 'bg-[#ebf2ec] border border-emerald-300/80 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
+                  }`}
                 style={{
                   left: `${pillStyle.left}px`,
                   width: `${pillStyle.width}px`
@@ -201,15 +198,14 @@ export const NavigationBar: React.FC = () => {
                   }}
                   type="button"
                   onClick={() => handleNavClick(item.id, idx)}
-                  className={`relative z-10 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 cursor-pointer select-none ${
-                    isActive
-                      ? isNight
-                        ? 'text-[#80ed99] font-bold'
-                        : 'text-[#14532d] font-bold'
-                      : isNight
+                  className={`relative z-10 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 cursor-pointer select-none ${isActive
+                    ? isNight
+                      ? 'text-[#80ed99] font-bold'
+                      : 'text-[#14532d] font-bold'
+                    : isNight
                       ? 'text-stone-400 hover:text-stone-200'
                       : 'text-stone-600 hover:text-[#16a34a]'
-                  }`}
+                    }`}
                 >
                   <span>{item.label}</span>
                 </button>
@@ -219,21 +215,19 @@ export const NavigationBar: React.FC = () => {
 
           {/* Desktop Action Controls Dock (Only visible on >= 1024px to prevent duplicate docks on tablet) */}
           <div
-            className={`hidden lg:flex items-center gap-1.5 p-1 rounded-full backdrop-blur-xl shrink-0 transition-all ${
-              isNight
-                ? 'bg-[#0f1713]/85 border border-emerald-950/50 shadow-md'
-                : 'bg-[#fffdf5]/90 border border-stone-300/80 shadow-md'
-            }`}
+            className={`hidden lg:flex items-center gap-1.5 p-1 rounded-full backdrop-blur-xl shrink-0 transition-all ${isNight
+              ? 'bg-[#0f1713]/85 border border-emerald-950/50 shadow-md'
+              : 'bg-[#fffdf5]/90 border border-stone-300/80 shadow-md'
+              }`}
           >
             {/* Atmosphere Toggle */}
             <button
               type="button"
               onClick={toggleAtmosphere}
-              className={`p-2 rounded-full transition-all cursor-pointer group active:scale-95 ${
-                isNight
-                  ? 'text-stone-300 hover:text-[#80ed99] hover:bg-emerald-500/10'
-                  : 'text-stone-700 hover:text-emerald-700 hover:bg-emerald-50'
-              }`}
+              className={`p-2 rounded-full transition-all cursor-pointer group active:scale-95 ${isNight
+                ? 'text-stone-300 hover:text-[#80ed99] hover:bg-emerald-500/10'
+                : 'text-stone-700 hover:text-emerald-700 hover:bg-emerald-50'
+                }`}
               title={atmosphere === 'sunset' ? 'Beralih ke Malam Berkunang-kunang' : 'Beralih ke Pagi Sawah Cerah'}
               aria-label="Toggle Atmosphere"
             >
@@ -248,13 +242,12 @@ export const NavigationBar: React.FC = () => {
             <button
               type="button"
               onClick={toggleSound}
-              className={`p-2 rounded-full transition-all cursor-pointer active:scale-95 ${
-                isSoundEnabled
-                  ? 'bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
-                  : isNight
+              className={`p-2 rounded-full transition-all cursor-pointer active:scale-95 ${isSoundEnabled
+                ? 'bg-emerald-950/70 text-emerald-300 border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
+                : isNight
                   ? 'text-stone-400 hover:text-stone-200 hover:bg-white/5'
                   : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100'
-              }`}
+                }`}
               title={isSoundEnabled ? 'Matikan Suara Pedesaan' : 'Aktifkan Suara Alam Pedesaan'}
               aria-label="Toggle Sound"
             >
@@ -274,11 +267,10 @@ export const NavigationBar: React.FC = () => {
                 playBambooTone(600);
                 copy(profileData.contact.email);
               }}
-              className={`flex items-center gap-2 px-3 py-1.5 min-w-[135px] justify-center rounded-full border text-xs transition-all cursor-pointer active:scale-95 ${
-                isNight
-                  ? 'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30 text-emerald-200'
-                  : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-300 text-[#14532d]'
-              }`}
+              className={`flex items-center gap-2 px-3 py-1.5 min-w-[135px] justify-center rounded-full border text-xs transition-all cursor-pointer active:scale-95 ${isNight
+                ? 'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-500/30 text-emerald-200'
+                : 'bg-emerald-50 hover:bg-emerald-100 border-emerald-300 text-[#14532d]'
+                }`}
               title="Salin alamat email"
             >
               {copied ? (
@@ -301,11 +293,10 @@ export const NavigationBar: React.FC = () => {
             <button
               type="button"
               onClick={toggleAtmosphere}
-              className={`w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all active:scale-95 cursor-pointer ${
-                isNight
-                  ? 'bg-[#0f1713]/90 border-emerald-950/60 text-emerald-400 shadow-sm'
-                  : 'bg-[#fffdf5]/95 border-stone-300/90 text-amber-600 shadow-[0_2px_10px_rgba(0,0,0,0.06)]'
-              }`}
+              className={`w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all active:scale-95 cursor-pointer ${isNight
+                ? 'bg-[#0f1713]/90 border-emerald-950/60 text-emerald-400 shadow-sm'
+                : 'bg-[#fffdf5]/95 border-stone-300/90 text-amber-600 shadow-[0_2px_10px_rgba(0,0,0,0.06)]'
+                }`}
               aria-label={atmosphere === 'sunset' ? 'Beralih ke Suasana Malam' : 'Beralih ke Suasana Pagi'}
               title={atmosphere === 'sunset' ? 'Mode Malam' : 'Mode Pagi'}
             >
@@ -323,15 +314,14 @@ export const NavigationBar: React.FC = () => {
                 playBambooTone(480);
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
-              className={`w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all active:scale-95 cursor-pointer ${
-                mobileMenuOpen
-                  ? isNight
-                    ? 'bg-emerald-500/20 border-emerald-400 text-emerald-200'
-                    : 'bg-emerald-100 border-emerald-500 text-emerald-800'
-                  : isNight
+              className={`w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-xl border transition-all active:scale-95 cursor-pointer ${mobileMenuOpen
+                ? isNight
+                  ? 'bg-emerald-500/20 border-emerald-400 text-emerald-200'
+                  : 'bg-emerald-100 border-emerald-500 text-emerald-800'
+                : isNight
                   ? 'bg-[#0f1713]/90 border-emerald-950/60 text-stone-200 shadow-sm'
                   : 'bg-[#fffdf5]/95 border-stone-300/90 text-stone-800 shadow-[0_2px_10px_rgba(0,0,0,0.06)]'
-              }`}
+                }`}
               aria-label={mobileMenuOpen ? 'Tutup navigasi' : 'Buka navigasi'}
               aria-expanded={mobileMenuOpen}
             >
@@ -353,11 +343,10 @@ export const NavigationBar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className={`lg:hidden fixed top-[60px] sm:top-[68px] inset-x-0 bottom-0 z-40 flex flex-col justify-between overflow-y-auto backdrop-blur-2xl transition-colors duration-300 ${
-              isNight
-                ? 'bg-[#090f0c]/98 text-stone-200 border-t border-emerald-950/60'
-                : 'bg-[#fffdf5]/98 text-stone-900 border-t border-stone-200'
-            }`}
+            className={`lg:hidden fixed top-[60px] sm:top-[68px] inset-x-0 bottom-0 z-40 flex flex-col justify-between overflow-y-auto backdrop-blur-2xl transition-colors duration-300 ${isNight
+              ? 'bg-[#090f0c]/98 text-stone-200 border-t border-emerald-950/60'
+              : 'bg-[#fffdf5]/98 text-stone-900 border-t border-stone-200'
+              }`}
           >
             {/* Navigation Links Area */}
             <div className="max-w-lg w-full mx-auto px-6 pt-6 pb-4 flex flex-col">
@@ -365,10 +354,9 @@ export const NavigationBar: React.FC = () => {
               <div className="flex items-center justify-between pb-4 mb-2 border-b border-emerald-950/30 dark:border-emerald-950/50">
                 <div className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className={`text-[10px] font-mono font-bold tracking-[0.25em] uppercase ${
-                    isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
-                  }`}>
-                    DIREKTORI // RENDI SETIAWAN
+                  <span className={`text-[10px] font-mono font-bold tracking-[0.25em] uppercase ${isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
+                    }`}>
+                    DIREKTORI // RENDI SUTENDI
                   </span>
                 </div>
                 <span className={`text-[10px] font-mono ${isNight ? 'text-stone-500' : 'text-stone-400'}`}>
@@ -388,44 +376,39 @@ export const NavigationBar: React.FC = () => {
                       transition={{ delay: idx * 0.025 + 0.04, duration: 0.18 }}
                       type="button"
                       onClick={() => handleNavClick(item.id, idx)}
-                      className={`w-full py-3.5 flex items-center justify-between text-left group transition-all duration-200 cursor-pointer ${
-                        isActive
-                          ? isNight
-                            ? 'text-[#80ed99]'
-                            : 'text-[#1b4332]'
-                          : isNight
+                      className={`w-full py-3.5 flex items-center justify-between text-left group transition-all duration-200 cursor-pointer ${isActive
+                        ? isNight
+                          ? 'text-[#80ed99]'
+                          : 'text-[#1b4332]'
+                        : isNight
                           ? 'text-stone-300 hover:text-white'
                           : 'text-stone-700 hover:text-stone-950'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-baseline gap-3.5 min-w-0">
-                        <span className={`text-xs font-mono font-semibold tracking-wider shrink-0 transition-colors ${
-                          isActive
-                            ? isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
-                            : isNight ? 'text-stone-500 group-hover:text-stone-300' : 'text-stone-400 group-hover:text-stone-600'
-                        }`}>
+                        <span className={`text-xs font-mono font-semibold tracking-wider shrink-0 transition-colors ${isActive
+                          ? isNight ? 'text-[#80ed99]' : 'text-[#1b4332]'
+                          : isNight ? 'text-stone-500 group-hover:text-stone-300' : 'text-stone-400 group-hover:text-stone-600'
+                          }`}>
                           {item.index}
                         </span>
-                        <span className={`text-lg sm:text-xl tracking-tight transition-all truncate ${
-                          isActive ? 'font-bold' : 'font-medium group-hover:translate-x-1'
-                        }`}>
+                        <span className={`text-lg sm:text-xl tracking-tight transition-all truncate ${isActive ? 'font-bold' : 'font-medium group-hover:translate-x-1'
+                          }`}>
                           {item.fullLabel}
                         </span>
                       </div>
 
                       <div className="flex items-center gap-2 shrink-0">
                         {isActive ? (
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${
-                            isNight
-                              ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99]'
-                              : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
-                          }`}>
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${isNight
+                            ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99]'
+                            : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+                            }`}>
                             Aktif
                           </span>
                         ) : (
-                          <ArrowRight className={`w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-60 group-hover:translate-x-0 transition-all ${
-                            isNight ? 'text-stone-400' : 'text-stone-500'
-                          }`} />
+                          <ArrowRight className={`w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-60 group-hover:translate-x-0 transition-all ${isNight ? 'text-stone-400' : 'text-stone-500'
+                            }`} />
                         )}
                       </div>
                     </motion.button>
@@ -435,9 +418,8 @@ export const NavigationBar: React.FC = () => {
             </div>
 
             {/* Bottom Utilities Footer */}
-            <div className={`mt-auto border-t transition-colors duration-300 ${
-              isNight ? 'border-emerald-950/60 bg-[#060a08]/80' : 'border-stone-200 bg-[#f7f5ed]/80'
-            }`}>
+            <div className={`mt-auto border-t transition-colors duration-300 ${isNight ? 'border-emerald-950/60 bg-[#060a08]/80' : 'border-stone-200 bg-[#f7f5ed]/80'
+              }`}>
               <div className="max-w-lg w-full mx-auto p-5 sm:p-6 space-y-3.5">
                 {/* Atmosphere & Sound in 1 sleek row */}
                 <div className="grid grid-cols-2 gap-2.5">
@@ -447,15 +429,14 @@ export const NavigationBar: React.FC = () => {
                       playBambooTone(isSoundEnabled ? 350 : 600);
                       toggleSound();
                     }}
-                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${
-                      isSoundEnabled
-                        ? isNight
-                          ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99]'
-                          : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
-                        : isNight
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${isSoundEnabled
+                      ? isNight
+                        ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99]'
+                        : 'bg-[#ebf2ec] border-emerald-200 text-[#1b4332]'
+                      : isNight
                         ? 'bg-[#0f1713] border-emerald-950/50 text-stone-400 hover:text-stone-200'
                         : 'bg-white border-stone-200 text-stone-600 hover:text-stone-800'
-                    }`}
+                      }`}
                   >
                     {isSoundEnabled ? (
                       <Volume2 className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
@@ -468,11 +449,10 @@ export const NavigationBar: React.FC = () => {
                   <button
                     type="button"
                     onClick={toggleAtmosphere}
-                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${
-                      isNight
-                        ? 'bg-[#0f1713] border-emerald-950/50 text-stone-300 hover:text-white'
-                        : 'bg-white border-stone-200 text-stone-700 hover:text-stone-900'
-                    }`}
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${isNight
+                      ? 'bg-[#0f1713] border-emerald-950/50 text-stone-300 hover:text-white'
+                      : 'bg-white border-stone-200 text-stone-700 hover:text-stone-900'
+                      }`}
                   >
                     {atmosphere === 'sunset' ? (
                       <>
@@ -496,13 +476,12 @@ export const NavigationBar: React.FC = () => {
                       playBambooTone(600);
                       copy(profileData.contact.email);
                     }}
-                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${
-                      copied
-                        ? 'bg-emerald-500/20 border-emerald-500/40 text-[#80ed99]'
-                        : isNight
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] cursor-pointer ${copied
+                      ? 'bg-emerald-500/20 border-emerald-500/40 text-[#80ed99]'
+                      : isNight
                         ? 'bg-[#0f1713] border-emerald-950/50 text-stone-300 hover:text-white'
                         : 'bg-white border-stone-200 text-stone-700 hover:text-stone-900'
-                    }`}
+                      }`}
                   >
                     {copied ? (
                       <>
@@ -521,11 +500,10 @@ export const NavigationBar: React.FC = () => {
                     href={profileData.contact.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] ${
-                      isNight
-                        ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99] hover:bg-emerald-500/20'
-                        : 'bg-[#1b4332] border-[#1b4332] text-white hover:bg-[#2d6a4f]'
-                    }`}
+                    className={`px-3 py-2.5 rounded-xl border flex items-center justify-center gap-2 text-xs font-mono font-medium transition-all active:scale-[0.98] ${isNight
+                      ? 'bg-emerald-500/15 border-emerald-500/30 text-[#80ed99] hover:bg-emerald-500/20'
+                      : 'bg-[#1b4332] border-[#1b4332] text-white hover:bg-[#2d6a4f]'
+                      }`}
                   >
                     <MessageCircle className="w-3.5 h-3.5" />
                     <span>WhatsApp</span>
